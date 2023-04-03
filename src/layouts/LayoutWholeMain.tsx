@@ -5,7 +5,7 @@ import Main from './Main'
 
 function LayoutMain() {
   return (
-    <div className="flex flex-col h-screen w-full bg-neutral-500">
+    <div className="flex flex-col h-screen w-full bg-neutral-200">
       <Header/>
       <Main />
         </div>
