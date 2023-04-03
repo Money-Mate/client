@@ -5,10 +5,10 @@ import Footer from './Footer'
 
 function LayoutMain() {
   return (
-    <div className="grid grid-cols-12 h-screen bg-blue-200">
-        <Header />
-        <Main />
-        {/* <Footer /> */}
+    <div className="flex flex-col h-screen w-full">
+      <Header/>
+      <Main />
+      <Footer/>
         </div>
 
 
