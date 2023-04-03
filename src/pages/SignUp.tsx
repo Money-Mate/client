@@ -22,8 +22,8 @@ const SignUp = () => {
     const BE_URL = import.meta.env.VITE_BE_PORT;
     try {
       const res = await axios.post(`${BE_URL}/user/register`, formData);
-      console.log(res.data);
-      navigate("/login")
+      console.log(res);
+      // navigate("/login")
     } catch (err:any) {
       console.error(err.response.data);
     }
@@ -34,14 +34,14 @@ const SignUp = () => {
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h2 className="text-2xl font-bold mb-4">Register</h2>
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="city">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="username">
             Username
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="city"
+            id="username"
             type="text"
-            name="city"
+            name="username"
             value={formData.username}
             onChange={handleChange}
             required

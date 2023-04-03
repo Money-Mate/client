@@ -13,16 +13,17 @@ const SignIn = () => {
   // const { setUser, setIsLoggedIn } = useStore();
 
   const handleSubmit = async (e:any) => {
-    // const BE_URL = import.meta.env.VITE_BE_PORT;
-    // e.preventDefault();
-    // try {
-    //   const res = await axios.post(
-    //     `${BE_URL}/user/login`,
-    //     userLogin,
-    //     {
-    //       withCredentials: true,
-    //     }
-    //   );
+    const BE_URL = import.meta.env.VITE_BE_PORT;
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        `${BE_URL}/user/login`,
+        userLogin,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res.data);
     //   localStorage.setItem("user", JSON.stringify(res.data.user));
     //   // setIsLoggedIn(true)
     //   // setUser(res.data.user);
@@ -31,9 +32,9 @@ const SignIn = () => {
     //     console.log("user in localstorage")
     //     // navigate("/");
     //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="flex h-screen bg-gray-200">
