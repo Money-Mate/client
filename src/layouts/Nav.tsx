@@ -12,19 +12,13 @@ function Nav() {
     >
       <div className="text-gray-100 text-xl">
         <div className="p-2.5 flex items-center">
-          <i className="bi bi-app-indicator px-2 py-1 rounded-md bg-blue-600"></i>
           <h1 className="font-bold text-gray-200 text-[15px] ml-3">Placeholder Sidebar</h1>
-          <i
-            className="bi bi-x cursor-pointer ml-28 lg:hidden"
-    
-          ></i>
         </div>
         <div className="my-2 bg-gray-600 h-[1px]"></div>
       </div>
       <div
         className="p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-700 text-white"
       >
-        <i className="bi bi-search text-sm"></i>
         <input
           type="text"
           placeholder="Search"
@@ -34,13 +28,11 @@ function Nav() {
       <div
         className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
       >
-        <i className="bi bi-house-door-fill"></i>
         <span className="text-[15px] ml-4 text-gray-200 font-bold">Dashboard</span>
       </div>
       <div
         className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
       >
-        <i className="bi bi-bookmark-fill"></i>
         <span className="text-[15px] ml-4 text-gray-200 font-bold">Profil</span>
       </div>
       <div className="my-4 bg-gray-600 h-[1px]"></div>
@@ -48,7 +40,6 @@ function Nav() {
         className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
        
       >
-        <i className="bi bi-chat-left-text-fill"></i>
         <div className="flex justify-between w-full items-center">
           <span className="text-[15px] ml-4 text-gray-200 font-bold">Konten</span>
           <span className="text-sm rotate-180" id="arrow">
@@ -73,7 +64,6 @@ function Nav() {
       <div
         className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
       >
-        <i className="bi bi-box-arrow-in-right"></i>
         <span className="text-[15px] ml-4 text-gray-200 font-bold">Login</span>
       </div>
     </div>
