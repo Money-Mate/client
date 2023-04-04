@@ -28,6 +28,8 @@ export const AllRoutes = () => {
       path: paths.landingPage,
       element: <LandingPage />,
       isProtected: isLoggedIn,
+      redirectPath: paths.userDashboard,
+      id: paths.landingPage,
     },
     {
       path: paths.signIn,
