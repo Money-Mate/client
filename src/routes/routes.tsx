@@ -2,6 +2,7 @@ import UserDashboard from "../pages/UserDashboard";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import LandingPage from "../pages/LandingPage";
+import { useUserStore } from "../context/userContext";
 
 export const paths = {
   landingPage: "/",
@@ -11,7 +12,7 @@ export const paths = {
 };
 
 export const AllRoutes = () => {
-  const isLoggedIn = true
+  const isLoggedIn = useUserStore((state: { isLoggedIn: boolean }) => state.isLoggedIn)
 
   const routes = [
     // protected routes
@@ -27,6 +28,8 @@ export const AllRoutes = () => {
       path: paths.landingPage,
       element: <LandingPage />,
       isProtected: isLoggedIn,
+      redirectPath: paths.userDashboard,
+      id: paths.landingPage,
     },
     {
       path: paths.signIn,
