@@ -1,18 +1,52 @@
-import React from "react";
+import CardFour from "../components/cards/CardFour";
+import CardOne from "../components/cards/CardOne";
+import CardThree from "../components/cards/CardThree";
+import CardTwo from "../components/cards/CardTwo";
 
 function Main() {
   return (
     <>
-      <div className="grid lg:grid-cols-12 sm:grid-cols-8 grid-rows-3  h-full gap-4 p-5">
-      <div className="col-span-4 bg-neutral-400 rounded-lg"><p className="">Placeholder-text1</p></div>
-      <div className="col-span-4 bg-neutral-400 rounded-lg"><p>Placeholder-text2</p></div>
-      <div className="col-span-4 bg-neutral-400 rounded-lg"><p>Placeholder-text3</p></div>
-      <div className="col-span-4 bg-neutral-400 rounded-lg"><p>Placeholder-text4</p></div>
-      <div className="col-span-4 bg-neutral-400 rounded-lg"><p>Placeholder-text5</p></div>
-      <div className="col-span-4 bg-neutral-400 rounded-lg"><p>Placeholder-text6</p></div>
-      <div className="col-span-4 bg-neutral-400 rounded-lg"><p>Placeholder-text7</p></div>
-      <div className="col-span-4 bg-neutral-400 rounded-lg"><p>Placeholder-text8</p></div>
-      <div className="col-span-4 bg-neutral-400 rounded-lg"><p>Placeholder-text9</p></div>      </div>
+      <div className="grid lg:grid-cols-12 sm:grid-cols-8 grid-rows-4 gap-4 p-5">
+        <div className="col-span-3 bg-neutral-400 rounded-lg">
+          <CardOne />
+        </div>
+        <div className="col-span-3  bg-neutral-400 rounded-lg">
+          <CardTwo />
+        </div>
+        <div className="col-span-3 bg-neutral-400 rounded-lg">
+          <CardThree />
+        </div>
+        <div className="col-span-3 bg-neutral-400 rounded-lg">
+          <CardFour />
+        </div>
+        <div className="col-span-9 row-span-2 bg-neutral-400 rounded-lg">
+          <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
+            <h2 className="text-lg font-semibold text-slate-800 m-2 text-center">
+              Saldo der letzten 5 Monate
+            </h2>
+          </div>
+        </div>
+        <div className="col-span-3 row-span-2 bg-neutral-400 rounded-lg">
+          <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
+            <h2 className="text-lg font-semibold text-slate-800 m-2">
+              Wunschliste
+            </h2>
+          </div>
+        </div>
+        <div className="col-span-4 bg-neutral-400 rounded-lg"></div>
+        <div className="col-span-4 bg-neutral-400 rounded-lg">
+          <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
+            <h2 className="text-lg font-semibold text-slate-800 m-2">Budget</h2>
+          </div>
+        </div>
+        <div className="col-span-4 bg-neutral-400 rounded-lg">
+          <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
+            <h2 className="text-lg font-semibold text-slate-800 m-2">
+              Investments
+            </h2>
+          </div>
+        </div>{" "}
+      </div>
     </>
   );
 }
