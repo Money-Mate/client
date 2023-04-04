@@ -28,7 +28,7 @@ isProtected: isLoggedIn,
 {
 name: "UserDashboard",
 to: "/userdashboard",
-id: 1,
+id: 3,
 isProtected: !isLoggedIn,
 },
 ];
