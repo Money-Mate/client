@@ -1,5 +1,6 @@
 import CardFour from "../components/cards/CardFour";
 import CardOne from "../components/cards/CardOne";
+import CardSixBudget from "../components/cards/CardEightBudget";
 import CardThree from "../components/cards/CardThree";
 import CardTwo from "../components/cards/CardTwo";
 
@@ -37,6 +38,7 @@ function Main() {
         <div className="col-span-4 bg-neutral-400 rounded-lg">
           <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
             <h2 className="text-lg font-semibold text-slate-800 m-2">Budget</h2>
+            <CardSixBudget />
           </div>
         </div>
         <div className="col-span-4 bg-neutral-400 rounded-lg">
