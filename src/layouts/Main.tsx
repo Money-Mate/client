@@ -1,8 +1,9 @@
 import CardFour from "../components/cards/CardFour";
 import CardOne from "../components/cards/CardOne";
-import CardSixBudget from "../components/cards/CardEightBudget";
+import CardEightBudget from "../components/cards/CardEightBudget";
 import CardThree from "../components/cards/CardThree";
 import CardTwo from "../components/cards/CardTwo";
+import CardSixSavingGoals from "../components/cards/CardSixSavingGoals";
 
 function Main() {
   return (
@@ -31,6 +32,7 @@ function Main() {
           <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
             <h2 className="text-lg font-semibold text-slate-800 m-2">
               Wunschliste
+              <CardSixSavingGoals />
             </h2>
           </div>
         </div>
@@ -38,7 +40,7 @@ function Main() {
         <div className="col-span-4 bg-neutral-400 rounded-lg">
           <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
             <h2 className="text-lg font-semibold text-slate-800 m-2">Budget</h2>
-            <CardSixBudget />
+            <CardEightBudget />
           </div>
         </div>
         <div className="col-span-4 bg-neutral-400 rounded-lg">
