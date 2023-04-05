@@ -1,78 +1,44 @@
-import React from "react";
-import { Bar } from "react-chartjs-2";
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
   BarElement,
-  Title,
-  Tooltip,
-  Legend,
+  CategoryScale,
+  Chart as ChartJS,
+  LinearScale,
 } from "chart.js";
+import { Bar } from "react-chartjs-2";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, BarElement);
 
-type SavingsGoals = {
+interface SavingsGoals {
   [key: string]: number;
-};
+}
 
 const savingsGoals: SavingsGoals = {
-  "New Car": 20000,
-  Vacation: 5000,
-  "Emergency Fund": 10000,
+  "New Car": 22,
+  Vacation: 53,
+  "Emergency Fund": 10,
 };
-
-const fixedSavedAmount = 1000;
-
-const highestSavingGoal = Math.max(...Object.values(savingsGoals));
 
 const options = {
   indexAxis: "y" as const,
-  elements: {
-    bar: {
-      borderWidth: 2,
-    },
-  },
   responsive: true,
-  plugins: {
-    legend: {
-      position: "right" as const,
-      display: false,
-
-    },
-    title: {
-      display: false,
-      text: "Savings Goals",
-    },
-  },
   scales: {
     x: {
       max: 100,
     },
   },
+  plugins: {
+    legend: {
+      position: "right" as const,
+      display: false,
+    },
+  },
 };
 
-type ChartData = {
-  labels: string[];
-  datasets: {
-    label: string;
-    data: number[];
-    borderColor: string;
-    backgroundColor: string;
-  }[];
-};
-
-function getChartData(
-  savingsGoals: SavingsGoals,
-  fixedSavedAmount: number
-): ChartData {
+function getChartData() {
   const labels = Object.keys(savingsGoals);
 
   const savingsData = labels.map((label) => {
-    const savingGoal = savingsGoals[label];
-    const savedAmount = fixedSavedAmount;
-    const percentSaved = Math.min((savedAmount / savingGoal) * 100, 100);
-
+    const percentSaved = savingsGoals[label];
     return percentSaved;
   });
 
@@ -90,7 +56,7 @@ function getChartData(
 }
 
 export function SavingGoalsChart() {
-  const data = getChartData(savingsGoals, fixedSavedAmount);
+  const data = getChartData();
 
   return <Bar options={options} data={data} />;
 }

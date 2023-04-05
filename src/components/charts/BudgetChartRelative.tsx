@@ -1,84 +1,44 @@
-import React from "react";
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
   BarElement,
-  Title,
-  Tooltip,
-  Legend,
+  CategoryScale,
+  Chart as ChartJS,
+  LinearScale,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement);
 
-type Budgets = {
+interface BudgetItems {
   [key: string]: number;
-};
+}
 
-const budgets = {
-  Gaming: 80,
-  Food: 300,
-  Alcohol: 20,
-};
-
-const usedAmounts = {
-  Gaming: 50,
-  Food: 200,
-  Alcohol: 10,
+const budgetItems: BudgetItems = {
+  Steam: 30,
+  Food: 20,
+  Rabbitfood: 10,
 };
 
 const options = {
   indexAxis: "y" as const,
-  elements: {
-    bar: {
-      borderWidth: 2,
+  responsive: true,
+  scales: {
+    x: {
+      max: 100,
     },
   },
-  responsive: false,
   plugins: {
     legend: {
       position: "right" as const,
       display: false,
     },
-    title: {
-      display: false,
-      text: "Budgets",
-    },
-  },
-  scales: {
-    x: {
-      min: 0,
-      max: 100,
-    }
   },
 };
 
-type ChartData = {
-  labels: string[];
-  datasets: {
-    label: string;
-    data: number[];
-    borderColor: string;
-    backgroundColor: string;
-  }[];
-};
+function getChartData() {
+  const labels = Object.keys(budgetItems);
 
-function getChartData(budgets: Budgets, usedAmounts: Budgets): ChartData {
-  const labels = Object.keys(budgets);
-
-  const percentSpentData = labels.map((label) => {
-    const budget = budgets[label];
-    const usedAmount = usedAmounts[label] || 0;
-    const percentSpent = Math.min((usedAmount / budget) * 100, 100);
-
+  const expensesData = labels.map((label) => {
+    const percentSpent = budgetItems[label];
     return percentSpent;
   });
 
@@ -86,17 +46,17 @@ function getChartData(budgets: Budgets, usedAmounts: Budgets): ChartData {
     labels,
     datasets: [
       {
-        label: "Spent",
-        data: percentSpentData,
-        borderColor: "rgb(55, 99, 232)",
-        backgroundColor: "rgba(55, 99, 232, 0.5)",
+        label: "Expenses",
+        data: expensesData,
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
   };
 }
 
 export function BudgetChart() {
-  const data = getChartData(budgets, usedAmounts);
+  const data = getChartData();
 
   return <Bar options={options} data={data} />;
 }
