@@ -25,7 +25,7 @@ function Main() {
         <div className="col-span-9 row-span-2 bg-neutral-400 rounded-lg">
           <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
             <h2 className="text-lg font-semibold text-slate-800 m-2 text-center">
-              Saldo der letzten Monate
+              Saldo der letzten 6 Monate
               <CardFiveSaldo />
             </h2>
           </div>

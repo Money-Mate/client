@@ -37,6 +37,8 @@ const options = {
   plugins: {
     legend: {
       position: "right" as const,
+      display: false,
+
     },
     title: {
       display: false,
@@ -44,8 +46,8 @@ const options = {
     },
   },
   scales: {
-    y: {
-      max: highestSavingGoal,
+    x: {
+      max: 100,
     },
   },
 };

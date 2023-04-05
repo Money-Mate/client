@@ -34,7 +34,8 @@ const usedAmounts = {
   Food: 200,
   Alcohol: 10,
 };
-const highestBudget = Math.max(...Object.values(budgets));
+
+
 
 const options = {
   indexAxis: "y" as const,
@@ -47,6 +48,8 @@ const options = {
   plugins: {
     legend: {
       position: "right" as const,
+      display: false,
+
     },
     title: {
       display: true,
@@ -54,8 +57,8 @@ const options = {
     },
   },
   scales: {
-    y: {
-      max: highestBudget,
+    x: {
+      max: 100,
     },
   },
 };

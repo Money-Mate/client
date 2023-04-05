@@ -3,21 +3,23 @@ import { Bar } from 'react-chartjs-2';
 import { ChartData, ChartOptions } from 'chart.js/auto';
 
 const getBarColors = (values: number[]): string[] => {
-  return values.map(value => value >= 0 ? '#2ECC40' : '#FF4136');
-};
+    return values.map((value, index) => {
+      const opacity = index === values.length - 1 ? '80' : 'ff';
+      return value >= 0 ? `#2ECC40${opacity}` : `#FF4136${opacity}`;
+    });
+  };
 
 const Saldo = () => {
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June'];
 
   const data: ChartData<'bar'> = {
-    labels,
-    datasets: [
-      {
-        label: 'Saldo',
-        data: [ -70, -60, 3, 50, -100, 300],
-        backgroundColor: getBarColors([ -70, -60, 3, 50, -100, 300])
-      }
-    ]
+    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+  datasets: [
+  {
+    label: 'Saldo',
+    data: [-70, -60, 3, 50, -100, 300],
+    backgroundColor: getBarColors([-70, -60, 3, 50, -100, 300])
+  }
+]
   };
 
   const options: ChartOptions<'bar'> = {
@@ -31,6 +33,8 @@ const Saldo = () => {
     plugins: {
       legend: {
         position: 'top',
+      display: false,
+
       },
       title: {
         display: false,
