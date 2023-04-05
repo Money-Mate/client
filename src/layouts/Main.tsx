@@ -4,6 +4,7 @@ import CardEightBudget from "../components/cards/CardEightBudget";
 import CardThree from "../components/cards/CardThree";
 import CardTwo from "../components/cards/CardTwo";
 import CardSixSavingGoals from "../components/cards/CardSixSavingGoals";
+import CardFiveSaldo from "../components/cards/CardFiveSaldo";
 
 function Main() {
   return (
@@ -24,7 +25,8 @@ function Main() {
         <div className="col-span-9 row-span-2 bg-neutral-400 rounded-lg">
           <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
             <h2 className="text-lg font-semibold text-slate-800 m-2 text-center">
-              Saldo der letzten 5 Monate
+              Saldo der letzten Monate
+              <CardFiveSaldo />
             </h2>
           </div>
         </div>
