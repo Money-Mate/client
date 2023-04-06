@@ -1,13 +1,12 @@
-import React from 'react'
-import { SavingGoalsChart } from '../charts/SavingGoals';
+import React from "react";
+import { SavingGoalsChart } from "../charts/SavingGoals";
 
 function CardSixSavingGoals() {
   return (
-
-        <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
-          <SavingGoalsChart />
-        </div>
-      );
+    <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
+      <SavingGoalsChart />
+    </div>
+  );
 }
 
-export default CardSixSavingGoals
+export default CardSixSavingGoals;

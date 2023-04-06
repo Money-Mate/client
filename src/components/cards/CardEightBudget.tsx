@@ -7,6 +7,7 @@ function CardSixBudget() {
 
         <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
           <BudgetChart />
+
         </div>
       );
 }

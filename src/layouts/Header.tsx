@@ -7,7 +7,7 @@ function Header() {
         {" "}
         <div className="m-5 relative">
           <h1 className="text-2xl md:text-3xl text-slate-800 font-bold mb-1">
-            Willkommen zurück Florian-Leonie-Sebastian Mate. 👋
+            Willkommen zurück Quan-Florian-Leonie-Sebastian Mate. 👋
           </h1>
           <p>Willkommen auf deinem Dashboard, Money Mate!</p>
         </div>

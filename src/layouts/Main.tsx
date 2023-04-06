@@ -5,6 +5,7 @@ import CardThree from "../components/cards/CardThree";
 import CardTwo from "../components/cards/CardTwo";
 import CardSixSavingGoals from "../components/cards/CardSixSavingGoals";
 import CardFiveSaldo from "../components/cards/CardFiveSaldo";
+import CardSevenNotgroschen from "../components/cards/CardSevenNotgroschen";
 
 function Main() {
   return (
@@ -38,7 +39,13 @@ function Main() {
             </h2>
           </div>
         </div>
-        <div className="col-span-4 bg-neutral-400 rounded-lg"></div>
+        <div className="col-span-4 bg-neutral-400 rounded-lg">
+        <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
+        <h2 className="text-lg font-semibold text-slate-800 m-2">Notgroschen</h2>
+        
+          <CardSevenNotgroschen />
+          </div>
+        </div>
         <div className="col-span-4 bg-neutral-400 rounded-lg">
           <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
             <h2 className="text-lg font-semibold text-slate-800 m-2">Budget</h2>

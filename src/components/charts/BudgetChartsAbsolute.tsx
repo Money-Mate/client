@@ -35,8 +35,6 @@ const usedAmounts = {
   Alcohol: 10,
 };
 
-
-
 const options = {
   indexAxis: "y" as const,
   elements: {
@@ -49,7 +47,6 @@ const options = {
     legend: {
       position: "right" as const,
       display: false,
-
     },
     title: {
       display: true,

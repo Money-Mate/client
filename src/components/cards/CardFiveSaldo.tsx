@@ -3,9 +3,9 @@ import Saldo from "../charts/Saldo";
 function CardFiveSaldo() {
   return (
     <div>
-        <Saldo />
+      <Saldo />
     </div>
-  )
+  );
 }
 
-export default CardFiveSaldo
+export default CardFiveSaldo;
