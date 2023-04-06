@@ -10,6 +10,31 @@ const getBarColors = (values: number[]): string[] => {
 };
 
 const Saldo = () => {
+  // beispiel wie man local(in der card) die daten aus dem backend holen würde
+  // ------------------------------------------------------------------------
+  // const [backendData, setBackendData] = useState({ labels: [], data: [] });
+  // useEffect(() => {
+  //   const fetch = (async () => {
+  //     const res = await axios.get("http://localhost:8000/dashboard/main", {
+  //       withCredentials: true,
+  //     });
+  //     setBackendData(res.data.lastSixMonthsBalance);
+  //     console.log(res);
+  //   })();
+  // }, []);
+
+  // const data: ChartData<"bar"> = {
+  //   labels: backendData.labels,
+  //   datasets: [
+  //     {
+  //       label: "Saldo",
+  //       data: backendData.data,
+  //       backgroundColor: getBarColors(backendData.data),
+  //     },
+  //   ],
+  // };
+  // ------------------------------------------------------------------------
+
   const data: ChartData<"bar"> = {
     labels: ["January", "February", "March", "April", "May", "June"],
     datasets: [
