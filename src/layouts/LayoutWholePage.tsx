@@ -1,6 +1,7 @@
 import LayoutWholeMain from "./LayoutWholeMain";
 import Nav from "./Nav";
 
+
 function Layout() {
   return (
     <div className="grid grid-cols-12 h-screen">
