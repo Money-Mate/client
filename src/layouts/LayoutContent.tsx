@@ -4,7 +4,7 @@ import Main from "./Main";
 import { useRoutes } from "react-router-dom";
 import routes from "../routes/routes";
 
-function LayoutWholeMain(): ReactElement {
+function LayoutContent(): ReactElement {
   const element = useRoutes(routes);
 
   return (
@@ -15,4 +15,4 @@ function LayoutWholeMain(): ReactElement {
   );
 }
 
-export default LayoutWholeMain;
+export default LayoutContent;

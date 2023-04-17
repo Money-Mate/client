@@ -1,6 +1,9 @@
 // placeholder stats
+interface CardFourProps {
+  bankBalance: number;
+}
 
-function CardOne() {
+const CardFour: React.FC<CardFourProps> = ({ bankBalance }) => {
   return (
     <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
       <div className="px-5 pt-3">
@@ -11,7 +14,7 @@ function CardOne() {
           August 2023
         </div>
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-slate-800 m-2">€24,780</div>
+          <div className="text-3xl font-bold text-slate-800 m-2">{bankBalance}</div>
           <div className="text-sm font-semibold text-white px-1.5 bg-green-500 rounded-full">
             +29%
           </div>
@@ -22,4 +25,4 @@ function CardOne() {
   );
 }
 
-export default CardOne;
+export default CardFour;

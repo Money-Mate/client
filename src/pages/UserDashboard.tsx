@@ -14,27 +14,26 @@ function Dashboard() {
 
   useEffect(() => {
     fetchDashboardData();
-    console.log(dashboardData)
   }, []);
-
+  console.log(dashboardData)
+  
   if (!dashboardData) {
     return <div>Loading...</div>;
   }
 
-  // Render your dashboard using the `dashboardData` property
 
   return <div className="grid lg:grid-cols-12 sm:grid-cols-8 grid-rows-4 gap-4 p-5">
         <div className="col-span-3 bg-neutral-400 rounded-lg">
-          <CardOne />
+          <CardOne bankBalance={dashboardData.bankBalance} />
         </div>
         <div className="col-span-3  bg-neutral-400 rounded-lg">
-          <CardTwo />
+          <CardTwo balanceEndOfMonth={dashboardData.balanceEndOfMonth}/>
         </div>
         <div className="col-span-3 bg-neutral-400 rounded-lg">
-          <CardThree />
+          <CardThree scheduledDebit={dashboardData.scheduledDebit}/>
         </div>
         <div className="col-span-3 bg-neutral-400 rounded-lg">
-          <CardFour />
+          <CardFour saved={dashboardData.saved}/>
         </div>
         <div className="col-span-9 row-span-2 bg-neutral-400 rounded-lg">
           <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">

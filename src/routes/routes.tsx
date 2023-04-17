@@ -13,36 +13,14 @@ export const paths = {
 };
 
 const routes = [
-  // protected routes
+
   {
     path: paths.userDashboard,
     element: <UserDashboard />,
     isProtected: true,
     redirectPath: paths.signIn,
     id: 'userDashboard',
-  },
-  // public routes
-  {
-    path: paths.landingPage,
-    element: <LandingPage />,
-    isProtected: false,
-    redirectPath: paths.userDashboard,
-    id: 'landingPage',
-  },
-  {
-    path: paths.signIn,
-    element: <SignIn />,
-    isProtected: false,
-    redirectPath: null,
-    id: 'signIn',
-  },
-  {
-    path: paths.signUp,
-    element: <SignUp />,
-    isProtected: false,
-    redirectPath: null,
-    id: 'signUp',
-  },
+  }
 ];
 
 export default routes;

@@ -1,6 +1,9 @@
 // placeholder stats
+interface CardTwoProps {
+  balanceEndOfMonth: number;
+}
 
-function CardTwo() {
+const CardTwo:React.FC<CardTwoProps> = ({ balanceEndOfMonth}) => {
   return (
     <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
       <div className="px-5 pt-3">
@@ -9,7 +12,7 @@ function CardTwo() {
           März
         </div>
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-slate-800 m-2">€2,584</div>
+          <div className="text-3xl font-bold text-slate-800 m-2">{balanceEndOfMonth}</div>
           <div className="text-sm font-semibold text-white px-1.5 bg-red-500 rounded-full">
             +3%
           </div>

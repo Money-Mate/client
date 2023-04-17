@@ -11,7 +11,7 @@ function Nav() {
   const items = [
     {
       name: "Landing Page",
-      to: "/",
+      to: "/landingpage",
       id: 0,
       isProtected: isLoggedIn,
     },
@@ -26,13 +26,7 @@ function Nav() {
       to: "/signup",
       id: 2,
       isProtected: isLoggedIn,
-    },
-    {
-      name: "UserDashboard",
-      to: "/userdashboard",
-      id: 3,
-      isProtected: isLoggedIn,
-    },
+    }
   ];
 
   const filteredItems = items.filter((item) => item.isProtected === isLoggedIn);
