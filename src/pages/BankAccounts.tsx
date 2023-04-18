@@ -17,7 +17,7 @@ function BankAccounts() {
 return (
     <div className="grid lg:grid-cols-12 sm:grid-cols-8 grid-rows-4 gap-4 p-5">
       <div className="col-span-3 bg-neutral-400 rounded-lg">
-        <CardOne/>
+        <h1>Account</h1>
       </div>
      </div>
 )
