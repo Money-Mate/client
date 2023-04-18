@@ -17,7 +17,7 @@ const useAccountStore = create<AccountStore>((set) => ({
     fetchBankAccountData: async () => {
         try {
             const BE_URL = import.meta.env.VITE_BE_PORT
-            const response = await axios.get<IBankAccountData>(`${BE_URL}/accounts`, {
+            const response = await axios.get<IBankAccountData>(`${BE_URL}/account/getAllMy`, {
                 withCredentials: true,
             });
             set({ bankAccountData: response.data });

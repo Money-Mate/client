@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import useAccountStore from "../context/Accountstore";
-import CardOne from "../components/cardsUserDashboard/CardOne";
 
 function BankAccounts() {
   const { bankAccountData, fetchBankAccountData } = useAccountStore();
