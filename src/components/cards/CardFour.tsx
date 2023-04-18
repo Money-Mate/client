@@ -1,8 +1,8 @@
-interface CardOneProps {
+interface CardFourProps {
   saved: number;
 }
 
-const CardFour: React.FC<CardOneProps> = ({ saved }) => {
+const CardFour: React.FC<CardFourProps> = ({ saved }) => {
   return (
     <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
       <div className="px-5 pt-3">

@@ -26,6 +26,16 @@ function Nav() {
       to: "/signup",
       id: 2,
       isProtected: isLoggedIn,
+    },{
+      name: "UserDashboard",
+      to: "/app/userdashboard",
+      id: 3,
+      isProtected: isLoggedIn,
+    },{
+      name: "BankAccounts",
+      to: "/app/bankaccounts",
+      id: 4,
+      isProtected: isLoggedIn,
     }
   ];
 

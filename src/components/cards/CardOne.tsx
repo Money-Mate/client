@@ -1,9 +1,9 @@
 // placeholder stats
-interface CardFourProps {
+interface CardOneProps {
   bankBalance: number;
 }
 
-const CardFour: React.FC<CardFourProps> = ({ bankBalance }) => {
+const CardOne: React.FC<CardOneProps> = ({ bankBalance }) => {
   return (
     <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
       <div className="px-5 pt-3">
@@ -25,4 +25,4 @@ const CardFour: React.FC<CardFourProps> = ({ bankBalance }) => {
   );
 }
 
-export default CardFour;
+export default CardOne;
