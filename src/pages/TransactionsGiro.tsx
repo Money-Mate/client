@@ -1,5 +1,7 @@
 import React from "react";
 
+
+//fetch 
 interface TableRowData {
   Konto: string;
   Summe: number;
@@ -11,28 +13,28 @@ interface TableRowData {
 const tableData: TableRowData[] = [
   {
     Konto: "Konto 1",
-    Summe: 100.0,
+    Summe: -100.0,
     Währung: "EUR",
     Empfänger: "Max Mustermann",
     Verwendungszweck: "Miete",
   },
   {
     Konto: "Konto 2",
-    Summe: 200.0,
+    Summe: -200.0,
     Währung: "USD",
     Empfänger: "John Doe",
     Verwendungszweck: "Shopping",
   },
   {
     Konto: "Konto 3",
-    Summe: 50.0,
-    Währung: "GBP",
+    Summe: -50.0,
+    Währung: "EUR",
     Empfänger: "Jane Doe",
     Verwendungszweck: "Geschenk",
   },
 ];
 
-const Table: React.FC = () => {
+const Table = () => {
   const handleEditRow = (index: number) => {
     console.log(`Edit row ${index}`);
   };
@@ -65,7 +67,7 @@ const Table: React.FC = () => {
               <td className="py-3 px-6 text-left">{row.Empfänger}</td>
               <td className="py-3 px-6 text-left">{row.Verwendungszweck}</td>
               <td className="py-3 px-6 text-left">
-                <button onClick={() => handleEditRow(index)}>Bearbeiten</button>
+                <button className="text-red-400" onClick={() => handleEditRow(index)}>Bearbeiten</button>
               </td>
             </tr>
           ))}
