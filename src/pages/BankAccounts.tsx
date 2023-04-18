@@ -12,14 +12,16 @@ function BankAccounts() {
   if (!bankAccountData) {
     return <div>Loading...</div>;
   }
-
-return (
+  return (
     <div className="grid lg:grid-cols-12 sm:grid-cols-8 grid-rows-4 gap-4 p-5">
-      <div className="col-span-3 bg-neutral-400 rounded-lg">
-        <h1>Account</h1>
-      </div>
-     </div>
-)
+      {bankAccountData.map((account, index) => (
+        <div key={index} className="col-span-3 bg-neutral-400 rounded-lg">
+          <h1>Name: {account.name}</h1>
+          <p>IBAN: {account.iban}</p>
+          <p>Reference: {account.reference}</p>
+        </div>
+      ))}
+    </div>
+  )
 }
-
 export default BankAccounts;

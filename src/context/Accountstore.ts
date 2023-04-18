@@ -8,7 +8,7 @@ interface IBankAccountData {
 }
 
 interface AccountStore{
-    bankAccountData: IBankAccountData | null;
+    bankAccountData: IBankAccountData[] | null;
     fetchBankAccountData: () => void;
 }
 
@@ -17,7 +17,7 @@ const useAccountStore = create<AccountStore>((set) => ({
     fetchBankAccountData: async () => {
         try {
             const BE_URL = import.meta.env.VITE_BE_PORT
-            const response = await axios.get<IBankAccountData>(`${BE_URL}/account/getAllMy`, {
+            const response = await axios.get<IBankAccountData[]>(`${BE_URL}/account/getAllMy`, {
                 withCredentials: true,
             });
             set({ bankAccountData: response.data });
