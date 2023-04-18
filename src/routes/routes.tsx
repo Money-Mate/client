@@ -3,58 +3,40 @@ import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import LandingPage from "../pages/LandingPage";
 import { useUserStore } from "../context/userContext";
+import BankAccounts from "../pages/BankAccounts";
+import TransactionsGiro from "../pages/TransactionsGiro";
+
 
 export const paths = {
-  landingPage: "/",
-  userDashboard: "/userdashboard",
-  signIn: "/signin",
-  signUp: "/signup",
+  landingPage: '/landingpage',
+  signIn: '/signin',
+  signUp: '/signup',
+  userDashboard: '/userdashboard',
+  bankAccounts: '/bankaccounts',
+  transactionsGiro: '/transactionsgiro',
 };
 
-export const AllRoutes = () => {
-  const isLoggedIn = useUserStore((state: { isLoggedIn: boolean }) => state.isLoggedIn)
+const routes = [
 
-  const routes = [
-    // protected routes
-    {
-      path: paths.userDashboard,
-      element: <UserDashboard />,
-      isProtected: !isLoggedIn,
-      redirectPath: paths.signIn,
-      id: paths.userDashboard,
-    },
-    // public routes
-    {
-      path: paths.landingPage,
-      element: <LandingPage />,
-      isProtected: isLoggedIn,
-      redirectPath: paths.userDashboard,
-      id: paths.landingPage,
-    },
-    {
-      path: paths.signIn,
-      element: <SignIn />,
-      isProtected: isLoggedIn,
-      redirectPath: null,
-      id: paths.signIn,
-    },
-    {
-      path: paths.signUp,
-      element: <SignUp />,
-      isProtected: isLoggedIn,
-      redirectPath: null,
-      id: paths.signUp,
-    },
-  ];
-  const logroutes = () => {
-    routes.forEach((route) =>
-      console.log(`http://localhost:5173/#${route.path}`)
-    );
-  };
-  return {
-    routes,
-    logroutes,
-  };
-};
+  {
+    path: paths.userDashboard,
+    element: <UserDashboard />,
+    isProtected: true,
+    redirectPath: paths.signIn,
+    id: 'userDashboard',
+  },{
+    path: paths.bankAccounts,
+    element: <BankAccounts />,
+    isProtected: true,
+    redirectPath: paths.landingPage,
+    id: 'BankAccounts',
+  },{
+    path: paths.transactionsGiro,
+    element: <TransactionsGiro />,
+    isProtected: true,
+    redirectPath: paths.landingPage,
+    id: 'TransactionsGiro',
+  }
+];
 
-export default AllRoutes;
+export default routes;
