@@ -1,5 +1,5 @@
 import React from "react";
-import { SavingGoalsChart } from "../charts/SavingGoals";
+import { SavingGoalsChart } from "../chartsUserDasboard/SavingGoals";
 
 function CardSixSavingGoals() {
   return (

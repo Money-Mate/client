@@ -36,6 +36,11 @@ function Nav() {
       to: "/app/bankaccounts",
       id: 4,
       isProtected: isLoggedIn,
+    },{
+      name: "TransactionsGiro",
+      to: "/app/transactionsgiro",
+      id: 5,
+      isProtected: isLoggedIn,
     }
   ];
 
