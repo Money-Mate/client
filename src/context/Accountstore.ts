@@ -2,9 +2,10 @@ import {create} from 'zustand';
 import axios from 'axios';
 
 interface IBankAccountData {
+    _id: string;
     name: string;
     iban: string;
-    reference: string, enum : ["name", "iban"];
+    reference: "name" | "iban";
 }
 
 interface AccountStore{
