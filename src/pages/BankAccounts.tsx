@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import useAccountStore from "../context/Accountstore";
+import { IBankAccountData } from "../context/Accountstore";
 
 const BankAccounts = () => {
   const { bankAccountData, fetchBankAccountData, addBankAccount, updateBankAccount, deleteBankAccount } = useAccountStore();
 
-  const [newAccount, setNewAccount] = useState<IBankAccountData>({ _id: "", name: "", iban: "", reference: "name" | "iban" });
+  const [newAccount, setNewAccount] = useState<IBankAccountData>({ _id: "", name: "", iban: "", reference: "name"});
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewAccount({ ...newAccount, name: event.target.value });
@@ -15,13 +16,13 @@ const BankAccounts = () => {
   };
 
   const handleReferenceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setNewAccount({ ...newAccount, reference: event.target.value as "name" | "iban" });
+    setNewAccount({ ...newAccount, reference: event.target.value as "name"});
   };
 
   const handleAddAccount = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     addBankAccount(newAccount);
-    setNewAccount({ _id: "", name: "", iban: "", reference: "name" | "iban" });
+    setNewAccount({ _id: "", name: "", iban: "", reference: "name" });
   };
 
   const handleUpdateAccount = (event: React.MouseEvent<HTMLButtonElement>, account: IBankAccountData) => {

@@ -1,7 +1,7 @@
 import {create} from 'zustand';
 import axios from 'axios';
 
-interface IBankAccountData {
+export interface IBankAccountData {
     _id: string;
     name: string;
     iban: string;
@@ -32,10 +32,15 @@ const useAccountStore = create<AccountStore>((set) => ({
     addBankAccount: async (newAccount: IBankAccountData) => {
         try{
             const BE_URL = import.meta.env.VITE_BE_PORT
-            const response = await axios.post<IBankAccountData[]>(`${BE_URL}/account/add`, newAccount, {
+            const res = await axios.post<IBankAccountData[]>(`${BE_URL}/account/add`, newAccount, {
+                withCredentials: true,
+            });
+            const response = await axios.get<IBankAccountData[]>(`${BE_URL}/account/getAllMy`, {
                 withCredentials: true,
             });
             set({ bankAccountData: response.data });
+            // set({ bankAccountData: response.data });
+
         }catch  (error) {
             console.error("Failed to add account", error);
         }
@@ -43,10 +48,14 @@ const useAccountStore = create<AccountStore>((set) => ({
     updateBankAccount: async (updatedAccount: IBankAccountData) => {
         try{
             const BE_URL = import.meta.env.VITE_BE_PORT
-            const response = await axios.put<IBankAccountData[]>(`${BE_URL}/account/updateMy`, updatedAccount, {
+            const res = await axios.put<IBankAccountData[]>(`${BE_URL}/account/updateMy`, updatedAccount, {
+                withCredentials: true,
+            });
+            const response = await axios.get<IBankAccountData[]>(`${BE_URL}/account/getAllMy`, {
                 withCredentials: true,
             });
             set({ bankAccountData: response.data });
+            
         }catch  (error) {
             console.error("Failed to update account", error);
         }
@@ -54,10 +63,14 @@ const useAccountStore = create<AccountStore>((set) => ({
     deleteBankAccount: async (id: string) => {
         try{
             const BE_URL = import.meta.env.VITE_BE_PORT
-            const response = await axios.delete<IBankAccountData[]>(`${BE_URL}/account/deleteMy/${id}`, {
+            const res = await axios.delete<IBankAccountData[]>(`${BE_URL}/account/deleteMy/${id}`, {
+                withCredentials: true,
+            });
+            const response = await axios.get<IBankAccountData[]>(`${BE_URL}/account/getAllMy`, {
                 withCredentials: true,
             });
             set({ bankAccountData: response.data });
+            
         }catch  (error) {
             console.error("Failed to delete account", error);
         }
