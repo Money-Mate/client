@@ -22,6 +22,8 @@ const Transactions = () => {
   const [editingRowIndex, setEditingRowIndex] = useState(-1);
   const [tableDataState, setTableDataState] = useState<TransactionData[]>([]);
   const [editingTransactionId, setEditingTransactionId] = useState("");
+  // const [categories, setCategories] = useState<string[]>([]);
+  const [listOfCategories, setListOfCategories] = useState<string[]>([]);
 
   const fetchTransactions = async () => {
     try {
@@ -34,9 +36,26 @@ const Transactions = () => {
       console.log(error);
     }
   };
+  
   useEffect(() => {
+    fetchCategories();
     fetchTransactions();
   }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(`${BE_URL}/category/getAllMy`, {
+        withCredentials: true,
+      });
+      console.log(response.data);
+      const listOfCategories = response.data.map((category: any) => category.name);
+      // setListOfCategories(listOfCategories);
+      console.log(listOfCategories);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleRowAction = async (index: number, rowData?: TransactionData) => {
     if (rowData) {
@@ -75,6 +94,7 @@ const Transactions = () => {
   };
 
   // Get unique categories from the data
+  // const categories = fetchCategories();
   const categories = Array.from(
     new Set(tableDataState.map((row) => row.category))
   );

@@ -83,6 +83,22 @@ const Modal: React.FC<ModalProps> = ({
               </div>
               <div className="mb-4">
                 <label
+                  htmlFor="date"
+                  className="block text-gray-700 font-bold mb-2"
+                >
+                  Datum
+                </label>
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  value={formData.date || data.date}
+                  onChange={handleInputChange}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+              <div className="mb-4">
+                <label
                   htmlFor="amount"
                   className="block text-gray-700 font-bold mb-2"
                 >
@@ -96,6 +112,7 @@ const Modal: React.FC<ModalProps> = ({
                   onChange={handleInputChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
+                
               </div>
               <div className="mb-4">
                 <label
@@ -181,7 +198,8 @@ const Modal: React.FC<ModalProps> = ({
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
-              <div className="mb-4">
+              {/* TAGS ?? */}
+              {/* <div className="mb-4">
                 <label
                   htmlFor="tags"
                   className="block text-gray-700 font-bold mb-2"
@@ -200,7 +218,7 @@ const Modal: React.FC<ModalProps> = ({
                   onChange={handleInputChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
-              </div>
+              </div> */}
               <div className="mt-4">
                 <button
                   type="submit"
