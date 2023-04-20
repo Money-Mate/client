@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../components/Modals/EditTransactions";
 
 interface TransactionData {
@@ -22,9 +22,10 @@ const Transactions = () => {
   const [editingRowIndex, setEditingRowIndex] = useState(-1);
   const [tableDataState, setTableDataState] = useState<TransactionData[]>([]);
   const [editingTransactionId, setEditingTransactionId] = useState("");
-  // const [categories, setCategories] = useState<string[]>([]);
   const [listOfCategories, setListOfCategories] = useState<string[]>([]);
   const [transformedCategories, setTransformedCategories] = useState<any[]>([]);
+  const [sortConfig, setSortConfig] = useState<{key: string, direction: string}>({key: '', direction: ''});
+
 
   const fetchTransactions = async () => {
     try {
@@ -37,7 +38,7 @@ const Transactions = () => {
       console.log(error);
     }
   };
-  
+
   useEffect(() => {
     fetchCategories();
     fetchTransactions();
@@ -48,11 +49,8 @@ const Transactions = () => {
       const response = await axios.get(`${BE_URL}/category/getAllMy`, {
         withCredentials: true,
       });
-      console.log(response.data);
-      const listOfCategories = response.data.map((category: any) => category.name);
-      setListOfCategories(listOfCategories);
-      console.log(listOfCategories);
-      const transformedCategories = response.data.map((category:any) => ({
+
+      const transformedCategories = response.data.map((category: any) => ({
         id: category._id,
         name: category.name,
       }));
@@ -63,7 +61,10 @@ const Transactions = () => {
     }
   };
 
-  const handleRowAction = async (index: number, rowData?: TransactionData) => {
+  const handleRowAction = async (
+    index: number,
+    rowData?: TransactionData
+  ) => {
     if (rowData) {
       try {
         const response = await axios.put(
@@ -86,12 +87,16 @@ const Transactions = () => {
       setEditingRowIndex(-1);
     }
   };
+
   const onDelete = async () => {
     try {
       const BE_URL = import.meta.env.VITE_BE_PORT;
-      const response = await axios.delete(`${BE_URL}/transaction/deleteMy/${editingTransactionId}`, {
-        withCredentials: true,
-      });
+      const response = await axios.delete(
+        `${BE_URL}/transaction/deleteMy/${editingTransactionId}`,
+        {
+          withCredentials: true,
+        }
+      );
       fetchTransactions();
       setIsModalOpen(false);
     } catch (error) {
@@ -99,11 +104,61 @@ const Transactions = () => {
     }
   };
 
-  // Get unique categories from the data
-  // const categories = fetchCategories();
-  const categories = Array.from(
-    new Set(tableDataState.map((row) => row.category))
+  // Group transactions by date
+  const groupedTransactions = tableDataState.reduce(
+    (result: { [date: string]: TransactionData[] }, transaction) => {
+      if (result[transaction.date]) {
+        result[transaction.date].push(transaction);
+      } else {
+        result[transaction.date] = [transaction];
+      }
+      return result;
+    },
+    {}
   );
+
+  const renderTableData = () => {
+    return Object.entries(groupedTransactions).map(([date, transactions]) => (
+      <React.Fragment key={date}>
+        <tr>
+          <td colSpan={7} className="font-bold py-3 px-6 text-left">
+            {date}
+          </td>
+        </tr>
+        {transactions.map((row, index) => (
+          <tr
+            key={row._id}
+            className={index % 2 === 0 ? "bg-gray-100" : ""}
+          >
+            <td className="py-3 px-6 text-left whitespace-nowrap">
+              {row.accountIBAN}
+            </td>
+            <td className="py-3 px-6 text-left whitespace-nowrap">
+              {row.amount ? row.amount.toFixed(2) : ""} {row.currency}
+            </td>
+            <td className="py-3 px-6 text-left whitespace-nowrap">
+              {row.currency}
+            </td>
+            <td className="py-3 px-6 text-left">{row.recipientName}</td>
+            <td className="py-3 px-6 text-left">{row.transactionText}</td>
+            <td className="py-3 px-6 text-left"> {row.date.slice(0,10)}</td>
+            <td>
+              <button
+                className="text-red-400"
+                onClick={() => {
+                  setEditingTransactionId(row._id);
+                  setEditingRowIndex(index);
+                  setIsModalOpen(true);
+                }}
+              >
+                Bearbeiten
+              </button>
+            </td>
+          </tr>
+        ))}
+      </React.Fragment>
+    ));
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -120,34 +175,7 @@ const Transactions = () => {
           </tr>
         </thead>
         <tbody className="text-gray-600 text-sm font-light">
-          {tableDataState.map((row, index) => (
-            <tr key={row._id} className={index % 2 === 0 ? "bg-gray-100" : ""}>
-              <td className="py-3 px-6 text-left whitespace-nowrap">
-                {row.accountIBAN}
-              </td>
-              <td className="py-3 px-6 text-left whitespace-nowrap">
-                {row.amount ? row.amount.toFixed(2) : ""} {row.currency}
-              </td>
-              <td className="py-3 px-6 text-left whitespace-nowrap">
-                {row.currency}
-              </td>
-              <td className="py-3 px-6 text-left">{row.recipientName}</td>
-              <td className="py-3 px-6 text-left">{row.transactionText}</td>
-              <td className="py-3 px-6 text-left"> {row.date}</td>
-              <td>
-                <button
-                  className="text-red-400"
-                  onClick={() => {
-                    setEditingTransactionId(row._id);
-                    setEditingRowIndex(index);
-                    setIsModalOpen(true);
-                  }}
-                >
-                  Bearbeiten
-                </button>
-              </td>
-            </tr>
-          ))}
+          {renderTableData()}
         </tbody>
       </table>
       {isModalOpen && editingRowIndex >= 0 && (
@@ -157,7 +185,6 @@ const Transactions = () => {
           onSave={(rowData) => handleRowAction(editingRowIndex, rowData)}
           onCancel={() => setIsModalOpen(false)}
           data={tableDataState[editingRowIndex]}
-          categories={categories}
           fetchTransactions={fetchTransactions}
           onDelete={onDelete}
           transformedCategories={transformedCategories}
@@ -167,3 +194,4 @@ const Transactions = () => {
   );
 };
 export default Transactions;
+
