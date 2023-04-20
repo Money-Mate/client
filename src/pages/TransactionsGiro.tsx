@@ -24,6 +24,7 @@ const Transactions = () => {
   const [editingTransactionId, setEditingTransactionId] = useState("");
   // const [categories, setCategories] = useState<string[]>([]);
   const [listOfCategories, setListOfCategories] = useState<string[]>([]);
+  const [transformedCategories, setTransformedCategories] = useState<any[]>([]);
 
   const fetchTransactions = async () => {
     try {
@@ -49,9 +50,14 @@ const Transactions = () => {
       });
       console.log(response.data);
       const listOfCategories = response.data.map((category: any) => category.name);
-      // setListOfCategories(listOfCategories);
+      setListOfCategories(listOfCategories);
       console.log(listOfCategories);
-
+      const transformedCategories = response.data.map((category:any) => ({
+        id: category._id,
+        name: category.name,
+      }));
+      console.log(transformedCategories);
+      setTransformedCategories(transformedCategories);
     } catch (error) {
       console.log(error);
     }
@@ -154,6 +160,7 @@ const Transactions = () => {
           categories={categories}
           fetchTransactions={fetchTransactions}
           onDelete={onDelete}
+          transformedCategories={transformedCategories}
         />
       )}
     </div>

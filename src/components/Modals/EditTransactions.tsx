@@ -7,6 +7,7 @@ interface ModalProps {
   categories: string[];
   fetchTransactions: () => void;
   onDelete: () => void;
+  transformedCategories: any[];
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -14,7 +15,7 @@ const Modal: React.FC<ModalProps> = ({
   onSave,
   onCancel,
   data,
-  categories,
+  transformedCategories,
   onDelete,
 }) => {
   const [formData, setFormData] = useState<any>({});
@@ -22,6 +23,7 @@ const Modal: React.FC<ModalProps> = ({
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("formdata", formData);
+    console.log(transformedCategories)
     onSave(formData);
   };
 
@@ -175,11 +177,11 @@ const Modal: React.FC<ModalProps> = ({
                   onChange={handleInputChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 >
-                  {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
+                   {transformedCategories.map((category) => (
+                     <option key={category.id} value={category.id}>
+      {category.name}
+    </option>
+  ))}
                 </select>
               </div>
               <div className="mb-4">
