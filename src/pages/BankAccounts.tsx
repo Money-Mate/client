@@ -4,7 +4,7 @@ import { IBankAccountData } from "../context/Accountstore";
 
 const BankAccounts = () => {
   const { bankAccountData, fetchBankAccountData, addBankAccount, updateBankAccount, deleteBankAccount } = useAccountStore();
-
+  const [showModal, setShowModal] = useState(false);
   const [newAccount, setNewAccount] = useState<IBankAccountData>({ _id: "", name: "", iban: "", reference: "name"});
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,12 +27,14 @@ const BankAccounts = () => {
 
   const handleUpdateAccount = (event: React.MouseEvent<HTMLButtonElement>, account: IBankAccountData) => {
     event.preventDefault();
+    console.log(account);
     updateBankAccount(account);
   };
 
   const handleDeleteAccount = (event: React.MouseEvent<HTMLButtonElement>, id: string) => {
     event.preventDefault();
     deleteBankAccount(id);
+    setShowModal(false)
   };
 
   useEffect(() => {
@@ -62,8 +64,15 @@ const BankAccounts = () => {
                 </select>
               </label>
               <button onClick={(event) => handleUpdateAccount(event, account)}>Update</button>
-              <button onClick={(event) => handleDeleteAccount(event, account._id)}>Delete</button>
+              <button onClick={()=> setShowModal(true)}>Delete</button>
             </form>
+              {showModal && (
+                <div>
+                  <h1>Are you sure you want to delete this account?</h1>
+                  <button onClick={() => setShowModal(false)}>No</button>
+                  <button onClick={(event) => handleDeleteAccount(event, account._id) }>Yes</button>
+                </div>
+              )}
           </li>
         ))}
       </ul>
