@@ -16,7 +16,7 @@ const BankAccounts = () => {
   };
 
   const handleReferenceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setNewAccount({ ...newAccount, reference: event.target.value as "name"});
+    setNewAccount({ ...newAccount, reference: event.target.value as "name" | "iban"});
   };
 
   const handleAddAccount = (event: React.FormEvent<HTMLFormElement>) => {
