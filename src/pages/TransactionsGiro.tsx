@@ -15,6 +15,7 @@ interface TransactionData {
   subCategory: string;
   tags: string[];
 }
+
 const BE_URL = import.meta.env.VITE_BE_PORT;
 
 const Transactions = () => {
@@ -22,10 +23,11 @@ const Transactions = () => {
   const [editingRowIndex, setEditingRowIndex] = useState(-1);
   const [tableDataState, setTableDataState] = useState<TransactionData[]>([]);
   const [editingTransactionId, setEditingTransactionId] = useState("");
-  const [listOfCategories, setListOfCategories] = useState<string[]>([]);
   const [transformedCategories, setTransformedCategories] = useState<any[]>([]);
-  const [sortConfig, setSortConfig] = useState<{key: string, direction: string}>({key: '', direction: ''});
-
+  const [sortConfig, setSortConfig] = useState<{
+    key: string;
+    direction: string;
+  }>({ key: "", direction: "" });
 
   const fetchTransactions = async () => {
     try {
@@ -49,22 +51,24 @@ const Transactions = () => {
       const response = await axios.get(`${BE_URL}/category/getAllMy`, {
         withCredentials: true,
       });
-
+      // console.log(response.data);
+      // const listOfCategories = response.data.map(
+      //   (category: any) => category.name
+      // );
+      // setListOfCategories(listOfCategories);
+      // console.log(listOfCategories);
       const transformedCategories = response.data.map((category: any) => ({
         id: category._id,
         name: category.name,
       }));
-      console.log(transformedCategories);
+      // console.log(transformedCategories);
       setTransformedCategories(transformedCategories);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleRowAction = async (
-    index: number,
-    rowData?: TransactionData
-  ) => {
+  const handleRowAction = async (index: number, rowData?: TransactionData) => {
     if (rowData) {
       try {
         const response = await axios.put(
@@ -73,7 +77,6 @@ const Transactions = () => {
           { withCredentials: true }
         );
         if (response.status === 200) {
-          // Call fetchTransactions to update the data in the table
           await fetchTransactions();
           setIsModalOpen(false);
         } else {
@@ -117,19 +120,34 @@ const Transactions = () => {
     {}
   );
 
+  const requestSort = (key: string) => {
+    let direction = "ascending";
+    if (sortConfig.key === key && sortConfig.direction === "ascending") {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
+    const sortedData = tableDataState.sort((a, b) => {
+      if (a[key] < b[key]) {
+        return direction === "ascending" ? -1 : 1;
+      }
+      if (a[key] > b[key]) {
+        return direction === "ascending" ? 1 : -1;
+      }
+      return 0;
+    });
+    setTableDataState(sortedData);
+  };
+
   const renderTableData = () => {
     return Object.entries(groupedTransactions).map(([date, transactions]) => (
       <React.Fragment key={date}>
         <tr>
           <td colSpan={7} className="font-bold py-3 px-6 text-left">
-            {date}
+            {date.slice(0,10)}
           </td>
         </tr>
         {transactions.map((row, index) => (
-          <tr
-            key={row._id}
-            className={index % 2 === 0 ? "bg-gray-100" : ""}
-          >
+          <tr key={row._id} className={index % 2 === 0 ? "bg-gray-100" : ""}>
             <td className="py-3 px-6 text-left whitespace-nowrap">
               {row.accountIBAN}
             </td>
@@ -141,7 +159,7 @@ const Transactions = () => {
             </td>
             <td className="py-3 px-6 text-left">{row.recipientName}</td>
             <td className="py-3 px-6 text-left">{row.transactionText}</td>
-            <td className="py-3 px-6 text-left"> {row.date.slice(0,10)}</td>
+            <td className="py-3 px-6 text-left"> {row.date.slice(0, 10)}</td>
             <td>
               <button
                 className="text-red-400"
@@ -165,12 +183,66 @@ const Transactions = () => {
       <table className="table-auto w-full">
         <thead>
           <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-            <th className="py-3 px-6 text-left font-bold">Konto</th>
-            <th className="py-3 px-6 text-left font-bold">Summe</th>
-            <th className="py-3 px-6 text-left font-bold">Währung</th>
-            <th className="py-3 px-6 text-left font-bold">Empfänger</th>
-            <th className="py-3 px-6 text-left font-bold">Verwendungszweck</th>
-            <th className="py-3 px-6 text-left font-bold">Datum</th>
+            <th
+              className="py-3 px-6 text-left font-bold"
+              onClick={() => requestSort("accountIBAN")}
+            >
+              Konto{" "}
+              {sortConfig.key === "accountIBAN" &&
+                sortConfig.direction === "ascending" && <span>▲</span>}
+              {sortConfig.key === "accountIBAN" &&
+                sortConfig.direction === "descending" && <span>▼</span>}
+            </th>
+            <th
+              className="py-3 px-6 text-left font-bold"
+              onClick={() => requestSort("amount")}
+            >
+              Summe{" "}
+              {sortConfig.key === "amount" &&
+                sortConfig.direction === "ascending" && <span>▲</span>}
+              {sortConfig.key === "amount" &&
+                sortConfig.direction === "descending" && <span>▼</span>}
+            </th>
+            <th
+              className="py-3 px-6 text-left font-bold"
+              onClick={() => requestSort("currency")}
+            >
+              Währung{" "}
+              {sortConfig.key === "currency" &&
+                sortConfig.direction === "ascending" && <span>▲</span>}
+              {sortConfig.key === "currency" &&
+                sortConfig.direction === "descending" && <span>▼</span>}
+            </th>
+            <th
+              className="py-3 px-6 text-left font-bold"
+              onClick={() => requestSort("recipientName")}
+            >
+              Empfänger{" "}
+              {sortConfig.key === "recipientName" &&
+                sortConfig.direction === "ascending" && <span>▲</span>}
+              {sortConfig.key === "recipientName" &&
+                sortConfig.direction === "descending" && <span>▼</span>}
+            </th>
+            <th
+              className="py-3 px-6 text-left font-bold"
+              onClick={() => requestSort("transactionText")}
+            >
+              Verwendungszweck{" "}
+              {sortConfig.key === "transactionText" &&
+                sortConfig.direction === "ascending" && <span>▲</span>}
+              {sortConfig.key === "transactionText" &&
+                sortConfig.direction === "descending" && <span>▼</span>}
+            </th>
+            <th
+              className="py-3 px-6 text-left font-bold"
+              onClick={() => requestSort("date")}
+            >
+              Datum{" "}
+              {sortConfig.key === "date" &&
+                sortConfig.direction === "ascending" && <span>▲</span>}
+              {sortConfig.key === "date" &&
+                sortConfig.direction === "descending" && <span>▼</span>}
+            </th>
             <th className="py-3 px-6 text-left font-bold"></th>
           </tr>
         </thead>
@@ -194,4 +266,3 @@ const Transactions = () => {
   );
 };
 export default Transactions;
-
