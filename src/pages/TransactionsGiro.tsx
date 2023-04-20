@@ -1,41 +1,103 @@
-import React from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Modal from "../components/Modals/EditTransactions";
 
-interface TableRowData {
-  Konto: string;
-  Summe: number;
-  Währung: string;
-  Empfänger: string;
-  Verwendungszweck: string;
+interface TransactionData {
+  _id: string;
+  accountIBAN: string;
+  date: string;
+  transactionText: string;
+  recipientName: string;
+  recipientIBAN: string;
+  amount: number;
+  currency: string;
+  category: string;
+  subCategory: string;
+  tags: string[];
 }
+const BE_URL = import.meta.env.VITE_BE_PORT;
 
-const tableData: TableRowData[] = [
-  {
-    Konto: "Konto 1",
-    Summe: 100.0,
-    Währung: "EUR",
-    Empfänger: "Max Mustermann",
-    Verwendungszweck: "Miete",
-  },
-  {
-    Konto: "Konto 2",
-    Summe: 200.0,
-    Währung: "USD",
-    Empfänger: "John Doe",
-    Verwendungszweck: "Shopping",
-  },
-  {
-    Konto: "Konto 3",
-    Summe: 50.0,
-    Währung: "GBP",
-    Empfänger: "Jane Doe",
-    Verwendungszweck: "Geschenk",
-  },
-];
+const Transactions = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingRowIndex, setEditingRowIndex] = useState(-1);
+  const [tableDataState, setTableDataState] = useState<TransactionData[]>([]);
+  const [editingTransactionId, setEditingTransactionId] = useState("");
+  // const [categories, setCategories] = useState<string[]>([]);
+  const [listOfCategories, setListOfCategories] = useState<string[]>([]);
 
-const Table: React.FC = () => {
-  const handleEditRow = (index: number) => {
-    console.log(`Edit row ${index}`);
+  const fetchTransactions = async () => {
+    try {
+      const response = await axios.get(`${BE_URL}/transaction/getMy`, {
+        withCredentials: true,
+      });
+      console.log(response.data);
+      setTableDataState(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
+  
+  useEffect(() => {
+    fetchCategories();
+    fetchTransactions();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(`${BE_URL}/category/getAllMy`, {
+        withCredentials: true,
+      });
+      console.log(response.data);
+      const listOfCategories = response.data.map((category: any) => category.name);
+      // setListOfCategories(listOfCategories);
+      console.log(listOfCategories);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRowAction = async (index: number, rowData?: TransactionData) => {
+    if (rowData) {
+      try {
+        const response = await axios.put(
+          `${BE_URL}/transaction/updateMy`,
+          { transactionId: editingTransactionId, data: rowData },
+          { withCredentials: true }
+        );
+        if (response.status === 200) {
+          // Call fetchTransactions to update the data in the table
+          await fetchTransactions();
+          setIsModalOpen(false);
+        } else {
+          console.log(`Server returned status code ${response.status}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setIsModalOpen(false);
+      setEditingRowIndex(-1);
+    }
+  };
+  const onDelete = async () => {
+    try {
+      const BE_URL = import.meta.env.VITE_BE_PORT;
+      const response = await axios.delete(`${BE_URL}/transaction/deleteMy/${editingTransactionId}`, {
+        withCredentials: true,
+      });
+      fetchTransactions();
+      setIsModalOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Get unique categories from the data
+  // const categories = fetchCategories();
+  const categories = Array.from(
+    new Set(tableDataState.map((row) => row.category))
+  );
 
   return (
     <div className="overflow-x-auto">
@@ -47,32 +109,54 @@ const Table: React.FC = () => {
             <th className="py-3 px-6 text-left font-bold">Währung</th>
             <th className="py-3 px-6 text-left font-bold">Empfänger</th>
             <th className="py-3 px-6 text-left font-bold">Verwendungszweck</th>
-            <th className="py-3 px-6 text-left font-bold">Aktionen</th>
+            <th className="py-3 px-6 text-left font-bold">Datum</th>
+            <th className="py-3 px-6 text-left font-bold"></th>
           </tr>
         </thead>
         <tbody className="text-gray-600 text-sm font-light">
-          {tableData.map((row, index) => (
-            <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
+          {tableDataState.map((row, index) => (
+            <tr key={row._id} className={index % 2 === 0 ? "bg-gray-100" : ""}>
               <td className="py-3 px-6 text-left whitespace-nowrap">
-                {row.Konto}
+                {row.accountIBAN}
               </td>
               <td className="py-3 px-6 text-left whitespace-nowrap">
-                {row.Summe.toFixed(2)} {row.Währung}
+                {row.amount ? row.amount.toFixed(2) : ""} {row.currency}
               </td>
               <td className="py-3 px-6 text-left whitespace-nowrap">
-                {row.Währung}
+                {row.currency}
               </td>
-              <td className="py-3 px-6 text-left">{row.Empfänger}</td>
-              <td className="py-3 px-6 text-left">{row.Verwendungszweck}</td>
-              <td className="py-3 px-6 text-left">
-                <button onClick={() => handleEditRow(index)}>Bearbeiten</button>
+              <td className="py-3 px-6 text-left">{row.recipientName}</td>
+              <td className="py-3 px-6 text-left">{row.transactionText}</td>
+              <td className="py-3 px-6 text-left"> {row.date}</td>
+              <td>
+                <button
+                  className="text-red-400"
+                  onClick={() => {
+                    setEditingTransactionId(row._id);
+                    setEditingRowIndex(index);
+                    setIsModalOpen(true);
+                  }}
+                >
+                  Bearbeiten
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {isModalOpen && editingRowIndex >= 0 && (
+        <Modal
+          key={editingRowIndex}
+          title="Bearbeiten"
+          onSave={(rowData) => handleRowAction(editingRowIndex, rowData)}
+          onCancel={() => setIsModalOpen(false)}
+          data={tableDataState[editingRowIndex]}
+          categories={categories}
+          fetchTransactions={fetchTransactions}
+          onDelete={onDelete}
+        />
+      )}
     </div>
   );
 };
-
-export default Table;
+export default Transactions;
