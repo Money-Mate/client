@@ -121,16 +121,16 @@ const Transactions = () => {
   );
 
   const requestSort = (key: string) => {
-    let direction = "ascending";
+    let direction: "ascending" | "descending" = "ascending";
     if (sortConfig.key === key && sortConfig.direction === "ascending") {
       direction = "descending";
     }
     setSortConfig({ key, direction });
-    const sortedData = tableDataState.sort((a, b) => {
-      if (a[key] < b[key]) {
+    const sortedData = [...tableDataState].sort((a, b) => {
+      if (a[key as keyof TransactionData] < b[key as keyof TransactionData]) {
         return direction === "ascending" ? -1 : 1;
       }
-      if (a[key] > b[key]) {
+      if (a[key as keyof TransactionData] > b[key as keyof TransactionData]) {
         return direction === "ascending" ? 1 : -1;
       }
       return 0;
