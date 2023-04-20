@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App w-screen">
       <Routes>
-        <Route path="/landingpage" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/app/*" element={<LayoutPage />} />
