@@ -2,6 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Modal from "../components/Modals/EditTransactions";
 
+// TODO:
+// TAGS -Modal
+// DYNAMIC SUBCATEGORIES  - Modal
+// sort by default? - Table
 interface TransactionData {
   _id: string;
   accountIBAN: string;
@@ -18,7 +22,7 @@ interface TransactionData {
 
 const BE_URL = import.meta.env.VITE_BE_PORT;
 
-const Transactions = () => {
+const TransactionsTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingRowIndex, setEditingRowIndex] = useState(-1);
   const [tableDataState, setTableDataState] = useState<TransactionData[]>([]);
@@ -28,7 +32,9 @@ const Transactions = () => {
     key: string;
     direction: string;
   }>({ key: "", direction: "" });
+  const [isAddingTransaction, setIsAddingTransaction] = useState(false);
 
+  // fetch data from backend
   const fetchTransactions = async () => {
     try {
       const response = await axios.get(`${BE_URL}/transaction/getMy`, {
@@ -46,6 +52,7 @@ const Transactions = () => {
     fetchTransactions();
   }, []);
 
+  // make an array of categories for the dropdown (in modal)
   const fetchCategories = async () => {
     try {
       const response = await axios.get(`${BE_URL}/category/getAllMy`, {
@@ -68,6 +75,26 @@ const Transactions = () => {
     }
   };
 
+  const handleAddTransaction = async (newTransaction: TransactionData) => {
+    console.log(newTransaction);
+    try {
+      const response = await axios.post(
+        `${BE_URL}/transaction/add`,
+        newTransaction,
+        { withCredentials: true }
+      );
+      if (response.status === 200) {
+        await fetchTransactions();
+        setIsModalOpen(false);
+        setEditingRowIndex(-1);
+      } else {
+        console.log(`Server returned status code ${response.status}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // editing and deleting data for specific rows
   const handleRowAction = async (index: number, rowData?: TransactionData) => {
     if (rowData) {
       try {
@@ -107,7 +134,7 @@ const Transactions = () => {
     }
   };
 
-  // Group transactions by date
+  // Group transactions by date (overall setting)
   const groupedTransactions = tableDataState.reduce(
     (result: { [date: string]: TransactionData[] }, transaction) => {
       if (result[transaction.date]) {
@@ -120,6 +147,7 @@ const Transactions = () => {
     {}
   );
 
+  //sorting tableData according to click
   const requestSort = (key: string) => {
     let direction: "ascending" | "descending" = "ascending";
     if (sortConfig.key === key && sortConfig.direction === "ascending") {
@@ -138,14 +166,17 @@ const Transactions = () => {
     setTableDataState(sortedData);
   };
 
+  // render table Data
   const renderTableData = () => {
+    // group by date
     return Object.entries(groupedTransactions).map(([date, transactions]) => (
       <React.Fragment key={date}>
         <tr>
           <td colSpan={7} className="font-bold py-3 px-6 text-left">
-            {date.slice(0,10)}
+            {date.slice(0, 10)}
           </td>
         </tr>
+        {/* Display TableData */}
         {transactions.map((row, index) => (
           <tr key={row._id} className={index % 2 === 0 ? "bg-gray-100" : ""}>
             <td className="py-3 px-6 text-left whitespace-nowrap">
@@ -166,6 +197,7 @@ const Transactions = () => {
                 onClick={() => {
                   setEditingTransactionId(row._id);
                   setEditingRowIndex(index);
+                  setIsAddingTransaction(false);
                   setIsModalOpen(true);
                 }}
               >
@@ -180,6 +212,16 @@ const Transactions = () => {
 
   return (
     <div className="overflow-x-auto">
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={() => {
+          setIsAddingTransaction(true);
+          setEditingRowIndex(0);
+          setIsModalOpen(true);
+        }}
+      >
+        Add Transaction
+      </button>
       <table className="table-auto w-full">
         <thead>
           <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -253,16 +295,25 @@ const Transactions = () => {
       {isModalOpen && editingRowIndex >= 0 && (
         <Modal
           key={editingRowIndex}
-          title="Bearbeiten"
-          onSave={(rowData) => handleRowAction(editingRowIndex, rowData)}
+          title={isAddingTransaction ? "Hinzufügen" : "Bearbeiten"}
+          onSave={(rowData) =>
+            isAddingTransaction
+              ? handleAddTransaction(rowData)
+              : handleRowAction(editingRowIndex, rowData)
+          }
           onCancel={() => setIsModalOpen(false)}
-          data={tableDataState[editingRowIndex]}
+          data={
+            isAddingTransaction
+              ? tableDataState[editingRowIndex]
+              : tableDataState[editingRowIndex]
+          }
           fetchTransactions={fetchTransactions}
           onDelete={onDelete}
           transformedCategories={transformedCategories}
+          isAddingTransaction={isAddingTransaction} 
         />
       )}
     </div>
   );
 };
-export default Transactions;
+export default TransactionsTable;
