@@ -1,15 +1,34 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function LandingPage() {
-  const navigate= useNavigate()
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async function checkLoggedIn() {
+      try {
+        const BE_URL = import.meta.env.VITE_BE_PORT;
+        const response = await axios.get(`${BE_URL}/user/checkToken`, {
+          withCredentials: true,
+        });
+        if (response.data === true) {
+          navigate("/app/userdashboard");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    checkLoggedIn();
+  }, []);
+
   return (
-    <div>LandingPage
-      <button onClick={()=> navigate(`/signin`) } className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">SignIn</button>
-      <button onClick={()=> navigate(`/signup`) } className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Register</button>
-      <button onClick={()=> navigate(`/app/userdashboard`) } className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Dashboard</button>
+    <div>
+      <h1>Landing Page</h1>
+      <button onClick={() => navigate("/signin")}>Sign In</button>
+      <button onClick={() => navigate("/signup")}>Register</button>
     </div>
-  )
+  );
 }
 
-export default LandingPage
+export default LandingPage;

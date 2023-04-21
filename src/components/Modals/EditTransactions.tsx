@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import * as z from "zod";
+
+//  TAGS
+// DYNAMIC SUBCATEGORIES 
 interface ModalProps {
   title: string;
   onSave: (data: any) => void;
@@ -7,21 +11,43 @@ interface ModalProps {
   fetchTransactions: () => void;
   onDelete: () => void;
   transformedCategories: any[];
+  isAddingTransaction: boolean;
 }
 
-const Modal: React.FC<ModalProps> = ({
+//Validation Schmea for Zod
+const formDataSchema = z.object({
+  accountIBAN: z.string(),
+  date: z.date(),
+  amount: z.number(),
+  currency: z.string(),
+  recipientName: z.string(),
+  transactionText: z.string(),
+  category: z.string(),
+  subCategory: z.string(),
+});
+
+
+const TransactionModal: React.FC<ModalProps> = ({
   title,
   onSave,
   onCancel,
   data,
-  transformedCategories,
   onDelete,
+  transformedCategories,
+  isAddingTransaction,
 }) => {
-  const [formData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<any>({
+
+  });
 
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSave(formData);
+    try {
+      const validatedData = formDataSchema.parse(formData);
+      onSave(validatedData);
+    } catch (error: any) {
+      console.log("Validation error:", error.message);
+    }
   };
 
   const handleCancel = () => {
@@ -43,7 +69,7 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <div
       className="fixed z-10 inset-0 overflow-y-auto"
-      aria-labelledby="modal-title"
+      aria-labelledby="edit/add-transactions"
       role="dialog"
       aria-modal="true"
     >
@@ -75,7 +101,11 @@ const Modal: React.FC<ModalProps> = ({
                   type="text"
                   id="accountIBAN"
                   name="accountIBAN"
-                  value={formData.accountIBAN || data.accountIBAN}
+                  value={
+                    isAddingTransaction
+                      ? formData.accountIBAN || ""
+                      : formData.accountIBAN || data.accountIBAN
+                  }
                   onChange={handleInputChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
@@ -91,7 +121,10 @@ const Modal: React.FC<ModalProps> = ({
                   type="date"
                   id="date"
                   name="date"
-                  value={formData.date || data.date}
+                  value={
+                    isAddingTransaction
+                      ? formData.date || ""
+                      : formData.date || data.date}
                   onChange={handleInputChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
@@ -107,7 +140,10 @@ const Modal: React.FC<ModalProps> = ({
                   type="number"
                   id="amount"
                   name="amount"
-                  value={formData.amount || data.amount}
+                  value={
+                    isAddingTransaction
+                      ? formData.amount || ""
+                      :formData.amount || data.amount}
                   onChange={handleInputChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
@@ -123,7 +159,10 @@ const Modal: React.FC<ModalProps> = ({
                   type="text"
                   id="currency"
                   name="currency"
-                  value={formData.currency || data.currency}
+                  value={
+                    isAddingTransaction
+                      ? formData.currency || ""
+                      : formData.currency || data.currency}
                   onChange={handleInputChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
@@ -139,7 +178,10 @@ const Modal: React.FC<ModalProps> = ({
                   type="text"
                   id="recipientName"
                   name="recipientName"
-                  value={formData.recipientName || data.recipientName}
+                  value={
+                    isAddingTransaction
+                      ? formData.recipientName || ""
+                      :formData.recipientName || data.recipientName}
                   onChange={handleInputChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
@@ -154,7 +196,10 @@ const Modal: React.FC<ModalProps> = ({
                 <textarea
                   id="transactionText"
                   name="transactionText"
-                  value={formData.transactionText || data.transactionText}
+                  value={
+                    isAddingTransaction
+                      ? formData.transactionText || ""
+                      : formData.transactionText || data.transactionText}
                   onChange={handleInputChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 ></textarea>
@@ -169,7 +214,10 @@ const Modal: React.FC<ModalProps> = ({
                 <select
                   id="category"
                   name="category"
-                  value={formData.category || data.category}
+                  value={
+                    isAddingTransaction
+                      ? formData.category || ""
+                      : formData.category || data.category}
                   onChange={handleInputChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 >
@@ -191,53 +239,39 @@ const Modal: React.FC<ModalProps> = ({
                   type="text"
                   id="subCategory"
                   name="subCategory"
-                  value={formData.subCategory || data.subCategory}
+                  value={
+                    isAddingTransaction
+                      ? formData.subCategory|| ""
+                      :formData.subCategory || data.subCategory}
                   onChange={handleInputChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
-              {/* TAGS ?? */}
-              {/* <div className="mb-4">
-                <label
-                  htmlFor="tags"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  Tags
-                </label>
-                <input
-                  type="text"
-                  id="tags"
-                  name="tags"
-                  value={
-                    formData.tags
-                      ? formData.tags.join(", ")
-                      : data.tags.join(", ")
-                  }
-                  onChange={handleInputChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div> */}
               <div className="mt-4">
                 <button
                   type="submit"
                   className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-white text-base font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:col-start-2 sm:text-sm"
                 >
-                  Speichern
+                  {isAddingTransaction ? "Hinzufügen" : "Änderungen speichern"}
                 </button>
-                <button
-                  type="button"
-                  onClick={handleDelete}
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                >
-                  Transaktion löschen
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCancel}
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                >
-                  Abbrechen
-                </button>
+                {isAddingTransaction ? null : (
+                  <>
+                    <button
+                      type="button"
+                      onClick={handleDelete}
+                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                    >
+                      Transaktion löschen
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleCancel}
+                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                    >
+                      Abbrechen
+                    </button>
+                  </>
+                )}
               </div>
             </form>
           </div>
@@ -247,4 +281,4 @@ const Modal: React.FC<ModalProps> = ({
   );
 };
 
-export default Modal;
+export default TransactionModal;
