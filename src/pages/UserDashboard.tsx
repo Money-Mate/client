@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import useDashboardStore from "../context/DashbordStore";
+import CardEightBudget from "../components/cardsUserDashboard/CardEightBudget";
+import CardFiveSaldo from "../components/cardsUserDashboard/CardFiveSaldo";
 import CardFour from "../components/cardsUserDashboard/CardFour";
 import CardOne from "../components/cardsUserDashboard/CardOne";
-import CardEightBudget from "../components/cardsUserDashboard/CardEightBudget";
+import CardSevenNotgroschen from "../components/cardsUserDashboard/CardSevenNotgroschen";
+import CardSixSavingGoals from "../components/cardsUserDashboard/CardSixSavingGoals";
 import CardThree from "../components/cardsUserDashboard/CardThree";
 import CardTwo from "../components/cardsUserDashboard/CardTwo";
-import CardSixSavingGoals from "../components/cardsUserDashboard/CardSixSavingGoals";
-import CardFiveSaldo from "../components/cardsUserDashboard/CardFiveSaldo";
-import CardSevenNotgroschen from "../components/cardsUserDashboard/CardSevenNotgroschen";
+import useDashboardStore from "../context/DashbordStore";
 
 function Dashboard() {
   const { dashboardData, fetchDashboardData } = useDashboardStore();
@@ -15,7 +15,6 @@ function Dashboard() {
   useEffect(() => {
     fetchDashboardData();
   }, []);
-  console.log(dashboardData);
 
   if (!dashboardData) {
     return <div>Loading...</div>;
@@ -24,7 +23,7 @@ function Dashboard() {
   return (
     <div className="grid lg:grid-cols-12 sm:grid-cols-8 grid-rows-4 gap-4 p-5">
       <div className="col-span-3 bg-neutral-400 rounded-lg">
-        <CardOne/>
+        <CardOne />
       </div>
       <div className="col-span-3  bg-neutral-400 rounded-lg">
         <CardTwo />
