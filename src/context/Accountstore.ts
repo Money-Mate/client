@@ -1,21 +1,18 @@
 import {create} from 'zustand';
 import axios from 'axios';
-
 export interface IBankAccountData {
     _id: string;
     name: string;
     iban: string;
     reference: "name" | "iban";
 }
-
-interface AccountStore{
+export interface AccountStore{
     bankAccountData: IBankAccountData[] | null;
     fetchBankAccountData: () => void;
     addBankAccount: (newAccount: IBankAccountData) => void;
     updateBankAccount: (updatedAccount: IBankAccountData) => void;
     deleteBankAccount: (id: string) => void;
 }
-
 const useAccountStore = create<AccountStore>((set) => ({
     bankAccountData: null,
     fetchBankAccountData: async () => {
@@ -40,23 +37,20 @@ const useAccountStore = create<AccountStore>((set) => ({
             });
             set({ bankAccountData: response.data });
             // set({ bankAccountData: response.data });
-
         }catch  (error) {
             console.error("Failed to add account", error);
         }
     },
     updateBankAccount: async (updatedAccount: IBankAccountData) => {
-        try{
-            const BE_URL = import.meta.env.VITE_BE_PORT
-            const res = await axios.put<IBankAccountData[]>(`${BE_URL}/account/updateMy`, updatedAccount, {
+        try {
+            const BE_URL = import.meta.env.VITE_BE_PORT;
+            const res = await axios.put(`${BE_URL}/account/updateMy`, {
+                accountId: updatedAccount._id,
+                data: updatedAccount,
+            }, {
                 withCredentials: true,
             });
-            const response = await axios.get<IBankAccountData[]>(`${BE_URL}/account/getAllMy`, {
-                withCredentials: true,
-            });
-            set({ bankAccountData: response.data });
-            
-        }catch  (error) {
+        } catch (error) {
             console.error("Failed to update account", error);
         }
     },
@@ -70,11 +64,9 @@ const useAccountStore = create<AccountStore>((set) => ({
                 withCredentials: true,
             });
             set({ bankAccountData: response.data });
-            
         }catch  (error) {
             console.error("Failed to delete account", error);
         }
     }
 }));
-
 export default useAccountStore;
