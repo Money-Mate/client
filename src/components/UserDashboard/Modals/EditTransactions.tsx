@@ -13,7 +13,7 @@ interface ModalProps {
   transformedCategories: any[];
   isAddingTransaction: boolean;
 }
-
+//add vs save object 
 //Validation Schmea for Zod
 const formDataSchema = z.object({
   accountIBAN: z.string(),

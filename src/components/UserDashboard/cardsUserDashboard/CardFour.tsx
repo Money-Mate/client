@@ -1,9 +1,9 @@
-import useDashboardStore from "../../context/DashbordStore";
+import useDashboardStore from "../../../context/DashbordStore";
 
 const CardFour = () => {
-  const saved = useDashboardStore(state => state.dashboardData?.saved);
+  const saved = useDashboardStore((state) => state.dashboardData?.saved);
 
-  if (!saved) {
+  if (saved === undefined) {
     return <div>Loading...</div>;
   }
 

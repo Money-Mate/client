@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Modal from "../components/Modals/EditTransactions";
+import Modal from "../components/UserDashboard/Modals/EditTransactions";
 
 // TODO:
 // TAGS -Modal
@@ -40,7 +40,6 @@ const TransactionsTable = () => {
       const response = await axios.get(`${BE_URL}/transaction/getMy`, {
         withCredentials: true,
       });
-      console.log(response.data);
       setTableDataState(response.data);
     } catch (error) {
       console.log(error);
@@ -58,17 +57,10 @@ const TransactionsTable = () => {
       const response = await axios.get(`${BE_URL}/category/getAllMy`, {
         withCredentials: true,
       });
-      // console.log(response.data);
-      // const listOfCategories = response.data.map(
-      //   (category: any) => category.name
-      // );
-      // setListOfCategories(listOfCategories);
-      // console.log(listOfCategories);
       const transformedCategories = response.data.map((category: any) => ({
         id: category._id,
         name: category.name,
       }));
-      // console.log(transformedCategories);
       setTransformedCategories(transformedCategories);
     } catch (error) {
       console.log(error);

@@ -1,11 +1,11 @@
-import useDashboardStore from "../../context/DashbordStore";
+import useDashboardStore from "../../../context/DashbordStore";
 
 const CardOne = () => {
   const bankBalance = useDashboardStore(
     (state) => state.dashboardData?.bankBalance
   );
 
-  if (!bankBalance) {
+  if (bankBalance === undefined) {
     return <div>Loading...</div>;
   }
 

@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import CardEightBudget from "../components/cardsUserDashboard/CardEightBudget";
-import CardFiveSaldo from "../components/cardsUserDashboard/CardFiveSaldo";
-import CardFour from "../components/cardsUserDashboard/CardFour";
-import CardOne from "../components/cardsUserDashboard/CardOne";
-import CardSevenNotgroschen from "../components/cardsUserDashboard/CardSevenNotgroschen";
-import CardSixSavingGoals from "../components/cardsUserDashboard/CardSixSavingGoals";
-import CardThree from "../components/cardsUserDashboard/CardThree";
-import CardTwo from "../components/cardsUserDashboard/CardTwo";
+import CardEightBudget from "../components/UserDashboard/cardsUserDashboard/CardEightBudget";
+import CardFiveSaldo from "../components/UserDashboard/cardsUserDashboard/CardFiveSaldo";
+import CardFour from "../components/UserDashboard/cardsUserDashboard/CardFour";
+import CardOne from "../components/UserDashboard/cardsUserDashboard/CardOne";
+import CardSevenNotgroschen from "../components/UserDashboard/cardsUserDashboard/CardSevenNotgroschen";
+import CardSixSavingGoals from "../components/UserDashboard/cardsUserDashboard/CardSixSavingGoals";
+import CardThree from "../components/UserDashboard/cardsUserDashboard/CardThree";
+import CardTwo from "../components/UserDashboard/cardsUserDashboard/CardTwo";
 import useDashboardStore from "../context/DashbordStore";
 
 function Dashboard() {

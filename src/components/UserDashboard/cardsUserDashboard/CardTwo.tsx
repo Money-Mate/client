@@ -1,23 +1,29 @@
-import useDashboardStore from "../../context/DashbordStore";
+import useDashboardStore from "../../../context/DashbordStore";
 
-const CardThree = () => {
-  const scheduledDebit = useDashboardStore(state => state.dashboardData?.scheduledDebit);
+const CardTwo = () => {
+  const balanceEndOfMonth = useDashboardStore(
+    (state) => state.dashboardData?.balanceEndOfMonth
+  );
 
-  if (!scheduledDebit) {
+  if (balanceEndOfMonth === undefined) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
       <div className="px-5 pt-3">
-        <h2 className="text-lg font-semibold text-slate-800 mb-2">geplante Abbuchungen</h2>
+        <h2 className="text-lg font-semibold text-slate-800 mb-2">
+          geplante Eingänge
+        </h2>
         <div className="text-xs font-semibold text-slate-400 uppercase mb-1">
           März
         </div>
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-slate-800 m-2">{scheduledDebit}</div>
+          <div className="text-3xl font-bold text-slate-800 m-2">
+            {balanceEndOfMonth}
+          </div>
           <div className="text-sm font-semibold text-white px-1.5 bg-red-500 rounded-full">
-            -3%
+            +3%
           </div>
         </div>
       </div>
@@ -26,4 +32,4 @@ const CardThree = () => {
   );
 };
 
-export default CardThree;
+export default CardTwo;
