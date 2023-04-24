@@ -30,7 +30,7 @@ const BankAccounts = () => {
       if (selectedAccount) {
         await updateBankAccount({
           _id: selectedAccount._id,
-          data: account, // pass in the updated account data from the modal state
+          data: account, 
         });
       } else {
         await addBankAccount(account);
