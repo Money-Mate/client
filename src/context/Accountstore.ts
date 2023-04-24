@@ -1,16 +1,18 @@
 import {create} from 'zustand';
 import axios from 'axios';
+
 export interface IBankAccountData {
     _id: string;
     name: string;
     iban: string;
     reference: "name" | "iban";
+ 
 }
 export interface AccountStore{
     bankAccountData: IBankAccountData[] | null;
     fetchBankAccountData: () => void;
     addBankAccount: (newAccount: IBankAccountData) => void;
-    updateBankAccount: (updatedAccount: IBankAccountData) => void;
+    updateBankAccount: (updatedAccount: { _id: string, data: IBankAccountData }) => void;
     deleteBankAccount: (id: string) => void;
 }
 const useAccountStore = create<AccountStore>((set) => ({
@@ -41,12 +43,12 @@ const useAccountStore = create<AccountStore>((set) => ({
             console.error("Failed to add account", error);
         }
     },
-    updateBankAccount: async (updatedAccount: IBankAccountData) => {
+    updateBankAccount: async (updatedAccount: { _id: string, data: IBankAccountData }) => {
         try {
             const BE_URL = import.meta.env.VITE_BE_PORT;
             const res = await axios.put(`${BE_URL}/account/updateMy`, {
                 accountId: updatedAccount._id,
-                data: updatedAccount,
+                data: updatedAccount.data,
             }, {
                 withCredentials: true,
             });

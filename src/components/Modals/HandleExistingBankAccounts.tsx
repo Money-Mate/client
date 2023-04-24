@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useAccountStore, { IBankAccountData } from '../../context/Accountstore';
 
 interface IProps {
-  account?: IBankAccountData;
+  account?: IBankAccountData | null;
   onClose: () => void;
 }
 function HandleExistingBankAccounts({ account, onClose }: IProps) {
@@ -34,7 +34,7 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
       console.log("account", account)
       console.log("newAccount", newAccount)
       if (account) {
-       const updated = await updateBankAccount(newAccount);
+        await updateBankAccount({ _id: account._id, data: newAccount });
       } else {
         await addBankAccount(newAccount);
       }

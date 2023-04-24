@@ -25,21 +25,21 @@ const BankAccounts = () => {
     setShowModal(false);
     fetchBankAccountData();
   };
-  const handleModalSubmit = async (account: IBankAccountData) => {
-    try {
-      if (selectedAccount) {
-        await updateBankAccount({
-          _id: selectedAccount._id,
-          data: account, 
-        });
-      } else {
-        await addBankAccount(account);
-      }
-      handleModalClose();
-    } catch (error) {
-      console.error('Failed to save account', error);
-    }
-  };
+  // const handleModalSubmit = async (account: IBankAccountData) => {
+  //   try {
+  //     if (selectedAccount) {
+  //       await updateBankAccount({
+  //         _id: selectedAccount._id,
+  //         data: account, 
+  //       });
+  //     } else {
+  //       await addBankAccount(account);
+  //     }
+  //     handleModalClose();
+  //   } catch (error) {
+  //     console.error('Failed to save account', error);
+  //   }
+  // };
   if (!bankAccountData) {
     return <div>Loading...</div>;
   }
@@ -59,7 +59,7 @@ const BankAccounts = () => {
           </div>
         ))}
       </div>
-      {showModal && <HandleExistingBankAccounts account={selectedAccount} onClose={handleModalClose} onSubmit={handleModalSubmit} />}
+      {showModal && <HandleExistingBankAccounts account={selectedAccount} onClose={handleModalClose}  />}
     </div>
   );
 };
