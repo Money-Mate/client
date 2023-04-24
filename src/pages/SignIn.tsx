@@ -21,12 +21,12 @@ const SignIn = () => {
           withCredentials: true,
         }
       );
-      console.log(res.data)
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      if (localStorage.getItem('user')) {
-        console.log("user in localstorage")
-        navigate("/app/userdashboard");
-      }
+      // console.log(res.data)
+      // localStorage.setItem("user", JSON.stringify(res.data.user));
+      // if (localStorage.getItem('user')) {
+      //   console.log("user in localstorage")
+      // }
+      navigate("/app/userdashboard");
     } catch (error) {
       console.log(error);
     }
