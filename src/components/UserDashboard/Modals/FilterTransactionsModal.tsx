@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 interface Props {
   onSubmit: (options: ReturnType<typeof useState>[0]) => void;
   onClose: () => void;
-  fetchSubCategories: () => void;
 }
 
 const FilterTransactionsModal: React.FC<Props> = ({ onSubmit, onClose }) => {

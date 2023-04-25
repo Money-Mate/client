@@ -236,7 +236,7 @@ const TransactionsTable = () => {
       </table>
       {isFilterModalOpen && (
 
-          <FilterTransactionsModal  onClose={onCloseFilterModal} fetchSubCategories={fetchSubCategories}/>
+          <FilterTransactionsModal  onClose={onCloseFilterModal} />
       )}
       {isModalOpen && editingRowIndex >= 0 && (
         <EditTransactionModal
@@ -253,7 +253,7 @@ const TransactionsTable = () => {
           onDelete={onDelete}
           transformedCategories={transformedCategories}
           isAddingTransaction={isAddingTransaction}
-          fetchSubCategories={fetchSubCategories}
+
 
         />
       )}
