@@ -51,7 +51,7 @@ function Nav() {
   const filteredItems = items.filter((item) => item.isProtected === isLoggedIn);
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full bg-gray-900">
       <span className=" left-4 top-5 cursor-pointer text-4xl text-white"></span>
       <nav className="sidebar bottom-0 top-0 h-screen sticky bg-gray-900 text-center">
         <div className="text-xl text-gray-100">
@@ -115,7 +115,6 @@ function Nav() {
         <div className="p-10">
           <LogoutButton />
         </div>
-
       </nav>
     </div>
   );
