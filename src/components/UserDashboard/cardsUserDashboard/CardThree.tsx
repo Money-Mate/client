@@ -1,4 +1,5 @@
 import useDashboardStore from "../../../context/DashbordStore";
+import { formatNumber } from "../../../utils/IntlAPI";
 
 const CardThree = () => {
   const scheduledDebit = useDashboardStore(
@@ -20,7 +21,7 @@ const CardThree = () => {
         </div>
         <div className="flex items-start">
           <div className="m-2 text-3xl font-bold text-slate-800">
-            {scheduledDebit}
+            {formatNumber(scheduledDebit)}
           </div>
           <div className="rounded-full bg-red-500 px-1.5 text-sm font-semibold text-white">
             -3%
