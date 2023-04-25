@@ -8,8 +8,14 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 interface SavingsGoals {
   [key: string]: number;
@@ -17,7 +23,7 @@ interface SavingsGoals {
 
 const savingsGoals: SavingsGoals = {
   "New Car": 22,
-  "Vacation": 53,
+  Vacation: 53,
   "Emergency Fund": 10,
 };
 
@@ -58,7 +64,7 @@ function getChartData() {
   };
 }
 
-export function SavingGoalsChart() {
+export function WunschlisteChart() {
   const data = getChartData();
 
   return <Bar options={options} data={data} />;

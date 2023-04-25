@@ -8,15 +8,15 @@ const CardFour = () => {
   }
 
   return (
-    <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
+    <div className=" h-full rounded-md border border-slate-200 bg-white shadow-lg">
       <div className="px-5 pt-3">
-        <h2 className="text-lg font-semibold text-slate-800 mb-2">Erspartes</h2>
-        <div className="text-xs font-semibold text-slate-400 uppercase mb-1">
+        <h2 className="mb-2 text-lg font-semibold text-slate-800">Erspartes</h2>
+        <div className="mb-1 text-xs font-semibold uppercase text-slate-400">
           April
         </div>
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-slate-800 m-2">{saved}</div>
-          <div className="text-sm font-semibold text-white px-1.5 bg-green-500 rounded-full">
+          <div className="m-2 text-3xl font-bold text-slate-800">{saved}</div>
+          <div className="rounded-full bg-green-500 px-1.5 text-sm font-semibold text-white">
             +2%
           </div>
         </div>
