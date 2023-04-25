@@ -164,25 +164,25 @@ const TransactionsTable = () => {
     return Object.entries(groupedTransactions).map(([date, transactions]) => (
       <React.Fragment key={date}>
         <tr>
-          <td colSpan={7} className="font-bold py-3 px-6 text-left">
+          <td colSpan={7} className="font-bold py-3 px-5 text-left">
             {date.slice(0, 10)}
           </td>
         </tr>
         {/* Display TableData */}
         {transactions.map((row, index) => (
           <tr key={row._id} className={index % 2 === 0 ? "bg-gray-100" : ""}>
-            <td className="py-3 px-6 text-left whitespace-nowrap">
+            <td className="py-3 px-5 text-left whitespace-nowrap">
               {row.accountIBAN}
             </td>
-            <td className="py-3 px-6 text-left whitespace-nowrap">
+            <td className="py-3 px-5 text-left whitespace-nowrap">
               {row.amount ? row.amount.toFixed(2) : ""} {row.currency}
             </td>
-            <td className="py-3 px-6 text-left whitespace-nowrap">
+            <td className="py-3 px-5 text-left whitespace-nowrap">
               {row.currency}
             </td>
-            <td className="py-3 px-6 text-left">{row.recipientName}</td>
-            <td className="py-3 px-6 text-left">{row.transactionText}</td>
-            <td className="py-3 px-6 text-left"> {row.date.slice(0, 10)}</td>
+            <td className="py-3 px-5 text-left">{row.recipientName}</td>
+            <td className="py-3 px-5 text-left">{row.transactionText}</td>
+            <td className="py-3 px-5 text-left"> {row.date.slice(0, 10)}</td>
             <td>
               <button
                 className="text-red-400"
@@ -208,7 +208,7 @@ const TransactionsTable = () => {
   return (
     <div className="overflow-x-auto">
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-5"
         onClick={() => {
           setIsAddingTransaction(true);
           setEditingRowIndex(0);
@@ -221,7 +221,7 @@ const TransactionsTable = () => {
         <thead>
           <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
             <th
-              className="py-3 px-6 text-left font-bold"
+              className="py-3 px-5 text-left font-bold"
               onClick={() => requestSort("accountIBAN")}
             >
               Konto{" "}
@@ -231,7 +231,7 @@ const TransactionsTable = () => {
                 sortConfig.direction === "descending" && <span>▼</span>}
             </th>
             <th
-              className="py-3 px-6 text-left font-bold"
+              className="py-3 px-5 text-left font-bold"
               onClick={() => requestSort("amount")}
             >
               Summe{" "}
@@ -241,7 +241,7 @@ const TransactionsTable = () => {
                 sortConfig.direction === "descending" && <span>▼</span>}
             </th>
             <th
-              className="py-3 px-6 text-left font-bold"
+              className="py-3 px-5 text-left font-bold"
               onClick={() => requestSort("currency")}
             >
               Währung{" "}
@@ -251,7 +251,7 @@ const TransactionsTable = () => {
                 sortConfig.direction === "descending" && <span>▼</span>}
             </th>
             <th
-              className="py-3 px-6 text-left font-bold"
+              className="py-3 px-5 text-left font-bold"
               onClick={() => requestSort("recipientName")}
             >
               Empfänger{" "}
@@ -261,7 +261,7 @@ const TransactionsTable = () => {
                 sortConfig.direction === "descending" && <span>▼</span>}
             </th>
             <th
-              className="py-3 px-6 text-left font-bold"
+              className="py-3 px-5 text-left font-bold"
               onClick={() => requestSort("transactionText")}
             >
               Verwendungszweck{" "}
@@ -271,7 +271,7 @@ const TransactionsTable = () => {
                 sortConfig.direction === "descending" && <span>▼</span>}
             </th>
             <th
-              className="py-3 px-6 text-left font-bold"
+              className="py-3 px-5 text-left font-bold"
               onClick={() => requestSort("date")}
             >
               Datum{" "}
@@ -280,7 +280,7 @@ const TransactionsTable = () => {
               {sortConfig.key === "date" &&
                 sortConfig.direction === "descending" && <span>▼</span>}
             </th>
-            <th className="py-3 px-6 text-left font-bold"></th>
+            <th className="py-3 px-5 text-left font-bold"></th>
           </tr>
         </thead>
         <tbody className="text-gray-600 text-sm font-light">

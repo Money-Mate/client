@@ -20,10 +20,10 @@ const CardTwo = () => {
         </div>
         <div className="flex items-start">
           <div className="m-2 text-3xl font-bold text-slate-800">
-            {balanceEndOfMonth}
+            {balanceEndOfMonth +`€`}
           </div>
           <div className="rounded-full bg-red-500 px-1.5 text-sm font-semibold text-white">
-            +3%
+            -3%
           </div>
         </div>
       </div>

@@ -20,7 +20,7 @@ const CardOne = () => {
         </div>
         <div className="flex items-start">
           <div className="m-2 text-3xl font-bold text-slate-800">
-            {bankBalance}
+            {bankBalance + `€`}
           </div>
           <div className="rounded-full bg-green-500 px-1.5 text-sm font-semibold text-white">
             +29%
