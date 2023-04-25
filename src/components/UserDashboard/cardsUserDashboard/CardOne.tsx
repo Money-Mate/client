@@ -5,7 +5,6 @@ const CardOne = () => {
   const bankBalance = useDashboardStore(
     (state) => state.dashboardData?.bankBalance
   );
-  console.log(bankBalance)
 
   if (bankBalance === undefined) {
     return <div>Loading...</div>;
