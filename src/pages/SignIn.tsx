@@ -15,8 +15,8 @@ interface FormErrors {
 }
 
 const signInSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(3, 'Password must be at least 3 characters'),
+  email: z.string().email( 'Bitte gib eine gültige Emailadrese an'),
+  password: z.string().min(3, 'Das Passwort muss mindestens 3 Zeichen haben'),
 });
 
 const SignIn = () => {
@@ -54,7 +54,7 @@ const SignIn = () => {
       <div
         className="w-1/2 bg-cover bg-center"
         style={{
-          backgroundImage: "url('https://picsum.photos/id/237/1000/1000')",
+          backgroundImage: "url('https://picsum.photos/id/239/1000/1000')",
         }}
       ></div>
 

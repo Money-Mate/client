@@ -1,6 +1,25 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import * as z from 'zod';
+
+interface UserRegister {
+  username: string,
+  email: string;
+  password: string;
+}
+
+interface FormErrors {
+  username?: string,
+  email?: string;
+  password?: string;
+}
+
+const signUpSchema = z.object({
+  username: z.string().min(3, 'Der Username muss mindestens 3 Zeichen haben'),
+  email: z.string().email('Bitte gibt eine gültige Emailadresse an'),
+  password: z.string().min(3, 'Das Passwort muss mindestens 3 Zeichen haben'),
+});
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +27,7 @@ const SignUp = () => {
     email: "",
     password: "",
   });
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
   const navigate= useNavigate();
 
   const handleChange = (e:any) => {
@@ -21,11 +41,14 @@ const SignUp = () => {
     e.preventDefault();
     const BE_URL = import.meta.env.VITE_BE_PORT;
     try {
-      const res = await axios.post(`${BE_URL}/user/register`, formData);
+      const validatedUserData = signUpSchema.parse(formData);
+      const res = await axios.post(`${BE_URL}/user/register`, validatedUserData);
       console.log(res);
-      // navigate("/login")
-    } catch (err:any) {
-      console.error(err.response.data);
+      navigate("/login")
+    } catch (error:any) {
+      if (error instanceof z.ZodError) {
+        setFormErrors(error.flatten().fieldErrors);
+      }
     }
   };
 
@@ -46,6 +69,11 @@ const SignUp = () => {
             onChange={handleChange}
             required
           />
+           {formErrors.username && (
+                  <span className="text-sm text-red-500">
+                    {formErrors.username}
+                  </span>
+                )}
         </div>
 
         <div className="mb-4">
@@ -55,12 +83,17 @@ const SignUp = () => {
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="email"
-            type="email"
+            type="text"
             name="email"
             value={formData.email}
             onChange={handleChange}
             required
           />
+           {formErrors.email && (
+                  <span className="text-sm text-red-500">
+                    {formErrors.email}
+                  </span>
+                )}
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="password">
@@ -75,6 +108,11 @@ const SignUp = () => {
             onChange={handleChange}
             required
           />
+           {formErrors.password&& (
+                  <span className="text-sm text-red-500">
+                    {formErrors.password}
+                  </span>
+                )}
         </div>
         <div className="flex items-center justify-between">
           <button
