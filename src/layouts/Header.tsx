@@ -9,9 +9,8 @@ function Header() {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get(`${BE_URL}/user/one/:id`, {withCredentials: true});
-        console.log(res.data)
-        setUsername(res.data);
+        const res = await axios.get(`${BE_URL}/user/getUserData`, {withCredentials: true});
+        setUsername(res.data.username);
       } catch (error) {
         console.log(error);
       }
