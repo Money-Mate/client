@@ -75,7 +75,7 @@ const SignIn = () => {
               <input
                 className="border rounded-md py-2 px-3 text-gray-700 w-full"
                 id="email"
-                type="email"
+                type="text"
                 placeholder="Enter your email"
                 value={userLogin.email}
                 onChange={(e) =>
