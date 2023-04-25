@@ -29,7 +29,7 @@ const Saldo = () => {
     indexAxis: "x",
     elements: {
       bar: {
-        borderWidth: 2,
+        borderWidth: 1,
       },
     },
     responsive: true,
@@ -37,10 +37,6 @@ const Saldo = () => {
       legend: {
         position: "top",
         display: false,
-      },
-      title: {
-        display: false,
-        text: "Saldo Chart",
       },
     },
     scales: {
@@ -54,7 +50,7 @@ const Saldo = () => {
     },
   };
 
-  return <Bar data={data} options={options} />;
+  return <Bar data={data} options={options} updateMode="resize"  />;
 };
 
 export default Saldo;

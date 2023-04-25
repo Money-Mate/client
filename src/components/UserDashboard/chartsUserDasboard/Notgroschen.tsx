@@ -17,7 +17,7 @@ const data = {
 };
 
 function Notgroschen() {
-  return <Pie data={data} />;
+  return <Pie data={data} options={{ maintainAspectRatio: false }} />;
 }
 
 export default Notgroschen;
