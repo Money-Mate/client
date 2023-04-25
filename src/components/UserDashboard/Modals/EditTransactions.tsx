@@ -23,18 +23,27 @@ interface SubCategory {
 //add vs save object
 //Validation Schmea for Zod
 export const formDataSchema = z.object({
-  accountIBAN: z.string().min(3, "Die IBAN muss mindestens 3 Zeichen lang sein!").nonempty("Bitte eine IBAN eingeben!"),
+  accountIBAN: z
+    .string(
+      {
+        required_error: "Bitte eine IBAN eingeben!",
+      }
+    )
+    .min(3, "Die IBAN muss mindestens 3 Zeichen lang sein!"),
   date: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, {
+    .string({
+      required_error: "Bitte ein Datum eingeben!",
+    }).regex(/^\d{4}-\d{2}-\d{2}$/, {
       message: "Das Datum muss im Format yyyy-MM-dd sein!",
-    })
-    .nonempty({ message: "Bitte ein Datum angeben"}),
-    amount: z.number({
-      required_error: "Bitte einen Wert eingeben",
-      invalid_type_error: "Der Wert muss eine Zahl sein",
     }),
-  currency: z.string().nonempty("Bitte eine Währung angeben"),
+
+  amount: z.number({
+    required_error: "Bitte eine Summe eingeben",
+    invalid_type_error: "Der Wert muss eine Zahl sein",
+  }),
+  currency: z.string({
+    required_error: "Bitte eine Währung eingeben!",
+  }),
   recipientName: z.string().optional(),
   transactionText: z.string().optional(),
   category: z.string().optional(),
@@ -49,7 +58,7 @@ export const formDataSchemaEditing = z.object({
   date: z.string().optional(),
   amount: z
     .number()
-    .refine(value => !isNaN(value), {
+    .refine((value) => !isNaN(value), {
       message: "Der Wert muss eine Zahl sein",
     })
     .optional(),
@@ -69,27 +78,25 @@ const TransactionModal: React.FC<ModalProps> = ({
   isAddingTransaction,
 }) => {
   const [formData, setFormData] = useState<any>({});
-  // const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
-  // const [transformedSubCategories, setTransformedSubCategories] = useState([]);
   const [formErrors, setFormErrors] = useState<any>({});
-
 
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(isAddingTransaction)
+    console.log(isAddingTransaction);
     try {
       const validatedData = isAddingTransaction
         ? formDataSchema.parse(formData)
         : formDataSchemaEditing.parse(formData);
-      console.log(validatedData)
+      console.log(validatedData);
       setFormErrors({});
       onSave(validatedData);
     } catch (error: any) {
-      console.log(error.formErrors)
+      console.log(error.formErrors);
       setFormErrors(error.formErrors?.fieldErrors);
     }
   };
+
   const handleCancel = () => {
     onCancel();
   };

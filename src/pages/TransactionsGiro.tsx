@@ -168,7 +168,7 @@ const TransactionsTable = () => {
   return (
     <div className="overflow-x-auto">
       <button
-        className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+        className="rounded bg-blue-500 px-4 py-2 mx-2 font-bold text-white hover:bg-blue-700"
         onClick={() => {
           setIsAddingTransaction(true);
           setEditingRowIndex(0);
