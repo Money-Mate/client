@@ -14,7 +14,7 @@ function App() {
   const navigate = useNavigate();
 
   return (
-    <div className="App w-screen">
+    <div className="App w-screen h-screen">
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/signin" element={<SignIn />} />

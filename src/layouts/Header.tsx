@@ -3,10 +3,10 @@ import React from "react";
 function Header() {
   return (
     <>
-      <header className="col-span-12 h-30 bg-indigo-200 m-5 rounded-lg">
+      <header className="pt-5">
         {" "}
-        <div className="m-5 relative">
-          <h1 className="text-2xl md:text-3xl text-slate-800 font-bold mb-1">
+        <div className="p-5 h-30 col-span-12 rounded-lg bg-indigo-200 mx-5">
+          <h1 className="mb-1 text-2xl font-bold text-slate-800 md:text-3xl">
             Willkommen zurück Quan-Florian-Leonie-Sebastian Mate. 👋
           </h1>
           <p>Willkommen auf deinem Dashboard, Money Mate!</p>

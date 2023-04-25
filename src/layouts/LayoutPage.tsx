@@ -3,12 +3,12 @@ import Nav from "./Nav";
 
 function LayoutPage() {
   return (
-    <div className="grid grid-cols-12 h-full">
-      <div className="col-span-2 bg-indigo-800 h-full">
+    <div className="grid grid-cols-12 h-screen m-0 p-0">
+      <div className="col-span-2">
         <Nav />
       </div>
-      <div className="col-span-10 h-full">
-        <LayoutContent/>
+      <div className="col-span-10">
+        <LayoutContent />
       </div>
     </div>
   );

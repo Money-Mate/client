@@ -26,86 +26,89 @@ function Nav() {
       to: "/signup",
       id: 2,
       isProtected: isLoggedIn,
-    },{
+    },
+    {
       name: "UserDashboard",
       to: "/app/userdashboard",
       id: 3,
       isProtected: isLoggedIn,
-    },{
+    },
+    {
       name: "BankAccounts",
       to: "/app/bankaccounts",
       id: 4,
       isProtected: isLoggedIn,
-    },{
+    },
+    {
       name: "TransactionsGiro",
       to: "/app/transactionsgiro",
       id: 5,
       isProtected: isLoggedIn,
-    }
+    },
   ];
 
   const filteredItems = items.filter((item) => item.isProtected === isLoggedIn);
 
   return (
-    <div className="bg-blue-600 w-full h-full">
-      <span className="absolute text-white text-4xl top-5 left-4 cursor-pointer"></span>
-      <div className="sidebar h-full top-0 bottom-0  text-center bg-gray-900">
-        <div className="text-gray-100 text-xl">
-          <div className="p-2.5 flex items-center">
-            <h1 className="font-bold text-gray-200 text-[15px] ml-3">
+    <div className="h-full w-full">
+      <span className=" left-4 top-5 cursor-pointer text-4xl text-white"></span>
+      <div className="sidebar bottom-0 top-0 h-full bg-gray-900 text-center">
+        <div className="text-xl text-gray-100">
+          <div className="flex items-center p-2.5">
+            <h1 className="ml-3 text-[15px] font-bold text-gray-200">
               MoneyMate
             </h1>
           </div>
-          <div className="my-2 bg-gray-600 h-[1px]"></div>
+          <div className="my-2 h-[1px] bg-gray-600"></div>
         </div>
-        <div className="p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-700 text-white">
+        <div className="flex cursor-pointer items-center rounded-md bg-gray-700 p-2.5 px-4 text-white duration-300">
           <input
             type="text"
             placeholder="Search"
-            className="text-[15px] ml-4 w-full bg-transparent focus:outline-none"
+            className="ml-4 w-full bg-transparent text-[15px] focus:outline-none"
           />
         </div>
 
-        <div className="my-4 bg-gray-600 h-[1px]"></div>
-        <div className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
-          <div className="flex justify-between w-full items-center">
-            <span className="text-[15px] ml-4 text-gray-200 font-bold">
+        <div className="my-4 h-[1px] bg-gray-600"></div>
+        <div className="mt-3 flex cursor-pointer items-center rounded-md p-2.5 px-4 text-white duration-300 hover:bg-blue-600">
+          <div className="flex w-full items-center justify-between">
+            <span className="ml-4 text-[15px] font-bold text-gray-200">
               Konten
             </span>
-            <span className="text-sm rotate-180" id="arrow">
+            <span className="rotate-180 text-sm" id="arrow">
               <i className="bi bi-chevron-down"></i>
             </span>
           </div>
         </div>
         <div
-          className="text-left text-sm mt-2 w-4/5 mx-auto text-gray-200 font-bold"
+          className="mx-auto mt-2 w-4/5 text-left text-sm font-bold text-gray-200"
           id="submenu"
         >
-          <h1 className="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
+          <h1 className="mt-1 cursor-pointer rounded-md p-2 hover:bg-blue-600">
             commerzbank
           </h1>
-          <h1 className="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
+          <h1 className="mt-1 cursor-pointer rounded-md p-2 hover:bg-blue-600">
             Sparkasse
           </h1>
-          <h1 className="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
+          <h1 className="mt-1 cursor-pointer rounded-md p-2 hover:bg-blue-600">
             DKB
           </h1>
         </div>
         {items.map((item) => {
-                  if (item.isProtected === false) {
-                    return (
-                      <li key={item.id}>
-                        {" "}
-                        <NavLink
-                          to={item.to}
-                          className="block py-2 pl-3 pr-4 text-green-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                        >
-                          {item.name}
-                        </NavLink>
-                      </li>
-                    );
-                  }
-                })}
+          if (item.isProtected === false) {
+            return (
+              <li key={item.id}>
+                {" "}
+                <NavLink
+                  to={item.to}
+                  className="block list-none rounded py-2 pl-3 pr-4 text-green-500 hover:bg-gray-100 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent  md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+                >
+                  {item.name}
+                </NavLink>
+              </li>
+            );
+          }
+        })}
       </div>
     </div>
   );
