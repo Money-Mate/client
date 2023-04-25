@@ -1,6 +1,7 @@
 import React from "react";
 import { useUserStore } from "../context/userContext";
 import { NavLink } from "react-router-dom";
+import LogoutButton from "../components/LogoutButton";
 
 function Nav() {
   // const isLoggedIn = useUserStore(
@@ -101,7 +102,8 @@ function Nav() {
                 {" "}
                 <NavLink
                   to={item.to}
-                  className="block list-none rounded py-2 pl-3 pr-4 text-green-500 hover:bg-gray-100 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent  md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+
+                  className="block py-2 pl-3 pr-4 text-green-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   {item.name}
                 </NavLink>
@@ -109,6 +111,11 @@ function Nav() {
             );
           }
         })}
+
+        <div className="p-10">
+          <LogoutButton />
+        </div>
+
       </div>
     </div>
   );

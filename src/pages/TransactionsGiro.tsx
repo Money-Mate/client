@@ -186,9 +186,12 @@ const TransactionsTable = () => {
             <td>
               <button
                 className="text-red-400"
-                onClick={() => {
+                onClick={(e) => {
                   setEditingTransactionId(row._id);
-                  setEditingRowIndex(index);
+                  const parentElement = e.currentTarget.parentElement;
+                  if (parentElement && parentElement.parentElement instanceof HTMLTableRowElement) {
+                    setEditingRowIndex(parentElement.parentElement.rowIndex - 2);
+                  }
                   setIsAddingTransaction(false);
                   setIsModalOpen(true);
                 }}
