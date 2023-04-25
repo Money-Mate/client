@@ -28,10 +28,6 @@ const TransactionsTable = () => {
   const [tableDataState, setTableDataState] = useState<TransactionData[]>([]);
   const [editingTransactionId, setEditingTransactionId] = useState<String>("");
   const [transformedCategories, setTransformedCategories] = useState<any[]>([]);
-  const [sortConfig, setSortConfig] = useState<{
-    key: string;
-    direction: string;
-  }>({ key: "", direction: "" });
   const [isAddingTransaction, setIsAddingTransaction] = useState(false);
 
   // fetch data from backend
