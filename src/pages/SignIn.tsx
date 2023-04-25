@@ -2,28 +2,49 @@ import React, { useState, FormEvent } from "react";
 import "../index.css"; // import the Tailwind CSS file
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import * as z from 'zod';
+
+interface UserLogin {
+  email: string;
+  password: string;
+}
+
+interface FormErrors {
+  email?: string;
+  password?: string;
+}
+
+const signInSchema = z.object({
+  email: z.string().email( 'Bitte gib eine gültige Emailadrese an'),
+  password: z.string().min(3, 'Das Passwort muss mindestens 3 Zeichen haben'),
+});
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const [userLogin, setUserLogin] = useState({
+  const [userLogin, setUserLogin] = useState<UserLogin>({
     email: "",
     password: "",
   });
+
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     const BE_URL = import.meta.env.VITE_BE_PORT;
     e.preventDefault();
     try {
+      const validatedUserData = signInSchema.parse(userLogin);
       const res = await axios.post(
         `${BE_URL}/user/login`,
-        userLogin,
+        validatedUserData,
         {
           withCredentials: true,
         }
       );
       navigate("/app/userdashboard");
     } catch (error) {
-      console.log(error);
+      if (error instanceof z.ZodError) {
+        setFormErrors(error.flatten().fieldErrors);
+      }
     }
   };
   
@@ -33,7 +54,7 @@ const SignIn = () => {
       <div
         className="w-1/2 bg-cover bg-center"
         style={{
-          backgroundImage: "url('https://picsum.photos/id/237/1000/1000')",
+          backgroundImage: "url('https://picsum.photos/id/239/1000/1000')",
         }}
       ></div>
 
@@ -61,6 +82,11 @@ const SignIn = () => {
                   setUserLogin({ ...userLogin, email: e.target.value })
                 }
               />
+              {formErrors.email && (
+                  <span className="text-sm text-red-500">
+                    {formErrors.email}
+                  </span>
+                )}
             </div>
 
             {/* Password Input */}
@@ -81,6 +107,11 @@ const SignIn = () => {
                   setUserLogin({ ...userLogin, password: e.target.value })
                 }
               />
+              {formErrors.password && (
+                  <span className="text-sm text-red-500">
+                    {formErrors.password}
+                  </span>
+                )}
             </div>
 
             {/* Login Button */}
