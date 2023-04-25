@@ -1,10 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../components/UserDashboard/Modals/EditTransactions";
 
 // TODO:
 // TAGS -Modal
-// DYNAMIC SUBCATEGORIES  - Modal
+// DYNAMIC SUBCATEGORIES - Modal
 // sort by default? - Table
 interface TransactionData {
   _id: string;
@@ -26,8 +26,12 @@ const TransactionsTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingRowIndex, setEditingRowIndex] = useState(-1);
   const [tableDataState, setTableDataState] = useState<TransactionData[]>([]);
-  const [editingTransactionId, setEditingTransactionId] = useState("");
+  const [editingTransactionId, setEditingTransactionId] = useState<String>("");
   const [transformedCategories, setTransformedCategories] = useState<any[]>([]);
+  const [sortConfig, setSortConfig] = useState<{
+    key: string;
+    direction: string;
+  }>({ key: "", direction: "" });
   const [isAddingTransaction, setIsAddingTransaction] = useState(false);
 
   // fetch data from backend
@@ -94,6 +98,7 @@ const TransactionsTable = () => {
         if (response.status === 200) {
           await fetchTransactions();
           setIsModalOpen(false);
+          // Don't set editingRowIndex to -1 here
         } else {
           console.log(`Server returned status code ${response.status}`);
         }
@@ -102,7 +107,7 @@ const TransactionsTable = () => {
       }
     } else {
       setIsModalOpen(false);
-      setEditingRowIndex(-1);
+      setEditingRowIndex(-1); // Set editingRowIndex to -1 only when the user cancels
     }
   };
 
@@ -122,71 +127,48 @@ const TransactionsTable = () => {
     }
   };
 
-  // Group transactions by date (overall setting)
-  const groupedTransactions = tableDataState.reduce(
-    (result: { [date: string]: TransactionData[] }, transaction) => {
-      if (result[transaction.date]) {
-        result[transaction.date].push(transaction);
-      } else {
-        result[transaction.date] = [transaction];
-      }
-      return result;
-    },
-    {}
-  );
-
   // render table Data
   const renderTableData = () => {
-    // group by date
-    return Object.entries(groupedTransactions).map(([date, transactions]) => (
-      <React.Fragment key={date}>
-        <tr>
-          <td colSpan={7} className="font-bold py-3 px-6 text-left">
-            {date.slice(0, 10)}
+    // Display TableData
+    let visibleRowIndex = 0;
+    return tableDataState.map((row, index) => {
+      const rowIndex = visibleRowIndex++;
+      return (
+        <tr key={row._id} className={rowIndex % 2 === 0 ? "bg-gray-100" : ""}>
+          <td className="whitespace-nowrap px-6 py-3 text-left">
+            {row.accountIBAN}
+          </td>
+          <td className="whitespace-nowrap px-6 py-3 text-left">
+            {row.amount ? row.amount.toFixed(2) : ""} {row.currency}
+          </td>
+          <td className="whitespace-nowrap px-6 py-3 text-left">
+            {row.currency}
+          </td>
+          <td className="px-6 py-3 text-left">{row.recipientName}</td>
+          <td className="px-6 py-3 text-left">{row.transactionText}</td>
+          <td className="px-6 py-3 text-left"> {row.date.slice(0, 10)}</td>
+          <td>
+            <button
+              className="text-red-400"
+              onClick={(e) => {
+                setEditingTransactionId(row._id);
+                setEditingRowIndex(rowIndex);
+                setIsAddingTransaction(false);
+                setIsModalOpen(true);
+              }}
+            >
+              Bearbeiten
+            </button>
           </td>
         </tr>
-        {/* Display TableData */}
-        {transactions.map((row, index) => (
-          
-          <tr key={row._id} className={index % 2 === 0 ? "bg-gray-100" : ""}>
-            <td className="py-3 px-6 text-left whitespace-nowrap">
-              {row.accountIBAN}
-            </td>
-            <td className="py-3 px-6 text-left whitespace-nowrap">
-              {row.amount ? row.amount.toFixed(2) : ""} {row.currency}
-            </td>
-            <td className="py-3 px-6 text-left whitespace-nowrap">
-              {row.currency}
-            </td>
-            <td className="py-3 px-6 text-left">{row.recipientName}</td>
-            <td className="py-3 px-6 text-left">{row.transactionText}</td>
-            <td className="py-3 px-6 text-left"> {row.date.slice(0, 10)}</td>
-            <td>
-            <button
-                className="text-red-400"
-                onClick={(e) => {
-                  setEditingTransactionId(row._id);
-                  const parentElement = e.currentTarget.parentElement;
-                  if (parentElement && parentElement.parentElement instanceof HTMLTableRowElement) {
-                    setEditingRowIndex(parentElement.parentElement.rowIndex - 2);
-                  }
-                  setIsAddingTransaction(false);
-                  setIsModalOpen(true);
-                }}
-              >
-                Bearbeiten
-              </button>
-            </td>
-          </tr>
-        ))}
-      </React.Fragment>
-    ));
+      );
+    });
   };
 
   return (
     <div className="overflow-x-auto">
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
         onClick={() => {
           setIsAddingTransaction(true);
           setEditingRowIndex(0);
@@ -195,43 +177,19 @@ const TransactionsTable = () => {
       >
         Add Transaction
       </button>
-      <table className="table-auto w-full">
+      <table className="w-full table-auto">
         <thead>
-          <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-            <th
-              className="py-3 px-6 text-left font-bold"
-            >
-              Konto{" "}
-            </th>
-            <th
-              className="py-3 px-6 text-left font-bold"
-            >
-              Summe{" "}
-            </th>
-            <th
-              className="py-3 px-6 text-left font-bold"
-            >
-              Währung{" "}
-            </th>
-            <th
-              className="py-3 px-6 text-left font-bold"
-            >
-              Empfänger{" "}
-            </th>
-            <th
-              className="py-3 px-6 text-left font-bold"
-            >
-              Verwendungszweck{" "}
-            </th>
-            <th
-              className="py-3 px-6 text-left font-bold"
-            >
-              Datum{" "}
-            </th>
-            <th className="py-3 px-6 text-left font-bold"></th>
+          <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600">
+            <th className="px-6 py-3 text-left font-bold">Konto </th>
+            <th className="px-6 py-3 text-left font-bold">Summe </th>
+            <th className="px-6 py-3 text-left font-bold">Währung </th>
+            <th className="px-6 py-3 text-left font-bold">Empfänger </th>
+            <th className="px-6 py-3 text-left font-bold">Verwendungszweck </th>
+            <th className="px-6 py-3 text-left font-bold">Datum </th>
+            <th className="px-6 py-3 text-left font-bold"></th>
           </tr>
         </thead>
-        <tbody className="text-gray-600 text-sm font-light">
+        <tbody className="text-sm font-light text-gray-600">
           {renderTableData()}
         </tbody>
       </table>
@@ -245,15 +203,11 @@ const TransactionsTable = () => {
               : handleRowAction(editingRowIndex, rowData)
           }
           onCancel={() => setIsModalOpen(false)}
-          data={
-            isAddingTransaction
-              ? tableDataState[editingRowIndex]
-              : tableDataState[editingRowIndex]
-          }
+          data={isAddingTransaction ? {} : tableDataState[editingRowIndex]}
           fetchTransactions={fetchTransactions}
           onDelete={onDelete}
           transformedCategories={transformedCategories}
-          isAddingTransaction={isAddingTransaction} 
+          isAddingTransaction={isAddingTransaction}
         />
       )}
     </div>
