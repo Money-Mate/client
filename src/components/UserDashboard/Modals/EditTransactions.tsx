@@ -23,48 +23,42 @@ interface SubCategory {
 //add vs save object
 //Validation Schmea for Zod
 export const formDataSchema = z.object({
-  accountIBAN: z.string({
-    required_error: "Bitte eine IBAN eingeben!",
-    invalid_type_error: "Die IBAN muss mindestens 3 Zeichen lang sein!"
-}),
+  accountIBAN: z.string().min(3, "Die IBAN muss mindestens 3 Zeichen lang sein!").nonempty("Bitte eine IBAN eingeben!"),
   date: z
-    .string({
-      required_error: "Bitte ein Datum angeben",
-    })
+    .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, {
       message: "Das Datum muss im Format yyyy-MM-dd sein!",
+    })
+    .nonempty({ message: "Bitte ein Datum angeben"}),
+    amount: z.number({
+      required_error: "Bitte einen Wert eingeben",
+      invalid_type_error: "Der Wert muss eine Zahl sein",
     }),
-  amount: z.number({
-    required_error: "Bitte einen Wert eingeben",
-    invalid_type_error: "Der Wert muss eine Zahl sein",
-  }),
-  currency: z.string(
-    {
-      required_error: "Bitte eine Währung angeben", 
-    }),
+  currency: z.string().nonempty("Bitte eine Währung angeben"),
   recipientName: z.string().optional(),
   transactionText: z.string().optional(),
   category: z.string().optional(),
   subCategory: z.string().optional(),
 });
 
-// validation for editing
 export const formDataSchemaEditing = z.object({
   accountIBAN: z
-    .string({
-      invalid_type_error: "Die IBAN muss mindestens 3 Zeichen lang sein!"
-    }).optional(),
-  date: z
     .string()
+    .min(3, "Die IBAN muss mindestens 3 Zeichen lang sein!")
     .optional(),
-    amount: z.number({invalid_type_error: "Der Wert muss eine Zahl sein",}).optional(),
+  date: z.string().optional(),
+  amount: z
+    .number()
+    .refine(value => !isNaN(value), {
+      message: "Der Wert muss eine Zahl sein",
+    })
+    .optional(),
   currency: z.string().optional(),
   recipientName: z.string().optional(),
   transactionText: z.string().optional(),
   category: z.string().optional(),
   subCategory: z.string().optional(),
 });
-
 const TransactionModal: React.FC<ModalProps> = ({
   title,
   onSave,
@@ -83,18 +77,19 @@ const TransactionModal: React.FC<ModalProps> = ({
 
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log(isAddingTransaction)
     try {
       const validatedData = isAddingTransaction
         ? formDataSchema.parse(formData)
         : formDataSchemaEditing.parse(formData);
+      console.log(validatedData)
       setFormErrors({});
       onSave(validatedData);
     } catch (error: any) {
-      setFormErrors(error.formErrors.fieldErrors);
       console.log(error.formErrors)
+      setFormErrors(error.formErrors?.fieldErrors);
     }
   };
-
   const handleCancel = () => {
     onCancel();
   };
