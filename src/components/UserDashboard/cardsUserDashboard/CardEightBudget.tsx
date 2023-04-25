@@ -8,7 +8,9 @@ function CardEightBudget() {
       <h2 className="m-2 text-center text-lg font-semibold text-slate-800">
         Budget
       </h2>
+      <div className="p-1 h-48 w-full flex justify-center items-center">
       <BudgetChart />
+      </div>
     </div>
   );
 }
