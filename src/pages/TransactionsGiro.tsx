@@ -162,7 +162,7 @@ const TransactionsTable = () => {
   };
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto h-screen">
       <button
         className="rounded bg-blue-500 px-4 py-2 mx-2 font-bold text-white hover:bg-blue-700"
         onClick={() => {
