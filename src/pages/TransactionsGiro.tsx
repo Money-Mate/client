@@ -39,7 +39,7 @@ const TransactionsTable = () => {
       const response = await axios.get(`${BE_URL}/transaction/getMy`, {
         withCredentials: true,
       });
-      setTableDataState(response.data);
+      setTableDataState(response.data.data);
     } catch (error) {
       console.log(error);
     }
