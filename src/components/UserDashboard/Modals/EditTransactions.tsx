@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as z from "zod";
 import axios from "axios";
 
@@ -23,21 +23,25 @@ interface SubCategory {
 //add vs save object
 //Validation Schmea for Zod
 export const formDataSchema = z.object({
-  accountIBAN: z
-    .string()
-    .min(3, { message: "Die IBAN muss mindestens 3 Zeichen lang sein!" })
-    .nonempty(" IBAN ist erforderlich!"),
+  accountIBAN: z.string({
+    required_error: "Bitte eine IBAN eingeben!",
+    invalid_type_error: "Die IBAN muss mindestens 3 Zeichen lang sein!"
+}),
   date: z
-    .string()
+    .string({
+      required_error: "Bitte ein Datum angeben",
+    })
     .regex(/^\d{4}-\d{2}-\d{2}$/, {
       message: "Das Datum muss im Format yyyy-MM-dd sein!",
-    })
-    .nonempty(" Datum ist erforderlich!"),
+    }),
   amount: z.number({
-    required_error: "Der Wert ist erforderlich",
+    required_error: "Bitte einen Wert eingeben",
     invalid_type_error: "Der Wert muss eine Zahl sein",
   }),
-  currency: z.string().nonempty("Währung ist erforderlich!"),
+  currency: z.string(
+    {
+      required_error: "Bitte eine Währung angeben", 
+    }),
   recipientName: z.string().optional(),
   transactionText: z.string().optional(),
   category: z.string().optional(),
@@ -47,16 +51,13 @@ export const formDataSchema = z.object({
 // validation for editing
 export const formDataSchemaEditing = z.object({
   accountIBAN: z
-    .string()
-    .min(3, { message: "Die IBAN muss mindestens 3 Zeichen lang sein!" })
-    .optional(),
+    .string({
+      invalid_type_error: "Die IBAN muss mindestens 3 Zeichen lang sein!"
+    }).optional(),
   date: z
     .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, {
-      message: "Das Datum muss im Format yyyy-MM-dd sein!",
-    })
     .optional(),
-  amount: z.number().optional(),
+    amount: z.number({invalid_type_error: "Der Wert muss eine Zahl sein",}).optional(),
   currency: z.string().optional(),
   recipientName: z.string().optional(),
   transactionText: z.string().optional(),
@@ -79,6 +80,7 @@ const TransactionModal: React.FC<ModalProps> = ({
   // const [transformedSubCategories, setTransformedSubCategories] = useState([]);
   const [formErrors, setFormErrors] = useState<any>({});
 
+
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -89,6 +91,7 @@ const TransactionModal: React.FC<ModalProps> = ({
       onSave(validatedData);
     } catch (error: any) {
       setFormErrors(error.formErrors.fieldErrors);
+      console.log(error.formErrors)
     }
   };
 
