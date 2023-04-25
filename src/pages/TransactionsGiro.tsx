@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Modal from "../components/UserDashboard/Modals/EditTransactions";
+import EditTransactionModal from "../components/UserDashboard/Modals/EditTransactions";
+import FilterTransactionsModal from "../components/UserDashboard/Modals/FilterTransactionsModal";
 
 // TODO:
-// TAGS -Modal
-// DYNAMIC SUBCATEGORIES - Modal
-// sort by default? - Table
+// Modal für filteroptionen
+// fetch nach query filteroptions
+// pagination
 interface TransactionData {
   _id: string;
   accountIBAN: string;
@@ -29,6 +30,8 @@ const TransactionsTable = () => {
   const [editingTransactionId, setEditingTransactionId] = useState<String>("");
   const [transformedCategories, setTransformedCategories] = useState<any[]>([]);
   const [isAddingTransaction, setIsAddingTransaction] = useState(false);
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [subCategories, setSubCategories] = useState<any[]>([]);
 
   // fetch data from backend
   const fetchTransactions = async () => {
@@ -41,11 +44,49 @@ const TransactionsTable = () => {
       console.log(error);
     }
   };
+  const fetchSubCategories = async (categoryId: string) => {
+    const BE_URL = import.meta.env.VITE_BE_PORT;
+    try {
+      const response = await axios.get(
+        `${BE_URL}/subcategory/getSubByCategory/${categoryId}`,
+        { withCredentials: true }
+      );
+      const transformedSubCategories = response.data.map(
+        (subCategory: any) => ({
+          id: subCategory._id,
+          name: subCategory.name,
+        })
+      );
+      setSubCategories(transformedSubCategories);
+      console.log(subCategories);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // const onSubmitFilterOptions = async (options: any) => {
+  //   try {
+  //     const response = await axios.post(
+  //       `${BE_URL}/transaction/getMy`,
+  //       options,
+  //       { withCredentials: true }
+  //     );
+  //     setTableDataState(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  const onCloseFilterModal = () => {
+    setIsFilterModalOpen(false);
+  };
+
 
   useEffect(() => {
     fetchCategories();
     fetchTransactions();
   }, []);
+
 
   // make an array of categories for the dropdown (in modal)
   const fetchCategories = async () => {
@@ -173,6 +214,10 @@ const TransactionsTable = () => {
       >
         Add Transaction
       </button>
+      <button className="rounded bg-blue-500 px-4 py-2 mx-2 font-bold text-white hover:bg-blue-700"
+      onClick={()=>{
+        setIsFilterModalOpen(true)
+      }}>Filter</button>
       <table className="w-full table-auto">
         <thead>
           <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600">
@@ -189,8 +234,12 @@ const TransactionsTable = () => {
           {renderTableData()}
         </tbody>
       </table>
+      {isFilterModalOpen && (
+
+          <FilterTransactionsModal  onClose={onCloseFilterModal} fetchSubCategories={fetchSubCategories}/>
+      )}
       {isModalOpen && editingRowIndex >= 0 && (
-        <Modal
+        <EditTransactionModal
           key={editingRowIndex}
           title={isAddingTransaction ? "Hinzufügen" : "Bearbeiten"}
           onSave={(rowData) =>
@@ -204,6 +253,8 @@ const TransactionsTable = () => {
           onDelete={onDelete}
           transformedCategories={transformedCategories}
           isAddingTransaction={isAddingTransaction}
+          fetchSubCategories={fetchSubCategories}
+
         />
       )}
     </div>
