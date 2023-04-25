@@ -53,7 +53,7 @@ function Nav() {
   return (
     <div className="h-full w-full">
       <span className=" left-4 top-5 cursor-pointer text-4xl text-white"></span>
-      <div className="sidebar bottom-0 top-0 h-full bg-gray-900 text-center">
+      <nav className="sidebar bottom-0 top-0 h-screen sticky bg-gray-900 text-center">
         <div className="text-xl text-gray-100">
           <div className="flex items-center p-2.5">
             <h1 className="ml-3 text-[15px] font-bold text-gray-200">
@@ -116,7 +116,7 @@ function Nav() {
           <LogoutButton />
         </div>
 
-      </div>
+      </nav>
     </div>
   );
 }

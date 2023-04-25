@@ -1,4 +1,5 @@
 import useDashboardStore from "../../../context/DashbordStore";
+import { formatNumber } from "../../../utils/IntlAPI";
 
 const CardFour = () => {
   const saved = useDashboardStore((state) => state.dashboardData?.saved);
@@ -15,7 +16,8 @@ const CardFour = () => {
           April
         </div>
         <div className="flex items-start">
-          <div className="m-2 text-3xl font-bold text-slate-800">{saved +`€`}</div>
+
+          <div className="m-2 text-3xl font-bold text-slate-800">{formatNumber(saved)}</div>
           <div className="rounded-full bg-green-500 px-1.5 text-sm font-semibold text-white">
             +2%
           </div>

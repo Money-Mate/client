@@ -1,4 +1,5 @@
 import useDashboardStore from "../../../context/DashbordStore";
+import { formatNumber } from "../../../utils/IntlAPI";
 
 const CardTwo = () => {
   const balanceEndOfMonth = useDashboardStore(
@@ -20,7 +21,7 @@ const CardTwo = () => {
         </div>
         <div className="flex items-start">
           <div className="m-2 text-3xl font-bold text-slate-800">
-            {balanceEndOfMonth +`€`}
+            {formatNumber(balanceEndOfMonth)}
           </div>
           <div className="rounded-full bg-red-500 px-1.5 text-sm font-semibold text-white">
             -3%
