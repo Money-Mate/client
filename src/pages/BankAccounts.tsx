@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import useAccountStore, { IBankAccountData } from "../context/Accountstore";
 import HandleExistingBankAccounts from "../components/Modals/HandleExistingBankAccounts";
-import LogoutButton from "../components/LogoutButton";
 
 
 const BankAccounts = () => {
@@ -37,7 +36,6 @@ const BankAccounts = () => {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">My Bank Accounts</h1>
-      <LogoutButton />
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
         onClick={handleAddClick}

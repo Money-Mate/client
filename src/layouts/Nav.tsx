@@ -1,6 +1,7 @@
 import React from "react";
 import { useUserStore } from "../context/userContext";
 import { NavLink } from "react-router-dom";
+import LogoutButton from "../components/LogoutButton";
 
 function Nav() {
   // const isLoggedIn = useUserStore(
@@ -26,22 +27,25 @@ function Nav() {
       to: "/signup",
       id: 2,
       isProtected: isLoggedIn,
-    },{
+    },
+    {
       name: "UserDashboard",
       to: "/app/userdashboard",
       id: 3,
       isProtected: isLoggedIn,
-    },{
+    },
+    {
       name: "BankAccounts",
       to: "/app/bankaccounts",
       id: 4,
       isProtected: isLoggedIn,
-    },{
+    },
+    {
       name: "TransactionsGiro",
       to: "/app/transactionsgiro",
       id: 5,
       isProtected: isLoggedIn,
-    }
+    },
   ];
 
   const filteredItems = items.filter((item) => item.isProtected === isLoggedIn);
@@ -92,20 +96,23 @@ function Nav() {
           </h1>
         </div>
         {items.map((item) => {
-                  if (item.isProtected === false) {
-                    return (
-                      <li key={item.id}>
-                        {" "}
-                        <NavLink
-                          to={item.to}
-                          className="block py-2 pl-3 pr-4 text-green-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                        >
-                          {item.name}
-                        </NavLink>
-                      </li>
-                    );
-                  }
-                })}
+          if (item.isProtected === false) {
+            return (
+              <li key={item.id}>
+                {" "}
+                <NavLink
+                  to={item.to}
+                  className="block py-2 pl-3 pr-4 text-green-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  {item.name}
+                </NavLink>
+              </li>
+            );
+          }
+        })}
+        <div className="p-10">
+          <LogoutButton />
+        </div>
       </div>
     </div>
   );
