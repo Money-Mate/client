@@ -28,10 +28,6 @@ const TransactionsTable = () => {
   const [tableDataState, setTableDataState] = useState<TransactionData[]>([]);
   const [editingTransactionId, setEditingTransactionId] = useState("");
   const [transformedCategories, setTransformedCategories] = useState<any[]>([]);
-  const [sortConfig, setSortConfig] = useState<{
-    key: string;
-    direction: string;
-  }>({ key: "", direction: "" });
   const [isAddingTransaction, setIsAddingTransaction] = useState(false);
 
   // fetch data from backend
@@ -139,25 +135,6 @@ const TransactionsTable = () => {
     {}
   );
 
-  //sorting tableData according to click
-  const requestSort = (key: string) => {
-    let direction: "ascending" | "descending" = "ascending";
-    if (sortConfig.key === key && sortConfig.direction === "ascending") {
-      direction = "descending";
-    }
-    setSortConfig({ key, direction });
-    const sortedData = [...tableDataState].sort((a, b) => {
-      if (a[key as keyof TransactionData] < b[key as keyof TransactionData]) {
-        return direction === "ascending" ? -1 : 1;
-      }
-      if (a[key as keyof TransactionData] > b[key as keyof TransactionData]) {
-        return direction === "ascending" ? 1 : -1;
-      }
-      return 0;
-    });
-    setTableDataState(sortedData);
-  };
-
   // render table Data
   const renderTableData = () => {
     // group by date
@@ -170,6 +147,7 @@ const TransactionsTable = () => {
         </tr>
         {/* Display TableData */}
         {transactions.map((row, index) => (
+          
           <tr key={row._id} className={index % 2 === 0 ? "bg-gray-100" : ""}>
             <td className="py-3 px-6 text-left whitespace-nowrap">
               {row.accountIBAN}
@@ -184,7 +162,7 @@ const TransactionsTable = () => {
             <td className="py-3 px-6 text-left">{row.transactionText}</td>
             <td className="py-3 px-6 text-left"> {row.date.slice(0, 10)}</td>
             <td>
-              <button
+            <button
                 className="text-red-400"
                 onClick={(e) => {
                   setEditingTransactionId(row._id);
@@ -222,63 +200,33 @@ const TransactionsTable = () => {
           <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
             <th
               className="py-3 px-6 text-left font-bold"
-              onClick={() => requestSort("accountIBAN")}
             >
               Konto{" "}
-              {sortConfig.key === "accountIBAN" &&
-                sortConfig.direction === "ascending" && <span>▲</span>}
-              {sortConfig.key === "accountIBAN" &&
-                sortConfig.direction === "descending" && <span>▼</span>}
             </th>
             <th
               className="py-3 px-6 text-left font-bold"
-              onClick={() => requestSort("amount")}
             >
               Summe{" "}
-              {sortConfig.key === "amount" &&
-                sortConfig.direction === "ascending" && <span>▲</span>}
-              {sortConfig.key === "amount" &&
-                sortConfig.direction === "descending" && <span>▼</span>}
             </th>
             <th
               className="py-3 px-6 text-left font-bold"
-              onClick={() => requestSort("currency")}
             >
               Währung{" "}
-              {sortConfig.key === "currency" &&
-                sortConfig.direction === "ascending" && <span>▲</span>}
-              {sortConfig.key === "currency" &&
-                sortConfig.direction === "descending" && <span>▼</span>}
             </th>
             <th
               className="py-3 px-6 text-left font-bold"
-              onClick={() => requestSort("recipientName")}
             >
               Empfänger{" "}
-              {sortConfig.key === "recipientName" &&
-                sortConfig.direction === "ascending" && <span>▲</span>}
-              {sortConfig.key === "recipientName" &&
-                sortConfig.direction === "descending" && <span>▼</span>}
             </th>
             <th
               className="py-3 px-6 text-left font-bold"
-              onClick={() => requestSort("transactionText")}
             >
               Verwendungszweck{" "}
-              {sortConfig.key === "transactionText" &&
-                sortConfig.direction === "ascending" && <span>▲</span>}
-              {sortConfig.key === "transactionText" &&
-                sortConfig.direction === "descending" && <span>▼</span>}
             </th>
             <th
               className="py-3 px-6 text-left font-bold"
-              onClick={() => requestSort("date")}
             >
               Datum{" "}
-              {sortConfig.key === "date" &&
-                sortConfig.direction === "ascending" && <span>▲</span>}
-              {sortConfig.key === "date" &&
-                sortConfig.direction === "descending" && <span>▼</span>}
             </th>
             <th className="py-3 px-6 text-left font-bold"></th>
           </tr>
