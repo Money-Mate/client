@@ -40,13 +40,13 @@ function Dashboard() {
       <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-3">
         <CardSixSavingGoals />
       </div>
-      <div className="col-span-4 h-60 rounded-lg">
+      <div className="col-span-4 h-80 rounded-lg sm:col-span-4">
         <CardSevenNotgroschen />
       </div>
-      <div className="col-span-4 h-60 rounded-lg">
+      <div className="col-span-4 h-80 rounded-lg sm:col-span-4">
         <CardEightBudget />
       </div>
-      <div className="col-span-4 h-60 rounded-lg">
+      <div className="col-span-4 h-80 rounded-lg sm:col-span-4">
         <div className=" h-full rounded-md border border-slate-200 bg-white shadow-lg">
           <h2 className="m-2 text-center text-lg font-semibold text-slate-800">
             Investments

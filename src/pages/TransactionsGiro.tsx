@@ -159,12 +159,13 @@ const TransactionsTable = () => {
         </tr>
       );
     });
+
   };
 
   return (
     <div className="overflow-x-auto">
       <button
-        className="rounded bg-blue-500 px-4 py-2 mx-2 font-bold text-white hover:bg-blue-700"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-5"
         onClick={() => {
           setIsAddingTransaction(true);
           setEditingRowIndex(0);
@@ -175,6 +176,7 @@ const TransactionsTable = () => {
       </button>
       <table className="w-full table-auto">
         <thead>
+
           <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600">
             <th className="px-6 py-3 text-left font-bold">Konto </th>
             <th className="px-6 py-3 text-left font-bold">Summe </th>

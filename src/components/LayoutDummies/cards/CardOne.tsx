@@ -5,8 +5,8 @@ interface CardFourProps {
 
 const CardFour: React.FC<CardFourProps> = ({ bankBalance }) => {
   return (
-    <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
-      <div className="px-5 pt-3">
+    <div className=" shadow-lg rounded-md bg-MM-secondary h-full">
+      <div className="px-5 pt-3 bg-MM-secondary">
         <h2 className="text-lg font-semibold text-slate-800 mb-2">
           Kontostand
         </h2>
