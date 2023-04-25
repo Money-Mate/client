@@ -1,0 +1,19 @@
+/* CSS HEX */
+
+--jet: #2C2C2Cff;
+--gunmetal: #313845ff;
+--slate-gray: #808D97ff;
+--bittersweet-shimmer: #C05663ff;
+--purpureus: #9357A3ff;
+--blue-ncs: #1C82BFff;
+--ecru: #CEA966ff;
+
+/* CSS HSL */
+
+--jet: hsla(0, 0%, 17%, 1);
+--gunmetal: hsla(219, 17%, 23%, 1);
+--slate-gray: hsla(206, 10%, 55%, 1);
+--bittersweet-shimmer: hsla(353, 46%, 55%, 1);
+--purpureus: hsla(287, 30%, 49%, 1);
+--blue-ncs: hsla(202, 74%, 43%, 1);
+--ecru: hsla(39, 51%, 60%, 1);
