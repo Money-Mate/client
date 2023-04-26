@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import CardEightBudget from "../components/UserDashboard/cardsUserDashboard/CardEightBudget";
 import CardFiveSaldo from "../components/UserDashboard/cardsUserDashboard/CardFiveSaldo";
 import CardFour from "../components/UserDashboard/cardsUserDashboard/CardFour";
+import CardNineInvestments from "../components/UserDashboard/cardsUserDashboard/CardNineInvestments";
 import CardOne from "../components/UserDashboard/cardsUserDashboard/CardOne";
 import CardSevenNotgroschen from "../components/UserDashboard/cardsUserDashboard/CardSevenNotgroschen";
 import CardSixSavingGoals from "../components/UserDashboard/cardsUserDashboard/CardSixSavingGoals";
@@ -47,11 +48,7 @@ function Dashboard() {
         <CardEightBudget />
       </div>
       <div className="col-span-4 h-80 rounded-lg sm:col-span-4">
-        <div className=" h-full rounded-md border border-slate-200 bg-white shadow-lg">
-          <h2 className="m-2 text-center text-lg font-semibold text-slate-800">
-            Investments
-          </h2>
-        </div>
+        <CardNineInvestments />
       </div>
     </div>
   );
