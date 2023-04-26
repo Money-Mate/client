@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 interface Props {
   onSubmit: (options: ReturnType<typeof useState>[0]) => void;
@@ -6,6 +7,23 @@ interface Props {
 }
 
 const FilterTransactionsModal: React.FC<Props> = ({ onSubmit, onClose }) => {
+  const [options, setOptions] = useState({
+    accounts: [],
+    categories: [],
+    subCategories: [],
+    dateRange: {
+      startDate: '',
+      endDate: ''
+    },
+    sortDirection: '',
+    amount: []
+  });
+
+  const getFilteredTransactions = async () => {
+    const BE_URL = import.meta.env.VITE_BE_PORT;
+    const filtered= await axios.get(`${BE_URL}/transaction/getMy`,{options}, {
+      withCredentials: true,
+  });}
   const backendOptions = {
     accounts: [
       'AD1400080001001234567890',
@@ -53,17 +71,6 @@ const FilterTransactionsModal: React.FC<Props> = ({ onSubmit, onClose }) => {
     ]
   };
 
-  const [options, setOptions] = useState({
-    accounts: [],
-    categories: [],
-    subCategories: [],
-    dateRange: {
-      startDate: '',
-      endDate: ''
-    },
-    sortDirection: '',
-    amount: []
-  });
 
   const handleFilterChange = (key: string, value: any) => {
     setOptions(prevOptions => ({
@@ -83,7 +90,7 @@ const FilterTransactionsModal: React.FC<Props> = ({ onSubmit, onClose }) => {
     <div className="fixed z-50 inset-0 overflow-y-auto">
 <div className="flex items-center justify-center min-h-screen">
   <div className="bg-white rounded-lg w-full max-w-md mx-auto p-8">
-  <h1 className="block text-gray-800 font-bold mb-2">Bitte wählen Sie ihre Filteroptionen:</h1>
+  <h1 className="block text-gray-800 font-bold mb-2">Bitte wählen Sie die Filteroptionen:</h1>
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2">
@@ -298,5 +305,6 @@ const FilterTransactionsModal: React.FC<Props> = ({ onSubmit, onClose }) => {
 
 );
 };
+
 
 export default FilterTransactionsModal;

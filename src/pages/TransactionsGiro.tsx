@@ -135,7 +135,6 @@ const TransactionsTable = () => {
         if (response.status === 200) {
           await fetchTransactions();
           setIsModalOpen(false);
-          // Don't set editingRowIndex to -1 here
         } else {
           console.log(`Server returned status code ${response.status}`);
         }
@@ -144,7 +143,7 @@ const TransactionsTable = () => {
       }
     } else {
       setIsModalOpen(false);
-      setEditingRowIndex(-1); // Set editingRowIndex to -1 only when the user cancels
+      setEditingRowIndex(-1);
     }
   };
 
