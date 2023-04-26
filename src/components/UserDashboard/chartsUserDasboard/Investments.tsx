@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 
 interface InvestmentProps {
@@ -27,12 +27,11 @@ const Investments = ({setClickedData}: InvestmentProps) => {
 
   const options: any = {
     maintainAspectRatio: false,
-    onClick: (event: any, elements: any) => {
+    onClick: (event: InvestmentProps, elements: any) => {
       if (elements.length > 0 && elements[0].index !== undefined) {
         const index = elements[0].index;
         const label = data.labels[index];
         const value = data.datasets[0].data[index];
-        console.log(label, value);
         setChartData({
           labels: [label],
           datasets: [
