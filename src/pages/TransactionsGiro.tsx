@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import EditTransactionModal from "../components/UserDashboard/Modals/EditTransactions";
-import FilterTransactionsModal from "../components/UserDashboard/Modals/FilterTransactionsModal";
+import EditTransactionModal from "../components/Transactions/Modals/EditTransactions";
+import FilterTransactionsModal from "../components/Transactions/Modals/FilterTransactionsModal";
+// import {URLSearchParams} from "url";
 
 // TODO:
 // Modal für filteroptionen
@@ -21,6 +22,33 @@ interface TransactionData {
   tags: string[];
 }
 
+export interface OptionsData {
+  accounts?: string[];
+  categories?: string[];
+  subCategories?: string[];
+  dateRange?: {
+    startDate?: string;
+    endDate?: string;
+  };
+  date?: "asc" | "desc";
+  amount?: "pos" | "neg";
+}
+
+interface Filteredtransactions {
+  page: number;
+  maxPages: number;
+  data: {
+    _id: string;
+    accountIBAN: string;
+    amount: number;
+    category: string;
+    subCategory: string;
+    date: string;
+    description: string;
+    note: string;
+  }[];
+}
+
 const BE_URL = import.meta.env.VITE_BE_PORT;
 
 const TransactionsTable = () => {
@@ -32,6 +60,8 @@ const TransactionsTable = () => {
   const [isAddingTransaction, setIsAddingTransaction] = useState(false);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [subCategories, setSubCategories] = useState<any[]>([]);
+  const [filterOptions, setFilterOptions] = useState<OptionsData>({});
+  const [selectedOptions, setSelectedOptions] = useState<OptionsData>({});
 
   // fetch data from backend
   const fetchTransactions = async () => {
@@ -44,6 +74,39 @@ const TransactionsTable = () => {
       console.log(error);
     }
   };
+
+  const fetchFilterOptions = async () => {
+    try {
+      const response = await axios.get(
+        `${BE_URL}/transaction/getFilterOptions`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      setFilterOptions(response.data);
+      setIsFilterModalOpen(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  const fetchFilteredTransactions = async () => {
+    try {
+      const url = `${BE_URL}/transaction/getMy`;
+      console.log(url);
+      const response = await axios.get(url, {
+        params: selectedOptions,
+        withCredentials: true,
+      });
+      setTableDataState(response.data.data);
+      console.log(tableDataState)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const fetchSubCategories = async (categoryId: string) => {
     const BE_URL = import.meta.env.VITE_BE_PORT;
     try {
@@ -64,29 +127,15 @@ const TransactionsTable = () => {
     }
   };
 
-  // const onSubmitFilterOptions = async (options: any) => {
-  //   try {
-  //     const response = await axios.post(
-  //       `${BE_URL}/transaction/getMy`,
-  //       options,
-  //       { withCredentials: true }
-  //     );
-  //     setTableDataState(response.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   const onCloseFilterModal = () => {
+    fetchFilteredTransactions();
     setIsFilterModalOpen(false);
   };
-
 
   useEffect(() => {
     fetchCategories();
     fetchTransactions();
   }, []);
-
 
   // make an array of categories for the dropdown (in modal)
   const fetchCategories = async () => {
@@ -165,7 +214,6 @@ const TransactionsTable = () => {
 
   // render table Data
   const renderTableData = () => {
-    // Display TableData
     let visibleRowIndex = 0;
     return tableDataState.map((row, index) => {
       const rowIndex = visibleRowIndex++;
@@ -199,13 +247,12 @@ const TransactionsTable = () => {
         </tr>
       );
     });
-
   };
 
   return (
-    <div className="overflow-x-auto h-screen">
+    <div className="h-screen overflow-x-auto">
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-5"
+        className="mx-5 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
         onClick={() => {
           setIsAddingTransaction(true);
           setEditingRowIndex(0);
@@ -214,13 +261,16 @@ const TransactionsTable = () => {
       >
         Add Transaction
       </button>
-      <button className="rounded bg-blue-500 px-4 py-2 mx-2 font-bold text-white hover:bg-blue-700"
-      onClick={()=>{
-        setIsFilterModalOpen(true)
-      }}>Filter</button>
+      <button
+        className="mx-2 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+        onClick={() => {
+          fetchFilterOptions();
+        }}
+      >
+        Filter
+      </button>
       <table className="w-full table-auto">
         <thead>
-
           <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600">
             <th className="px-6 py-3 text-left font-bold">Konto </th>
             <th className="px-6 py-3 text-left font-bold">Summe </th>
@@ -236,8 +286,12 @@ const TransactionsTable = () => {
         </tbody>
       </table>
       {isFilterModalOpen && (
-
-          <FilterTransactionsModal  onClose={onCloseFilterModal} />
+        <FilterTransactionsModal
+          onClose={onCloseFilterModal}
+          filteredOptions={filterOptions}
+          setOptions={setSelectedOptions}
+          options={selectedOptions}
+        />
       )}
       {isModalOpen && editingRowIndex >= 0 && (
         <EditTransactionModal
@@ -254,8 +308,6 @@ const TransactionsTable = () => {
           onDelete={onDelete}
           transformedCategories={transformedCategories}
           isAddingTransaction={isAddingTransaction}
-
-
         />
       )}
     </div>
