@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAccountStore, { IBankAccountData } from "../../context/Accountstore";
 import * as z from "zod";
-import isIBAN  from "validator/lib/isIBAN";
+import isIBAN from "validator/lib/isIBAN";
 
 interface FormErrors {
   name?: string;
@@ -11,15 +11,9 @@ interface FormErrors {
 
 const bankAccountSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  iban: z
-  .string()
-  .refine(isIBAN, { message: "not a valid IBAN" })
-  .optional(),
+  iban: z.string().refine(isIBAN, { message: "not a valid IBAN" }).optional(),
   reference: z.enum(["name", "iban"]),
 });
-
-
-
 
 interface IProps {
   account?: IBankAccountData | null;
@@ -30,7 +24,7 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
   const [name, setName] = useState("");
   const [iban, setIban] = useState("");
   const [reference, setReference] = useState<"name" | "iban">("name");
-  const [errors, setErrors] = useState<FormErrors>({})
+  const [errors, setErrors] = useState<FormErrors>({});
 
   useEffect(() => {
     if (account) {
@@ -53,7 +47,6 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
     }
   };
 
-  
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -76,25 +69,24 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
         await addBankAccount(newAccount);
       }
       onClose();
-    } catch (error:any) {
+    } catch (error: any) {
       console.log("error", error);
       console.error("Failed to save account", error);
       if (error instanceof z.ZodError) {
         setErrors(error.flatten().fieldErrors);
-        console.log(errors)
+        console.log(errors);
       }
     }
   };
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
+        <label className="mb-2 block font-bold text-gray-700" htmlFor="name">
           Name
         </label>
-      {errors && <div className="text-red-500">{errors.name}</div>}
-
+        {errors && <div className="text-red-500">{errors.name}</div>}
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
           id="name"
           type="text"
           name="name"
@@ -104,13 +96,12 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="iban">
+        <label className="mb-2 block font-bold text-gray-700" htmlFor="iban">
           IBAN
         </label>
-      {errors && <div className="text-red-500">{errors.iban}</div>}
-
+        {errors && <div className="text-red-500">{errors.iban}</div>}
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
           id="iban"
           type="text"
           name="iban"
@@ -121,13 +112,13 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
       </div>
       <div className="mb-4">
         <label
-          className="block text-gray-700 font-bold mb-2"
+          className="mb-2 block font-bold text-gray-700"
           htmlFor="reference"
         >
           Reference
         </label>
         <select
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
           id="reference"
           name="reference"
           value={reference}
@@ -139,14 +130,14 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
       </div>
       <div className="flex items-center justify-between">
         <button
-          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="focus:shadow-outline rounded bg-gray-500 px-4 py-2 font-bold text-white hover:bg-gray-700 focus:outline-none"
           type="button"
           onClick={onClose}
         >
           Abbrechen
         </button>
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
           type="submit"
         >
           {account ? "Speichern" : "Hinzufügen"}
