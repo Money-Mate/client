@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import CardEightBudget from "../components/UserDashboard/cardsUserDashboard/CardEightBudget";
-import CardFiveSaldo from "../components/UserDashboard/cardsUserDashboard/CardFiveSaldo";
+import BudgetExpenses from "../components/UserDashboard/cardsUserDashboard/BudgetExpensesCard";
+import SaldoLastSixMonth from "../components/UserDashboard/cardsUserDashboard/SaldoLastSixMonthCard";
 import Savings from "../components/UserDashboard/cardsUserDashboard/SavingsCard";
-import CardNineInvestments from "../components/UserDashboard/cardsUserDashboard/CardNineInvestments";
+import Investments from "../components/UserDashboard/cardsUserDashboard/InvestmentsCard";
 import BankBalance from "../components/UserDashboard/cardsUserDashboard/BankBalanceCard";
-import CardSevenNotgroschen from "../components/UserDashboard/cardsUserDashboard/CardSevenNotgroschen";
-import CardSixSavingGoals from "../components/UserDashboard/cardsUserDashboard/CardSixSavingGoals";
+import EmergencyCoins from "../components/UserDashboard/cardsUserDashboard/EmergencyCoinsCard";
+import Wishlist from "../components/UserDashboard/cardsUserDashboard/WishlistCard";
 import BalanceExpenses from "../components/UserDashboard/cardsUserDashboard/BalanceExpensesCard";
 import BalanceIncome from "../components/UserDashboard/cardsUserDashboard/BalanceIncomeCard";
 import useDashboardStore from "../context/DashbordStore";
@@ -36,19 +36,19 @@ function Dashboard() {
         <Savings />
       </div>
       <div className="h-80 rounded-lg sm:col-span-8 lg:col-span-9">
-        <CardFiveSaldo />
+        <SaldoLastSixMonth />
       </div>
       <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-3">
-        <CardSixSavingGoals />
+        <Wishlist />
       </div>
       <div className="col-span-4 h-80 rounded-lg sm:col-span-4">
-        <CardSevenNotgroschen />
+        <EmergencyCoins />
       </div>
       <div className="col-span-4 h-80 rounded-lg sm:col-span-4">
-        <CardEightBudget />
+        <BudgetExpenses />
       </div>
       <div className="col-span-4 h-80 rounded-lg sm:col-span-4">
-        <CardNineInvestments />
+        <Investments />
       </div>
     </div>
   );

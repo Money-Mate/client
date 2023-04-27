@@ -1,6 +1,6 @@
 import Saldo from "../chartsUserDasboard/Saldo";
 
-function CardFiveSaldo() {
+function SaldoLastSixMonth() {
   return (
     <div className="h-full rounded-md border border-slate-200 bg-white shadow-lg">
       <h2 className="m-2 text-center text-lg font-semibold text-slate-800">
@@ -13,4 +13,4 @@ function CardFiveSaldo() {
   );
 }
 
-export default CardFiveSaldo;
+export default SaldoLastSixMonth;
