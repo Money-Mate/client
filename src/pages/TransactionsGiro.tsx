@@ -39,7 +39,7 @@ export interface OptionsData {
 
 export interface Transactions {
   page: number | 1;
-  maxPages: number | 20;
+  maxDocs: number | 20;
   data: {
     _id: string;
     accountIBAN: string;
@@ -70,7 +70,15 @@ const TransactionsTable = () => {
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-const [maxPages, setMaxPages] = useState(20);
+  console.log("🚀 ~ file: TransactionsGiro.tsx:73 ~ TransactionsTable ~ currentPage:", currentPage)
+
+  const [maxDocs, setMaxDocs] = useState(20);
+
+  const [docsPerPage, setDocsPerPage] = useState(10);
+
+const [pageSize, setPageSize] = useState(10);
+
+
 
   const fetchFilterOptions = async () => {
     try {
@@ -80,7 +88,6 @@ const [maxPages, setMaxPages] = useState(20);
           withCredentials: true,
         }
       );
-
       setFilterOptions(response.data);
       setIsFilterModalOpen(true);
     } catch (error) {
@@ -88,20 +95,20 @@ const [maxPages, setMaxPages] = useState(20);
     }
   };
 
-  const fetchTransactions = async () => {
+  const fetchTransactions = async (page = currentPage) => {
     try {
-      console.log("selected options in parent", selectedOptions);
       const url = `${BE_URL}/transaction/getMy`;
-      console.log(url);
       const response = await axios.get(url, {
-        params: selectedOptions,
+        params: {
+          ...selectedOptions,
+          page,
+          docsPerPage,
+        },
         withCredentials: true,
-    });
-    console.log(response.data.data);
-    setTableDataState(response.data.data);
-    setCurrentPage(response.data.page);
-    setMaxPages(response.data.maxPages);
-
+      });
+      setTableDataState(response.data.data);
+      setCurrentPage(page); // update the currentPage state here
+      setMaxDocs(response.data.totalDocs);
     } catch (error) {
       console.log(error);
     }
@@ -134,7 +141,11 @@ const [maxPages, setMaxPages] = useState(20);
 
   useEffect(() => {
     fetchCategories();
-    fetchTransactions();
+  
+    // Only fetch transactions on mounting if currentPage is 1
+    if (currentPage === 1) {
+      fetchTransactions();
+    }
   }, []);
 
   // make an array of categories for the dropdown (in modal)
@@ -295,6 +306,17 @@ const [maxPages, setMaxPages] = useState(20);
           {renderTableData()}
         </tbody>
       </table>
+      <Pagination
+  current={currentPage}
+  total={maxDocs} // <-- pass maxDocs to the total prop
+  pageSize={docsPerPage}
+  pageSizeOptions={["10", "20", "50"]} // <-- specify the pageSizeOptions prop
+  onChange={(page, pageSize) => {
+    setCurrentPage(page);
+    setDocsPerPage(pageSize);
+    fetchTransactions(page); // <-- call fetchTransactions with the new page value
+  }}
+/>
 
       {isFilterModalOpen && (
         <FilterTransactionsModal
