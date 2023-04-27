@@ -3,11 +3,9 @@ import { useEffect, useState } from "react";
 import EditTransactionModal from "../components/Transactions/Modals/EditTransactions";
 import FilterTransactionsModal from "../components/Transactions/Modals/FilterTransactionsModal";
 import { Pagination } from "antd";
-// import {URLSearchParams} from "url";
 
 // TODO:
 
-// pagination
 // grouping?
 // Table: währung weg, stattdessen bei summe, dafür kategorie, subkategorie, tags
 
@@ -230,7 +228,7 @@ const [pageSize, setPageSize] = useState(10);
     if (data.length === 0) {
       return (
         <tr>
-          <td className="px-6 py-3 text-left" colSpan={7}>
+          <td className="px-6 py-3 text-left" colSpan={8}>
             Zu deiner Anfrage gibt es keine passenden Daten
           </td>
         </tr>
@@ -246,12 +244,16 @@ const [pageSize, setPageSize] = useState(10);
           <td className="whitespace-nowrap px-6 py-3 text-left">
             {row.amount ? row.amount.toFixed(2) : ""} {row.currency}
           </td>
-          <td className="whitespace-nowrap px-6 py-3 text-left">
-            {row.currency}
-          </td>
           <td className="px-6 py-3 text-left">{row.recipientName}</td>
           <td className="px-6 py-3 text-left">{row.transactionText}</td>
-          <td className="px-6 py-3 text-left"> {row.date.slice(0, 10)}</td>
+          <td className="whitespace-nowrap px-6 py-3 text-left">
+            {row.category}
+          </td>
+          <td className="whitespace-nowrap px-6 py-3 text-left">
+            {row.subCategory}
+          </td>
+          <td className="px-6 py-3 text-left">{row.tags}</td>
+          <td className="px-6 py-3 text-left">{row.date.slice(0, 10)}</td>
           <td>
             <button
               className="text-red-400"
@@ -269,6 +271,8 @@ const [pageSize, setPageSize] = useState(10);
       );
     });
   };
+  
+  
 
   return (
     <div className="h-screen overflow-x-auto">
@@ -291,30 +295,39 @@ const [pageSize, setPageSize] = useState(10);
         Filter
       </button>
       <table className="w-full table-auto">
-        <thead>
-          <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600">
-            <th className="px-6 py-3 text-left font-bold">Konto </th>
-            <th className="px-6 py-3 text-left font-bold">Summe </th>
-            <th className="px-6 py-3 text-left font-bold">Währung </th>
-            <th className="px-6 py-3 text-left font-bold">Empfänger </th>
-            <th className="px-6 py-3 text-left font-bold">Verwendungszweck </th>
-            <th className="px-6 py-3 text-left font-bold">Datum </th>
-            <th className="px-6 py-3 text-left font-bold"></th>
-          </tr>
-        </thead>
+      <thead>
+  <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600">
+    <th className="px-6 py-3 text-left font-bold">Konto</th>
+    <th className="px-6 py-3 text-left font-bold">Summe</th>
+    <th className="px-6 py-3 text-left font-bold">Empfänger</th>
+    <th className="px-6 py-3 text-left font-bold">Verwendungszweck</th>
+    <th className="px-6 py-3 text-left font-bold">Kategorie</th>
+    <th className="px-6 py-3 text-left font-bold">Unterkategorie</th>
+    <th className="px-6 py-3 text-left font-bold">Tags</th>
+    <th className="px-6 py-3 text-left font-bold">Datum</th>
+    <th className="px-6 py-3 text-left font-bold"></th>
+  </tr>
+</thead>
         <tbody className="text-sm font-light text-gray-600">
           {renderTableData()}
         </tbody>
       </table>
       <Pagination
   current={currentPage}
-  total={maxDocs} // <-- pass maxDocs to the total prop
-  pageSize={docsPerPage}
-  pageSizeOptions={["10", "20", "50"]} // <-- specify the pageSizeOptions prop
+  total={maxDocs}
+  pageSize={pageSize}
+  showSizeChanger={true}
+  pageSizeOptions={["10", "20", "50"]}
   onChange={(page, pageSize) => {
     setCurrentPage(page);
     setDocsPerPage(pageSize);
-    fetchTransactions(page); // <-- call fetchTransactions with the new page value
+    fetchTransactions(page);
+  }}
+  onShowSizeChange={(current, size) => {
+    setCurrentPage(1);
+    setPageSize(size);
+    setDocsPerPage(size);
+    fetchTransactions(1);
   }}
 />
 
