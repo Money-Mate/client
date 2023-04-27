@@ -47,7 +47,9 @@ export const formDataSchema = z.object({
 });
 
 export const formDataSchemaEditing = z.object({
-  accountIBAN: z.string().refine(isIBAN, { message: "not a valid IBAN" })
+  accountIBAN: z
+    .string()
+    .refine(isIBAN, { message: "not a valid IBAN" })
     .optional(),
   date: z.string().optional(),
   amount: z

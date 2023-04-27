@@ -68,15 +68,16 @@ const TransactionsTable = () => {
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  console.log("🚀 ~ file: TransactionsGiro.tsx:73 ~ TransactionsTable ~ currentPage:", currentPage)
+  console.log(
+    "🚀 ~ file: TransactionsGiro.tsx:73 ~ TransactionsTable ~ currentPage:",
+    currentPage
+  );
 
   const [maxDocs, setMaxDocs] = useState(20);
 
   const [docsPerPage, setDocsPerPage] = useState(10);
 
-const [pageSize, setPageSize] = useState(10);
-
-
+  const [pageSize, setPageSize] = useState(10);
 
   const fetchFilterOptions = async () => {
     try {
@@ -139,7 +140,7 @@ const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
     fetchCategories();
-  
+
     // Only fetch transactions on mounting if currentPage is 1
     if (currentPage === 1) {
       fetchTransactions();
@@ -271,8 +272,6 @@ const [pageSize, setPageSize] = useState(10);
       );
     });
   };
-  
-  
 
   return (
     <div className="h-screen overflow-x-auto">
@@ -295,41 +294,41 @@ const [pageSize, setPageSize] = useState(10);
         Filter
       </button>
       <table className="w-full table-auto">
-      <thead>
-  <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600">
-    <th className="px-6 py-3 text-left font-bold">Konto</th>
-    <th className="px-6 py-3 text-left font-bold">Summe</th>
-    <th className="px-6 py-3 text-left font-bold">Empfänger</th>
-    <th className="px-6 py-3 text-left font-bold">Verwendungszweck</th>
-    <th className="px-6 py-3 text-left font-bold">Kategorie</th>
-    <th className="px-6 py-3 text-left font-bold">Unterkategorie</th>
-    <th className="px-6 py-3 text-left font-bold">Tags</th>
-    <th className="px-6 py-3 text-left font-bold">Datum</th>
-    <th className="px-6 py-3 text-left font-bold"></th>
-  </tr>
-</thead>
+        <thead>
+          <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600">
+            <th className="px-6 py-3 text-left font-bold">Konto</th>
+            <th className="px-6 py-3 text-left font-bold">Summe</th>
+            <th className="px-6 py-3 text-left font-bold">Empfänger</th>
+            <th className="px-6 py-3 text-left font-bold">Verwendungszweck</th>
+            <th className="px-6 py-3 text-left font-bold">Kategorie</th>
+            <th className="px-6 py-3 text-left font-bold">Unterkategorie</th>
+            <th className="px-6 py-3 text-left font-bold">Tags</th>
+            <th className="px-6 py-3 text-left font-bold">Datum</th>
+            <th className="px-6 py-3 text-left font-bold"></th>
+          </tr>
+        </thead>
         <tbody className="text-sm font-light text-gray-600">
           {renderTableData()}
         </tbody>
       </table>
       <Pagination
-  current={currentPage}
-  total={maxDocs}
-  pageSize={pageSize}
-  showSizeChanger={true}
-  pageSizeOptions={["10", "20", "50"]}
-  onChange={(page, pageSize) => {
-    setCurrentPage(page);
-    setDocsPerPage(pageSize);
-    fetchTransactions(page);
-  }}
-  onShowSizeChange={(current, size) => {
-    setCurrentPage(1);
-    setPageSize(size);
-    setDocsPerPage(size);
-    fetchTransactions(1);
-  }}
-/>
+        current={currentPage}
+        total={maxDocs}
+        pageSize={pageSize}
+        showSizeChanger={true}
+        pageSizeOptions={["10", "20", "50", `${maxDocs}`]}
+        onChange={(page, pageSize) => {
+          setCurrentPage(page);
+          setDocsPerPage(pageSize);
+          fetchTransactions(page);
+        }}
+        onShowSizeChange={(current, size) => {
+          setPageSize(size);
+          setDocsPerPage(size);
+          fetchTransactions(1);
+          setCurrentPage(1);
+        }}
+      />
 
       {isFilterModalOpen && (
         <FilterTransactionsModal
