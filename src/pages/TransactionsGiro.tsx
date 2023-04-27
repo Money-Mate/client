@@ -2,13 +2,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import EditTransactionModal from "../components/Transactions/Modals/EditTransactions";
 import FilterTransactionsModal from "../components/Transactions/Modals/FilterTransactionsModal";
+import { Pagination } from "antd";
 // import {URLSearchParams} from "url";
 
 // TODO:
-// Modal für filteroptionen
-// fetch nach query filteroptions
+
 // pagination
-interface TransactionData {
+// grouping?
+// Table: währung weg, stattdessen bei summe, dafür kategorie, subkategorie, tags
+
+export interface TransactionData {
   _id: string;
   accountIBAN: string;
   date: string;
@@ -34,9 +37,9 @@ export interface OptionsData {
   amount?: "pos" | "neg";
 }
 
-interface Filteredtransactions {
-  page: number;
-  maxPages: number;
+export interface Transactions {
+  page: number | 1;
+  maxPages: number | 20;
   data: {
     _id: string;
     accountIBAN: string;
@@ -53,27 +56,21 @@ const BE_URL = import.meta.env.VITE_BE_PORT;
 
 const TransactionsTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // Table and editing rows
   const [editingRowIndex, setEditingRowIndex] = useState(-1);
   const [tableDataState, setTableDataState] = useState<TransactionData[]>([]);
   const [editingTransactionId, setEditingTransactionId] = useState<String>("");
   const [transformedCategories, setTransformedCategories] = useState<any[]>([]);
   const [isAddingTransaction, setIsAddingTransaction] = useState(false);
+  //Filter Transactions
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [subCategories, setSubCategories] = useState<any[]>([]);
   const [filterOptions, setFilterOptions] = useState<OptionsData>({});
   const [selectedOptions, setSelectedOptions] = useState<OptionsData>({});
+  const [subCategories, setSubCategories] = useState<any[]>([]);
 
-  // fetch data from backend
-  const fetchTransactions = async () => {
-    try {
-      const response = await axios.get(`${BE_URL}/transaction/getMy`, {
-        withCredentials: true,
-      });
-      setTableDataState(response.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+const [maxPages, setMaxPages] = useState(20);
 
   const fetchFilterOptions = async () => {
     try {
@@ -91,17 +88,20 @@ const TransactionsTable = () => {
     }
   };
 
-
-  const fetchFilteredTransactions = async () => {
+  const fetchTransactions = async () => {
     try {
+      console.log("selected options in parent", selectedOptions);
       const url = `${BE_URL}/transaction/getMy`;
       console.log(url);
       const response = await axios.get(url, {
         params: selectedOptions,
         withCredentials: true,
-      });
-      setTableDataState(response.data.data);
-      console.log(tableDataState)
+    });
+    console.log(response.data.data);
+    setTableDataState(response.data.data);
+    setCurrentPage(response.data.page);
+    setMaxPages(response.data.maxPages);
+
     } catch (error) {
       console.log(error);
     }
@@ -128,7 +128,7 @@ const TransactionsTable = () => {
   };
 
   const onCloseFilterModal = () => {
-    fetchFilteredTransactions();
+    fetchTransactions();
     setIsFilterModalOpen(false);
   };
 
@@ -215,7 +215,17 @@ const TransactionsTable = () => {
   // render table Data
   const renderTableData = () => {
     let visibleRowIndex = 0;
-    return tableDataState.map((row, index) => {
+    const data = tableDataState ?? [];
+    if (data.length === 0) {
+      return (
+        <tr>
+          <td className="px-6 py-3 text-left" colSpan={7}>
+            Zu deiner Anfrage gibt es keine passenden Daten
+          </td>
+        </tr>
+      );
+    }
+    return data.map((row, index) => {
       const rowIndex = visibleRowIndex++;
       return (
         <tr key={row._id} className={rowIndex % 2 === 0 ? "bg-gray-100" : ""}>
@@ -259,7 +269,7 @@ const TransactionsTable = () => {
           setIsModalOpen(true);
         }}
       >
-        Add Transaction
+        Transaktion hinzufügen
       </button>
       <button
         className="mx-2 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
@@ -285,6 +295,7 @@ const TransactionsTable = () => {
           {renderTableData()}
         </tbody>
       </table>
+
       {isFilterModalOpen && (
         <FilterTransactionsModal
           onClose={onCloseFilterModal}
