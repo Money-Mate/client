@@ -1,7 +1,7 @@
 import useDashboardStore from "../../../context/DashbordStore";
 import { formatNumber } from "../../../utils/IntlAPI";
 
-const CardThree = () => {
+const BalanceExpenses = () => {
   const scheduledDebit = useDashboardStore(
     (state) => state.dashboardData?.scheduledDebit
   );
@@ -33,4 +33,4 @@ const CardThree = () => {
   );
 };
 
-export default CardThree;
+export default BalanceExpenses;

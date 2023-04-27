@@ -1,7 +1,7 @@
 import useDashboardStore from "../../../context/DashbordStore";
 import { formatNumber } from "../../../utils/IntlAPI";
 
-const CardFour = () => {
+const Savings = () => {
   const saved = useDashboardStore((state) => state.dashboardData?.saved);
 
   if (saved === undefined) {
@@ -29,4 +29,4 @@ const CardFour = () => {
   );
 };
 
-export default CardFour;
+export default Savings;
