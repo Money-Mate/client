@@ -3,17 +3,21 @@ interface CardTwoProps {
   balanceEndOfMonth: number;
 }
 
-const CardTwo:React.FC<CardTwoProps> = ({ balanceEndOfMonth}) => {
+const CardTwo: React.FC<CardTwoProps> = ({ balanceEndOfMonth }) => {
   return (
-    <div className=" bg-white shadow-lg rounded-md border border-slate-200 h-full">
+    <div className=" h-full rounded-md border border-slate-200 bg-white shadow-lg">
       <div className="px-5 pt-3">
-        <h2 className="text-lg font-semibold text-slate-800 mb-2">geplante Eingänge</h2>
-        <div className="text-xs font-semibold text-slate-400 uppercase mb-1">
+        <h2 className="mb-2 text-lg font-semibold text-slate-800">
+          geplante Eingänge
+        </h2>
+        <div className="mb-1 text-xs font-semibold uppercase text-slate-400">
           März
         </div>
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-slate-800 m-2">{balanceEndOfMonth}</div>
-          <div className="text-sm font-semibold text-white px-1.5 bg-red-500 rounded-full">
+          <div className="m-2 text-3xl font-bold text-slate-800">
+            {balanceEndOfMonth}
+          </div>
+          <div className="rounded-full bg-red-500 px-1.5 text-sm font-semibold text-white">
             +3%
           </div>
         </div>
@@ -21,6 +25,6 @@ const CardTwo:React.FC<CardTwoProps> = ({ balanceEndOfMonth}) => {
       {/* {hier kann Ein Graph rein mit Chartjs} */}
     </div>
   );
-}
+};
 
 export default CardTwo;

@@ -7,8 +7,8 @@ function WunschlisteCard() {
       <h2 className="m-2 text-center text-lg font-semibold text-slate-800">
         Wunschliste
       </h2>
-      <div className="p-1 h-48 w-full flex justify-center items-center">
-      <WunschlisteChart />
+      <div className="flex h-48 w-full items-center justify-center p-1">
+        <WunschlisteChart />
       </div>
     </div>
   );

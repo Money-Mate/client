@@ -1,13 +1,9 @@
-import React from 'react'
+import React from "react";
 
 function CardSixBudget() {
   return (
-
-        <div className=" bg-MM-secondary shadow-lg rounded-md border border-slate-200 h-full">
- 
-
-        </div>
-      );
+    <div className=" h-full rounded-md border border-slate-200 bg-MM-secondary shadow-lg"></div>
+  );
 }
 
-export default CardSixBudget
+export default CardSixBudget;
