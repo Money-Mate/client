@@ -68,10 +68,6 @@ const TransactionsTable = () => {
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  console.log(
-    "🚀 ~ file: TransactionsGiro.tsx:73 ~ TransactionsTable ~ currentPage:",
-    currentPage
-  );
 
   const [maxDocs, setMaxDocs] = useState(20);
 
@@ -94,19 +90,23 @@ const TransactionsTable = () => {
     }
   };
 
-  const fetchTransactions = async (page = currentPage) => {
+  const fetchTransactions = async (
+    page = currentPage,
+    pageSize = docsPerPage
+  ) => {
     try {
+      console.log("page // pagesize in fetch",page, pageSize)
       const url = `${BE_URL}/transaction/getMy`;
       const response = await axios.get(url, {
         params: {
           ...selectedOptions,
-          page,
-          docsPerPage,
+          page: Math.ceil((page * pageSize) / docsPerPage), 
+          docsPerPage: pageSize, 
         },
         withCredentials: true,
       });
       setTableDataState(response.data.data);
-      setCurrentPage(page); // update the currentPage state here
+      setCurrentPage(page);
       setMaxDocs(response.data.totalDocs);
     } catch (error) {
       console.log(error);
@@ -311,23 +311,40 @@ const TransactionsTable = () => {
           {renderTableData()}
         </tbody>
       </table>
+
       <Pagination
         current={currentPage}
         total={maxDocs}
         pageSize={pageSize}
         showSizeChanger={true}
+        // defaultCurrent={1}
         pageSizeOptions={["10", "20", "50", `${maxDocs}`]}
-        onChange={(page, pageSize) => {
-          setCurrentPage(page);
-          setDocsPerPage(pageSize);
-          fetchTransactions(page);
+        onChange={(newPage,newPageSize)=>{
+          if (newPageSize !== pageSize){
+            setCurrentPage(1);
+            setPageSize(newPageSize);
+            setDocsPerPage(newPageSize);
+            // fetchTransactions();
+          }else{
+            setCurrentPage(newPage);
+            fetchTransactions(newPage);
+          }
         }}
-        onShowSizeChange={(current, size) => {
-          setPageSize(size);
-          setDocsPerPage(size);
-          fetchTransactions(1);
-          setCurrentPage(1);
-        }}
+        // onChange={(page, pageSize) => {
+
+        //   setCurrentPage(page);
+        //   setPageSize(pageSize)
+        //   setDocsPerPage(pageSize);
+        //   fetchTransactions(page);
+        //   // fetchTransactions();
+        // }}
+        // onShowSizeChange={(current, size) => {
+        //   setPageSize(size);
+        //   console.log("pagesize in pagination",size)
+        //   setDocsPerPage(size);
+        //   setCurrentPage(1); 
+        //   fetchTransactions();
+        // }}
       />
 
       {isFilterModalOpen && (
