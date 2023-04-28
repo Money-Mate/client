@@ -1,7 +1,7 @@
 import React from "react";
-import { useUserStore } from "../context/userContext";
+import { useUserStore } from "../../context/userContext";
 import { NavLink } from "react-router-dom";
-import LogoutButton from "../components/LogoutButton";
+import LogoutButton from "../../components/LogoutButton";
 
 function Nav() {
   // const isLoggedIn = useUserStore(

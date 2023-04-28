@@ -1,9 +1,18 @@
-// placeholder stats
-interface CardFourProps {
-  bankBalance: number;
-}
+// card dummy
+import useDashboardStore from "../../context/DashbordStore";
+import { formatNumber } from "../../utils/formatterFunctions";
 
-const CardFour: React.FC<CardFourProps> = ({ bankBalance }) => {
+// getting data from backend
+const exampleData = () => {
+  const exampleData = useDashboardStore(
+    (state) => state.dashboardData?.bankBalance
+  );
+
+  if (exampleData === undefined) {
+    return <div>Loading...</div>;
+  }
+
+  // return the card with styling
   return (
     <div className=" h-full rounded-md border border-slate-200 bg-white shadow-lg">
       <div className="px-5 pt-3">
@@ -15,16 +24,16 @@ const CardFour: React.FC<CardFourProps> = ({ bankBalance }) => {
         </div>
         <div className="flex items-start">
           <div className="m-2 text-3xl font-bold text-slate-800">
-            {bankBalance}
+            {/* insert data here */}
+            {formatNumber(exampleData)}
           </div>
           <div className="rounded-full bg-green-500 px-1.5 text-sm font-semibold text-white">
-            +29%
+            {/* a pill if needed */}
           </div>
         </div>
       </div>
-      {/* {hier kann Ein Graph rein mit Chartjs} */}
     </div>
   );
 };
 
-export default CardFour;
+export default exampleData

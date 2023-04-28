@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { OptionsData } from "../../../pages/TransactionsGiro";
+import { OptionsData } from "../../../pages/app/transactionsGiro/TransactionsGiro";
 
 interface FilterTransactionsModalProps {
   onClose: () => void;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import useAccountStore, { IBankAccountData } from "../context/Accountstore";
-import HandleExistingBankAccounts from "../components/Modals/HandleExistingBankAccounts";
+import useAccountStore, { IBankAccountData } from "../../../context/Accountstore";
+import HandleExistingBankAccounts from "./Modals/BankAccouts/HandleExistingBankAccounts";
 
 
 const BankAccounts = () => {
