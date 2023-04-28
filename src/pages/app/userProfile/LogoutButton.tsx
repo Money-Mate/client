@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LogoutButton = () => {
   const BE_URL = import.meta.env.VITE_BE_PORT;
@@ -13,7 +13,7 @@ const LogoutButton = () => {
       await axios.get(`${BE_URL}/user/logout`, {
         withCredentials: true,
       });
-      console.log("user removed from localstorage")
+      console.log("user removed from localstorage");
       setLoading(false);
       navigate("/signin");
     } catch (error) {
@@ -25,7 +25,7 @@ const LogoutButton = () => {
     <button
       type="button"
       onClick={handleLogout}
-      className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+      className="rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-600"
       disabled={loading}
     >
       {loading ? "Logging out..." : "Logout"}

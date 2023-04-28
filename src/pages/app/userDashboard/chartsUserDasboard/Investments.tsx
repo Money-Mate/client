@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
-import { ChartConfiguration } from 'chart.js';
-
+import { ChartConfiguration } from "chart.js";
 
 interface InvestmentProps {
-    setClickedData: Function
+  setClickedData: Function;
 }
 
-const Investments = ({setClickedData}: InvestmentProps) => {
+const Investments = ({ setClickedData }: InvestmentProps) => {
   const stocks = 3000;
   const krypto = 2000;
   const realEstate = 4000;
@@ -25,9 +24,8 @@ const Investments = ({setClickedData}: InvestmentProps) => {
   };
 
   const [chartData, setChartData] = useState(data);
- 
 
-  const options: ChartConfiguration['options'] = {
+  const options: ChartConfiguration["options"] = {
     maintainAspectRatio: false,
     onClick: (event: any, elements: any) => {
       if (elements.length > 0 && elements[0].index !== undefined) {
@@ -44,19 +42,18 @@ const Investments = ({setClickedData}: InvestmentProps) => {
               hoverBackgroundColor: ["#008000"],
             },
           ],
-        })
-       setClickedData({label, value})
+        });
+        setClickedData({ label, value });
       } else {
-        setClickedData(undefined)
+        setClickedData(undefined);
         setChartData(data);
-   
       }
     },
   };
 
   return (
     <>
-      <Doughnut data={chartData} options={options} />
+      <Doughnut data={chartData} />
     </>
   );
 };

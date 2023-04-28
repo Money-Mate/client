@@ -2,7 +2,7 @@ import React, { useState, FormEvent } from "react";
 import "../index.css"; // import the Tailwind CSS file
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import * as z from 'zod';
+import * as z from "zod";
 
 interface UserLogin {
   email: string;
@@ -15,8 +15,8 @@ interface FormErrors {
 }
 
 const signInSchema = z.object({
-  email: z.string().email( 'Bitte gib eine gültige Emailadrese an'),
-  password: z.string().min(3, 'Das Passwort muss mindestens 3 Zeichen haben'),
+  email: z.string().email("Bitte gib eine gültige Emailadrese an"),
+  password: z.string().min(3, "Das Passwort muss mindestens 3 Zeichen haben"),
 });
 
 const SignIn = () => {
@@ -33,13 +33,9 @@ const SignIn = () => {
     e.preventDefault();
     try {
       const validatedUserData = signInSchema.parse(userLogin);
-      const res = await axios.post(
-        `${BE_URL}/user/login`,
-        validatedUserData,
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.post(`${BE_URL}/user/login`, validatedUserData, {
+        withCredentials: true,
+      });
       navigate("/app/userdashboard");
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -47,7 +43,7 @@ const SignIn = () => {
       }
     }
   };
-  
+
   return (
     <div className="flex h-screen bg-gray-200">
       {/* Left Side - Image */}
@@ -59,21 +55,20 @@ const SignIn = () => {
       ></div>
 
       {/* Right Side - Login Form */}
-      <div className="flex items-center justify-center w-1/2 bg-white">
+      <div className="flex w-1/2 items-center justify-center bg-white">
         <div className="w-full max-w-md">
-          <h1 className="text-2xl font-bold mb-6">Login</h1>
+          <h1 className="mb-6 text-2xl font-bold">Login</h1>
           <form onSubmit={handleSubmit}>
-
             {/* Email Input */}
             <div className="mb-4">
               <label
-                className="block text-gray-700 font-bold mb-2"
+                className="mb-2 block font-bold text-gray-700"
                 htmlFor="email"
               >
                 Email
               </label>
               <input
-                className="border rounded-md py-2 px-3 text-gray-700 w-full"
+                className="w-full rounded-md border px-3 py-2 text-gray-700"
                 id="email"
                 type="text"
                 placeholder="Enter your email"
@@ -83,22 +78,20 @@ const SignIn = () => {
                 }
               />
               {formErrors.email && (
-                  <span className="text-sm text-red-500">
-                    {formErrors.email}
-                  </span>
-                )}
+                <span className="text-sm text-red-500">{formErrors.email}</span>
+              )}
             </div>
 
             {/* Password Input */}
             <div className="mb-4">
               <label
-                className="block text-gray-700 font-bold mb-2"
+                className="mb-2 block font-bold text-gray-700"
                 htmlFor="password"
               >
                 Password
               </label>
               <input
-                className="border rounded-md py-2 px-3 text-gray-700 w-full"
+                className="w-full rounded-md border px-3 py-2 text-gray-700"
                 id="password"
                 type="password"
                 placeholder="Enter your password"
@@ -108,16 +101,16 @@ const SignIn = () => {
                 }
               />
               {formErrors.password && (
-                  <span className="text-sm text-red-500">
-                    {formErrors.password}
-                  </span>
-                )}
+                <span className="text-sm text-red-500">
+                  {formErrors.password}
+                </span>
+              )}
             </div>
 
             {/* Login Button */}
             <div className="mb-6">
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
                 type="submit"
               >
                 Login

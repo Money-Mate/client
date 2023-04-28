@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react";
-import Header from "../../layouts/Header";
-import Main from "../../layouts/Main";
+import Header from "./Header";
+import Main from "../layouts/Main";
 import { useRoutes } from "react-router-dom";
-import contentRoutes from "../../routes/contentRoutes";
+import contentRoutes from "../../../routes/contentRoutes";
 
 function LayoutContent(): ReactElement {
   const element = useRoutes(contentRoutes);

@@ -50,7 +50,6 @@ function getChartData() {
     const percentSaved = savingsGoals[label];
     return percentSaved;
   });
-
   return {
     labels,
     datasets: [

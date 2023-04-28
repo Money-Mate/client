@@ -9,26 +9,24 @@ function Header() {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get(`${BE_URL}/user/getUserData`, {withCredentials: true});
+        const res = await axios.get(`${BE_URL}/user/getUserData`, {
+          withCredentials: true,
+        });
         setUsername(res.data.username);
       } catch (error) {
         console.log(error);
       }
     };
     getUser();
-
   }, []);
-        
 
   return (
     <>
       <header>
         {" "}
-
-        <div className="mx-5 relative bg-gray-900 border rounded text-gray-50 p-4">
-          <h1 className="text-2xl md:text-3xl font-bold mb-1 ">
+        <div className="relative mx-5 rounded border bg-gray-900 p-4 text-gray-50">
+          <h1 className="mb-1 text-2xl font-bold md:text-3xl ">
             {username && `Willkommen zurück ${username}! 👋`}
-
           </h1>
           <p>Willkommen auf deinem Dashboard, Money Mate!</p>
         </div>

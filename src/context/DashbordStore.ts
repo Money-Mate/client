@@ -21,14 +21,16 @@ interface DashboardStore {
 }
 
 const useDashboardStore = create<DashboardStore>((set) => ({
-  
   dashboardData: null,
   fetchDashboardData: async () => {
     try {
-      const BE_URL = import.meta.env.VITE_BE_PORT
-      const response = await axios.get<IDashboardData>(`${BE_URL}/dashboard/main`, {
-        withCredentials: true,
-      });
+      const BE_URL = import.meta.env.VITE_BE_PORT;
+      const response = await axios.get<IDashboardData>(
+        `${BE_URL}/dashboard/main`,
+        {
+          withCredentials: true,
+        }
+      );
       set({ dashboardData: response.data });
     } catch (error) {
       console.error("Failed to fetch dashboard data", error);

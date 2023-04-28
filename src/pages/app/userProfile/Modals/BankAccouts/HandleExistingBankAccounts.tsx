@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import useAccountStore, { IBankAccountData } from "../../../../../context/Accountstore";
+import useAccountStore, {
+  IBankAccountData,
+} from "../../../../../context/Accountstore";
 
 interface IProps {
   account?: IBankAccountData | null;
@@ -55,11 +57,11 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
+        <label className="mb-2 block font-bold text-gray-700" htmlFor="name">
           Name
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
           id="name"
           type="text"
           name="name"
@@ -69,11 +71,11 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="iban">
+        <label className="mb-2 block font-bold text-gray-700" htmlFor="iban">
           IBAN
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
           id="iban"
           type="text"
           name="iban"
@@ -84,13 +86,13 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
       </div>
       <div className="mb-4">
         <label
-          className="block text-gray-700 font-bold mb-2"
+          className="mb-2 block font-bold text-gray-700"
           htmlFor="reference"
         >
           Reference
         </label>
         <select
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
           id="reference"
           name="reference"
           value={reference}
@@ -102,14 +104,14 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
       </div>
       <div className="flex items-center justify-between">
         <button
-          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="focus:shadow-outline rounded bg-gray-500 px-4 py-2 font-bold text-white hover:bg-gray-700 focus:outline-none"
           type="button"
           onClick={onClose}
         >
           Abbrechen
         </button>
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
           type="submit"
         >
           {account ? "Speichern" : "Hinzufügen"}

@@ -1,6 +1,6 @@
 // card dummy
-import useDashboardStore from "../../context/DashbordStore";
-import { formatNumber } from "../../utils/formatterFunctions";
+import useDashboardStore from "../context/DashbordStore";
+import { formatNumber } from "../utils/formatterFunctions";
 
 // getting data from backend
 const exampleData = () => {

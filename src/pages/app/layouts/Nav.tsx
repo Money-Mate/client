@@ -1,7 +1,5 @@
-import React from "react";
-import { useUserStore } from "../../context/userContext";
 import { NavLink } from "react-router-dom";
-import LogoutButton from "../../components/LogoutButton";
+import LogoutButton from "../../app/userProfile/LogoutButton";
 
 function Nav() {
   // const isLoggedIn = useUserStore(
@@ -53,7 +51,7 @@ function Nav() {
   return (
     <div className="h-full w-full bg-gray-900">
       <span className=" left-4 top-5 cursor-pointer text-4xl text-white"></span>
-      <nav className="sidebar bottom-0 top-0 h-screen sticky bg-gray-900 text-center list-none">
+      <nav className="sidebar sticky bottom-0 top-0 h-screen list-none bg-gray-900 text-center">
         <div className="text-xl text-gray-100">
           <div className="flex items-center p-2.5">
             <h1 className="ml-3 text-[15px] font-bold text-gray-200">
@@ -102,8 +100,7 @@ function Nav() {
                 {" "}
                 <NavLink
                   to={item.to}
-
-                  className="block py-2 pl-3 pr-4 my-4 text-green-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  className="my-4 block rounded py-2 pl-3 pr-4 text-green-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
                 >
                   {item.name}
                 </NavLink>

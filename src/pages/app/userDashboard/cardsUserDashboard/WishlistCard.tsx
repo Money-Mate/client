@@ -1,4 +1,3 @@
-import React from "react";
 import { WunschlisteChart } from "../chartsUserDasboard/Wunschliste";
 
 function WishlistCard() {

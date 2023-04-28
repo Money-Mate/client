@@ -1,6 +1,6 @@
-import { Bar } from "react-chartjs-2";
 import { ChartData, ChartOptions } from "chart.js/auto";
-import useDashboardStore from "../../../context/DashbordStore";
+import { Bar } from "react-chartjs-2";
+import useDashboardStore from "../../../../context/DashbordStore";
 
 const getBarColors = (values: number[]): string[] => {
   return values.map((value, index) => {
@@ -50,7 +50,7 @@ const Saldo = () => {
     },
   };
 
-  return <Bar data={data} options={options} updateMode="resize"  />;
+  return <Bar data={data} options={options} updateMode="resize" />;
 };
 
 export default Saldo;

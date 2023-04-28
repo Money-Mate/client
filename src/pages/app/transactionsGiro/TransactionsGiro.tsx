@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import EditTransactionModal from "../components/Transactions/Modals/EditTransactions";
-import FilterTransactionsModal from "../components/Transactions/Modals/FilterTransactionsModal";
+import EditTransactionModal from "../transactionsGiro/Modals/EditTransactions";
+import FilterTransactionsModal from "../transactionsGiro/Modals/FilterTransactionsModal";
 // import {URLSearchParams} from "url";
 
 // TODO:
@@ -91,7 +91,6 @@ const TransactionsTable = () => {
     }
   };
 
-
   const fetchFilteredTransactions = async () => {
     try {
       const url = `${BE_URL}/transaction/getMy`;
@@ -101,7 +100,7 @@ const TransactionsTable = () => {
         withCredentials: true,
       });
       setTableDataState(response.data.data);
-      console.log(tableDataState)
+      console.log(tableDataState);
     } catch (error) {
       console.log(error);
     }

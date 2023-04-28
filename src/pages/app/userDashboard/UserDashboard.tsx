@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import BudgetExpenses from "../../../components/UserDashboard/cardsUserDashboard/BudgetExpensesCard";
-import SaldoLastSixMonth from "../../../components/UserDashboard/cardsUserDashboard/SaldoLastSixMonthCard";
-import Savings from "../../../components/UserDashboard/cardsUserDashboard/SavingsCard";
-import Investments from "../../../components/UserDashboard/cardsUserDashboard/InvestmentsCard";
-import BankBalance from "../../../components/UserDashboard/cardsUserDashboard/BankBalanceCard";
-import EmergencyCoins from "../../../components/UserDashboard/cardsUserDashboard/EmergencyCoinsCard";
-import Wishlist from "../../../components/UserDashboard/cardsUserDashboard/WishlistCard";
-import BalanceExpenses from "../../../components/UserDashboard/cardsUserDashboard/BalanceExpensesCard";
-import BalanceIncome from "../../../components/UserDashboard/cardsUserDashboard/BalanceIncomeCard";
+import BudgetExpenses from "../userDashboard/cardsUserDashboard/BudgetExpensesCard";
+import SaldoLastSixMonth from "../userDashboard/cardsUserDashboard/SaldoLastSixMonthCard";
+import Savings from "../userDashboard/cardsUserDashboard/SavingsCard";
+import Investments from "../userDashboard/cardsUserDashboard/InvestmentsCard";
+import BankBalance from "../userDashboard/cardsUserDashboard/BankBalanceCard";
+import EmergencyCoins from "../userDashboard/cardsUserDashboard/EmergencyCoinsCard";
+import Wishlist from "../userDashboard/cardsUserDashboard/WishlistCard";
+import BalanceExpenses from "../userDashboard/cardsUserDashboard/BalanceExpensesCard";
+import BalanceIncome from "../userDashboard/cardsUserDashboard/BalanceIncomeCard";
 import useDashboardStore from "../../../context/DashbordStore";
 
 function Dashboard() {

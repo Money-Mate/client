@@ -1,5 +1,5 @@
-import useDashboardStore from "../../../context/DashbordStore";
-import { formatNumber } from "../../../utils/IntlAPI";
+import useDashboardStore from "../../../../context/DashbordStore";
+import { formatNumber } from "../../../../utils/formatterFunctions";
 
 const Savings = () => {
   const saved = useDashboardStore((state) => state.dashboardData?.saved);

@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import * as z from 'zod';
+import * as z from "zod";
 
 interface UserRegister {
-  username: string,
+  username: string;
   email: string;
   password: string;
 }
 
 interface FormErrors {
-  username?: string,
+  username?: string;
   email?: string;
   password?: string;
 }
 
 const signUpSchema = z.object({
-  username: z.string().min(3, 'Der Username muss mindestens 3 Zeichen haben'),
-  email: z.string().email('Bitte gibt eine gültige Emailadresse an'),
-  password: z.string().min(3, 'Das Passwort muss mindestens 3 Zeichen haben'),
+  username: z.string().min(3, "Der Username muss mindestens 3 Zeichen haben"),
+  email: z.string().email("Bitte gibt eine gültige Emailadresse an"),
+  password: z.string().min(3, "Das Passwort muss mindestens 3 Zeichen haben"),
 });
 
 const SignUp = () => {
@@ -28,24 +28,27 @@ const SignUp = () => {
     password: "",
   });
   const [formErrors, setFormErrors] = useState<FormErrors>({});
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const BE_URL = import.meta.env.VITE_BE_PORT;
     try {
       const validatedUserData = signUpSchema.parse(formData);
-      const res = await axios.post(`${BE_URL}/user/register`, validatedUserData);
+      const res = await axios.post(
+        `${BE_URL}/user/register`,
+        validatedUserData
+      );
       console.log(res);
-      navigate("/login")
-    } catch (error:any) {
+      navigate("/login");
+    } catch (error: any) {
       if (error instanceof z.ZodError) {
         setFormErrors(error.flatten().fieldErrors);
       }
@@ -53,15 +56,21 @@ const SignUp = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h2 className="text-2xl font-bold mb-4">Register</h2>
+    <div className="mx-auto w-full max-w-md">
+      <form
+        onSubmit={handleSubmit}
+        className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md"
+      >
+        <h2 className="mb-4 text-2xl font-bold">Register</h2>
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="username">
+          <label
+            className="mb-2 block font-bold text-gray-700"
+            htmlFor="username"
+          >
             Username
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
             id="username"
             type="text"
             name="username"
@@ -69,19 +78,17 @@ const SignUp = () => {
             onChange={handleChange}
             required
           />
-           {formErrors.username && (
-                  <span className="text-sm text-red-500">
-                    {formErrors.username}
-                  </span>
-                )}
+          {formErrors.username && (
+            <span className="text-sm text-red-500">{formErrors.username}</span>
+          )}
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
+          <label className="mb-2 block font-bold text-gray-700" htmlFor="email">
             Email
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
             id="email"
             type="text"
             name="email"
@@ -89,18 +96,19 @@ const SignUp = () => {
             onChange={handleChange}
             required
           />
-           {formErrors.email && (
-                  <span className="text-sm text-red-500">
-                    {formErrors.email}
-                  </span>
-                )}
+          {formErrors.email && (
+            <span className="text-sm text-red-500">{formErrors.email}</span>
+          )}
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="password">
+          <label
+            className="mb-2 block font-bold text-gray-700"
+            htmlFor="password"
+          >
             Password
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
             id="password"
             type="password"
             name="password"
@@ -108,15 +116,13 @@ const SignUp = () => {
             onChange={handleChange}
             required
           />
-           {formErrors.password&& (
-                  <span className="text-sm text-red-500">
-                    {formErrors.password}
-                  </span>
-                )}
+          {formErrors.password && (
+            <span className="text-sm text-red-500">{formErrors.password}</span>
+          )}
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
             type="submit"
           >
             Register
@@ -124,7 +130,7 @@ const SignUp = () => {
         </div>
       </form>
     </div>
-);
+  );
 };
 
-export default SignUp;    
+export default SignUp;
