@@ -1,4 +1,4 @@
-import LayoutContent from "./LayoutContent";
+import LayoutContent from "./Content";
 import Nav from "./Nav";
 
 function LayoutPage() {

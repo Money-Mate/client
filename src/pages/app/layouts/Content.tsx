@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import Header from "./Header";
-import Main from "../layouts/Main";
+import Main from "./Main";
 import { useRoutes } from "react-router-dom";
 import contentRoutes from "../../../routes/contentRoutes";
 

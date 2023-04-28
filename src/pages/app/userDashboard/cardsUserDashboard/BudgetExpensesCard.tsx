@@ -1,4 +1,3 @@
-// import {BudgetChart} from '../charts/BudgetChartAbsolute'
 import { BudgetChart } from "../chartsUserDasboard/BudgetChartRelative";
 
 function BudgetExpenses() {
