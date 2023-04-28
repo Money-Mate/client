@@ -100,7 +100,7 @@ const TransactionsTable = () => {
       const response = await axios.get(url, {
         params: {
           ...selectedOptions,
-          page: Math.ceil((page * pageSize) / docsPerPage), 
+          page: Math.ceil((page * pageSize) / pageSize), // calculate page based on new pageSize
           docsPerPage: pageSize, 
         },
         withCredentials: true,
@@ -312,7 +312,7 @@ const TransactionsTable = () => {
         </tbody>
       </table>
 
-      <Pagination
+      {/* <Pagination
         current={currentPage}
         total={maxDocs}
         pageSize={pageSize}
@@ -324,7 +324,7 @@ const TransactionsTable = () => {
             setCurrentPage(1);
             setPageSize(newPageSize);
             setDocsPerPage(newPageSize);
-            // fetchTransactions();
+            fetchTransactions(newPage);
           }else{
             setCurrentPage(newPage);
             fetchTransactions(newPage);
@@ -345,8 +345,26 @@ const TransactionsTable = () => {
         //   setCurrentPage(1); 
         //   fetchTransactions();
         // }}
-      />
-
+      /> */}
+<Pagination
+  current={currentPage}
+  total={maxDocs}
+  pageSize={pageSize}
+  showSizeChanger={true}
+  pageSizeOptions={["10", "20", "50", `${maxDocs}`]}
+  onChange={(newPage, newPageSize) => {
+    if (newPageSize !== pageSize) {
+      setPageSize(newPageSize);
+      setDocsPerPage(newPageSize);
+      setCurrentPage(1);
+      setPageSize(newPageSize);
+      fetchTransactions(1, newPageSize);
+    } else {
+      setCurrentPage(newPage);
+      fetchTransactions(newPage, pageSize);
+    }
+  }}
+/>
       {isFilterModalOpen && (
         <FilterTransactionsModal
           onClose={onCloseFilterModal}
