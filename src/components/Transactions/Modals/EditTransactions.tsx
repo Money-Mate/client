@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as z from "zod";
 import axios from "axios";
+import isIBAN from "validator/lib/isIBAN";
 
 //  TAGS
 // DYNAMIC SUBCATEGORIES
@@ -23,17 +24,12 @@ interface SubCategory {
 //add vs save object
 //Validation Schmea for Zod
 export const formDataSchema = z.object({
-  accountIBAN: z
-    .string(
-      {
-        required_error: "Bitte eine IBAN eingeben!",
-      }
-    )
-    .min(3, "Die IBAN muss mindestens 3 Zeichen lang sein!"),
+  accountIBAN: z.string().refine(isIBAN, { message: "not a valid IBAN" }),
   date: z
     .string({
       required_error: "Bitte ein Datum eingeben!",
-    }).regex(/^\d{4}-\d{2}-\d{2}$/, {
+    })
+    .regex(/^\d{4}-\d{2}-\d{2}$/, {
       message: "Das Datum muss im Format yyyy-MM-dd sein!",
     }),
 
@@ -53,7 +49,7 @@ export const formDataSchema = z.object({
 export const formDataSchemaEditing = z.object({
   accountIBAN: z
     .string()
-    .min(3, "Die IBAN muss mindestens 3 Zeichen lang sein!")
+    .refine(isIBAN, { message: "not a valid IBAN" })
     .optional(),
   date: z.string().optional(),
   amount: z
