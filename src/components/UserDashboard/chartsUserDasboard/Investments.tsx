@@ -34,17 +34,20 @@ const Investments = ({setClickedData}: InvestmentProps) => {
         const index = elements[0].index;
         const label = data.labels[index];
         let innerData: number[] = [];
+        let innerDataName: string[] = [];
         if (label === "Stocks") {
           innerData = invests.filter((invest) => invest.type === "Stocks").map((invest) => invest.value);
         } else if (label === "Krypto") {
           innerData = invests.filter((invest) => invest.type === "Krypto").map((invest) => invest.value);
         } else if (label === "Real Estate") {
           innerData = invests.filter((invest) => invest.type === "Real Estate").map((invest) => invest.value);
+          innerDataName = invests.filter((invest) => invest.type === "Real Estate").map((invest) => invest.name);
+
         }
         const value = data.datasets[0].data[index];
-        console.log(value, label)
+        console.log(value, label, innerData, innerDataName)
         setChartData({
-          labels: [label],
+          labels: innerDataName.length > 0 ? [...innerDataName, label] : [label],
           datasets: [
             {
               label: "Total Value",
@@ -53,9 +56,9 @@ const Investments = ({setClickedData}: InvestmentProps) => {
               hoverBackgroundColor: ["#FF6384"],
             },
             {
-              label: "Asset Value",
+              label: innerDataName.length > 0 ? innerDataName[0] : "",
               data: innerData,
-              backgroundColor: ["#008000"],
+              backgroundColor: ["#008000", "#36A2EB", "#FFCE56"],
               hoverBackgroundColor: ["#008000"],
             },
           ],
