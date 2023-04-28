@@ -1,6 +1,6 @@
 import BankAccounts from "../pages/app/userProfile/BankAccounts";
 import TransactionsGiro from "../pages/app/transactionsGiro/TransactionsGiro";
-import UserDashboard from "../pages/app/userDashboard/UserDashboard";
+import UserDashboard from "../pages/app/Dashboard/UserDashboard";
 
 export const paths = {
   landingPage: "/landingpage",
