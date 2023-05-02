@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import LogoutButton from "../../app/userProfile/LogoutButton";
 
 interface Sublink {
   name: string;
@@ -40,14 +39,17 @@ function Nav() {
       name: "Finanzgesundheit",
       to: "/app/",
       id: 4,
-    }
+    },
   ];
 
   const renderSublinks = (sublinks: Sublink[]) => {
     return (
       <ul>
         {sublinks.map((sublink) => (
-          <li key={sublink.id} className="ml-5 text-mm-text-dark font-semibold ">
+          <li
+            key={sublink.id}
+            className="ml-5 font-semibold text-mm-text-dark "
+          >
             <NavLink to={sublink.to}>{sublink.name}</NavLink>
           </li>
         ))}
@@ -72,13 +74,14 @@ function Nav() {
           </li>
         ))}
       </ul>
-      <div className="h-20 w-20 items-center absolute bottom-20 left-16 justify-center rounded-full bg-gray-100">
+      <div className="absolute bottom-20 left-16 h-20 w-20 items-center justify-center rounded-full bg-gray-100">
         <NavLink to="/app/userprofile">
-        <img
-          src="https://picsum.photos/200"
-          alt="User Profile Picture"
-          className="h-full w-full rounded-full"
-        /></NavLink>
+          <img
+            src="https://picsum.photos/200"
+            alt="User Profile Picture"
+            className="h-full w-full rounded-full"
+          />
+        </NavLink>
       </div>
     </div>
   );

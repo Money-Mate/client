@@ -11,7 +11,7 @@ export default {
         "mm-success": "#2dd4bf",
         "mm-warn": "#CEA966",
         "mm-error": "#C05663",
-        "mm-primary": "#1C82BF",
+        "mm-primary": "#1C82FF",
         "mm-secondary": "#67a357",
       },
     },
