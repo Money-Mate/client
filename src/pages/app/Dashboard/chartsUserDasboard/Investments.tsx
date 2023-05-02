@@ -4,6 +4,7 @@ import { ChartConfiguration } from 'chart.js';
 import { invests } from "./Investdata";
 
 
+
 interface InvestmentProps {
   setClickedData: Function
 }
@@ -27,6 +28,7 @@ const Investments = ({setClickedData}: InvestmentProps) => {
 
   const [chartData, setChartData] = useState(data);
 
+
   const options: ChartConfiguration["options"] = {
     maintainAspectRatio: false,
     onClick: (event: any, elements: any) => {
@@ -34,35 +36,38 @@ const Investments = ({setClickedData}: InvestmentProps) => {
         const index = elements[0].index;
         const label = data.labels[index];
         let innerData: number[] = [];
-        let innerDataName: string[] = [];
+        let innerDataNames: string[] = [];
         if (label === "Stocks") {
           innerData = invests.filter((invest) => invest.type === "Stocks").map((invest) => invest.value);
+          innerDataNames = invests.filter((invest) => invest.type === "Stocks").map((invest) => invest.name);
         } else if (label === "Krypto") {
           innerData = invests.filter((invest) => invest.type === "Krypto").map((invest) => invest.value);
+          innerDataNames = invests.filter((invest) => invest.type === "Krypto").map((invest) => invest.name);
         } else if (label === "Real Estate") {
           innerData = invests.filter((invest) => invest.type === "Real Estate").map((invest) => invest.value);
-          innerDataName = invests.filter((invest) => invest.type === "Real Estate").map((invest) => invest.name);
-
+          innerDataNames = invests.filter((invest) => invest.type === "Real Estate").map((invest) => invest.name)
         }
         const value = data.datasets[0].data[index];
-        console.log(value, label, innerData, innerDataName)
+
         setChartData({
-          labels: innerDataName.length > 0 ? [...innerDataName, label] : [label],
+          labels: innerDataNames.length > 0 ? [...innerDataNames] : [label],
           datasets: [
+            // {
+            //   label: "Total Value",
+            //   data: [value],
+            //   backgroundColor: ["#FF6384"],
+            //   hoverBackgroundColor: ["#FF6384"],
+            // },
             {
-              label: "Total Value",
-              data: [value],
-              backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-              hoverBackgroundColor: ["#FF6384"],
-            },
-            {
-              label: innerDataName.length > 0 ? innerDataName[0] : "",
+            label: "Individual values",
               data: innerData,
-              backgroundColor: ["#008000", "#36A2EB", "#FFCE56"],
-              hoverBackgroundColor: ["#008000"],
+              backgroundColor: ["#36A2EB", "#FFCE56", "#FF6384"],
+              hoverBackgroundColor: ["#36A2EB", "#FFCE56"],
             },
           ],
         });
+   
+    
         setClickedData({ label, value });
       } else {
         setClickedData(undefined);
