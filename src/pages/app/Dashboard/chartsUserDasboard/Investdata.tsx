@@ -3,7 +3,8 @@ export const invests = [
         id: 1,
         name: 'Apple',
         value: 1000,
-        type: 'Stocks'
+        type: 'Stocks',
+        symbol: 'AAPL',
     },
     {
         id: 2,
@@ -21,7 +22,8 @@ export const invests = [
         id: 4,
         name: 'Tesla',
         value: 4000,
-        type: 'Stocks'
+        type: 'Stocks',
+        symbol: 'TSLA',
     },
     {
         id: 5,
