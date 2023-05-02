@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import EditTransactionModal from "../transactionsGiro/Modals/EditTransactions";
-import FilterTransactionsModal from "../transactionsGiro/Modals/FilterTransactionsModal";
-// import {URLSearchParams} from "url";
+
+import EditTransactionModal from "./Modals/EditTransactions";
+import FilterTransactionsModal from "./Modals/FilterTransactionsModal";
+import { Pagination } from "antd";
 
 // TODO:
-// Modal für filteroptionen
-// fetch nach query filteroptions
-// pagination
-interface TransactionData {
+
+// grouping?
+// Table: währung weg, stattdessen bei summe, dafür kategorie, subkategorie, tags
+
+export interface TransactionData {
   _id: string;
   accountIBAN: string;
   date: string;
@@ -34,9 +36,9 @@ export interface OptionsData {
   amount?: "pos" | "neg";
 }
 
-interface Filteredtransactions {
-  page: number;
-  maxPages: number;
+export interface Transactions {
+  page: number | 1;
+  maxDocs: number | 20;
   data: {
     _id: string;
     accountIBAN: string;
@@ -53,27 +55,26 @@ const BE_URL = import.meta.env.VITE_BE_PORT;
 
 const TransactionsTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // Table and editing rows
   const [editingRowIndex, setEditingRowIndex] = useState(-1);
   const [tableDataState, setTableDataState] = useState<TransactionData[]>([]);
   const [editingTransactionId, setEditingTransactionId] = useState<String>("");
   const [transformedCategories, setTransformedCategories] = useState<any[]>([]);
   const [isAddingTransaction, setIsAddingTransaction] = useState(false);
+  //Filter Transactions
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [subCategories, setSubCategories] = useState<any[]>([]);
   const [filterOptions, setFilterOptions] = useState<OptionsData>({});
   const [selectedOptions, setSelectedOptions] = useState<OptionsData>({});
+  const [subCategories, setSubCategories] = useState<any[]>([]);
 
-  // fetch data from backend
-  const fetchTransactions = async () => {
-    try {
-      const response = await axios.get(`${BE_URL}/transaction/getMy`, {
-        withCredentials: true,
-      });
-      setTableDataState(response.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [maxDocs, setMaxDocs] = useState(20);
+
+  const [docsPerPage, setDocsPerPage] = useState(10);
+
+  const [pageSize, setPageSize] = useState(10);
 
   const fetchFilterOptions = async () => {
     try {
@@ -83,7 +84,6 @@ const TransactionsTable = () => {
           withCredentials: true,
         }
       );
-
       setFilterOptions(response.data);
       setIsFilterModalOpen(true);
     } catch (error) {
@@ -91,16 +91,27 @@ const TransactionsTable = () => {
     }
   };
 
-  const fetchFilteredTransactions = async () => {
+
+  const fetchTransactions = async (
+    page = currentPage,
+    pageSize = docsPerPage
+  ) => {
+
     try {
+      console.log("page // pagesize in fetch",page, pageSize)
       const url = `${BE_URL}/transaction/getMy`;
-      console.log(url);
       const response = await axios.get(url, {
-        params: selectedOptions,
+        params: {
+          ...selectedOptions,
+          page: Math.ceil((page * pageSize) / pageSize), // calculate page based on new pageSize
+          docsPerPage: pageSize, 
+        },
         withCredentials: true,
       });
       setTableDataState(response.data.data);
-      console.log(tableDataState);
+
+      setCurrentPage(page);
+      setMaxDocs(response.data.totalDocs);
     } catch (error) {
       console.log(error);
     }
@@ -127,13 +138,17 @@ const TransactionsTable = () => {
   };
 
   const onCloseFilterModal = () => {
-    fetchFilteredTransactions();
+    fetchTransactions();
     setIsFilterModalOpen(false);
   };
 
   useEffect(() => {
     fetchCategories();
-    fetchTransactions();
+
+    // Only fetch transactions on mounting if currentPage is 1
+    if (currentPage === 1) {
+      fetchTransactions();
+    }
   }, []);
 
   // make an array of categories for the dropdown (in modal)
@@ -214,7 +229,17 @@ const TransactionsTable = () => {
   // render table Data
   const renderTableData = () => {
     let visibleRowIndex = 0;
-    return tableDataState.map((row, index) => {
+    const data = tableDataState ?? [];
+    if (data.length === 0) {
+      return (
+        <tr>
+          <td className="px-6 py-3 text-left" colSpan={8}>
+            Zu deiner Anfrage gibt es keine passenden Daten
+          </td>
+        </tr>
+      );
+    }
+    return data.map((row, index) => {
       const rowIndex = visibleRowIndex++;
       return (
         <tr key={row._id} className={rowIndex % 2 === 0 ? "bg-gray-100" : ""}>
@@ -224,12 +249,16 @@ const TransactionsTable = () => {
           <td className="whitespace-nowrap px-6 py-3 text-left">
             {row.amount ? row.amount.toFixed(2) : ""} {row.currency}
           </td>
-          <td className="whitespace-nowrap px-6 py-3 text-left">
-            {row.currency}
-          </td>
           <td className="px-6 py-3 text-left">{row.recipientName}</td>
           <td className="px-6 py-3 text-left">{row.transactionText}</td>
-          <td className="px-6 py-3 text-left"> {row.date.slice(0, 10)}</td>
+          <td className="whitespace-nowrap px-6 py-3 text-left">
+            {row.category}
+          </td>
+          <td className="whitespace-nowrap px-6 py-3 text-left">
+            {row.subCategory}
+          </td>
+          <td className="px-6 py-3 text-left">{row.tags}</td>
+          <td className="px-6 py-3 text-left">{row.date.slice(0, 10)}</td>
           <td>
             <button
               className="text-red-400"
@@ -258,7 +287,7 @@ const TransactionsTable = () => {
           setIsModalOpen(true);
         }}
       >
-        Add Transaction
+        Transaktion hinzufügen
       </button>
       <button
         className="mx-2 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
@@ -271,12 +300,14 @@ const TransactionsTable = () => {
       <table className="w-full table-auto">
         <thead>
           <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600">
-            <th className="px-6 py-3 text-left font-bold">Konto </th>
-            <th className="px-6 py-3 text-left font-bold">Summe </th>
-            <th className="px-6 py-3 text-left font-bold">Währung </th>
-            <th className="px-6 py-3 text-left font-bold">Empfänger </th>
-            <th className="px-6 py-3 text-left font-bold">Verwendungszweck </th>
-            <th className="px-6 py-3 text-left font-bold">Datum </th>
+            <th className="px-6 py-3 text-left font-bold">Konto</th>
+            <th className="px-6 py-3 text-left font-bold">Summe</th>
+            <th className="px-6 py-3 text-left font-bold">Empfänger</th>
+            <th className="px-6 py-3 text-left font-bold">Verwendungszweck</th>
+            <th className="px-6 py-3 text-left font-bold">Kategorie</th>
+            <th className="px-6 py-3 text-left font-bold">Unterkategorie</th>
+            <th className="px-6 py-3 text-left font-bold">Tags</th>
+            <th className="px-6 py-3 text-left font-bold">Datum</th>
             <th className="px-6 py-3 text-left font-bold"></th>
           </tr>
         </thead>
@@ -284,6 +315,60 @@ const TransactionsTable = () => {
           {renderTableData()}
         </tbody>
       </table>
+
+      {/* <Pagination
+        current={currentPage}
+        total={maxDocs}
+        pageSize={pageSize}
+        showSizeChanger={true}
+        // defaultCurrent={1}
+        pageSizeOptions={["10", "20", "50", `${maxDocs}`]}
+        onChange={(newPage,newPageSize)=>{
+          if (newPageSize !== pageSize){
+            setCurrentPage(1);
+            setPageSize(newPageSize);
+            setDocsPerPage(newPageSize);
+            fetchTransactions(newPage);
+          }else{
+            setCurrentPage(newPage);
+            fetchTransactions(newPage);
+          }
+        }}
+        // onChange={(page, pageSize) => {
+
+        //   setCurrentPage(page);
+        //   setPageSize(pageSize)
+        //   setDocsPerPage(pageSize);
+        //   fetchTransactions(page);
+        //   // fetchTransactions();
+        // }}
+        // onShowSizeChange={(current, size) => {
+        //   setPageSize(size);
+        //   console.log("pagesize in pagination",size)
+        //   setDocsPerPage(size);
+        //   setCurrentPage(1); 
+        //   fetchTransactions();
+        // }}
+      /> */}
+<Pagination
+  current={currentPage}
+  total={maxDocs}
+  pageSize={pageSize}
+  showSizeChanger={true}
+  pageSizeOptions={["10", "20", "50", `${maxDocs}`]}
+  onChange={(newPage, newPageSize) => {
+    if (newPageSize !== pageSize) {
+      setPageSize(newPageSize);
+      setDocsPerPage(newPageSize);
+      setCurrentPage(1);
+      setPageSize(newPageSize);
+      fetchTransactions(1, newPageSize);
+    } else {
+      setCurrentPage(newPage);
+      fetchTransactions(newPage, pageSize);
+    }
+  }}
+/>
       {isFilterModalOpen && (
         <FilterTransactionsModal
           onClose={onCloseFilterModal}

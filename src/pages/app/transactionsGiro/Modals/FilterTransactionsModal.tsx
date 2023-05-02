@@ -1,32 +1,79 @@
-import { useState } from "react";
-import { OptionsData } from "../../../pages/app/transactionsGiro/TransactionsGiro";
+
+import { useCallback, useEffect, useState } from "react";
+import { OptionsData } from "../../transactionsGiro/TransactionsGiro";
+
 
 interface FilterTransactionsModalProps {
   onClose: () => void;
   filteredOptions: OptionsData;
-
-  setOptions: Function,
+  setOptions: (options: OptionsData) => void;
   options: OptionsData;
 }
 
 const FilterTransactionsModal = ({
   onClose,
   filteredOptions,
+  setOptions,
   options,
-  setOptions
-
 }: FilterTransactionsModalProps) => {
+  const [accountIBANs, setAccountIBANs] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [subCategories, setSubCategories] = useState<string[]>([]);
 
-  const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleAccountIBANChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      setAccountIBANs((prev) =>
+        prev.includes(value)
+          ? prev.filter((item) => item !== value)
+          : [...prev, value]
+      );
+    },
+    []
+  );
+
+  const handleCategoryChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      setCategories((prev) =>
+        prev.includes(value)
+          ? prev.filter((item) => item !== value)
+          : [...prev, value]
+      );
+    },
+    []
+  );
+
+  const handleSubCategoryChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      setSubCategories((prev) =>
+        prev.includes(value)
+          ? prev.filter((item) => item !== value)
+          : [...prev, value]
+      );
+    },
+    []
+  );
+
+  useEffect(() => {
+    setOptions({
+      ...options,
+      accounts: accountIBANs,
+      categories: categories,
+      subCategories: subCategories,
+    });
+  }, [accountIBANs, categories, subCategories]);
+
+  const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
-    setOptions((prevOptions) => ({ ...prevOptions, [name]: value }));
+    const updatedOptions = { ...options, [name]: value };
+    setOptions(updatedOptions);
   };
 
   const handleSubmit = () => {
-    setOptions(options);
     onClose();
   };
-
 
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -48,65 +95,65 @@ const FilterTransactionsModal = ({
         >
           <div>
             <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900">
-              Filter Options
+              Filteroptionen:
             </h3>
             <div className="mt-2">
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                Account
+                Konten
               </label>
-              <select
-                name="accountIBAN"
-                value={options.accountIBAN}
-                onChange={handleOptionChange}
-                className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              >
-                <option value="">All</option>
-                {filteredOptions.accounts?.map((account) => (
-                  <option key={account} value={account}>
-                    {account}
-                  </option>
-                ))}
-              </select>
+              {filteredOptions.accounts?.map((account) => (
+                <div key={account} className="flex items-center">
+                  <input
+                    type="checkbox"
+                    name="accountIBAN"
+                    value={account}
+                    onChange={handleAccountIBANChange}
+                    checked={accountIBANs.includes(account)}
+                    className="mr-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                  />
+                  <span>{account}</span>
+                </div>
+              ))}
             </div>
             <div className="mt-2">
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                Category
+                Kategorien
               </label>
-              <select
-                name="category"
-                value={options.category}
-                onChange={handleOptionChange}
-                className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              >
-                <option value="">All</option>
-                {filteredOptions.categories?.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
+              {filteredOptions.categories?.map((category) => (
+                <div key={category} className="flex items-center">
+                  <input
+                    type="checkbox"
+                    name="category"
+                    value={category}
+                    onChange={handleCategoryChange}
+                    checked={categories.includes(category)}
+                    className="mr-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                  />
+                  <span>{category}</span>
+                </div>
+              ))}
             </div>
             <div className="mt-2">
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                Subcategory
+                Unterkategorien
               </label>
-              <select
-                name="subCategory"
-                value={options.subCategory}
-                onChange={handleOptionChange}
-                className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              >
-                <option value="">All</option>
-                {filteredOptions.subCategories?.map((subCategory) => (
-                  <option key={subCategory} value={subCategory}>
-                    {subCategory}
-                  </option>
-                ))}
-              </select>
+              {filteredOptions.subCategories?.map((subCategory) => (
+                <div key={subCategory} className="flex items-center">
+                  <input
+                    type="checkbox"
+                    name="subCategory"
+                    value={subCategory}
+                    onChange={handleSubCategoryChange}
+                    checked={subCategories.includes(subCategory)}
+                    className="mr-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                  />
+                  <span>{subCategory}</span>
+                </div>
+              ))}
             </div>
             <div className="mt-2">
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                Date Range
+                Zeitraum
               </label>
               <div className="flex">
                 <input
@@ -127,7 +174,7 @@ const FilterTransactionsModal = ({
             </div>
             <div className="mt-2">
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                Date Order
+                Reihenfolge
               </label>
               <select
                 name="date"
@@ -135,14 +182,14 @@ const FilterTransactionsModal = ({
                 onChange={handleOptionChange}
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               >
-                <option value="">None</option>
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
+                <option value="asc">Neueste zuerst</option>
+               
+                <option value="desc">Älteste zuerst </option>
               </select>
             </div>
             <div className="mt-2">
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                Amount Sign
+                Einnahmen/Ausgaben
               </label>
               <select
                 name="amount"
@@ -150,9 +197,9 @@ const FilterTransactionsModal = ({
                 onChange={handleOptionChange}
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               >
-                <option value="">None</option>
-                <option value="pos">Positive</option>
-                <option value="neg">Negative</option>
+                <option value="">Alle</option>
+                <option value="pos">Einnahmen</option>
+                <option value="neg">Ausgaben</option>
               </select>
             </div>
           </div>
@@ -161,13 +208,13 @@ const FilterTransactionsModal = ({
               onClick={handleSubmit}
               className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
             >
-              Apply Filters
+              Filter anwenden
             </button>
             <button
               onClick={onClose}
               className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
             >
-              Cancel
+              Abbrechen
             </button>
           </div>
         </div>

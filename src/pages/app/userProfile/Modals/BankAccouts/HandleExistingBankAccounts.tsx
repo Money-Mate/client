@@ -1,7 +1,21 @@
 import React, { useState, useEffect } from "react";
-import useAccountStore, {
-  IBankAccountData,
-} from "../../../../../context/Accountstore";
+
+import useAccountStore, { IBankAccountData } from "../../../../../context/Accountstore";
+import * as z from "zod";
+import isIBAN from "validator/lib/isIBAN";
+
+interface FormErrors {
+  name?: string;
+  iban?: string;
+  reference?: string;
+}
+
+const bankAccountSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  iban: z.string().refine(isIBAN, { message: "not a valid IBAN" }).optional(),
+  reference: z.enum(["name", "iban"]),
+});
+
 
 interface IProps {
   account?: IBankAccountData | null;
@@ -11,7 +25,8 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
   const { addBankAccount, updateBankAccount } = useAccountStore();
   const [name, setName] = useState("");
   const [iban, setIban] = useState("");
-  const [reference, setReference] = useState("name");
+  const [reference, setReference] = useState<"name" | "iban">("name");
+  const [errors, setErrors] = useState<FormErrors>({});
 
   useEffect(() => {
     if (account) {
@@ -30,16 +45,22 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
     } else if (name === "iban") {
       setIban(value);
     } else if (name === "reference") {
-      setReference(value);
+      setReference(value as "name" | "iban");
     }
   };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
+      bankAccountSchema.parse({
+        name,
+        iban,
+        reference,
+      });
       const newAccount: IBankAccountData = {
         name,
         iban,
-        reference: "name" || "iban",
+        reference,
         _id: account?._id ?? "",
       };
       console.log("account", account);
@@ -50,8 +71,13 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
         await addBankAccount(newAccount);
       }
       onClose();
-    } catch (error) {
+    } catch (error: any) {
+      console.log("error", error);
       console.error("Failed to save account", error);
+      if (error instanceof z.ZodError) {
+        setErrors(error.flatten().fieldErrors);
+        console.log(errors);
+      }
     }
   };
   return (
@@ -60,6 +86,7 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
         <label className="mb-2 block font-bold text-gray-700" htmlFor="name">
           Name
         </label>
+        {errors && <div className="text-red-500">{errors.name}</div>}
         <input
           className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
           id="name"
@@ -74,6 +101,7 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
         <label className="mb-2 block font-bold text-gray-700" htmlFor="iban">
           IBAN
         </label>
+        {errors && <div className="text-red-500">{errors.iban}</div>}
         <input
           className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
           id="iban"
