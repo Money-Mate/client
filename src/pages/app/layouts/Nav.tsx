@@ -32,14 +32,15 @@ function Nav() {
   ];
 
   return (
-    <div className="h-full w-full bg-gray-900">
-     <h1 className="text-white">MoneyMate</h1>
-     <ul className="text-white bg-MM-fourth">
+    
+    <div className="h-full w-full bg-mm-foreground  p-5">
+     <h1 className="text-white mb-5 text-3xl font-bold">MoneyMate</h1>
+     <ul className="text-white p-3 tracking-wide leading-loose">
                 {" "}
                 {items.map((item) => {
                   return (
-                    <li key={item.id}>
-                      <NavLink to={item.to} className="m-3 p-5">{item.name}</NavLink>
+                    <li className="text-blue" key={item.id}>
+                      <NavLink to={item.to}>{item.name}</NavLink>
                     </li>
                   );
                 })}

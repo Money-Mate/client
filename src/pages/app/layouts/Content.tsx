@@ -7,7 +7,7 @@ function LayoutContent(): ReactElement {
   const element = useRoutes(contentRoutes);
 
   return (
-    <div className="min-h-full w-full flex-col bg-slate-700">
+    <div className="h-full w-full flex-col bg-mm-background">
       <Header />
       {element}
     </div>

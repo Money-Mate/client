@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import BudgetExpenses from "./cardsUserDashboard/BalanceExpensesCard";
+import BudgetExpenses from "./cardsUserDashboard/BudgetExpensesCard";
 import SaldoLastSixMonth from "./cardsUserDashboard/SaldoLastSixMonthCard";
 import Savings from "./cardsUserDashboard/SavingsCard";
 import Investments from "./cardsUserDashboard/InvestmentsCard";
@@ -44,13 +44,13 @@ function Dashboard() {
       <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-3">
         <Wishlist />
       </div>
-      <div className="col-span-4 h-80 rounded-lg sm:col-span-3">
+      <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-3">
         <EmergencyCoins />
       </div>
-      <div className="col-span-4 h-80 rounded-lg sm:col-span-3">
+      <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-3">
         <BudgetExpenses />
       </div>
-      <div className="col-span-4 h-80 rounded-lg sm:col-span-3">
+      <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-3">
         <Investments />
       </div>
     </div>
