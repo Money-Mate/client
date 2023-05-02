@@ -8,7 +8,7 @@
 --blue-ncs: #1C82BFff;
 --ecru: #CEA966ff;
 
-/* CSS HSL */
+/* CSS HSL a*/
 
 --jet: hsla(0, 0%, 17%, 1);
 --gunmetal: hsla(219, 17%, 23%, 1);
