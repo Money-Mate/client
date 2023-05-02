@@ -24,7 +24,7 @@ function Header() {
     <>
       <header>
         {" "}
-        <div className="relative mx-5 rounded border bg-gray-900 p-4 text-gray-50">
+        <div className="relative mx-5 rounded bg-mm-foreground p-4 text-gray-50">
           <h1 className="mb-1 text-2xl font-bold md:text-3xl ">
             {username && `Willkommen zurück ${username}! 👋`}
           </h1>

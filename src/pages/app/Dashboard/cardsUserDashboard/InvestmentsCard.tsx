@@ -18,18 +18,18 @@ function CardNineInvestments() {
   }, []);
 
   return (
-    <div className="h-full rounded-md border border-slate-200 bg-white shadow-lg">
-      <h2 className="m-2 text-center text-lg font-semibold text-slate-800">
+    <div className="h-full rounded-md  bg-mm-foreground shadow-lg">
+      <h2 className="m-2 text-center text-lg font-semibold text-mm-text-white">
         Investments
       </h2>
       {!clickedData && (
-        <p className="m-2 text-center text-sm font-semibold text-slate-800">
+        <p className="m-2 text-center text-sm font-semibold text-mm-text-white">
           Total: {formatNumber(sum)}
         </p>
       )}
       {clickedData && (
         <div>
-          <p className="m-2 text-center text-sm font-semibold text-slate-800">
+          <p className="m-2 text-center text-sm font-semibold text-mm-text-white">
             {clickedData?.label}: {formatNumber(clickedData?.value)}
           </p>
         </div>
