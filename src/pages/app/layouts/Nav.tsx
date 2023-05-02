@@ -33,7 +33,7 @@ function Nav() {
 
   return (
     
-    <div className="h-full w-full bg-mm-foreground  p-5">
+    <div className="h-full w-full bg-mm-foreground p-5">
      <h1 className="text-white mb-5 text-3xl font-bold">MoneyMate</h1>
      <ul className="text-white p-3 tracking-wide leading-loose">
                 {" "}
