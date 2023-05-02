@@ -44,9 +44,14 @@ const Saldo = () => {
         ticks: {
           callback: function (value) {
             return "€" + value;
-          },
+          },color: "#94a3b8"
         },
       },
+      x:{
+        ticks: {
+          color: "#94a3b8"
+        },
+      }
     },
   };
 
