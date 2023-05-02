@@ -5,7 +5,7 @@ import useDashboardStore from "../../../../context/DashbordStore";
 const getBarColors = (values: number[]): string[] => {
   return values.map((value, index) => {
     const opacity = index === values.length - 1 ? "60" : "ff";
-    return value >= 0 ? `#2ECC40${opacity}` : `#FF4136${opacity}`;
+    return value >= 0 ? `#14b8a6${opacity}` : `#0369a1${opacity}`;
   });
 };
 
@@ -44,9 +44,14 @@ const Saldo = () => {
         ticks: {
           callback: function (value) {
             return "€" + value;
-          },
+          },color: "#94a3b8"
         },
       },
+      x:{
+        ticks: {
+          color: "#94a3b8"
+        },
+      }
     },
   };
 

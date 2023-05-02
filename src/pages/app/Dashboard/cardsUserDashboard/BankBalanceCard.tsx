@@ -11,20 +11,17 @@ const bankBalance = () => {
   }
 
   return (
-    <div className=" h-full rounded-md border border-slate-200 bg-white shadow-lg">
+    <div className=" h-full rounded-md bg-mm-foreground shadow-lg">
       <div className="px-5 pt-3">
-        <h2 className="mb-2 text-lg font-semibold text-slate-800">
+        <h2 className="mb-2 text-lg font-semibold text-mm-text-white">
           Kontostand
         </h2>
-        <div className="mb-1 text-xs font-semibold uppercase text-slate-400">
+        <div className="mb-1 text-xs font-semibold uppercase text-mm-text-dark">
           August 2023
         </div>
         <div className="flex items-start">
-          <div className="m-2 text-3xl font-bold text-slate-800">
+          <div className="m-2 text-3xl font-bold text-mm-text-white">
             {formatNumber(bankBalance)}
-          </div>
-          <div className="rounded-full bg-green-500 px-1.5 text-sm font-semibold text-white">
-            +29%
           </div>
         </div>
       </div>

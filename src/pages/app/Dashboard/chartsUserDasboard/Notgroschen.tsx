@@ -9,8 +9,8 @@ const data = {
     {
       label: "%",
       data: [33, 66],
-      backgroundColor: ["rgba(0,0,0, 0)", "rgba(239, 68, 68, 1)"],
-      borderColor: ["rgba(0,0,0, 0)", "rgba(255, 99, 132, 1)"],
+      backgroundColor: ["rgba(0,0,0, 0)", "#1C82BF"],
+      borderColor: ["rgba(0,0,0, 0)", "#1C82BF"],
     },
   ],
 };

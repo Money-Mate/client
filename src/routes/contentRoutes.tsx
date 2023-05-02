@@ -1,4 +1,4 @@
-import BankAccounts from "../pages/app/userProfile/BankAccounts";
+import UserProfil from "../pages/app/userProfile/UserProfil";
 import TransactionsGiro from "../pages/app/transactionsGiro/TransactionsGiro";
 import UserDashboard from "../pages/app/Dashboard/UserDashboard";
 
@@ -7,7 +7,7 @@ export const paths = {
   signIn: "/signin",
   signUp: "/signup",
   userDashboard: "/userdashboard",
-  bankAccounts: "/bankaccounts",
+  userprofile: "/userprofile",
   transactionsGiro: "/transactionsgiro",
 };
 
@@ -20,11 +20,11 @@ const routes = [
     id: "userDashboard",
   },
   {
-    path: paths.bankAccounts,
-    element: <BankAccounts />,
+    path: paths.userprofile,
+    element: <UserProfil />,
     isProtected: true,
     redirectPath: paths.landingPage,
-    id: "BankAccounts",
+    id: "userprofile",
   },
   {
     path: paths.transactionsGiro,

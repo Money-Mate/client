@@ -20,9 +20,11 @@ const Investments = ({setClickedData}: InvestmentProps) => {
       {
         label: "total €",
         data: [stocks, krypto, realEstate],
+
         backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
         hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
         borderColor: [""],
+
       },
     ],
   };
@@ -60,6 +62,7 @@ const Investments = ({setClickedData}: InvestmentProps) => {
             //   hoverBackgroundColor: ["#FF6384"],
             // },
             {
+
             label: "Individual values",
               data: innerData,
               backgroundColor: ["#36A2EB", "#FFCE56", "#FF6384"],
@@ -81,7 +84,9 @@ const Investments = ({setClickedData}: InvestmentProps) => {
 
   return (
     <>
+
       <Doughnut data={chartData} options={options}/>
+
     </>
   );
 };
