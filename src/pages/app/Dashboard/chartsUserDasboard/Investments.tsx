@@ -22,6 +22,7 @@ const Investments = ({setClickedData}: InvestmentProps) => {
         data: [stocks, krypto, realEstate],
         backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
         hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+        borderColor: [""],
       },
     ],
   };
@@ -63,6 +64,8 @@ const Investments = ({setClickedData}: InvestmentProps) => {
               data: innerData,
               backgroundColor: ["#36A2EB", "#FFCE56", "#FF6384"],
               hoverBackgroundColor: ["#36A2EB", "#FFCE56"],
+              borderColor: [""],
+
             },
           ],
         });
