@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
-import { ChartConfiguration } from "chart.js";
+import { ChartConfiguration } from 'chart.js';
+import { invests } from "./Investdata";
+
+
 
 interface InvestmentProps {
-  setClickedData: Function;
+  setClickedData: Function
 }
 
-const Investments = ({ setClickedData }: InvestmentProps) => {
-  const stocks = 3000;
-  const krypto = 2000;
-  const realEstate = 4000;
+const Investments = ({setClickedData}: InvestmentProps) => {
+  const stocks = invests.filter((invest) => invest.type === "Stocks").reduce((acc, curr) => acc + curr.value, 0);
+  const krypto = invests.filter((invest) => invest.type === "Krypto").reduce((acc, curr) => acc + curr.value, 0);
+  const realEstate = invests.filter((invest) => invest.type === "Real Estate").reduce((acc, curr) => acc + curr.value, 0);
 
   const data = {
     labels: ["Stocks", "Krypto", "Real Estate"],
@@ -17,13 +20,17 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
       {
         label: "total €",
         data: [stocks, krypto, realEstate],
-        backgroundColor: ["#1C82BF", "#67a357", "#2dd4bf"],
-        hoverBackgroundColor: ["#1C82BF", "#36A2EB", "#FFCE56"],
+
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+        borderColor: [""],
+
       },
     ],
   };
 
   const [chartData, setChartData] = useState(data);
+
 
   const options: ChartConfiguration["options"] = {
     maintainAspectRatio: false,
@@ -31,18 +38,42 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
       if (elements.length > 0 && elements[0].index !== undefined) {
         const index = elements[0].index;
         const label = data.labels[index];
+        let innerData: number[] = [];
+        let innerDataNames: string[] = [];
+        if (label === "Stocks") {
+          innerData = invests.filter((invest) => invest.type === "Stocks").map((invest) => invest.value);
+          innerDataNames = invests.filter((invest) => invest.type === "Stocks").map((invest) => invest.name);
+        } else if (label === "Krypto") {
+          innerData = invests.filter((invest) => invest.type === "Krypto").map((invest) => invest.value);
+          innerDataNames = invests.filter((invest) => invest.type === "Krypto").map((invest) => invest.name);
+        } else if (label === "Real Estate") {
+          innerData = invests.filter((invest) => invest.type === "Real Estate").map((invest) => invest.value);
+          innerDataNames = invests.filter((invest) => invest.type === "Real Estate").map((invest) => invest.name)
+        }
         const value = data.datasets[0].data[index];
+
         setChartData({
-          labels: [label],
+          labels: innerDataNames.length > 0 ? [...innerDataNames] : [label],
           datasets: [
+            // {
+            //   label: "Total Value",
+            //   data: [value],
+            //   backgroundColor: ["#FF6384"],
+            //   hoverBackgroundColor: ["#FF6384"],
+            // },
             {
-              label: "Asset Value",
-              data: [value],
-              backgroundColor: ["#67a357"],
-              hoverBackgroundColor: ["#008000"],
+
+            label: "Individual values",
+              data: innerData,
+              backgroundColor: ["#36A2EB", "#FFCE56", "#FF6384"],
+              hoverBackgroundColor: ["#36A2EB", "#FFCE56"],
+              borderColor: [""],
+
             },
           ],
         });
+   
+    
         setClickedData({ label, value });
       } else {
         setClickedData(undefined);
@@ -53,7 +84,9 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
 
   return (
     <>
-      <Doughnut data={chartData} options={options} />
+
+      <Doughnut data={chartData} options={options}/>
+
     </>
   );
 };

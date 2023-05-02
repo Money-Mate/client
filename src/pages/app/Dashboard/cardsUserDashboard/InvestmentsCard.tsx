@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { formatNumber } from "../../../../utils/formatterFunctions";
 import Investments from "../chartsUserDasboard/Investments";
+import { invests } from "../chartsUserDasboard/Investdata";
 
 function CardNineInvestments() {
   const [clickedData, setClickedData] = useState<
@@ -10,9 +11,9 @@ function CardNineInvestments() {
 
   useEffect(() => {
     // hier in Zukunft fetch von Investkonten
-    const stocks = 3000;
-    const krypto = 2000;
-    const realEstate = 4000;
+    const stocks = invests.filter((invest) => invest.type === "Stocks").reduce((acc, curr) => acc + curr.value, 0)
+    const krypto = invests.filter((invest) => invest.type === "Krypto").reduce((acc, curr) => acc + curr.value, 0)
+    const realEstate = invests.filter((invest) => invest.type === "Real Estate").reduce((acc, curr) => acc + curr.value, 0)
     const sum = stocks + krypto + realEstate;
     setSum(sum);
   }, []);
