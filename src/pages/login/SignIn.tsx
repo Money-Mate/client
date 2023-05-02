@@ -1,5 +1,4 @@
 import React, { useState, FormEvent } from "react";
-import "../index.css"; // import the Tailwind CSS file
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as z from "zod";
