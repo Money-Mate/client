@@ -35,19 +35,22 @@ function Dashboard() {
       <div className="h-40 rounded-lg sm:col-span-4 lg:col-span-3">
         <Savings />
       </div>
-      <div className="h-80 rounded-lg sm:col-span-8 lg:col-span-9">
+      <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-6">
+        <SaldoLastSixMonth />
+      </div>
+      <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-6">
         <SaldoLastSixMonth />
       </div>
       <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-3">
         <Wishlist />
       </div>
-      <div className="col-span-4 h-80 rounded-lg sm:col-span-4">
+      <div className="col-span-4 h-80 rounded-lg sm:col-span-3">
         <EmergencyCoins />
       </div>
-      <div className="col-span-4 h-80 rounded-lg sm:col-span-4">
+      <div className="col-span-4 h-80 rounded-lg sm:col-span-3">
         <BudgetExpenses />
       </div>
-      <div className="col-span-4 h-80 rounded-lg sm:col-span-4">
+      <div className="col-span-4 h-80 rounded-lg sm:col-span-3">
         <Investments />
       </div>
     </div>

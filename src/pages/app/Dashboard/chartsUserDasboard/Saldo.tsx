@@ -5,7 +5,7 @@ import useDashboardStore from "../../../../context/DashbordStore";
 const getBarColors = (values: number[]): string[] => {
   return values.map((value, index) => {
     const opacity = index === values.length - 1 ? "60" : "ff";
-    return value >= 0 ? `#2ECC40${opacity}` : `#FF4136${opacity}`;
+    return value >= 0 ? `#5eead4${opacity}` : `#0284c7${opacity}`;
   });
 };
 

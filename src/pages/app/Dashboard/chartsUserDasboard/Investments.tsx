@@ -53,7 +53,7 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
 
   return (
     <>
-      <Doughnut data={chartData} />
+      <Doughnut data={chartData} options={options} />
     </>
   );
 };
