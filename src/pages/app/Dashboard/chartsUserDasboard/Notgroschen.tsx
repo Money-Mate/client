@@ -4,7 +4,7 @@ import { Pie } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const data = {
-  labels: ["erfüllt", "nicht erfüllt"],
+  labels: ["nicht erfüllt", "erfüllt"],
   datasets: [
     {
       label: "%",
