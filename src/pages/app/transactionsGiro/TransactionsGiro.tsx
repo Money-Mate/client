@@ -19,8 +19,14 @@ export interface TransactionData {
   recipientIBAN: string;
   amount: number;
   currency: string;
-  category: string;
-  subCategory: string;
+  category: {
+    name: string;
+    _id: string;
+  };
+  subCategory: {
+    name: string;
+    _id: string;
+  };
   tags: string[];
 }
 
@@ -69,11 +75,8 @@ const TransactionsTable = () => {
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-
   const [maxDocs, setMaxDocs] = useState(20);
-
   const [docsPerPage, setDocsPerPage] = useState(10);
-
   const [pageSize, setPageSize] = useState(10);
 
   const fetchFilterOptions = async () => {
@@ -91,20 +94,18 @@ const TransactionsTable = () => {
     }
   };
 
-
   const fetchTransactions = async (
     page = currentPage,
     pageSize = docsPerPage
   ) => {
-
     try {
-      console.log("page // pagesize in fetch",page, pageSize)
+      console.log("page // pagesize in fetch", page, pageSize);
       const url = `${BE_URL}/transaction/getMy`;
       const response = await axios.get(url, {
         params: {
           ...selectedOptions,
-          page: Math.ceil((page * pageSize) / pageSize), // calculate page based on new pageSize
-          docsPerPage: pageSize, 
+          page: Math.ceil((page * pageSize) / pageSize), 
+          docsPerPage: pageSize,
         },
         withCredentials: true,
       });
@@ -252,10 +253,10 @@ const TransactionsTable = () => {
           <td className="px-6 py-3 text-left">{row.recipientName}</td>
           <td className="px-6 py-3 text-left">{row.transactionText}</td>
           <td className="whitespace-nowrap px-6 py-3 text-left">
-            {row.category}
+            {row.category.name}
           </td>
           <td className="whitespace-nowrap px-6 py-3 text-left">
-            {row.subCategory}
+            {row.subCategory.name}
           </td>
           <td className="px-6 py-3 text-left">{row.tags}</td>
           <td className="px-6 py-3 text-left">{row.date.slice(0, 10)}</td>
@@ -316,59 +317,25 @@ const TransactionsTable = () => {
         </tbody>
       </table>
 
-      {/* <Pagination
+      <Pagination
         current={currentPage}
         total={maxDocs}
         pageSize={pageSize}
         showSizeChanger={true}
-        // defaultCurrent={1}
         pageSizeOptions={["10", "20", "50", `${maxDocs}`]}
-        onChange={(newPage,newPageSize)=>{
-          if (newPageSize !== pageSize){
-            setCurrentPage(1);
+        onChange={(newPage, newPageSize) => {
+          if (newPageSize !== pageSize) {
             setPageSize(newPageSize);
             setDocsPerPage(newPageSize);
-            fetchTransactions(newPage);
-          }else{
+            setCurrentPage(1);
+            setPageSize(newPageSize);
+            fetchTransactions(1, newPageSize);
+          } else {
             setCurrentPage(newPage);
-            fetchTransactions(newPage);
+            fetchTransactions(newPage, pageSize);
           }
         }}
-        // onChange={(page, pageSize) => {
-
-        //   setCurrentPage(page);
-        //   setPageSize(pageSize)
-        //   setDocsPerPage(pageSize);
-        //   fetchTransactions(page);
-        //   // fetchTransactions();
-        // }}
-        // onShowSizeChange={(current, size) => {
-        //   setPageSize(size);
-        //   console.log("pagesize in pagination",size)
-        //   setDocsPerPage(size);
-        //   setCurrentPage(1); 
-        //   fetchTransactions();
-        // }}
-      /> */}
-<Pagination
-  current={currentPage}
-  total={maxDocs}
-  pageSize={pageSize}
-  showSizeChanger={true}
-  pageSizeOptions={["10", "20", "50", `${maxDocs}`]}
-  onChange={(newPage, newPageSize) => {
-    if (newPageSize !== pageSize) {
-      setPageSize(newPageSize);
-      setDocsPerPage(newPageSize);
-      setCurrentPage(1);
-      setPageSize(newPageSize);
-      fetchTransactions(1, newPageSize);
-    } else {
-      setCurrentPage(newPage);
-      fetchTransactions(newPage, pageSize);
-    }
-  }}
-/>
+      />
       {isFilterModalOpen && (
         <FilterTransactionsModal
           onClose={onCloseFilterModal}
