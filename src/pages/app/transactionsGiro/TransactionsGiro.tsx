@@ -8,7 +8,9 @@ import FilterTransactionsModal from "./Modals/FilterTransactionsModal";
 // TODO:
 
 // grouping?
-// Table: währung weg, stattdessen bei summe, dafür kategorie, subkategorie, tags
+// responsive table
+//tags
+//filter: klarnamen - needs backend?
 
 export interface TransactionData {
   _id: string;
@@ -113,30 +115,11 @@ const TransactionsTable = () => {
 
       setCurrentPage(page);
       setMaxDocs(response.data.totalDocs);
+      window.scrollTo(0, 0);
     } catch (error) {
       console.log(error);
     }
   };
-
-  // const fetchSubCategories = async (categoryId: string) => {
-  //   const BE_URL = import.meta.env.VITE_BE_PORT;
-  //   try {
-  //     const response = await axios.get(
-  //       `${BE_URL}/subcategory/getSubByCategory/${categoryId}`,
-  //       { withCredentials: true }
-  //     );
-  //     const transformedSubCategories = response.data.map(
-  //       (subCategory: any) => ({
-  //         id: subCategory._id,
-  //         name: subCategory.name,
-  //       })
-  //     );
-  //     setSubCategories(transformedSubCategories);
-  //     console.log(subCategories);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const onCloseFilterModal = () => {
     fetchTransactions();
@@ -228,7 +211,6 @@ const TransactionsTable = () => {
   };
 
   // render table Data
-  // render table Data
   const renderTableData = () => {
     let visibleRowIndex = 0;
     const data = tableDataState ?? [];
@@ -244,6 +226,7 @@ const TransactionsTable = () => {
         </tr>
       );
     }
+    
     return data.map((row, index) => {
       const rowIndex = visibleRowIndex++;
       return (
@@ -251,14 +234,18 @@ const TransactionsTable = () => {
           key={row._id}
           className={
             rowIndex % 2 === 0
-              ? "bg-mm-foreground text-mm-text-dark"
-              : "text-mm-text-dark"
+              ? "bg-mm-foreground text-mm-text-white"
+              : "text-mm-text-white"
           }
         >
           <td className="whitespace-nowrap px-6 py-3 text-left  ">
             {row.accountIBAN}
           </td>
-          <td className="whitespace-nowrap px-6 py-3 text-left  ">
+          <td
+            className={`whitespace-nowrap px-6 py-3 text-left ${
+              row.amount < 0 ? "text-red-500" : "text-green-500"
+            }`}
+          >
             {row.amount ? row.amount.toFixed(2) : ""} {row.currency}
           </td>
           <td className="px-6 py-3 text-left">{row.recipientName}</td>
@@ -273,7 +260,7 @@ const TransactionsTable = () => {
           <td className="px-6 py-3 text-left ">{row.date.slice(0, 10)}</td>
           <td>
             <button
-              className="bold text-teal-500"
+              className="font-bold text-mm-primary"
               onClick={(e) => {
                 setEditingTransactionId(row._id);
                 setEditingRowIndex(rowIndex);
@@ -291,24 +278,36 @@ const TransactionsTable = () => {
 
   return (
     <div className="h-screen overflow-x-auto">
-      <button
-        className="mx-5 my-2 rounded bg-mm-primary px-4 py-2 font-bold text-mm-text-white hover:bg-blue-700"
-        onClick={() => {
-          setIsAddingTransaction(true);
-          setEditingRowIndex(0);
-          setIsModalOpen(true);
-        }}
-      >
-        Transaktion hinzufügen
-      </button>
-      <button
-        className="mx-2 my-2 rounded bg-mm-primary px-4 py-2 font-bold text-mm-text-white hover:bg-blue-700"
-        onClick={() => {
-          fetchFilterOptions();
-        }}
-      >
-        Filter
-      </button>
+      <div className="flex items-center">
+        <button
+          className="mx-5 my-2 rounded bg-mm-primary px-4 py-2 font-bold text-mm-text-white hover:bg-blue-700"
+          onClick={() => {
+            setIsAddingTransaction(true);
+            setEditingRowIndex(0);
+            setIsModalOpen(true);
+          }}
+        >
+          Transaktion hinzufügen
+        </button>
+        {/* filter Icon */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="mr-2 h-8 w-8 cursor-pointer text-mm-primary hover:text-blue-700 "
+          onClick={() => {
+            fetchFilterOptions();
+          }}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"
+          />
+        </svg>
+      </div>
       <table className="w-full table-auto">
         <thead>
           <tr className="bg-mm-foreground text-sm uppercase leading-normal text-mm-text-white">
@@ -334,7 +333,12 @@ const TransactionsTable = () => {
         total={maxDocs}
         pageSize={pageSize}
         showSizeChanger={true}
-        pageSizeOptions={["10", "20", `${maxDocs >=50? 50 : null}`, `${maxDocs}`]}
+        pageSizeOptions={[
+          "10",
+          "20",
+          ...(maxDocs >= 50 ? ["50"] : []),
+          ...(maxDocs >= pageSize ? [`${maxDocs}`] : []),
+        ]}
         onChange={(newPage, newPageSize) => {
           if (newPageSize !== pageSize) {
             setPageSize(newPageSize);
