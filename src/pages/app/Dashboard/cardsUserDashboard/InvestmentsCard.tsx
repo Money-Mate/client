@@ -14,7 +14,8 @@ function CardNineInvestments() {
     const stocks = invests.filter((invest) => invest.type === "Stocks").reduce((acc, curr) => acc + curr.value, 0)
     const krypto = invests.filter((invest) => invest.type === "Krypto").reduce((acc, curr) => acc + curr.value, 0)
     const realEstate = invests.filter((invest) => invest.type === "Real Estate").reduce((acc, curr) => acc + curr.value, 0)
-    const sum = stocks + krypto + realEstate;
+    const edelmetalle = invests.filter((invest) => invest.type === "Edelmetalle").reduce((acc, curr) => acc + curr.value, 0)
+    const sum = stocks + krypto + realEstate + edelmetalle;
     setSum(sum);
   }, []);
 
