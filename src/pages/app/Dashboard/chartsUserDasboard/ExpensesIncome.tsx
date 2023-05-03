@@ -1,6 +1,7 @@
-import { Bar } from "react-chartjs-2";
 import { ChartData, ChartOptions } from "chart.js/auto";
 import { useEffect, useState } from "react";
+import { Bar } from "react-chartjs-2";
+import useDashboardStore from "../../../../context/DashbordStore";
 
 interface ExpenseIncomeChartData extends ChartData<"bar"> {
   datasets: [
@@ -17,11 +18,6 @@ interface ExpenseIncomeChartData extends ChartData<"bar"> {
   ];
 }
 
-interface DataItem {
-  income: number;
-  expenses: number;
-}
-
 const getBarColors = (values: number[], color: string): string[] => {
   return values.map((value, index) => {
     const opacity = index === values.length - 1 ? "60" : "ff";
@@ -29,11 +25,13 @@ const getBarColors = (values: number[], color: string): string[] => {
   });
 };
 
-const generateExpenseIncomeChartData = (): ExpenseIncomeChartData => {
-  const labels = ["Month 1", "Month 2", "Month 3", "Month 4", "Month 5"];
-  const incomes = [1, 2, 3, 4, 5];
-  const expenses = [5, 4, 3, 2, 1];
-
+const generateExpenseIncomeChartData = (expensesIncome: {
+  data: { income: number[]; expenses: number[] };
+  labels: string[];
+}): ExpenseIncomeChartData => {
+  const incomes = expensesIncome.data.income;
+  const expenses = expensesIncome.data.expenses;
+  const labels = expensesIncome.labels;
 
   const greenColors = getBarColors(incomes, "#14b8a6");
   const blueColors = getBarColors(expenses, "#0369a1");
@@ -56,13 +54,19 @@ const generateExpenseIncomeChartData = (): ExpenseIncomeChartData => {
 };
 
 const ExpenseIncomeChart = () => {
+  const expensesIncome = useDashboardStore(
+    (state) => state.dashboardData?.lastSixMonthsIncomeAndExpenses
+  );
+  if (expensesIncome === undefined) {
+    return <div>Loading...</div>;
+  }
   const [data, setData] = useState<ExpenseIncomeChartData>(
-    generateExpenseIncomeChartData()
+    generateExpenseIncomeChartData(expensesIncome)
   );
 
   useEffect(() => {
-    setData(generateExpenseIncomeChartData());
-  }, []);
+    setData(generateExpenseIncomeChartData(expensesIncome));
+  }, [expensesIncome]);
 
   const options: ChartOptions<"bar"> = {
     indexAxis: "x",

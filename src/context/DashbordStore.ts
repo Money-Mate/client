@@ -6,13 +6,24 @@ interface LastSixMonthsBalance {
   data: number[];
 }
 
+interface LastSixMonthsIncomeAndExpenses {
+  labels: string[];
+  data: {
+    income: number[];
+    expenses: number[];
+  };
+}
+
 interface IDashboardData {
   user: string;
   bankBalance: number;
   saved: number;
   scheduledDebit: number;
   balanceEndOfMonth: number;
+  expensesForThisMonth: number;
+  incomeForThisMonth: number;
   lastSixMonthsBalance: LastSixMonthsBalance;
+  lastSixMonthsIncomeAndExpenses: LastSixMonthsIncomeAndExpenses;
 }
 
 interface DashboardStore {
@@ -39,3 +50,4 @@ const useDashboardStore = create<DashboardStore>((set) => ({
 }));
 
 export default useDashboardStore;
+
