@@ -22,15 +22,10 @@ interface DataItem {
   expenses: number;
 }
 
-const getBarColors = (values: number[], isSecondDataset: boolean): string[] => {
+const getBarColors = (values: number[], color: string): string[] => {
   return values.map((value, index) => {
     const opacity = index === values.length - 1 ? "60" : "ff";
-    const color = value >= 0 ? "#14b8a6" : "#0369a1";
-    if (isSecondDataset && index === values.length - 1) {
-      return `${color}${opacity}`;
-    } else {
-      return `${color}ff`;
-    }
+    return value >= 0 ? `${color}${opacity}` : `${color}${opacity}`;
   });
 };
 
@@ -39,18 +34,22 @@ const generateExpenseIncomeChartData = (): ExpenseIncomeChartData => {
   const incomes = [1, 2, 3, 4, 5];
   const expenses = [5, 4, 3, 2, 1];
 
+
+  const greenColors = getBarColors(incomes, "#14b8a6");
+  const blueColors = getBarColors(expenses, "#0369a1");
+
   return {
     labels,
     datasets: [
       {
         label: "Einnahmen",
         data: incomes,
-        backgroundColor: getBarColors(incomes, false),
+        backgroundColor: greenColors,
       },
       {
         label: "Ausgaben",
         data: expenses,
-        backgroundColor: getBarColors(expenses, true),
+        backgroundColor: blueColors,
       },
     ],
   };
