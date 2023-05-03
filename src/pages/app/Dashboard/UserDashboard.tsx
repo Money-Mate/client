@@ -10,6 +10,8 @@ import BalanceExpenses from "./cardsUserDashboard/BalanceExpensesCard";
 import BalanceIncome from "./cardsUserDashboard/BalanceIncomeCard";
 import useDashboardStore from "../../../context/DashbordStore";
 import IncomeExpensesCard from "./cardsUserDashboard/ExpensesIncomeCard";
+import 'chart.js/auto'
+
 
 function Dashboard() {
   const { dashboardData, fetchDashboardData } = useDashboardStore();
