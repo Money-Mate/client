@@ -41,6 +41,9 @@ const Saldo = () => {
     },
     scales: {
       y: {
+        grid: {
+          color: "#94a3b8",
+        },
         ticks: {
           callback: function (value) {
             return "€" + value;
@@ -48,6 +51,9 @@ const Saldo = () => {
         },
       },
       x:{
+        grid: {
+          color: "#94a3b8",
+        },
         ticks: {
           color: "#94a3b8"
         },

@@ -1,56 +1,68 @@
-import { ChartData, ChartOptions } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
+import { ChartData, ChartOptions } from "chart.js/auto";
 import { useEffect, useState } from "react";
+
+interface ExpenseIncomeChartData extends ChartData<"bar"> {
+  datasets: [
+    {
+      label: string;
+      data: number[];
+      backgroundColor: string[];
+    },
+    {
+      label: string;
+      data: number[];
+      backgroundColor: string[];
+    }
+  ];
+}
 
 interface DataItem {
   income: number;
   expenses: number;
 }
 
-const getBarColors = (values: number[]): string[] => {
+const getBarColors = (values: number[], isSecondDataset: boolean): string[] => {
   return values.map((value, index) => {
     const opacity = index === values.length - 1 ? "60" : "ff";
-    return value >= 0 ? `#14b8a6${opacity}` : `#0369a1${opacity}`;
+    const color = value >= 0 ? "#14b8a6" : "#0369a1";
+    if (isSecondDataset && index === values.length - 1) {
+      return `${color}${opacity}`;
+    } else {
+      return `${color}ff`;
+    }
   });
 };
 
-const ExpenseIncomeChart = () => {
-  const [data, setData] = useState<ChartData<"bar">>({
-    labels: [],
+const generateExpenseIncomeChartData = (): ExpenseIncomeChartData => {
+  const labels = ["Month 1", "Month 2", "Month 3", "Month 4", "Month 5"];
+  const incomes = [1, 2, 3, 4, 5];
+  const expenses = [5, 4, 3, 2, 1];
+
+  return {
+    labels,
     datasets: [
       {
-        label: "Income",
-        data: [],
-        backgroundColor: getBarColors([]),
+        label: "Einnahmen",
+        data: incomes,
+        backgroundColor: getBarColors(incomes, false),
       },
       {
-        label: "Expenses",
-        data: [],
-        backgroundColor: getBarColors([]),
+        label: "Ausgaben",
+        data: expenses,
+        backgroundColor: getBarColors(expenses, true),
       },
     ],
-  });
+  };
+};
+
+const ExpenseIncomeChart = () => {
+  const [data, setData] = useState<ExpenseIncomeChartData>(
+    generateExpenseIncomeChartData()
+  );
 
   useEffect(() => {
-    setData((prevData) => {
-      const newData: ChartData<"bar"> = {
-        ...prevData,
-        labels: ["Month 1", "Month 2", "Month 3", "Month 4", "Month 5"],
-        datasets: [
-          {
-            ...prevData.datasets[0],
-            data: [0, 0, 0, 0, 0],
-            backgroundColor: getBarColors([0, 0, 0, 0, 0]),
-          },
-          {
-            ...prevData.datasets[1],
-            data: [0, 0, 0, 0, 0],
-            backgroundColor: getBarColors([0, 0, 0, 0, 0]),
-          },
-        ],
-      };
-      return newData;
-    });
+    setData(generateExpenseIncomeChartData());
   }, []);
 
   const options: ChartOptions<"bar"> = {
@@ -69,14 +81,18 @@ const ExpenseIncomeChart = () => {
     },
     scales: {
       y: {
+        grid: {
+          color: "#94a3b8",
+        },
         ticks: {
-          callback: function (value) {
-            return "€" + value;
-          },
+          callback: (value) => `€${value}`,
           color: "#94a3b8",
         },
       },
       x: {
+        grid: {
+          color: "#94a3b8",
+        },
         ticks: {
           color: "#94a3b8",
         },
