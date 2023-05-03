@@ -4,19 +4,19 @@ import { Pie } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const data = {
-  labels: [""],
+  labels: ["erfüllt", "nicht erfüllt"],
   datasets: [
     {
       label: "%",
       data: [33, 66],
-      backgroundColor: ["rgba(0,0,0, 0)", "#1C82BF"],
-      borderColor: ["rgba(0,0,0, 0)", "#1C82BF"],
+      backgroundColor: ["rgba(0,0,0, 0)", "#0d9488"],
+      borderColor: ["rgba(0,0,0, 0)", "#0d9488"],
     },
   ],
 };
 
 function Notgroschen() {
-  return <Pie data={data} options={{ maintainAspectRatio: false }} />;
+  return <Pie data={data} options={{ maintainAspectRatio: false, plugins: {legend: {display: false}} }} />;
 }
 
 export default Notgroschen;
