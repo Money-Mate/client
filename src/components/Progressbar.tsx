@@ -1,16 +1,23 @@
 import React from "react";
 interface ProgressbarProps {
   percentage: number;
+  color: string;
+  isLimited: boolean
 }
 
 function Progressbar(props: ProgressbarProps) {
-  const { percentage } = props;
+  const { percentage, color, isLimited } = props;
+
+  let barColor = color;
+  if (isLimited && percentage > 80) {
+    barColor = "bg-violet-400"; // apply red color for main component if percentage is higher than 80%
+  }
+
   return (
     <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
-      <div
-        className={`h-2.5 rounded-full bg-teal-400`}
-        style={{ width: `${percentage}%` }}
-      ></div>
+      <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+        <div className={`h-2.5 rounded-full ${barColor}`} style={{ width: `${percentage}%` }}></div>
+      </div>
     </div>
   );
 }
