@@ -1,13 +1,18 @@
-import React from 'react'
-
-function Progressbar() {
-    const progressWidth = '45%';
-
-    return (
-      <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-        <div className={`bg-blue-600 h-2.5 rounded-full`} style={{ width: `${progressWidth}` }}></div>
-      </div>
-    );
+import React from "react";
+interface ProgressbarProps {
+  percentage: number;
 }
 
-export default Progressbar
+function Progressbar(props: ProgressbarProps) {
+  const { percentage } = props;
+  return (
+    <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+      <div
+        className={`h-2.5 rounded-full bg-teal-400`}
+        style={{ width: `${percentage}%` }}
+      ></div>
+    </div>
+  );
+}
+
+export default Progressbar;

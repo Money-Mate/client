@@ -1,16 +1,17 @@
-import Saldo from "../chartsUserDasboard/Saldo";
+import ExpenseIncomeChart from "../chartsUserDasboard/ExpensesIncome";
 
-function SaldoLastSixMonth() {
+
+function IncomeExpensesCard() {
   return (
     <div className="h-full rounded-md bg-mm-foreground">
       <h2 className="m-2 text-center text-lg font-semibold text-mm-text-white pt-3">
-        Saldo der letzten 6 Monate
+        Einnahmen/Ausgaben der letzten 6 Monate
       </h2>
       <div className="flex h-60 w-full items-center justify-center p-1">
-        <Saldo />
+        <ExpenseIncomeChart />
       </div>
     </div>
   );
 }
 
-export default SaldoLastSixMonth;
+export default IncomeExpensesCard;
