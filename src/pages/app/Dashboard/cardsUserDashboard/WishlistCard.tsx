@@ -13,8 +13,8 @@ function WishlistCard() {
   ));
 
   return (
-    <div className=" h-full rounded-md  bg-mm-foreground pt-3">
-      <h2 className="m-2 text-center text-lg font-semibold text-mm-text-white">
+    <div className=" h-full rounded-md  bg-mm-foreground">
+      <h2 className="m-2 pt-3 text-center text-lg font-semibold text-mm-text-white">
         Wunschliste
       </h2>
       <div className="p-1">{progressBars}</div>

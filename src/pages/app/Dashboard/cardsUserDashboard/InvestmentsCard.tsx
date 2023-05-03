@@ -20,7 +20,7 @@ function CardNineInvestments() {
 
   return (
     <div className="h-full rounded-md  bg-mm-foreground shadow-lg">
-      <h2 className="m-2 text-center text-lg font-semibold text-mm-text-white">
+      <h2 className="m-2 pt-3 text-center text-lg font-semibold text-mm-text-white">
         Investments
       </h2>
       {!clickedData && (

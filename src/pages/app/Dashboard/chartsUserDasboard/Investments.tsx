@@ -24,7 +24,7 @@ const Investments = ({setClickedData}: InvestmentProps) => {
         backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
         hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
         borderColor: [""],
-
+        borderWidth: 0
       },
     ],
   };
@@ -34,6 +34,16 @@ const Investments = ({setClickedData}: InvestmentProps) => {
 
   const options: ChartConfiguration["options"] = {
     maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: "bottom",
+        align: "center",
+        labels: {
+          color: "#fff",
+        },
+      },
+  },
     onClick: (event: any, elements: any) => {
       if (elements.length > 0 && elements[0].index !== undefined) {
         const index = elements[0].index;
@@ -55,12 +65,6 @@ const Investments = ({setClickedData}: InvestmentProps) => {
         setChartData({
           labels: innerDataNames.length > 0 ? [...innerDataNames] : [label],
           datasets: [
-            // {
-            //   label: "Total Value",
-            //   data: [value],
-            //   backgroundColor: ["#FF6384"],
-            //   hoverBackgroundColor: ["#FF6384"],
-            // },
             {
 
             label: "Individual values",
@@ -68,7 +72,7 @@ const Investments = ({setClickedData}: InvestmentProps) => {
               backgroundColor: ["#36A2EB", "#FFCE56", "#FF6384"],
               hoverBackgroundColor: ["#36A2EB", "#FFCE56"],
               borderColor: [""],
-
+              borderWidth: 0
             },
           ],
         });
