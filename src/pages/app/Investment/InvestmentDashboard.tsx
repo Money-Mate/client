@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import 'chart.js/auto'
-import Investments from "../../app/Dashboard/cardsUserDashboard/InvestmentsCard";
+import Investments from "./InvestmentsCard";
 
 
 function InvestmentDashboard() {
