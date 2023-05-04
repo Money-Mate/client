@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { ChartConfiguration } from "chart.js";
-import { invests } from "../../../data/Investdata";
+import { invests } from "./Investdata";
 
 interface InvestmentProps {
   setClickedData: Function;

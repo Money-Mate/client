@@ -1,42 +1,43 @@
 //@ts-ignore
 import * as finnhub from "finnhub";
-import { useEffect, useState } from "react";
-import { formatNumber } from "../../../utils/formatterFunctions";
-
-
-const api_key = finnhub.ApiClient.instance.authentications["api_key"];
-const key = import.meta.env.VITE_API_KEY;
-api_key.apiKey = key;
-const finnhubClient = new finnhub.DefaultApi();
+import { useEffect } from "react";
+import { invests } from "./Investdata";
 
 const Fetch = () => {
+  const api_key = finnhub.ApiClient.instance.authentications["api_key"];
+  const key = import.meta.env.VITE_API_KEY;
+  api_key.apiKey = key;
+  const finnhubClient = new finnhub.DefaultApi();
 
-  const [quote, setQuote] = useState();
-  const symbol = "TSLA";
-  
   useEffect(() => {
-    //@ts-ignore
-    finnhubClient.quote(`${symbol}`, (error, data, response) => {
-      console.log(data);
-      setQuote(data);
-    });
-  }, []);
+    const values: [] = [];
+    const filteredSymbols = invests.filter((invest) => invest.symbol);
+    const symbols = filteredSymbols.map((invest) => invest.symbol);
+    console.log(symbols);
+    for (let i = 0; i < symbols.length; i++) {
+      //@ts-ignore
+         finnhubClient.quote(symbols[i], (error, data, response) => {
+        if (!error) {
+          //@ts-ignore
+          values.push(data.c);
+          values.filter(
+            (value, index) => value && values.indexOf(value) === index
+          );
+        } else {
+          console.error(error);
+        }
+        console.log(values);
+      });
     
-    return (
-        <>
-        <div>
-        {quote ? (
-          <div>
-            <h1 className="text-mm-text-white">Tesla</h1>
-            {/* @ts-ignore */}
-            <p className="text-mm-text-white">Current price: {formatNumber(quote.c)}</p>
-          </div>
-        ) : (
-          <p>Loading...</p>
-        )}
-      </div>
-        </>
-    )
-}
+    };
+  }, []);
+
+  return (
+  <>
+  <div>Fetching data...</div>;
+
+  </>
+  )
+};
 
 export default Fetch;

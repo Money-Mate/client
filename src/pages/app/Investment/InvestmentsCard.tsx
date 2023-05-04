@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { formatNumber } from "../../../utils/formatterFunctions";
 import Investments from "./Investments";
-import { invests } from "../../../data/Investdata";
+import { invests } from "./Investdata";
 
 function CardNineInvestments() {
   const [clickedData, setClickedData] = useState<
