@@ -108,7 +108,7 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
           innerData = invests
             .filter((invest) => invest.type === "Stocks")
             .map((invest) => invest.value)
-            .sort((a, b) => b - a);
+            // .sort((a, b) => b - a);
           innerDataNames = invests
             .filter((invest) => invest.type === "Stocks")
             .map((invest) => invest.name);
@@ -116,7 +116,7 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
           innerData = invests
             .filter((invest) => invest.type === "Krypto")
             .map((invest) => invest.value)
-            .sort((a, b) => b - a);
+            // .sort((a, b) => b - a);
           innerDataNames = invests
             .filter((invest) => invest.type === "Krypto")
             .map((invest) => invest.name);
@@ -124,7 +124,7 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
           innerData = invests
             .filter((invest) => invest.type === "Real Estate")
             .map((invest) => invest.value)
-            .sort((a, b) => b - a);
+            // .sort((a, b) => b - a);
           innerDataNames = invests
             .filter((invest) => invest.type === "Real Estate")
             .map((invest) => invest.name);
@@ -132,7 +132,7 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
           innerData = invests
             .filter((invest) => invest.type === "Edelmetalle")
             .map((invest) => invest.value)
-            .sort((a, b) => b - a);
+            // .sort((a, b) => b - a);
           innerDataNames = invests
             .filter((invest) => invest.type === "Edelmetalle")
             .map((invest) => invest.name);
