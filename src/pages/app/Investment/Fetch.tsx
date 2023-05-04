@@ -2,6 +2,7 @@
 import * as finnhub from "finnhub";
 import { useEffect } from "react";
 import { invests } from "./Investdata";
+import { formatNumber, convertUSDToEUR } from "../../../utils/formatterFunctions";
 
 const Fetch = () => {
   const api_key = finnhub.ApiClient.instance.authentications["api_key"];
@@ -18,8 +19,9 @@ const Fetch = () => {
       //@ts-ignore
          finnhubClient.quote(symbols[i], (error, data, response) => {
         if (!error) {
+          const amount = convertUSDToEUR(data.c)
           //@ts-ignore
-          values.push(data.c);
+          values.push(formatNumber(amount));
           values.filter(
             (value, index) => value && values.indexOf(value) === index
           );
