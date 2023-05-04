@@ -11,7 +11,6 @@ import BalanceIncome from "./cardsUserDashboard/BalanceIncomeCard";
 import useDashboardStore from "../../../context/DashbordStore";
 import IncomeExpensesCard from "./cardsUserDashboard/ExpensesIncomeCard";
 import 'chart.js/auto'
-import Fetch from "../Investment/Fetch";
 
 
 function Dashboard() {
@@ -58,7 +57,6 @@ function Dashboard() {
         <Investments />
       </div>
       <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-3">
-        <Fetch />
       </div>
     </div>
   );
