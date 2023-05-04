@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import BudgetExpenses from "./cardsUserDashboard/BudgetExpensesCard";
 import SaldoLastSixMonth from "./cardsUserDashboard/SaldoLastSixMonthCard";
 import Savings from "./cardsUserDashboard/SavingsCard";
-import Investments from "./cardsUserDashboard/InvestmentsCard";
 import BankBalance from "./cardsUserDashboard/BankBalanceCard";
 import EmergencyCoins from "./cardsUserDashboard/EmergencyCoinsCard";
 import Wishlist from "./cardsUserDashboard/WishlistCard";
@@ -54,7 +53,7 @@ function Dashboard() {
         <BudgetExpenses />
       </div>
       <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-3">
-        <Investments />
+        
       </div>
       <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-3">
       </div>
