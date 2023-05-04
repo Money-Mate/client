@@ -21,15 +21,20 @@ const AssetCard = ({ setClickedData }: Props) => {
   );
 
   const handleClick = (type: InvestmentType) => {
-    setSelectedType(type);
-    const investmentsOfType = invests.filter((invest) => invest.type === type);
-    const sumOfType = investmentsOfType.reduce(
-      (acc, curr) => acc + curr.value,
-      0
-    );
-    console.log(sumOfType);
-    setClickedData({ label: type, value: sumOfType });
+    setSelectedType((prevSelectedType) => {
+      const newSelectedType = prevSelectedType === type ? null : type;
+      const investmentsOfType = invests.filter(
+        (invest) => invest.type === newSelectedType
+      );
+      const sumOfType = investmentsOfType.reduce(
+        (acc, curr) => acc + curr.value,
+        0
+      );
+      setClickedData(newSelectedType ? { label: newSelectedType, value: sumOfType } : undefined);
+      return newSelectedType;
+    });
   };
+  
 
   const investments = selectedType
     ? invests.filter((invest) => invest.type === selectedType)
