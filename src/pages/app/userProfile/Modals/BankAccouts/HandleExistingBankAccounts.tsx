@@ -8,14 +8,14 @@ import useAccountStore, {
 
 interface FormErrors {
   name?: string;
-  iban?: string;
+  iban?: string | undefined;
   reference?: string;
   type?: string;
 }
 
 const bankAccountSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  iban: z.string().refine(isIBAN, { message: "not a valid IBAN" }).optional(),
+  iban: z.string().optional().refine((val) => !val || isIBAN(val), { message: "not a valid IBAN" }),
   reference: z.enum(["name", "iban"]),
   type: z.enum(["giro", "invest"]),
 });
@@ -27,7 +27,7 @@ interface IProps {
 function HandleExistingBankAccounts({ account, onClose }: IProps) {
   const { addBankAccount, updateBankAccount } = useAccountStore();
   const [name, setName] = useState("");
-  const [iban, setIban] = useState("");
+  const [iban, setIban] = useState<string | undefined>(undefined);
   const [reference, setReference] = useState<"name" | "iban">("name");
   const [type, setType] = useState<"giro" | "invest">("giro");
   const [errors, setErrors] = useState<FormErrors>({});
@@ -35,7 +35,7 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
   useEffect(() => {
     if (account) {
       setName(account.name);
-      setIban(account.iban);
+      setIban(account.iban || "");
       setReference(account.reference);
       setType(account.type);
     }
@@ -59,21 +59,20 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
+      const ibanValue = iban ? iban : undefined;
       bankAccountSchema.parse({
         name,
-        iban,
+        iban: ibanValue,
         reference,
         type,
       });
       const newAccount: IBankAccountData = {
         name,
-        iban,
+        iban: ibanValue,
         reference,
         type,
         _id: account?._id ?? "",
       };
-      console.log("account", account);
-      console.log("newAccount", newAccount);
       if (account) {
         await updateBankAccount({ _id: account._id, data: newAccount });
       } else {
@@ -85,7 +84,6 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
       console.error("Failed to save account", error);
       if (error instanceof z.ZodError) {
         setErrors(error.flatten().fieldErrors);
-        console.log(errors);
       }
     }
   };

@@ -4,7 +4,7 @@ import { create } from "zustand";
 export interface IBankAccountData {
   _id: string;
   name: string;
-  iban: string;
+  iban: string | undefined;
   reference: "name" | "iban";
   type: "giro" | "invest";
 }

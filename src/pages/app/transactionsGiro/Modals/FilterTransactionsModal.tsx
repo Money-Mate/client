@@ -1,7 +1,5 @@
-
 import { useCallback, useEffect, useState } from "react";
 import { OptionsData } from "../../transactionsGiro/TransactionsGiro";
-
 
 interface FilterTransactionsModalProps {
   onClose: () => void;
@@ -65,7 +63,9 @@ const FilterTransactionsModal = ({
     });
   }, [accountIBANs, categories, subCategories]);
 
-  const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleOptionChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = event.target;
     const updatedOptions = { ...options, [name]: value };
     setOptions(updatedOptions);
@@ -183,7 +183,7 @@ const FilterTransactionsModal = ({
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               >
                 <option value="asc">Neueste zuerst</option>
-               
+
                 <option value="desc">Älteste zuerst </option>
               </select>
             </div>

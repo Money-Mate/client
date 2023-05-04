@@ -1,4 +1,4 @@
-import Notgroschen from "../chartsUserDasboard/Notgroschen";
+import Notgroschen from "../chartsUserDasboard/EmergencyFund";
 
 function EmergencyCoins() {
   return (

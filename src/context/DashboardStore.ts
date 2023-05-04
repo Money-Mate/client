@@ -24,6 +24,7 @@ interface IDashboardData {
   incomeForThisMonth: number;
   lastSixMonthsBalance: LastSixMonthsBalance;
   lastSixMonthsIncomeAndExpenses: LastSixMonthsIncomeAndExpenses;
+  emergencyFundPercent: number;
 }
 
 interface DashboardStore {

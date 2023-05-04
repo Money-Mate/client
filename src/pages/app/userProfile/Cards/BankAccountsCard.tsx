@@ -68,7 +68,7 @@ const BankAccountsCard: React.FC = () => {
             {giroAccounts?.map((account: IBankAccountData) => (
               <div
                 key={account._id}
-                className="overflow-hidden border-2 border-mm-background shadow-lg"
+                className="overflow-hidden border-2 border-mm-background rounded shadow-lg"
               >
                 <div className="p-4 ">
                   <h5 className="mb-2 text-lg font-bold text-mm-text-white">
@@ -104,7 +104,7 @@ const BankAccountsCard: React.FC = () => {
             {investAccounts?.map((account: IBankAccountData) => (
               <div
                 key={account._id}
-                className="overflow-hidden border-2 border-mm-background shadow-lg"
+                className="overflow-hidden border-2 border-mm-background rounded shadow-lg"
               >
                 <div className="p-4 ">
                   <h5 className="mb-2 text-lg font-bold text-mm-text-white">
