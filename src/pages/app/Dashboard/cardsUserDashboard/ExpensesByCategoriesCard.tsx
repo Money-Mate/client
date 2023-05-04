@@ -3,7 +3,7 @@ import { formatNumber } from "../../../../utils/formatterFunctions";
 import Investments from "../chartsUserDasboard/Investments";
 import { invests } from "../../../../data/Investdata";
 
-function CardNineInvestments() {
+function ExpensesByCategoriesCard() {
   const [clickedData, setClickedData] = useState<
     { label: string; value: number } | undefined
   >(undefined);
@@ -22,7 +22,7 @@ function CardNineInvestments() {
   return (
     <div className="h-full rounded-md  bg-mm-foreground shadow-lg">
       <h2 className="m-2 pt-3 text-center text-lg font-semibold text-mm-text-white">
-        Investments
+        Ausgaben nach Kategorien
       </h2>
       {!clickedData && (
         <p className="m-2 text-center text-sm font-semibold text-mm-text-white">
@@ -43,4 +43,4 @@ function CardNineInvestments() {
   );
 }
 
-export default CardNineInvestments;
+export default ExpensesByCategoriesCard;

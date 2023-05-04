@@ -1,4 +1,4 @@
-import useDashboardStore from "../../../../context/DashbordStore";
+import useDashboardStore from "../../../../context/DashboardStore";
 import { formatNumber } from "../../../../utils/formatterFunctions";
 
 const Savings = () => {
@@ -11,7 +11,9 @@ const Savings = () => {
   return (
     <div className=" h-full rounded-md bg-mm-foreground shadow-lg">
       <div className="px-5 pt-3">
-        <h2 className="mb-2 text-lg font-semibold text-mm-text-white">Erspartes</h2>
+        <h2 className="mb-2 text-lg font-semibold text-mm-text-white">
+          Erspartes
+        </h2>
         <div className="mb-1 text-xs font-semibold uppercase text-slate-400">
           April
         </div>

@@ -2,16 +2,15 @@ import { useEffect } from "react";
 import BudgetExpenses from "./cardsUserDashboard/BudgetExpensesCard";
 import SaldoLastSixMonth from "./cardsUserDashboard/SaldoLastSixMonthCard";
 import Savings from "./cardsUserDashboard/SavingsCard";
-import Investments from "./cardsUserDashboard/InvestmentsCard";
+import Investments from "./cardsUserDashboard/ExpensesByCategoriesCard";
 import BankBalance from "./cardsUserDashboard/BankBalanceCard";
 import EmergencyCoins from "./cardsUserDashboard/EmergencyCoinsCard";
 import Wishlist from "./cardsUserDashboard/WishlistCard";
 import BalanceExpenses from "./cardsUserDashboard/BalanceExpensesCard";
 import BalanceIncome from "./cardsUserDashboard/BalanceIncomeCard";
-import useDashboardStore from "../../../context/DashbordStore";
+import useDashboardStore from "../../../context/DashboardStore";
 import IncomeExpensesCard from "./cardsUserDashboard/ExpensesIncomeCard";
-import 'chart.js/auto'
-
+import "chart.js/auto";
 
 function Dashboard() {
   const { dashboardData, fetchDashboardData } = useDashboardStore();

@@ -1,21 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-import useAccountStore, { IBankAccountData } from "../../../../../context/Accountstore";
-import * as z from "zod";
 import isIBAN from "validator/lib/isIBAN";
+import * as z from "zod";
+import useAccountStore, {
+  IBankAccountData,
+} from "../../../../../context/BankAccountsStore";
 
 interface FormErrors {
   name?: string;
   iban?: string;
   reference?: string;
+  type?: string;
 }
 
 const bankAccountSchema = z.object({
   name: z.string().min(1, "Name is required"),
   iban: z.string().refine(isIBAN, { message: "not a valid IBAN" }).optional(),
   reference: z.enum(["name", "iban"]),
+  type: z.enum(["giro", "invest"]),
 });
-
 
 interface IProps {
   account?: IBankAccountData | null;
@@ -26,6 +29,7 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
   const [name, setName] = useState("");
   const [iban, setIban] = useState("");
   const [reference, setReference] = useState<"name" | "iban">("name");
+  const [type, setType] = useState<"giro" | "invest">("giro");
   const [errors, setErrors] = useState<FormErrors>({});
 
   useEffect(() => {
@@ -33,6 +37,7 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
       setName(account.name);
       setIban(account.iban);
       setReference(account.reference);
+      setType(account.type);
     }
   }, [account]);
 
@@ -46,6 +51,8 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
       setIban(value);
     } else if (name === "reference") {
       setReference(value as "name" | "iban");
+    } else if (name === "type") {
+      setType(value as "giro" | "invest");
     }
   };
 
@@ -56,11 +63,13 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
         name,
         iban,
         reference,
+        type,
       });
       const newAccount: IBankAccountData = {
         name,
         iban,
         reference,
+        type,
         _id: account?._id ?? "",
       };
       console.log("account", account);
@@ -112,6 +121,25 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
           placeholder="IBAN"
         />
       </div>
+      <div className="mb-4">
+        <label
+          className="mb-2 block font-bold text-gray-700"
+          htmlFor="reference"
+        >
+          Art des Kontos
+        </label>
+        <select
+          className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+          id="type"
+          name="type"
+          value={type}
+          onChange={handleChange}
+        >
+          <option value="giro">Girokonto</option>
+          <option value="invest">InvestmentKonto</option>
+        </select>
+      </div>
+
       <div className="mb-4">
         <label
           className="mb-2 block font-bold text-gray-700"

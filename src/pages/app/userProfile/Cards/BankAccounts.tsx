@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import useAccountStore, {
+import useBankAccountStore, {
   IBankAccountData,
-} from "../../../context/Accountstore";
-import HandleExistingBankAccounts from "./Modals/BankAccouts/HandleExistingBankAccounts";
+} from "../../../../context/BankAccountsStore";
+import HandleExistingBankAccounts from "../Modals/BankAccouts/HandleExistingBankAccounts";
 
 const BankAccounts = () => {
   const { bankAccountData, fetchBankAccountData, deleteBankAccount } =
-    useAccountStore();
+    useBankAccountStore();
   const [showModal, setShowModal] = useState(false);
   const [selectedAccount, setSelectedAccount] =
     useState<IBankAccountData | null>(null);
@@ -30,7 +30,17 @@ const BankAccounts = () => {
     fetchBankAccountData();
   };
   if (!bankAccountData) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        Kein Konto gefunden
+        <button
+          className="mb-4 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+          onClick={handleAddClick}
+        >
+          Konto hinzufügen
+        </button>
+      </div>
+    );
   }
   return (
     <div className="p-4">
@@ -54,13 +64,13 @@ const BankAccounts = () => {
                 className="mr-2 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
                 onClick={() => handleEditClick(account)}
               >
-                Edit
+                Bearbeiten
               </button>
               <button
                 className="rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
                 onClick={() => handleDeleteClick(account._id)}
               >
-                Delete
+                Löschen
               </button>
             </div>
           </div>

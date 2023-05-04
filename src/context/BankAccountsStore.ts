@@ -1,11 +1,12 @@
-import { create } from "zustand";
 import axios from "axios";
+import { create } from "zustand";
 
 export interface IBankAccountData {
   _id: string;
   name: string;
   iban: string;
   reference: "name" | "iban";
+  type: "giro" | "invest";
 }
 export interface AccountStore {
   bankAccountData: IBankAccountData[] | null;

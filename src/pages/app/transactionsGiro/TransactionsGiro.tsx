@@ -69,6 +69,7 @@ const TransactionsTable = () => {
   const [editingTransactionId, setEditingTransactionId] = useState<String>("");
   const [transformedCategories, setTransformedCategories] = useState<any[]>([]);
   const [isAddingTransaction, setIsAddingTransaction] = useState(false);
+  
   //Filter Transactions
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [filterOptions, setFilterOptions] = useState<OptionsData>({});
@@ -234,7 +235,7 @@ const TransactionsTable = () => {
           key={row._id}
           className={
             rowIndex % 2 === 0
-              ? "bg-mm-foreground text-mm-text-white"
+              ? "bg-mm-foreground text-mm-text-white "
               : "text-mm-text-white"
           }
         >
@@ -308,7 +309,7 @@ const TransactionsTable = () => {
           />
         </svg>
       </div>
-      <table className="w-full table-auto">
+      <table className="md:w-screen w-full table-auto md:table-fixed">
         <thead>
           <tr className="bg-mm-foreground text-sm uppercase leading-normal text-mm-text-white">
             <th className="px-6 py-3 text-left font-bold ">Konto</th>
