@@ -248,15 +248,15 @@ const TransactionsTable = () => {
           >
             {row.amount ? row.amount.toFixed(2) : ""} {row.currency}
           </td>
-          <td className="px-6 py-3 text-left">{row.recipientName}</td>
+          <td className="px-6 py-3 text-left hidden md:table-cell">{row.recipientName}</td>
           <td className="px-6 py-3 text-left">{row.transactionText}</td>
-          <td className="whitespace-nowrap px-6 py-3 text-left  ">
+          <td className="whitespace-nowrap px-6 py-3 text-left hidden md:table-cell ">
             {row.category.name}
           </td>
-          <td className="whitespace-nowrap px-6 py-3 text-left  ">
+          <td className="whitespace-nowrap px-6 py-3 text-left hidden md:table-cell ">
             {row.subCategory.name}
           </td>
-          <td className="px-6 py-3 text-left ">{row.tags}</td>
+          <td className="px-6 py-3 text-left hidden md:table-cell">{row.tags}</td>
           <td className="px-6 py-3 text-left ">{row.date.slice(0, 10)}</td>
           <td>
             <button
@@ -311,13 +311,13 @@ const TransactionsTable = () => {
       <table className="w-full table-auto">
         <thead>
           <tr className="bg-mm-foreground text-sm uppercase leading-normal text-mm-text-white">
-            <th className="px-6 py-3 text-left font-bold">Konto</th>
+            <th className="px-6 py-3 text-left font-bold ">Konto</th>
             <th className="px-6 py-3 text-left font-bold">Summe</th>
-            <th className="px-6 py-3 text-left font-bold">Empfänger</th>
+            <th className="px-6 py-3 text-left font-bold hidden md:table-cell">Empfänger</th>
             <th className="px-6 py-3 text-left font-bold">Verwendungszweck</th>
-            <th className="px-6 py-3 text-left font-bold">Kategorie</th>
-            <th className="px-6 py-3 text-left font-bold">Unterkategorie</th>
-            <th className="px-6 py-3 text-left font-bold">Tags</th>
+            <th className="px-6 py-3 text-left font-bold hidden md:table-cell">Kategorie</th>
+            <th className="px-6 py-3 text-left font-bold hidden md:table-cell">Unterkategorie</th>
+            <th className="px-6 py-3 text-left font-bold hidden md:table-cell">Tags</th>
             <th className="px-6 py-3 text-left font-bold">Datum</th>
             <th className="px-6 py-3 text-left font-bold"></th>
           </tr>
