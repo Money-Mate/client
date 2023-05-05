@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import HeroSection from "./HeroSection";
 import { ReactElement } from "react";
 import ImageOne from "../../lib/FullDashboard.png";
 import { TypeAnimation } from "react-type-animation";
