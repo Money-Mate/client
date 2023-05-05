@@ -10,6 +10,7 @@ import BalanceIncome from "./cardsUserDashboard/BalanceIncomeCard";
 import useDashboardStore from "../../../context/DashbordStore";
 import IncomeExpensesCard from "./cardsUserDashboard/ExpensesIncomeCard";
 import 'chart.js/auto'
+import ExpensesPieCard from "./cardsUserDashboard/ExpensesPieCard";
 
 
 function Dashboard() {
@@ -53,7 +54,7 @@ function Dashboard() {
         <BudgetExpenses />
       </div>
       <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-3">
-        
+        <ExpensesPieCard />
       </div>
       <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-3">
       </div>

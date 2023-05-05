@@ -6,6 +6,12 @@ interface LastSixMonthsBalance {
   data: number[];
 }
 
+interface lastSixMonthsExpensesByCategory {
+  category: string;
+  subCategory: string;
+  amount: number;
+}
+
 interface IDashboardData {
   user: string;
   bankBalance: number;
@@ -13,6 +19,8 @@ interface IDashboardData {
   scheduledDebit: number;
   balanceEndOfMonth: number;
   lastSixMonthsBalance: LastSixMonthsBalance;
+  lastSixMonthsExpensesByCategory: lastSixMonthsExpensesByCategory[];
+  
 }
 
 interface DashboardStore {
