@@ -20,6 +20,7 @@ const Fetch = () => {
     const filteredSymbols = invests.filter((invest) => invest.symbol);
     const symbols = filteredSymbols.map((invest) => invest.symbol);
     console.log(symbols);
+    // symbols map / fetch / return / Promise.All symbols von map / Copie / async await
     for (let i = 0; i < symbols.length; i++) {
       //@ts-ignore
       finnhubClient.quote(symbols[i], (error, data, response) => {

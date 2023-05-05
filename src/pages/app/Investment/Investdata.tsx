@@ -2,7 +2,7 @@ export const invests = [
   {
     id: 1,
     name: "Apple",
-    value: 1000,
+    value: 1000.34,
     amount: 3,
     buyIn: 120,
     dividend: 0.56,

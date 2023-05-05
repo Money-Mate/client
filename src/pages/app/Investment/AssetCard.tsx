@@ -5,11 +5,6 @@ import { formatNumber } from "../../../utils/formatterFunctions";
 
 type InvestmentType = "Stocks" | "Krypto" | "Real Estate" | "Edelmetalle";
 
-// type Investment = {
-//   name: string;
-//   type: InvestmentType;
-//   value: number;
-// };
 
 type Props = {
   setClickedData: (data: { label: string; value: number } | undefined) => void;
