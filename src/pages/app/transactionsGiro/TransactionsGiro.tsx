@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Pagination } from "antd";
 import EditTransactionModal from "./Modals/EditTransactions";
 import FilterTransactionsModal from "./Modals/FilterTransactionsModal";
+import { string } from "zod";
 
 // TODO:
 
@@ -32,17 +33,52 @@ export interface TransactionData {
   tags: string[];
 }
 
+// export interface OptionsData {
+//   accounts?: string[];
+//   categories?: string[];
+//   subCategories?: string[];
+//   dateRange?: {
+//     startDate?: string;
+//     endDate?: string;
+//   };
+//   date?: "asc" | "desc";
+//   amount?: "pos" | "neg";
+// }
+
 export interface OptionsData {
   accounts?: string[];
   categories?: string[];
-  subCategories?: string[];
-  dateRange?: {
+  subCategories?: string [];
+   dateRange?: {
     startDate?: string;
     endDate?: string;
   };
-  date?: "asc" | "desc";
-  amount?: "pos" | "neg";
+  date?: 'asc' | 'desc';
+  amount?:  'pos' | 'neg';
 }
+
+ export interface Category{
+  id: string;
+  name?: string;
+}
+
+ export interface SubCategory {
+  id: string;
+  name?: string;
+}
+
+const defaultOptionsData: OptionsData = {
+  accounts: [],
+  categories: [],
+  subCategories: [],
+  dateRange: {
+    startDate: undefined,
+    endDate: undefined,
+  },
+  date: undefined,
+  amount: undefined,
+};
+
 
 export interface Transactions {
   page: number | 1;
@@ -72,9 +108,9 @@ const TransactionsTable = () => {
   
   //Filter Transactions
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [filterOptions, setFilterOptions] = useState<OptionsData>({});
-  const [selectedOptions, setSelectedOptions] = useState<OptionsData>({});
-  const [subCategories, setSubCategories] = useState<any[]>([]);
+  const [filterOptions, setFilterOptions] = useState<OptionsData>(defaultOptionsData);
+  const [selectedOptions, setSelectedOptions] = useState<OptionsData>(defaultOptionsData);
+  
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
