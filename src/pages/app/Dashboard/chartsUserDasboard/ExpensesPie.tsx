@@ -1,43 +1,54 @@
 import { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
-import { ChartConfiguration } from "chart.js";
+import { ChartConfiguration, ChartData } from "chart.js";
 import useDashboardStore from "../../../../context/DashbordStore";
 
 interface InvestmentProps {
-  setClickedData: Function;
+  setClickedData?: Function;
 }
 
+interface CategoryData {
+  category: string;
+  amount: number;
+}
 
+interface LastSixMonthsExpenses {
+  category: string;
+  subCategory: string;
+  amount: number;
+}
 
 const ExpensesPie = ({ setClickedData }: InvestmentProps) => {
+  const lastSixMonthsExpensesByCategory = useDashboardStore(
+    (state) => state.dashboardData?.lastSixMonthsExpensesByCategory
+  );
 
-    const lastSixMonthsExpensesByCategory = useDashboardStore(
-        (state) => state.dashboardData?.lastSixMonthsExpensesByCategory
-      );
-      console.log(lastSixMonthsExpensesByCategory)
-    
-      if (lastSixMonthsExpensesByCategory === undefined) {
-        return <div>Loading...</div>;
+  if (lastSixMonthsExpensesByCategory === undefined) {
+    return <div>Loading...</div>;
+  }
+
+  const categories = lastSixMonthsExpensesByCategory.reduce(
+    (acc: CategoryData[], { category, amount }) => {
+      const index = acc.findIndex((item) => item.category === category);
+      if (index === -1) {
+        acc.push({ category, amount });
+      } else {
+        acc[index].amount += amount;
       }
-//@ts-ignore
-      const categories = lastSixMonthsExpensesByCategory.reduce((acc, { category, amount }) => {
-        //@ts-ignore
-        const index = acc.findIndex((item) => item.category === category);
-        if (index === -1) {
-          //@ts-ignore
-          acc.push({ category, amount });
-        } else {
-          //@ts-ignore
-          acc[index].amount += amount;
-        }
-        return acc;
-      }, []);
-      
-console.log(categories)
-const subcategories = lastSixMonthsExpensesByCategory.map((category) => category.subCategory);
-console.log(subcategories)
-const amounts = lastSixMonthsExpensesByCategory.map((category) => category.amount);
-console.log(amounts)
+      return acc;
+    },
+    []
+  );
+
+  categories.sort((a, b) => b.amount - a.amount);
+
+  const subcategories = lastSixMonthsExpensesByCategory.map(
+    (category: LastSixMonthsExpenses) => category.subCategory
+  );
+
+  const amounts = lastSixMonthsExpensesByCategory.map(
+    (category: LastSixMonthsExpenses) => category.amount
+  );
 
   const skyColors = [
     "#082f49",
@@ -54,7 +65,17 @@ console.log(amounts)
   ];
 
   const violetcolors = [
-    "#2e1065", "#4c1d95", "#5b21b6", "#6d28d9", "#7c3aed", "#8b5cf6", "#a78bfa", "#c4b5fd", "#ddd6fe", "#ede9fe", "#f5f3ff"
+    "#2e1065",
+    "#4c1d95",
+    "#5b21b6",
+    "#6d28d9",
+    "#7c3aed",
+    "#8b5cf6",
+    "#a78bfa",
+    "#c4b5fd",
+    "#ddd6fe",
+    "#ede9fe",
+    "#f5f3ff",
   ];
 
   const stockColor = skyColors[2];
@@ -66,14 +87,15 @@ console.log(amounts)
   const edelmetalleColor = skyColors[5];
   const edelmetalleColorHover = violetcolors[5];
 
-  
-  const data = {
-    //@ts-ignore
+  const data: ChartData<
+    "doughnut",
+    (number | [number, number] | null)[],
+    unknown
+  > = {
     labels: categories.map((category) => category.category),
     datasets: [
       {
         label: "Wert in €",
-        //@ts-ignore
         data: categories.map((category) => category.amount),
 
         backgroundColor: [
@@ -109,38 +131,40 @@ console.log(amounts)
       },
     },
     onClick: (event: any, elements: any) => {
-        if (elements.length > 0 && elements[0].index !== undefined) {
-          const index = elements[0].index;
-          const label = data.labels[index];
-      
-          const subcategories = lastSixMonthsExpensesByCategory
-            .filter((category) => category.category === label)
-            .map((category) => category.subCategory);
-          const amounts = lastSixMonthsExpensesByCategory
-            .filter((category) => category.category === label)
-            .map((category) => category.amount);
-      
-          setChartData({
-            labels: subcategories,
-            datasets: [
-              {
-                label: "Wert in €",
-                data: amounts,
-                backgroundColor: skyColors.slice(0, subcategories.length),
-                hoverBackgroundColor: violetcolors.slice(0, subcategories.length),
-                borderColor: [""],
-                borderWidth: 0,
-              },
-            ],
-          });
-      
-          setClickedData({ label, value: data.datasets[0].data[index] });
-        } else {
-          setClickedData(undefined);
-          setChartData(data);
-        }
-      },
-      
+      if (elements.length > 0 && elements[0].index !== undefined) {
+        const index = elements[0].index;
+        const label = data.labels?.[index];
+
+        const subcategoriesWithAmounts = lastSixMonthsExpensesByCategory
+          .filter((category) => category.category === label)
+          .sort((a, b) => b.amount - a.amount);
+        const subcategories = subcategoriesWithAmounts.map(
+          (category) => category.subCategory
+        );
+        const amounts = subcategoriesWithAmounts.map(
+          (category) => category.amount
+        );
+
+        setChartData({
+          labels: subcategories,
+          datasets: [
+            {
+              label: "Wert in €",
+              data: amounts,
+              backgroundColor: skyColors.slice(0, subcategories.length),
+              hoverBackgroundColor: violetcolors.slice(0, subcategories.length),
+              borderColor: [""],
+              borderWidth: 0,
+            },
+          ],
+        });
+
+        setClickedData?.({ label, value: data.datasets[0].data[index] });
+      } else {
+        setClickedData?.(undefined);
+        setChartData(data);
+      }
+    },
   };
 
   return (

@@ -13,7 +13,6 @@ function ExpensesPieCard() {
   const lastSixMonthsExpensesByCategory = useDashboardStore(
     (state) => state.dashboardData?.lastSixMonthsExpensesByCategory
   );
-  console.log(lastSixMonthsExpensesByCategory)
 
   if (lastSixMonthsExpensesByCategory === undefined) {
     return <div>Loading...</div>;
