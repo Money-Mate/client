@@ -6,12 +6,19 @@ interface LastSixMonthsBalance {
   data: number[];
 }
 
+
+interface lastSixMonthsExpensesByCategory {
+  category: string;
+  subCategory: string;
+  amount: number;
+
 interface LastSixMonthsIncomeAndExpenses {
   labels: string[];
   data: {
     income: number[];
     expenses: number[];
   };
+
 }
 
 interface IDashboardData {
@@ -23,7 +30,12 @@ interface IDashboardData {
   expensesForThisMonth: number;
   incomeForThisMonth: number;
   lastSixMonthsBalance: LastSixMonthsBalance;
+
+  lastSixMonthsExpensesByCategory: lastSixMonthsExpensesByCategory[];
+  
+
   lastSixMonthsIncomeAndExpenses: LastSixMonthsIncomeAndExpenses;
+
 }
 
 interface DashboardStore {
