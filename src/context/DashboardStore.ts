@@ -25,6 +25,11 @@ interface IDashboardData {
   lastSixMonthsBalance: LastSixMonthsBalance;
   lastSixMonthsIncomeAndExpenses: LastSixMonthsIncomeAndExpenses;
   emergencyFundPercent: number;
+  lastSixMonthsExpensesByCategory:{
+    category: string;
+    subcategory: string;
+    amount: number;
+  }
 }
 
 interface DashboardStore {

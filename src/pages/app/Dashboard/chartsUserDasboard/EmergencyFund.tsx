@@ -11,11 +11,11 @@ function Notgroschen() {
   const toBeFilled = emergencyFund ? 100 - emergencyFund : 100;
 
   const data = {
-    labels: ["nicht erfüllt", "erfüllt"],
+    labels: ["% zu sparen", "% erfüllt"],
     datasets: [
       {
-        label: "%",
-        data: [`${toBeFilled}`, `${emergencyFund}`],
+        // label: "%",
+        data: [`${toBeFilled} `, `${emergencyFund}`],
         backgroundColor: ["rgba(0,0,0, 0)", "#14b8a6"],
         borderColor: ["rgba(0,0,0, 0)", "#0d9488"],
       },
