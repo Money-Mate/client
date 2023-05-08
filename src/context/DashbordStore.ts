@@ -6,10 +6,19 @@ interface LastSixMonthsBalance {
   data: number[];
 }
 
+
 interface lastSixMonthsExpensesByCategory {
   category: string;
   subCategory: string;
   amount: number;
+
+interface LastSixMonthsIncomeAndExpenses {
+  labels: string[];
+  data: {
+    income: number[];
+    expenses: number[];
+  };
+
 }
 
 interface IDashboardData {
@@ -18,9 +27,15 @@ interface IDashboardData {
   saved: number;
   scheduledDebit: number;
   balanceEndOfMonth: number;
+  expensesForThisMonth: number;
+  incomeForThisMonth: number;
   lastSixMonthsBalance: LastSixMonthsBalance;
+
   lastSixMonthsExpensesByCategory: lastSixMonthsExpensesByCategory[];
   
+
+  lastSixMonthsIncomeAndExpenses: LastSixMonthsIncomeAndExpenses;
+
 }
 
 interface DashboardStore {
@@ -47,3 +62,4 @@ const useDashboardStore = create<DashboardStore>((set) => ({
 }));
 
 export default useDashboardStore;
+
