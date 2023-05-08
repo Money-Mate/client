@@ -13,7 +13,6 @@ function ExpensesPieCard() {
   const lastSixMonthsExpensesByCategory = useDashboardStore(
     (state) => state.dashboardData?.lastSixMonthsExpensesByCategory
   );
-  console.log(lastSixMonthsExpensesByCategory)
 
   if (lastSixMonthsExpensesByCategory === undefined) {
     return <div>Loading...</div>;
@@ -31,7 +30,7 @@ function ExpensesPieCard() {
   return (
     <div className="h-full rounded-md  bg-mm-foreground shadow-lg">
       <h2 className="m-2 pt-3 text-center text-lg font-semibold text-mm-text-white">
-        Ausgaben
+        Ausgaben der letzten 6 Monate
       </h2>
       {!clickedData && (
         <p className="m-2 text-center text-sm font-semibold text-mm-text-white">
