@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
 import {
+  CategoryId,
   OptionsData,
-  Category,
-  SubCategory,
+  SelectedOptionsData,
+  SubCategoryId,
 } from "../../transactionsGiro/TransactionsGiro";
 
 interface FilterTransactionsModalProps {
   onClose: () => void;
   filteredOptions: OptionsData;
-  setOptions: (options: OptionsData) => void;
-  options: OptionsData;
+  setOptions: (options: SelectedOptionsData) => void;
+  options: SelectedOptionsData;
 }
 
 const FilterTransactionsModal = ({
@@ -19,8 +20,17 @@ const FilterTransactionsModal = ({
   options,
 }: FilterTransactionsModalProps) => {
   const [accountIBANs, setAccountIBANs] = useState<string[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
+  const [categories, setCategories] = useState<CategoryId[]>([]);
+  const [subCategories, setSubCategories] = useState<SubCategoryId[]>([]);
+
+  useEffect(() => {
+    setOptions({
+      ...options,
+      accounts: accountIBANs,
+      categories: categories.map((category) => category.id),
+      subCategories: subCategories.map((subCategory) => subCategory.id),
+    });
+  }, [accountIBANs, categories, subCategories]);
 
   const handleAccountIBANChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +49,7 @@ const FilterTransactionsModal = ({
       const { value, checked } = event.target;
       setCategories((prev) =>
         checked
-          ? [...prev, { id: value, name: "" }]
+          ? [...prev, { id: value }]
           : prev.filter((category) => category.id !== value)
       );
     },
@@ -51,22 +61,12 @@ const FilterTransactionsModal = ({
       const { value, checked } = event.target;
       setSubCategories((prev) =>
         checked
-          ? [...prev, { id: value, name: "" }]
+          ? [...prev, { id: value }]
           : prev.filter((subCategory) => subCategory.id !== value)
       );
     },
     []
   );
-
-  useEffect(() => {
-    setOptions({
-      ...options,
-      accounts: accountIBANs,
-      categories: categories.map((category) => category.id),
-      subCategories: subCategories.map((subCategory) => subCategory.id),
-    });
-  }, [accountIBANs, categories, subCategories]);
-
 
   const handleOptionChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>

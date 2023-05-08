@@ -4,14 +4,6 @@ import { useEffect, useState } from "react";
 import { Pagination } from "antd";
 import EditTransactionModal from "./Modals/EditTransactions";
 import FilterTransactionsModal from "./Modals/FilterTransactionsModal";
-import { string } from "zod";
-
-// TODO:
-
-// grouping?
-// responsive table
-//tags
-//filter: klarnamen - needs backend?
 
 export interface TransactionData {
   _id: string;
@@ -33,40 +25,37 @@ export interface TransactionData {
   tags: string[];
 }
 
-// export interface OptionsData {
-//   accounts?: string[];
-//   categories?: string[];
-//   subCategories?: string[];
-//   dateRange?: {
-//     startDate?: string;
-//     endDate?: string;
-//   };
-//   date?: "asc" | "desc";
-//   amount?: "pos" | "neg";
-// }
-
+// Filteroptions
 export interface OptionsData {
   accounts?: string[];
-  categories?: string[];
-  subCategories?: string [];
-   dateRange?: {
+  categories?: Category[];
+  subCategories?: SubCategory[];
+  dateRange?: {
     startDate?: string;
     endDate?: string;
   };
-  date?: 'asc' | 'desc';
-  amount?:  'pos' | 'neg';
+  date?: "asc" | "desc";
+  amount?: "pos" | "neg";
 }
 
- export interface Category{
+export interface Category {
   id: string;
   name?: string;
 }
 
- export interface SubCategory {
+export interface SubCategory {
   id: string;
   name?: string;
 }
 
+export interface CategoryId {
+  id: string;
+}
+
+export interface SubCategoryId {
+  id: string;
+}
+//  default Filteroptions
 const defaultOptionsData: OptionsData = {
   accounts: [],
   categories: [],
@@ -78,8 +67,32 @@ const defaultOptionsData: OptionsData = {
   date: undefined,
   amount: undefined,
 };
+// Interface for Selected Filteroptions
+export interface SelectedOptionsData {
+  accounts?: string[];
+  categories?: string[];
+  subCategories?: string[];
+  dateRange?: {
+    startDate?: string;
+    endDate?: string;
+  };
+  date?: "asc" | "desc";
+  amount?: "pos" | "neg";
+}
+// default selected Filteroptions
+const defaultSelectedOptionsData: SelectedOptionsData = {
+  accounts: [],
+  categories: [],
+  subCategories: [],
+  dateRange: {
+    startDate: undefined,
+    endDate: undefined,
+  },
+  date: undefined,
+  amount: undefined,
+};
 
-
+// Transactions
 export interface Transactions {
   page: number | 1;
   maxDocs: number | 20;
@@ -105,12 +118,14 @@ const TransactionsTable = () => {
   const [editingTransactionId, setEditingTransactionId] = useState<String>("");
   const [transformedCategories, setTransformedCategories] = useState<any[]>([]);
   const [isAddingTransaction, setIsAddingTransaction] = useState(false);
-  
+
   //Filter Transactions
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [filterOptions, setFilterOptions] = useState<OptionsData>(defaultOptionsData);
-  const [selectedOptions, setSelectedOptions] = useState<OptionsData>(defaultOptionsData);
-  
+  const [filterOptions, setFilterOptions] =
+    useState<OptionsData>(defaultOptionsData);
+  const [selectedOptions, setSelectedOptions] = useState<SelectedOptionsData>(
+    defaultSelectedOptionsData
+  );
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -118,6 +133,16 @@ const TransactionsTable = () => {
   const [docsPerPage, setDocsPerPage] = useState(10);
   const [pageSize, setPageSize] = useState(10);
 
+  // initial rendering of transactions
+  useEffect(() => {
+    fetchCategories();
+    if (currentPage === 1) {
+      fetchTransactions();
+    }
+  }, []);
+
+  //  CRUD-Functions
+  // get user-related FilterOptions
   const fetchFilterOptions = async () => {
     try {
       const response = await axios.get(
@@ -132,13 +157,12 @@ const TransactionsTable = () => {
       console.log(error);
     }
   };
-
+  // fetch Transactions
   const fetchTransactions = async (
     page = currentPage,
     pageSize = docsPerPage
   ) => {
     try {
-      console.log("page // pagesize in fetch", page, pageSize);
       const url = `${BE_URL}/transaction/getMy`;
       const response = await axios.get(url, {
         params: {
@@ -163,15 +187,6 @@ const TransactionsTable = () => {
     setIsFilterModalOpen(false);
   };
 
-  useEffect(() => {
-    fetchCategories();
-
-    // Only fetch transactions on mounting if currentPage is 1
-    if (currentPage === 1) {
-      fetchTransactions();
-    }
-  }, []);
-
   // make an array of categories for the dropdown (in modal)
   const fetchCategories = async () => {
     try {
@@ -188,6 +203,7 @@ const TransactionsTable = () => {
     }
   };
 
+  // add new transaction
   const handleAddTransaction = async (newTransaction: TransactionData) => {
     console.log(newTransaction);
     try {
@@ -207,6 +223,7 @@ const TransactionsTable = () => {
       console.log(error);
     }
   };
+
   // editing and deleting data for specific rows
   const handleRowAction = async (index: number, rowData?: TransactionData) => {
     if (rowData) {
@@ -231,6 +248,7 @@ const TransactionsTable = () => {
     }
   };
 
+  // delete transaction
   const onDelete = async () => {
     try {
       const BE_URL = import.meta.env.VITE_BE_PORT;
@@ -263,7 +281,7 @@ const TransactionsTable = () => {
         </tr>
       );
     }
-    
+
     return data.map((row, index) => {
       const rowIndex = visibleRowIndex++;
       return (
@@ -285,15 +303,19 @@ const TransactionsTable = () => {
           >
             {row.amount ? row.amount.toFixed(2) : ""} {row.currency}
           </td>
-          <td className="px-6 py-3 text-left hidden md:table-cell">{row.recipientName}</td>
+          <td className="hidden px-6 py-3 text-left md:table-cell">
+            {row.recipientName}
+          </td>
           <td className="px-6 py-3 text-left">{row.transactionText}</td>
-          <td className="whitespace-nowrap px-6 py-3 text-left hidden md:table-cell ">
+          <td className="hidden whitespace-nowrap px-6 py-3 text-left md:table-cell ">
             {row.category.name}
           </td>
-          <td className="whitespace-nowrap px-6 py-3 text-left hidden md:table-cell ">
+          <td className="hidden whitespace-nowrap px-6 py-3 text-left md:table-cell ">
             {row.subCategory.name}
           </td>
-          <td className="px-6 py-3 text-left hidden md:table-cell">{row.tags}</td>
+          <td className="hidden px-6 py-3 text-left md:table-cell">
+            {row.tags}
+          </td>
           <td className="px-6 py-3 text-left ">{row.date.slice(0, 10)}</td>
           <td>
             <button
@@ -345,16 +367,25 @@ const TransactionsTable = () => {
           />
         </svg>
       </div>
-      <table className="md:w-screen w-full table-auto md:table-fixed">
+      {/* Table */}
+      <table className="w-full table-auto md:w-screen md:table-fixed">
         <thead>
           <tr className="bg-mm-foreground text-sm uppercase leading-normal text-mm-text-white">
             <th className="px-6 py-3 text-left font-bold ">Konto</th>
             <th className="px-6 py-3 text-left font-bold">Summe</th>
-            <th className="px-6 py-3 text-left font-bold hidden md:table-cell">Empfänger</th>
+            <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
+              Empfänger
+            </th>
             <th className="px-6 py-3 text-left font-bold">Verwendungszweck</th>
-            <th className="px-6 py-3 text-left font-bold hidden md:table-cell">Kategorie</th>
-            <th className="px-6 py-3 text-left font-bold hidden md:table-cell">Unterkategorie</th>
-            <th className="px-6 py-3 text-left font-bold hidden md:table-cell">Tags</th>
+            <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
+              Kategorie
+            </th>
+            <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
+              Unterkategorie
+            </th>
+            <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
+              Tags
+            </th>
             <th className="px-6 py-3 text-left font-bold">Datum</th>
             <th className="px-6 py-3 text-left font-bold"></th>
           </tr>
@@ -363,7 +394,7 @@ const TransactionsTable = () => {
           {renderTableData()}
         </tbody>
       </table>
-
+      {/* Pagination */}
       <Pagination
         className="mt-5 text-mm-background"
         current={currentPage}
@@ -389,6 +420,7 @@ const TransactionsTable = () => {
           }
         }}
       />
+      {/* Filter Modal */}
       {isFilterModalOpen && (
         <FilterTransactionsModal
           onClose={onCloseFilterModal}
@@ -397,6 +429,7 @@ const TransactionsTable = () => {
           options={selectedOptions}
         />
       )}
+      {/*  Edit/Delete Modal */}
       {isModalOpen && editingRowIndex >= 0 && (
         <EditTransactionModal
           key={editingRowIndex}
