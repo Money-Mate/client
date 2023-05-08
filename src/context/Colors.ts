@@ -12,7 +12,7 @@ export const skyColors = [
     "#F0F9FF",
   ];
 
-  export const tealcolors = [
+  export const tealColors = [
     "#042f2e",
     "#134e4a",
     "#115e59",
@@ -25,3 +25,17 @@ export const skyColors = [
     "#ccfbf1",
     "#f0fdfa",
   ];
+
+  export const violetColors = [
+    "#2e1065",
+    "#4c1d95",
+    "#5b21b6",
+    "#6d28d9",
+    "#7c3aed",
+    "#8b5cf6",
+    "#a78bfa",
+    "#c4b5fd",
+    "#ddd6fe",
+    "#ede9fe",
+    "#f5f3ff",
+  ]

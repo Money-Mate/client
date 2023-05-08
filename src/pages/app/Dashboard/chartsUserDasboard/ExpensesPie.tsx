@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { ChartConfiguration, ChartData } from "chart.js";
 import useDashboardStore from "../../../../context/DashbordStore";
-import { tealcolors, skyColors } from "../../../../context/Colors";
+import { tealColors, skyColors } from "../../../../context/Colors";
 
 interface InvestmentProps {
   setClickedData?: Function;
@@ -48,7 +48,7 @@ const ExpensesPie = ({ setClickedData }: InvestmentProps) => {
         label: "Wert in €",
         data: categories.map((category) => category.amount),
         backgroundColor: skyColors.map((color) => color),
-        hoverBackgroundColor: tealcolors.map((color) => color),
+        hoverBackgroundColor: tealColors.map((color) => color),
         borderColor: [""],
         borderWidth: 0,
       },
@@ -86,7 +86,7 @@ const ExpensesPie = ({ setClickedData }: InvestmentProps) => {
               label: "Wert in €",
               data: amounts,
               backgroundColor: skyColors.map((color) => color),
-              hoverBackgroundColor: tealcolors.map((color) => color),
+              hoverBackgroundColor: tealColors.map((color) => color),
               borderColor: [""],
               borderWidth: 0,
             },

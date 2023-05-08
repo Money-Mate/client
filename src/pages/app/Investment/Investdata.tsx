@@ -135,6 +135,7 @@ export const invests = [
     id: 19,
     name: "Microsoft",
     value: 3000,
+    amount: 3,
     type: "Stocks",
     symbol: "MSFT",
   },
@@ -142,6 +143,7 @@ export const invests = [
     id: 20,
     name: "Nvidia",
     value: 2000,
+    amount: 3,
     type: "Stocks",
     symbol: "NVDA",
   },
@@ -181,3 +183,7 @@ export const invests = [
     symbol: ""
   },
 ].sort((a: any, b: any) => b.value - a.value);
+
+
+
+

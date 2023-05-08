@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { ChartConfiguration } from "chart.js";
 import { invests } from "./Investdata";
-import { tealcolors, skyColors } from "../../../context/Colors";
+import { tealColors, skyColors } from "../../../context/Colors";
 
 interface InvestmentProps {
   setClickedData: Function;
@@ -29,7 +29,7 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
         label: "Wert in €",
         data: [stocks, krypto, realEstate, edelmetalle],
         backgroundColor: skyColors.map((color) => color),
-        hoverBackgroundColor: tealcolors.map((color) => color),
+        hoverBackgroundColor: tealColors.map((color) => color),
         borderColor: [""],
         borderWidth: 0,
       },
@@ -89,7 +89,7 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
               label: "Wert in €",
               data: innerData,
               backgroundColor: skyColors.map((color) => color),
-              hoverBackgroundColor: tealcolors.map((color) => color),
+              hoverBackgroundColor: tealColors.map((color) => color),
               borderColor: [""],
               borderWidth: 0,
             },

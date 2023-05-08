@@ -7,42 +7,65 @@ import {
   convertUSDToEUR,
 } from "../../../utils/formatterFunctions";
 
+interface Idata {
+  c: number,
+  d: number,
+  dp: number,
+  h: number,
+  l: number,
+  o: number,
+  pc: number,
+}
 const Fetch = () => {
   const api_key = finnhub.ApiClient.instance.authentications["api_key"];
-  const key = import.meta.env.VITE_API_KEY;
+  const key: string = import.meta.env.VITE_API_KEY as string;
   api_key.apiKey = key;
   const finnhubClient = new finnhub.DefaultApi();
 
-  const [values, setValues] = useState([]);
+  const [values, setValues] = useState<string[]>([]);
 
-  useEffect(() => {
-    const values: [] = [];
+
+  const fetchValues = async () => {
     const filteredSymbols = invests.filter((invest) => invest.symbol);
     const symbols = filteredSymbols.map((invest) => invest.symbol);
-    console.log(symbols);
-    // symbols map / fetch / return / Promise.All symbols von map / Copie / async await
-    for (let i = 0; i < symbols.length; i++) {
-      //@ts-ignore
-      finnhubClient.quote(symbols[i], (error, data, response) => {
-        if (!error) {
-          const amount = convertUSDToEUR(data.c);
-          //@ts-ignore
-          values.push(formatNumber(amount));
-          values.filter(
-            (value, index) => value && values.indexOf(value) === index
-          );
-          setValues(values);
-        } else {
-          console.error(error);
-        }
-        console.log(values);
+    console.log(symbols)
+    const promises = symbols.map((symbol) => {
+      return new Promise<string>((resolve, reject) => {
+        finnhubClient.quote(symbol, (error: string, data: Idata) => {
+          if (error) {
+            reject(error);
+          } else {
+            const amount = convertUSDToEUR(data.c);
+            resolve(formatNumber(amount));
+          }
+        });
       });
+    });
+
+    try {
+      const results = await Promise.all(promises);
+      console.log(results)
+      setValues(results);
+    } catch (error) {
+      console.error(error);
     }
+  };
+
+  useEffect(() => {
+    fetchValues();
   }, []);
+
+
 
   return (
     <>
-      <div className="text-center">{values.map((value) => <div className="text-mm-text-white ">{value}</div>)}</div>
+      <div className="text-center">
+        {values.length > 0 && values.map((value, index) => (
+          <div className="text-mm-text-white " key={index}>
+            {value}
+          </div>
+        ))}
+      </div>
     </>
   );
 };
