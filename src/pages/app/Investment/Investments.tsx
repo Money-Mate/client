@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { ChartConfiguration } from "chart.js";
-import { invests } from "../../../../data/Investdata";
+import { invests } from "./Investdata";
 
 interface InvestmentProps {
   setClickedData: Function;
@@ -108,7 +108,6 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
           innerData = invests
             .filter((invest) => invest.type === "Stocks")
             .map((invest) => invest.value)
-            .sort((a, b) => b - a);
           innerDataNames = invests
             .filter((invest) => invest.type === "Stocks")
             .map((invest) => invest.name);
@@ -116,7 +115,6 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
           innerData = invests
             .filter((invest) => invest.type === "Krypto")
             .map((invest) => invest.value)
-            .sort((a, b) => b - a);
           innerDataNames = invests
             .filter((invest) => invest.type === "Krypto")
             .map((invest) => invest.name);
@@ -124,7 +122,6 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
           innerData = invests
             .filter((invest) => invest.type === "Real Estate")
             .map((invest) => invest.value)
-            .sort((a, b) => b - a);
           innerDataNames = invests
             .filter((invest) => invest.type === "Real Estate")
             .map((invest) => invest.name);
@@ -132,7 +129,6 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
           innerData = invests
             .filter((invest) => invest.type === "Edelmetalle")
             .map((invest) => invest.value)
-            .sort((a, b) => b - a);
           innerDataNames = invests
             .filter((invest) => invest.type === "Edelmetalle")
             .map((invest) => invest.name);

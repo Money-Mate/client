@@ -28,7 +28,7 @@ function Nav() {
     },
     {
       name: "Investments",
-      to: "/app/userdashboard",
+      to: "/app/investmentdashboard",
       sublinks: [
         { name: "Transaktionen", to: "/app/transactionsinvest", id: 1 },
         { name: "Analyse", to: "/app/analyseinvest", id: 2 },
