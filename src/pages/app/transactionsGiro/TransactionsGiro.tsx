@@ -181,7 +181,7 @@ const TransactionsTable = () => {
       console.log(error);
     }
   };
-
+// load transactions on page change/filterchange
   const onCloseFilterModal = () => {
     fetchTransactions();
     setIsFilterModalOpen(false);
