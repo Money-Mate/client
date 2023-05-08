@@ -24,8 +24,10 @@ const ExpensesPie = ({ setClickedData }: InvestmentProps) => {
         //@ts-ignore
         const index = acc.findIndex((item) => item.category === category);
         if (index === -1) {
+          //@ts-ignore
           acc.push({ category, amount });
         } else {
+          //@ts-ignore
           acc[index].amount += amount;
         }
         return acc;
@@ -66,10 +68,12 @@ console.log(amounts)
 
   
   const data = {
+    //@ts-ignore
     labels: categories.map((category) => category.category),
     datasets: [
       {
         label: "Wert in €",
+        //@ts-ignore
         data: categories.map((category) => category.amount),
 
         backgroundColor: [
@@ -109,8 +113,6 @@ console.log(amounts)
           const index = elements[0].index;
           const label = data.labels[index];
       
-          // Filter the lastSixMonthsExpensesByCategory array to only include
-          // the subcategories related to the clicked category
           const subcategories = lastSixMonthsExpensesByCategory
             .filter((category) => category.category === label)
             .map((category) => category.subCategory);
