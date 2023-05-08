@@ -11,7 +11,7 @@ interface lastSixMonthsExpensesByCategory {
   category: string;
   subCategory: string;
   amount: number;
-
+}
 interface LastSixMonthsIncomeAndExpenses {
   labels: string[];
   data: {
