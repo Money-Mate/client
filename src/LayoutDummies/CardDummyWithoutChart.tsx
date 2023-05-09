@@ -1,5 +1,5 @@
 // card dummy
-import useDashboardStore from "../context/DashbordStore";
+import useDashboardStore from "../context/DashboardStore";
 import { formatNumber } from "../utils/formatterFunctions";
 
 // getting data from backend
@@ -36,4 +36,4 @@ const exampleData = () => {
   );
 };
 
-export default exampleData
+export default exampleData;

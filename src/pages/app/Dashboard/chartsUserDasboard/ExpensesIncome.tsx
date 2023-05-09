@@ -1,7 +1,7 @@
 import { ChartData, ChartOptions } from "chart.js/auto";
 import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import useDashboardStore from "../../../../context/DashbordStore";
+import useDashboardStore from "../../../../context/DashboardStore";
 
 interface ExpenseIncomeChartData extends ChartData<"bar"> {
   datasets: [

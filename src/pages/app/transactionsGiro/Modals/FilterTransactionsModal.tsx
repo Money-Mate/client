@@ -1,13 +1,16 @@
-
 import { useCallback, useEffect, useState } from "react";
-import { OptionsData } from "../../transactionsGiro/TransactionsGiro";
-
+import {
+  CategoryId,
+  OptionsData,
+  SelectedOptionsData,
+  SubCategoryId,
+} from "../../transactionsGiro/TransactionsGiro";
 
 interface FilterTransactionsModalProps {
   onClose: () => void;
   filteredOptions: OptionsData;
-  setOptions: (options: OptionsData) => void;
-  options: OptionsData;
+  setOptions: (options: SelectedOptionsData) => void;
+  options: SelectedOptionsData;
 }
 
 const FilterTransactionsModal = ({
@@ -17,8 +20,17 @@ const FilterTransactionsModal = ({
   options,
 }: FilterTransactionsModalProps) => {
   const [accountIBANs, setAccountIBANs] = useState<string[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
-  const [subCategories, setSubCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<CategoryId[]>([]);
+  const [subCategories, setSubCategories] = useState<SubCategoryId[]>([]);
+
+  useEffect(() => {
+    setOptions({
+      ...options,
+      accounts: accountIBANs,
+      categories: categories.map((category) => category.id),
+      subCategories: subCategories.map((subCategory) => subCategory.id),
+    });
+  }, [accountIBANs, categories, subCategories]);
 
   const handleAccountIBANChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,11 +46,11 @@ const FilterTransactionsModal = ({
 
   const handleCategoryChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { value } = event.target;
+      const { value, checked } = event.target;
       setCategories((prev) =>
-        prev.includes(value)
-          ? prev.filter((item) => item !== value)
-          : [...prev, value]
+        checked
+          ? [...prev, { id: value }]
+          : prev.filter((category) => category.id !== value)
       );
     },
     []
@@ -46,31 +58,23 @@ const FilterTransactionsModal = ({
 
   const handleSubCategoryChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { value } = event.target;
+      const { value, checked } = event.target;
       setSubCategories((prev) =>
-        prev.includes(value)
-          ? prev.filter((item) => item !== value)
-          : [...prev, value]
+        checked
+          ? [...prev, { id: value }]
+          : prev.filter((subCategory) => subCategory.id !== value)
       );
     },
     []
   );
 
-  useEffect(() => {
-    setOptions({
-      ...options,
-      accounts: accountIBANs,
-      categories: categories,
-      subCategories: subCategories,
-    });
-  }, [accountIBANs, categories, subCategories]);
-
-  const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleOptionChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = event.target;
     const updatedOptions = { ...options, [name]: value };
     setOptions(updatedOptions);
   };
-
   const handleSubmit = () => {
     onClose();
   };
@@ -120,16 +124,16 @@ const FilterTransactionsModal = ({
                 Kategorien
               </label>
               {filteredOptions.categories?.map((category) => (
-                <div key={category} className="flex items-center">
+                <div key={category.id} className="flex items-center">
                   <input
                     type="checkbox"
                     name="category"
-                    value={category}
+                    value={category.id}
                     onChange={handleCategoryChange}
-                    checked={categories.includes(category)}
+                    checked={categories.some((c) => c.id === category.id)}
                     className="mr-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                   />
-                  <span>{category}</span>
+                  <span>{category.name}</span>
                 </div>
               ))}
             </div>
@@ -138,16 +142,16 @@ const FilterTransactionsModal = ({
                 Unterkategorien
               </label>
               {filteredOptions.subCategories?.map((subCategory) => (
-                <div key={subCategory} className="flex items-center">
+                <div key={subCategory.id} className="flex items-center">
                   <input
                     type="checkbox"
                     name="subCategory"
-                    value={subCategory}
+                    value={subCategory.id}
                     onChange={handleSubCategoryChange}
-                    checked={subCategories.includes(subCategory)}
+                    checked={subCategories.some((s) => s.id === subCategory.id)}
                     className="mr-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                   />
-                  <span>{subCategory}</span>
+                  <span>{subCategory.name}</span>
                 </div>
               ))}
             </div>
@@ -183,7 +187,7 @@ const FilterTransactionsModal = ({
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               >
                 <option value="asc">Neueste zuerst</option>
-               
+
                 <option value="desc">Älteste zuerst </option>
               </select>
             </div>

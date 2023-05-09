@@ -1,4 +1,4 @@
-import useDashboardStore from "../../../../context/DashbordStore";
+import useDashboardStore from "../../../../context/DashboardStore";
 import { formatNumber } from "../../../../utils/formatterFunctions";
 
 const bankBalance = () => {

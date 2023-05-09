@@ -7,11 +7,11 @@ import EmergencyCoins from "./cardsUserDashboard/EmergencyCoinsCard";
 import Wishlist from "./cardsUserDashboard/WishlistCard";
 import BalanceExpenses from "./cardsUserDashboard/BalanceExpensesCard";
 import BalanceIncome from "./cardsUserDashboard/BalanceIncomeCard";
-import useDashboardStore from "../../../context/DashbordStore";
+import useDashboardStore from "../../../context/DashboardStore";
 import IncomeExpensesCard from "./cardsUserDashboard/ExpensesIncomeCard";
+
 import 'chart.js/auto'
 import ExpensesPieCard from "./cardsUserDashboard/ExpensesPieCard";
-
 
 function Dashboard() {
   const { dashboardData, fetchDashboardData } = useDashboardStore();

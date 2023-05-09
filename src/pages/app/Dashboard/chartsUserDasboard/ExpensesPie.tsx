@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { ChartConfiguration, ChartData } from "chart.js";
-import useDashboardStore from "../../../../context/DashbordStore";
+import useDashboardStore from "../../../../context/DashboardStore";
 import { tealcolors, skyColors } from "../../../../context/Colors";
 
 interface InvestmentProps {

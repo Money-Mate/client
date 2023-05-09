@@ -1,7 +1,8 @@
-import UserProfil from "../pages/app/userProfile/UserProfil";
-import TransactionsGiro from "../pages/app/transactionsGiro/TransactionsGiro";
 import UserDashboard from "../pages/app/Dashboard/UserDashboard";
+import TransactionsGiro from "../pages/app/transactionsGiro/TransactionsGiro";
+import UserProfilePage from "../pages/app/userProfile/UserProfilePage";
 import InvestmentDashboard from "../pages/app/Investment/InvestmentDashboard";
+
 
 export const paths = {
   landingPage: "/landingpage",
@@ -23,7 +24,7 @@ const routes = [
   },
   {
     path: paths.userprofile,
-    element: <UserProfil />,
+    element: <UserProfilePage />,
     isProtected: true,
     redirectPath: paths.landingPage,
     id: "userprofile",

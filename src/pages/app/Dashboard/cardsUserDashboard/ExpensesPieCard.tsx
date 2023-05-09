@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { formatNumber } from "../../../../utils/formatterFunctions";
 import ExpensesPie from "../chartsUserDasboard/ExpensesPie";
-import useDashboardStore from "../../../../context/DashbordStore";
+import useDashboardStore from "../../../../context/DashboardStore";
 
 
 function ExpensesPieCard() {

@@ -1,6 +1,6 @@
 import { ChartData, ChartOptions } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
-import useDashboardStore from "../../../../context/DashbordStore";
+import useDashboardStore from "../../../../context/DashboardStore";
 
 const getBarColors = (values: number[]): string[] => {
   return values.map((value, index) => {
@@ -47,17 +47,18 @@ const Saldo = () => {
         ticks: {
           callback: function (value) {
             return "€" + value;
-          },color: "#94a3b8"
+          },
+          color: "#94a3b8",
         },
       },
-      x:{
+      x: {
         grid: {
           color: "#94a3b8",
         },
         ticks: {
-          color: "#94a3b8"
+          color: "#94a3b8",
         },
-      }
+      },
     },
   };
 
