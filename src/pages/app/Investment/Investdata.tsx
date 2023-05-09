@@ -182,7 +182,7 @@ export const invests = [
     type: "Edelmetalle",
     symbol: ""
   },
-].sort((a: any, b: any) => b.value - a.value);
+].sort((a, b) => b.value - a.value);
 
 
 
