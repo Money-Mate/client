@@ -6,7 +6,7 @@ interface FormData {
   amount: number;
   buyIn: number;
   dividend: number;
-  type: "Stocks" | "Real Estate" | "Krypto" | "Edelmetalle";
+  type: "Stocks" | "Real Estate" | "Crypto" | "Commodities";
   symbol: string;
 }
 
@@ -64,8 +64,8 @@ const InvestmentForm =  ({ onSubmit }:any) => {
       <select name="type" value={formData.type} onChange={handleChange}>
         <option value="Stocks">Stocks</option>
         <option value="Real Estate">Real Estate</option>
-        <option value="Krypto">Krypto</option>
-        <option value="Edelmetalle">Edelmetalle</option>
+        <option value="Crypto">Krypto</option>
+        <option value="Commodities">Edelmetalle</option>
       </select>
 
       <label htmlFor="symbol">Symbol:</label>

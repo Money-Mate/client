@@ -48,7 +48,7 @@ const Saldo = () => {
           callback: function (value) {
             return "€" + value;
           },
-          color: "#94a3b8",
+          color: "#f1f5f9",
         },
       },
       x: {
@@ -56,7 +56,7 @@ const Saldo = () => {
           color: "#94a3b8",
         },
         ticks: {
-          color: "#94a3b8",
+          color: "#f1f5f9",
         },
       },
     },
