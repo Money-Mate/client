@@ -3,7 +3,7 @@ import { invests } from "./Investdata";
 import { formatNumber } from "../../../utils/formatterFunctions";
 
 
-type InvestmentType = "Aktien/ETF's" | "Kryptowährungen" | "Immobilien" | "Rohstoffe";
+type InvestmentType = "Stocks" | "Crypto" | "Real Estate" | "Commodities";
 
 
 type Props = {
