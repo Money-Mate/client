@@ -22,12 +22,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ user }) => {
           <p className="text-sm text-mm-text-dark">{user.email}</p>
         </div>
         <div className="block">
-          <button
+          {/* <button
             className="m-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
             //   onClick={handleEditProfile}
           >
             Profil bearbeiten
-          </button>
+          </button> */}
           <LogoutButton />
         </div>
       </div>
