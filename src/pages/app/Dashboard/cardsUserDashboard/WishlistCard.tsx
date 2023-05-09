@@ -12,7 +12,7 @@ function WishlistCard() {
 
   const progressBars = Object.entries(dummy).map(([key, value]) => (
     <div key={key} className="m-2 flex items-center justify-between">
-      <div className="w-1/2 text-mm-text-dark">{key}</div>
+      <div className="w-1/2 text-mm-text-white">{key}</div>
 
       <div className="group relative flex w-1/2">
         <Progressbar percentage={value} color={"bg-teal-600"} isLimited={false}/>

@@ -3,7 +3,7 @@ import { invests } from "./Investdata";
 import { formatNumber } from "../../../utils/formatterFunctions";
 
 
-type InvestmentType = "Stocks" | "Krypto" | "Real Estate" | "Edelmetalle";
+type InvestmentType = "Aktien/ETF's" | "Kryptowährungen" | "Immobilien" | "Rohstoffe";
 
 
 type Props = {
@@ -51,11 +51,11 @@ const AssetCard = ({ setClickedData }: Props) => {
         </button>
         <button
           className={`${
-            selectedType === "Krypto" ? "bg-teal-600" : "bg-sky-700"
+            selectedType === "Crypto" ? "bg-teal-600" : "bg-sky-700"
           } hover:bg-teal-600 py-2 px-4 rounded-md font-semibold text-sm text-mm-text-white`}
-          onClick={() => handleClick("Krypto")}
+          onClick={() => handleClick("Crypto")}
         >
-          Krypto
+          Crypto
         </button>
         <button
           className={`${
@@ -67,11 +67,11 @@ const AssetCard = ({ setClickedData }: Props) => {
         </button>
         <button
           className={`${
-            selectedType === "Edelmetalle" ? "bg-teal-600" : "bg-sky-700"
+            selectedType === "Commodities" ? "bg-teal-600" : "bg-sky-700"
           } hover:bg-teal-600 py-2 px-4 rounded-md font-semibold text-sm text-mm-text-white`}
-          onClick={() => handleClick("Edelmetalle")}
+          onClick={() => handleClick("Commodities")}
         >
-          Edelmetalle
+          Commodities
         </button>
       </div>
       <div className="">

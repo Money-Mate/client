@@ -25,10 +25,10 @@ function Header() {
       <header>
         {" "}
         <div className="relative mx-5 rounded bg-mm-foreground p-4 text-gray-50">
-          <h1 className="mb-1 text-2xl font-bold md:text-3xl ">
-            {username && `Willkommen zurück ${username}! 👋`}
+          <h1 className="mb-2 mt-2 text-2xl font-bold md:text-3xl ">
+            {username && `Hallo ${username}! 👋`}
           </h1>
-          <p>Willkommen auf deinem Dashboard, Money Mate!</p>
+          <p className="ml-1">Willkommen auf deinem Dashboard, Money Mate!</p>
         </div>
       </header>
     </>
