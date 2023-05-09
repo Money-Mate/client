@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import BudgetExpenses from "./cardsUserDashboard/BudgetExpensesCard";
 import SaldoLastSixMonth from "./cardsUserDashboard/SaldoLastSixMonthCard";
 import Savings from "./cardsUserDashboard/SavingsCard";
-import Investments from "./cardsUserDashboard/ExpensesByCategoriesCard";
 import BankBalance from "./cardsUserDashboard/BankBalanceCard";
 import EmergencyCoins from "./cardsUserDashboard/EmergencyCoinsCard";
 import Wishlist from "./cardsUserDashboard/WishlistCard";
@@ -10,7 +9,9 @@ import BalanceExpenses from "./cardsUserDashboard/BalanceExpensesCard";
 import BalanceIncome from "./cardsUserDashboard/BalanceIncomeCard";
 import useDashboardStore from "../../../context/DashboardStore";
 import IncomeExpensesCard from "./cardsUserDashboard/ExpensesIncomeCard";
-import "chart.js/auto";
+
+import 'chart.js/auto'
+import ExpensesPieCard from "./cardsUserDashboard/ExpensesPieCard";
 
 function Dashboard() {
   const { dashboardData, fetchDashboardData } = useDashboardStore();
@@ -53,7 +54,9 @@ function Dashboard() {
         <BudgetExpenses />
       </div>
       <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-3">
-        <Investments />
+        <ExpensesPieCard />
+      </div>
+      <div className="h-80 rounded-lg sm:col-span-4 lg:col-span-3">
       </div>
     </div>
   );

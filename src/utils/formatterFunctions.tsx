@@ -11,3 +11,8 @@ export const formatDate = (date: Date) => {
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 };
+
+export const convertUSDToEUR = (usd: number) => {
+  const exchangeRate = 0.91; 
+  return usd * exchangeRate;
+}

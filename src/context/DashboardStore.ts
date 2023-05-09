@@ -1,11 +1,14 @@
 import { create } from "zustand";
 import axios from "axios";
-
 interface LastSixMonthsBalance {
   labels: string[];
   data: number[];
 }
-
+interface lastSixMonthsExpensesByCategory {
+  category: string;
+  subCategory: string;
+  amount: number;
+}
 interface LastSixMonthsIncomeAndExpenses {
   labels: string[];
   data: {
@@ -13,7 +16,6 @@ interface LastSixMonthsIncomeAndExpenses {
     expenses: number[];
   };
 }
-
 interface IDashboardData {
   user: string;
   bankBalance: number;
@@ -23,20 +25,13 @@ interface IDashboardData {
   expensesForThisMonth: number;
   incomeForThisMonth: number;
   lastSixMonthsBalance: LastSixMonthsBalance;
+  lastSixMonthsExpensesByCategory: lastSixMonthsExpensesByCategory[];
   lastSixMonthsIncomeAndExpenses: LastSixMonthsIncomeAndExpenses;
-  emergencyFundPercent: number;
-  lastSixMonthsExpensesByCategory:{
-    category: string;
-    subcategory: string;
-    amount: number;
-  }
 }
-
 interface DashboardStore {
   dashboardData: IDashboardData | null;
   fetchDashboardData: () => void;
 }
-
 const useDashboardStore = create<DashboardStore>((set) => ({
   dashboardData: null,
   fetchDashboardData: async () => {
@@ -54,6 +49,4 @@ const useDashboardStore = create<DashboardStore>((set) => ({
     }
   },
 }));
-
 export default useDashboardStore;
-
