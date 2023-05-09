@@ -20,7 +20,7 @@ function WishlistCard() {
           className="absolute left-1/2 m-4 mx-auto -translate-x-1/2 translate-y-full rounded-md bg-mm-foreground px-1 
     text-sm text-gray-100 opacity-0 transition-opacity group-hover:opacity-100 group-hover:z-10"
         >
-          {value}% gespart
+          {value}% gespart 
         </span>
         
       </div>
