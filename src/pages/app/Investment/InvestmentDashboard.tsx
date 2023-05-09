@@ -3,6 +3,7 @@ import 'chart.js/auto'
 import Investments from "./InvestmentsCard";
 import AssetCard from "./AssetCard";
 import Fetch from "./Fetch";
+import InvestmentForm from "./InvestmentForm";
 
 
 
@@ -24,7 +25,13 @@ function InvestmentDashboard() {
      {/* <div className=" h-80 rounded-lg sm:col-span-8 lg:col-span-6">
         <Investments  />
      </div> */}
+     <div className=" h-80 rounded-lg sm:col-span-8 lg:col-span-6">
      <Fetch />
+
+     </div>
+     <div className=" h-80 rounded-lg sm:col-span-8 lg:col-span-6">
+      <InvestmentForm />
+     </div>
     </div>
   );
 }

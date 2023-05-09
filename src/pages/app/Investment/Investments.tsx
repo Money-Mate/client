@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { ChartConfiguration } from "chart.js";
 import { invests } from "./Investdata";
-import { tealcolors, skyColors } from "../../../context/Colors";
+import { tealColors, skyColors } from "../../../context/Colors";
 
 interface InvestmentProps {
   setClickedData: Function;
@@ -13,23 +13,23 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
     .filter((invest) => invest.type === "Stocks")
     .reduce((acc, curr) => acc + curr.value, 0);
   const krypto = invests
-    .filter((invest) => invest.type === "Krypto")
+    .filter((invest) => invest.type === "Crypto")
     .reduce((acc, curr) => acc + curr.value, 0);
   const realEstate = invests
     .filter((invest) => invest.type === "Real Estate")
     .reduce((acc, curr) => acc + curr.value, 0);
   const edelmetalle = invests
-    .filter((invest) => invest.type === "Edelmetalle")
+    .filter((invest) => invest.type === "Commodities")
     .reduce((acc, curr) => acc + curr.value, 0);
 
   const data = {
-    labels: ["Stocks", "Krypto", "Real Estate", "Edelmetalle"],
+    labels: ["Stocks", "Crypto", "Real Estate", "Commodities"],
     datasets: [
       {
         label: "Wert in €",
         data: [stocks, krypto, realEstate, edelmetalle],
         backgroundColor: skyColors.map((color) => color),
-        hoverBackgroundColor: tealcolors.map((color) => color),
+        hoverBackgroundColor: tealColors.map((color) => color),
         borderColor: [""],
         borderWidth: 0,
       },
@@ -58,12 +58,12 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
           innerDataNames = invests
             .filter((invest) => invest.type === "Stocks")
             .map((invest) => invest.name);
-        } else if (label === "Krypto") {
+        } else if (label === "Crypto") {
           innerData = invests
-            .filter((invest) => invest.type === "Krypto")
+            .filter((invest) => invest.type === "Crypto")
             .map((invest) => invest.value);
           innerDataNames = invests
-            .filter((invest) => invest.type === "Krypto")
+            .filter((invest) => invest.type === "Crypto")
             .map((invest) => invest.name);
         } else if (label === "Real Estate") {
           innerData = invests
@@ -72,12 +72,12 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
           innerDataNames = invests
             .filter((invest) => invest.type === "Real Estate")
             .map((invest) => invest.name);
-        } else if (label === "Edelmetalle") {
+        } else if (label === "Commodities") {
           innerData = invests
-            .filter((invest) => invest.type === "Edelmetalle")
+            .filter((invest) => invest.type === "Commodities")
             .map((invest) => invest.value);
           innerDataNames = invests
-            .filter((invest) => invest.type === "Edelmetalle")
+            .filter((invest) => invest.type === "Commodities")
             .map((invest) => invest.name);
         }
         const value = data.datasets[0].data[index];
@@ -89,7 +89,7 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
               label: "Wert in €",
               data: innerData,
               backgroundColor: skyColors.map((color) => color),
-              hoverBackgroundColor: tealcolors.map((color) => color),
+              hoverBackgroundColor: tealColors.map((color) => color),
               borderColor: [""],
               borderWidth: 0,
             },

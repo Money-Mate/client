@@ -16,29 +16,23 @@ interface Item {
 function Nav() {
   const items: Item[] = [
     {
-      name: "UserDashboard",
-      to: "/app/userdashboard",
-      id: 1,
-    },
-    {
       name: "Girokonten",
       to: "/app/userdashboard",
       sublinks: [{ name: "Transaktionen", to: "/app/transactionsgiro", id: 1 }],
-      id: 2,
+      id: 1,
     },
     {
-      name: "Investments",
+      name: "Investitionen",
       to: "/app/investmentdashboard",
       sublinks: [
         { name: "Transaktionen", to: "/app/transactionsinvest", id: 1 },
-        { name: "Analyse", to: "/app/analyseinvest", id: 2 },
       ],
-      id: 3,
+      id: 2,
     },
     {
       name: "Finanzgesundheit",
       to: "/app/",
-      id: 4,
+      id: 3,
     },
   ];
 
@@ -48,7 +42,7 @@ function Nav() {
         {sublinks.map((sublink) => (
           <li
             key={sublink.id}
-            className="ml-5 font-semibold text-mm-text-dark "
+            className="m-4 my-5 font-semibold text-mm-text-dark "
           >
             <NavLink to={sublink.to}>{sublink.name}</NavLink>
           </li>
@@ -59,10 +53,15 @@ function Nav() {
 
   return (
     <div className="relative h-full w-full bg-mm-foreground p-5">
-      <h1 className="mb-5 text-3xl font-bold text-white">MoneyMate</h1>
+      <h1 className="mb-5 ml-2 mt-2 text-3xl font-bold text-white">
+        MoneyMate
+      </h1>
       <ul className="p-3 leading-loose tracking-wide text-white">
         {items.map((item) => (
-          <li className="text-blue font-semibold" key={item.id}>
+          <li
+            className=" text-blue m-4 p-2 text-xl/6 font-semibold"
+            key={item.id}
+          >
             {item.sublinks ? (
               <div>
                 <NavLink to={item.to}>{item.name}</NavLink>
