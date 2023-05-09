@@ -3,6 +3,7 @@ import { useUserStore } from "../../../context/UserStore";
 import BankAccountsCard from "../userProfile/Cards/BankAccountsCard";
 import FinancialHealthCard from "../userProfile/Cards/FinancialHealthCard";
 import ProfileCard from "../userProfile/Cards/ProfileCard";
+import FinancialHealthTest from "./Cards/FinancialHealthTest";
 
 const UserProfile: React.FC = () => {
   const { user } = useUserStore();
@@ -13,6 +14,7 @@ const UserProfile: React.FC = () => {
         <ProfileCard user={user} />
         <BankAccountsCard />
         <FinancialHealthCard />
+        <FinancialHealthTest />
       </div>
     </div>
   );

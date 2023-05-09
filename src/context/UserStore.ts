@@ -11,6 +11,7 @@ export type UserStore = {
   updateUser: (user: User) => void;
 };
 
+
 export const useUserStore = create<UserStore>((set) => ({
   user: {
     name: 'John Doe',
