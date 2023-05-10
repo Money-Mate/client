@@ -46,22 +46,22 @@ const InvestmentForm =  ({ onSubmit }:any) => {
         <div className="">
 
       <label htmlFor="name">Name:</label>
-      <input type="text" name="name" value={formData.name} onChange={handleChange} />
+      <input className="bg-mm-background" type="text" name="name" value={formData.name} onChange={handleChange} />
 
       <label htmlFor="value">Wert:</label>
-      <input type="number" name="value" value={formData.value} onChange={handleChange} />
+      <input className="bg-mm-background" type="number" name="value" value={formData.value} onChange={handleChange} />
 
       <label htmlFor="amount">Anzahl:</label>
-      <input type="number" name="amount" value={formData.amount} onChange={handleChange} />
+      <input className="bg-mm-background" type="number" name="amount" value={formData.amount} onChange={handleChange} />
 
       <label htmlFor="buyIn">Einkaufswert:</label>
-      <input type="number" name="buyIn" value={formData.buyIn} onChange={handleChange} />
+      <input className="bg-mm-background" type="number" name="buyIn" value={formData.buyIn} onChange={handleChange} />
 
       <label htmlFor="dividend">Dividende:</label>
-      <input type="number" name="dividend" value={formData.dividend} onChange={handleChange} />
+      <input className="bg-mm-background" type="number" name="dividend" value={formData.dividend} onChange={handleChange} />
 
       <label htmlFor="type">Typ:</label>
-      <select name="type" value={formData.type} onChange={handleChange}>
+      <select className="bg-mm-background" name="type" value={formData.type} onChange={handleChange}>
         <option value="Aktien/ETF's">Aktien/ETF's</option>
         <option value="Kryptowährungen">Kryptowährungen</option>
         <option value="Immobilien">Immobilien</option>
@@ -69,7 +69,7 @@ const InvestmentForm =  ({ onSubmit }:any) => {
       </select>
 
       <label htmlFor="symbol">Symbol:</label>
-      <input type="text" name="symbol" value={formData.symbol} onChange={handleChange} />
+      <input className="bg-mm-background" type="text" name="symbol" value={formData.symbol} onChange={handleChange} />
 
       <button type="submit">Hinzufügen</button>
         </div>
