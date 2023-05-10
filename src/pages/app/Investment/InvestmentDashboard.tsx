@@ -22,12 +22,8 @@ function InvestmentDashboard() {
      <div className=" h-fit rounded-lg sm:col-span-4 lg:col-span-6">
         <AssetCard setClickedData={setClickedData} />
      </div>
-     {/* <div className=" h-80 rounded-lg sm:col-span-8 lg:col-span-6">
-        <Investments  />
-     </div> */}
      <div className=" h-80 rounded-lg sm:col-span-8 lg:col-span-6">
      <Fetch />
-
      </div>
      <div className=" h-80 rounded-lg sm:col-span-8 lg:col-span-6">
       <InvestmentForm />
