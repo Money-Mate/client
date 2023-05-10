@@ -80,6 +80,9 @@ const ExpenseIncomeChart = () => {
       legend: {
         position: "top",
         display: true,
+        labels: {
+          color: "#f1f5f9",
+        },
       },
     },
     scales: {
@@ -89,7 +92,7 @@ const ExpenseIncomeChart = () => {
         },
         ticks: {
           callback: (value) => `€${value}`,
-          color: "#94a3b8",
+          color: "#f1f5f9",
         },
       },
       x: {
@@ -97,7 +100,7 @@ const ExpenseIncomeChart = () => {
           color: "#94a3b8",
         },
         ticks: {
-          color: "#94a3b8",
+          color: "#f1f5f9",
         },
       },
     },

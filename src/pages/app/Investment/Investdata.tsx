@@ -30,14 +30,14 @@ export const invests = [
     id: 4,
     name: "Bitcoin",
     value: 4000,
-    type: "Krypto",
+    type: "Crypto",
     symbol: "",
   },
   {
     id: 5,
     name: "Ethereum",
     value: 5000,
-    type: "Krypto",
+    type: "Crypto",
     symbol: ""
   },
   {
@@ -58,14 +58,14 @@ export const invests = [
     id: 8,
     name: "Gold",
     value: 2000,
-    type: "Edelmetalle",
+    type: "Commodities",
     symbol: ""
   },
   {
     id: 9,
     name: "Silber",
     value: 5000,
-    type: "Edelmetalle",
+    type: "Commodities",
     symbol: ""
   },
   {
@@ -107,34 +107,35 @@ export const invests = [
     id: 15,
     name: "Platin",
     value: 4000,
-    type: "Edelmetalle",
+    type: "Commodities",
     symbol: ""
   },
   {
     id: 16,
     name: "Palladium",
     value: 5000,
-    type: "Edelmetalle",
+    type: "Commodities",
     symbol: ""
   },
   {
     id: 17,
     name: "Uran",
     value: 2000,
-    type: "Edelmetalle",
+    type: "Commodities",
     symbol: ""
   },
   {
     id: 18,
     name: "Plutonium",
     value: 5000,
-    type: "Edelmetalle",
+    type: "Commodities",
     symbol: ""
   },
   {
     id: 19,
     name: "Microsoft",
     value: 3000,
+    amount: 3,
     type: "Stocks",
     symbol: "MSFT",
   },
@@ -142,6 +143,7 @@ export const invests = [
     id: 20,
     name: "Nvidia",
     value: 2000,
+    amount: 3,
     type: "Stocks",
     symbol: "NVDA",
   },
@@ -149,35 +151,39 @@ export const invests = [
     id: 21,
     name: "Eisen",
     value: 3000,
-    type: "Edelmetalle",
+    type: "Commodities",
     symbol: ""
   },
   {
     id: 22,
     name: "Kupfer",
     value: 5000,
-    type: "Edelmetalle",
+    type: "Commodities",
     symbol: ""
   },
   {
     id: 23,
     name: "Lithium",
     value: 2000,
-    type: "Edelmetalle",
+    type: "Commodities",
     symbol: ""
   },
   {
     id: 24,
     name: "Kobalt",
     value: 5000,
-    type: "Edelmetalle",
+    type: "Commodities",
     symbol: ""
   },
   {
     id: 25,
     name: "Aluminium",
     value: 2000,
-    type: "Edelmetalle",
+    type: "Commodities",
     symbol: ""
   },
-].sort((a: any, b: any) => b.value - a.value);
+].sort((a, b) => b.value - a.value);
+
+
+
+
