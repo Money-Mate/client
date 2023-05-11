@@ -24,7 +24,7 @@ import StatisticsReport from './StatisticsReport'
 function FinancialOptionsPage() {
   return (
     <div className="max-w-full">
-    <div className="m-3 flex min-h-screen w-full flex-col items-center bg-mm-background text-mm-text-dark">
+    <div className="m-6 flex min-h-screen w-full flex-col items-center bg-mm-background text-mm-text-dark">
      <StatisticsReport />
     </div>
   </div>
