@@ -50,11 +50,6 @@ const FinancialOptionsSettings: React.FC = () => {
 
     updateUser(updatedUser);
 
-    setEmergencyFund(0);
-    setNeedsPercentage(50);
-    setWishesPercentage(30);
-    setSavingsPercentage(20);
-    setError(null);
   };
 
   return (

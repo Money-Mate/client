@@ -2,7 +2,7 @@ import UserDashboard from "../pages/app/Dashboard/UserDashboard";
 import TransactionsGiro from "../pages/app/transactionsGiro/TransactionsGiro";
 import UserProfilePage from "../pages/app/userProfile/UserProfilePage";
 import InvestmentDashboard from "../pages/app/Investment/InvestmentDashboard";
-import FinancialOptionsPage from "../pages/app/FinancialOptions/FinancialOptionsPage";
+import FinancialOptionsPage from "../pages/app/Statistics/StatisticsPage";
 
 
 export const paths = {

@@ -1,5 +1,5 @@
 import React from 'react'
-import FinancialOptionsCard from './FinancialOptionsCard'
+import StatisticsReport from './StatisticsReport'
 
 //  KATEGORIEN
 // wobei will user unterstützung? Checkboxes mit heading und Erklärungsdropdown und ggf Slider?
@@ -23,10 +23,9 @@ import FinancialOptionsCard from './FinancialOptionsCard'
 
 function FinancialOptionsPage() {
   return (
-    <div className="w-full">
+    <div className="max-w-full">
     <div className="m-3 flex min-h-screen w-full flex-col items-center bg-mm-background text-mm-text-dark">
-     i am financial options page
-     <FinancialOptionsCard />
+     <StatisticsReport />
     </div>
   </div>
   )
