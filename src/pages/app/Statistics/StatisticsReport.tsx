@@ -1,6 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
+import useDashboardStore, { IDashboardData } from "../../../context/DashboardStore";
 
 const StatisticsReport: React.FC = () => {
+  const dashboardData = useDashboardStore((state) => state.dashboardData);
+  const fetchDashboardData = useDashboardStore((state) => state.fetchDashboardData);
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, [fetchDashboardData]);
+
+  if (!dashboardData) {
+    return <div>Loading...</div>; // Render a loading state while data is being fetched
+  }
+
+
   const formatCurrency = (amount: number) => {
     const formattedAmount = amount.toLocaleString("de-DE", {
       style: "currency",
@@ -12,143 +25,14 @@ const StatisticsReport: React.FC = () => {
       ? formattedAmount.replace(",00", "")
       : formattedAmount;
   };
-  const data = {
-    lastSixMonthsBalance: {
-      labels: ["Dezember", "Januar", "Februar", "März", "April", "Mai"],
-      data: [3005.75, 3000, 2985, -302.99, -706, -382],
-    },
-    lastSixMonthsIncomeAndExpenses: {
-      labels: ["Dezember", "Januar", "Februar", "März", "April", "Mai"],
-      data: {
-        income: [3005.75, 3000, 3000, 0, 1510, 18],
-        expenses: [0, 0, 15, 302.99, 2216, 400],
-      },
-    },
-    bankBalance: 7599.76,
-    saved: 7981.76,
-    scheduledDebit: 0,
-    balanceEndOfMonth: -382,
-    expensesForThisMonth: -400,
-    incomeForThisMonth: 18,
-    wishlist: {
-      Lebenswillen: {
-        now: 7981.76,
-        of: 1337,
-        percent: 100,
-        canAfford: true,
-      },
-      Flugzeugträger: {
-        now: 7981.76,
-        of: 13000000000,
-        percent: 0,
-        canAfford: false,
-      },
-      Haribo: {
-        now: 7981.76,
-        of: 55,
-        percent: 100,
-        canAfford: true,
-      },
-      Fahne: {
-        now: 7981.76,
-        of: 144,
-        percent: 100,
-        canAfford: true,
-      },
-    },
-    emergencyFundPercent: 100,
-    lastSixMonthsExpensesByCategory: [
-      {
-        category: "Leben",
-        subCategory: "Friseur und Kosmetik",
-        amount: 40,
-      },
-      {
-        category: "Wohnen",
-        subCategory: "Strom",
-        amount: 100,
-      },
-      {
-        category: "Auto",
-        subCategory: "Wartung",
-        amount: 200,
-      },
-      {
-        category: "Freizeit",
-        subCategory: "Hobbys",
-        amount: 30,
-      },
-      {
-        category: "Leben",
-        subCategory: "Restaurant",
-        amount: 30,
-      },
-      {
-        category: "nicht zugewiesen",
-        subCategory: "nicht zugewiesen",
-        amount: 861,
-      },
-      {
-        category: "Test",
-        subCategory: "doch nicht?",
-        amount: 45,
-      },
-      {
-        category: "Freizeit",
-        subCategory: "Sonstiges",
-        amount: 400,
-      },
-      {
-        category: "Freizeit",
-        subCategory: "Bücher",
-        amount: 25,
-      },
-      {
-        category: "Einnahmen",
-        subCategory: "Dividenden",
-        amount: 15,
-      },
-      {
-        category: "Wohnen",
-        subCategory: "Miete",
-        amount: 800,
-      },
-      {
-        category: "Auto",
-        subCategory: "Versicherung",
-        amount: 150,
-      },
-      {
-        category: "Sonstiges",
-        subCategory: "Kreditraten",
-        amount: 75,
-      },
-      {
-        category: "Sonstiges",
-        subCategory: "Bekleidung",
-        amount: 50,
-      },
-      {
-        category: "Wohnen",
-        subCategory: "Internet",
-        amount: 40,
-      },
-      {
-        category: "Wohnen",
-        subCategory: "Fernsehen",
-        amount: 12.99,
-      },
-      {
-        category: "Wohnen",
-        subCategory: "Haushaltswaren",
-        amount: 40,
-      },
-    ],
-  };
+  const { lastSixMonthsBalance, lastSixMonthsIncomeAndExpenses, bankBalance, saved, lastSixMonthsExpensesByCategory, wishlist, emergencyFundPercent } = dashboardData;
+
   // Sort the expenses by amount (in descending order)
-  const sortedExpenses = data.lastSixMonthsExpensesByCategory.sort((a, b) => {
+  const sortedExpenses = lastSixMonthsExpensesByCategory.sort((a, b) => {
     return b.amount - a.amount;
   });
+
+
 
   return (
     <div className="m-2 w-full bg-mm-foreground p-4 text-mm-text-white md:p-20">
@@ -160,7 +44,7 @@ const StatisticsReport: React.FC = () => {
           Kontostand der letzten sechs Monate
         </h3>
         <div className="flex flex-wrap justify-start lg:flex-nowrap">
-          {data.lastSixMonthsBalance.labels.map(
+          {lastSixMonthsBalance.labels.map(
             (label: string, index: number) => (
               <div
                 key={index}
@@ -168,7 +52,7 @@ const StatisticsReport: React.FC = () => {
               >
                 <div className="text-xs text-mm-text-dark">{label}</div>
                 <div className="text-lg">
-                  {formatCurrency(data.lastSixMonthsBalance.data[index])}
+                  {formatCurrency(lastSixMonthsBalance.data[index])}
                 </div>
               </div>
             )
@@ -182,7 +66,7 @@ const StatisticsReport: React.FC = () => {
           Einnahmen und Ausgaben der letzten sechs Monate
         </h3>
         <div className="flex flex-wrap justify-start lg:flex-nowrap">
-          {data.lastSixMonthsIncomeAndExpenses.labels.map(
+          {lastSixMonthsIncomeAndExpenses.labels.map(
             (label: string, index: number) => (
               <div
                 key={index}
@@ -192,12 +76,12 @@ const StatisticsReport: React.FC = () => {
                 <div className="text-lg">
                   <div className="text-mm-success">
                     {formatCurrency(
-                      data.lastSixMonthsIncomeAndExpenses.data.income[index]
+                      lastSixMonthsIncomeAndExpenses.data.income[index]
                     )}
                   </div>
                   <div className="text-mm-error">
                     {formatCurrency(
-                      data.lastSixMonthsIncomeAndExpenses.data.expenses[index]
+                      lastSixMonthsIncomeAndExpenses.data.expenses[index]
                     )}
                   </div>
                 </div>
@@ -211,11 +95,11 @@ const StatisticsReport: React.FC = () => {
       <div className="mb-6 grid grid-cols-2 gap-4">
         <div>
           <h3 className="text-lg font-semibold">Kontostand</h3>
-          <div className="text-2xl">{formatCurrency(data.bankBalance)}</div>
+          <div className="text-2xl">{formatCurrency(bankBalance)}</div>
         </div>
         <div>
           <h3 className="text-lg font-semibold">Gespart</h3>
-          <div className="text-2xl">{formatCurrency(data.saved)}</div>
+          <div className="text-2xl">{formatCurrency(saved)}</div>
         </div>
         {/* Füge hier weitere Datenfelder hinzu */}
       </div>
@@ -223,7 +107,7 @@ const StatisticsReport: React.FC = () => {
       {/* Wunschliste */}
       <h3 className="mb-2 text-lg font-semibold">Wunschliste</h3>
       <div className="mb-6 grid grid-cols-2 gap-4">
-        {Object.entries(data.wishlist).map(
+        {Object.entries(wishlist).map(
           ([itemName, itemData]: [string, any]) => (
             <div key={itemName}>
               <h4 className="text-md font-semibold">{itemName}</h4>
@@ -242,7 +126,7 @@ const StatisticsReport: React.FC = () => {
 
       {/* Notfallfonds */}
       <h3 className="mb-2 text-lg font-semibold">Notfallfonds</h3>
-      <div>Prozent: {data.emergencyFundPercent}%</div>
+      <div>Prozent: {emergencyFundPercent}%</div>
 
       {/* Ausgaben der letzten sechs Monate nach Kategorie */}
       <div className="mb-6 mt-2">
