@@ -33,7 +33,11 @@ function Nav() {
       name: "Finanzgesundheit",
       to: "/app/",
       id: 3,
-    },
+    },{
+      name: "Budgets",
+      to: "/app/budgets",
+      id: 4,
+    }
   ];
 
   const renderSublinks = (sublinks: Sublink[]) => {
