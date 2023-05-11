@@ -36,7 +36,6 @@ const FinancialOptionsSettings: React.FC = () => {
 
     updateUser(updatedUser);
 
-    // Reset form state
     setEmergencyFund(0);
     setNeedsPercentage(50);
     setWishesPercentage(30);
