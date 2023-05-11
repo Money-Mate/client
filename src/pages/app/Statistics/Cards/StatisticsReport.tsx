@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import useDashboardStore, {
 } from "../../../../context/DashboardStore";
+import StatisticsReportPDFButton from "../Components/StatisticsReportPDF";
 
 
 
@@ -44,6 +45,14 @@ const StatisticsReport: React.FC = () => {
     return b.amount - a.amount;
   });
 
+  // Wunschliste
+const affordItems = Object.entries(wishlist).filter(
+  ([itemName, itemData]) => itemData.canAfford
+);
+const cannotAffordItems = Object.entries(wishlist).filter(
+  ([itemName, itemData]) => !itemData.canAfford
+);
+
   return (
     <div className="w-full rounded bg-mm-foreground p-4 text-mm-text-white md:p-20">
       <h2 className="mb-4 text-xl font-bold">Finanzbericht</h2>
@@ -51,7 +60,7 @@ const StatisticsReport: React.FC = () => {
       {/* Kontostand der letzten sechs Monate */}
       <div className="mb-6">
         <h3 className="mb-2 text-lg font-semibold">
-          Kontostand der letzten sechs Monate
+          Kontostand der letzten sechs Monate 
         </h3>
         <div className="flex flex-wrap justify-start lg:flex-nowrap">
           {lastSixMonthsBalance.labels.map((label: string, index: number) => (
@@ -71,7 +80,7 @@ const StatisticsReport: React.FC = () => {
       {/* Einnahmen und Ausgaben der letzten sechs Monate */}
       <div className="mb-6">
         <h3 className="mb-2 text-lg font-semibold">
-          Einnahmen und Ausgaben der letzten sechs Monate
+          Einnahmen und Ausgaben der letzten sechs Monate 
         </h3>
         <div className="flex flex-wrap justify-start lg:flex-nowrap">
           {lastSixMonthsIncomeAndExpenses.labels.map(
@@ -114,19 +123,33 @@ const StatisticsReport: React.FC = () => {
 
       {/* Wunschliste */}
       <h3 className="mb-2 text-lg font-semibold">Wunschliste</h3>
-      <div className="mb-6 grid grid-cols-2 gap-4">
-        {Object.entries(wishlist).map(([itemName, itemData]: [string, any]) => (
-          <div key={itemName}>
-            <h4 className="text-md font-semibold">{itemName}</h4>
-            <div>
-              <div>Jetzt: {formatCurrency(itemData.now)}</div>
-              <div>Von: {formatCurrency(itemData.of)}</div>
-              <div>Prozent: {itemData.percent}%</div>
-              <div>Kann sich leisten: {itemData.canAfford ? "Ja" : "Nein"}</div>
-            </div>
-          </div>
-        ))}
+  <div className="mb-6 grid grid-cols-2 gap-4">
+    {/* Afford items */}
+    {affordItems.map(([itemName, itemData]: [string, any]) => (
+      <div key={itemName}>
+        <h4 className="text-md font-semibold">{itemName}</h4>
+        <div>
+          <div>Jetzt: {formatCurrency(itemData.now)}</div>
+          <div>Von: {formatCurrency(itemData.of)}</div>
+          <div>Prozent: {itemData.percent}%</div>
+          <div>Kann sich leisten: Ja</div>
+        </div>
       </div>
+    ))}
+
+    {/* Cannot afford items */}
+    {cannotAffordItems.map(([itemName, itemData]: [string, any]) => (
+      <div key={itemName}>
+        <h4 className="text-md font-semibold">{itemName}</h4>
+        <div>
+          <div>Jetzt: {formatCurrency(itemData.now)}</div>
+          <div>Von: {formatCurrency(itemData.of)}</div>
+          <div>Prozent: {itemData.percent}%</div>
+          <div>Kann sich leisten: Nein</div>
+        </div>
+      </div>
+    ))}
+  </div>
 
       {/* Notfallfonds */}
       <h3 className="mb-2 text-lg font-semibold">Notfallfonds</h3>
@@ -156,6 +179,7 @@ const StatisticsReport: React.FC = () => {
             ))}
           </tbody>
         </table>
+        <StatisticsReportPDFButton dashboardData={dashboardData} />
       </div>
     </div>
   );

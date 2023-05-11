@@ -1,5 +1,5 @@
 import React from 'react'
-import StatisticsReport from './StatisticsReport'
+import StatisticsReport from './Cards/StatisticsReport'
 
 //  KATEGORIEN
 // wobei will user unterstützung? Checkboxes mit heading und Erklärungsdropdown und ggf Slider?
