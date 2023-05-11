@@ -150,53 +150,56 @@ const data = {
   });
   
   return (
- <div className="m-2 w-full bg-mm-foreground p-4 md:p-20 text-mm-text-white">
-      <h2 className="mb-4 text-xl font-bold">Finanzbericht</h2>
+<div className="m-2 w-full bg-mm-foreground p-4 md:p-20 text-mm-text-white">
+  <h2 className="mb-4 text-xl font-bold">Finanzbericht</h2>
 
-      {/* Kontostand der letzten sechs Monate */}
-      <div className="mb-6">
-        <h3 className="mb-2 text-lg font-semibold">
-          Kontostand der letzten sechs Monate
-        </h3>
-        <div className="flex flex-wrap justify-between">
-          {data.lastSixMonthsBalance.labels.map((label: string, index: number) => (
-            <div
-              key={index}
-              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 m-1 rounded-md border border-mm-foreground p-2 text-center"
-            >
-              <div className="text-xs text-mm-text-dark">{label}</div>
-              <div className="text-lg">
-                {formatCurrency(data.lastSixMonthsBalance.data[index])}
-              </div>
-            </div>
-          ))}
+  {/* Kontostand der letzten sechs Monate */}
+  <div className="mb-6">
+    <h3 className="mb-2 text-lg font-semibold">
+      Kontostand der letzten sechs Monate
+    </h3>
+    <div className="flex flex-wrap justify-start lg:flex-nowrap">
+      {data.lastSixMonthsBalance.labels.map((label: string, index: number) => (
+        <div
+          key={index}
+          className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 m-1 rounded-md border border-mm-foreground p-2 text-center"
+        >
+          <div className="text-xs text-mm-text-dark">{label}</div>
+          <div className="text-lg">
+            {formatCurrency(data.lastSixMonthsBalance.data[index])}
+          </div>
         </div>
-      </div>
+      ))}
+    </div>
+  </div>
 
-      {/* Einnahmen und Ausgaben der letzten sechs Monate */}
-      <div className="mb-6">
-        <h3 className="mb-2 text-lg font-semibold">
-          Einnahmen und Ausgaben der letzten sechs Monate
-        </h3>
-        <div className="flex flex-wrap justify-between">
-          {data.lastSixMonthsIncomeAndExpenses.labels.map((label: string, index: number) => (
-            <div
-              key={index}
-              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 m-1 rounded-md border border-mm-foreground p-2 text-center"
-            >
-              <div className="text-xs text-mm-text-dark">{label}</div>
-              <div className="text-lg">
-                <div className="text-mm-success">
-                  {formatCurrency(data.lastSixMonthsIncomeAndExpenses.data.income[index])}
-                </div>
-                <div className="text-mm-error">
-                  {formatCurrency(data.lastSixMonthsIncomeAndExpenses.data.expenses[index])}
-                </div>
-              </div>
+  {/* Einnahmen und Ausgaben der letzten sechs Monate */}
+  <div className="mb-6">
+    <h3 className="mb-2 text-lg font-semibold">
+      Einnahmen und Ausgaben der letzten sechs Monate
+    </h3>
+    <div className="flex flex-wrap justify-start lg:flex-nowrap">
+      {data.lastSixMonthsIncomeAndExpenses.labels.map((label: string, index: number) => (
+        <div
+          key={index}
+          className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 m-1 rounded-md border border-mm-foreground p-2 text-center"
+        >
+          <div className="text-xs text-mm-text-dark">{label}</div>
+          <div className="text-lg">
+            <div className="text-mm-success">
+              {formatCurrency(data.lastSixMonthsIncomeAndExpenses.data.income[index])}
             </div>
-          ))}
+            <div className="text-mm-error">
+              {formatCurrency(data.lastSixMonthsIncomeAndExpenses.data.expenses[index])}
+            </div>
+          </div>
         </div>
-      </div>
+        
+      ))}
+    </div>
+  </div>
+
+
   
     {/* Weitere finanzielle Daten */}
     <div className="mb-6 grid grid-cols-2 gap-4">
@@ -261,6 +264,7 @@ const data = {
       </table>
     </div>
   </div>
+  
   );
   };
   
