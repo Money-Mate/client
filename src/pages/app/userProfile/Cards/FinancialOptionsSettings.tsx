@@ -63,34 +63,34 @@ const FinancialOptionsSettings: React.FC = () => {
       className="mb-4 w-full rounded-md bg-mm-foreground p-6 shadow-lg"
     >
       <h2 className="mb-2 text-lg font-bold text-mm-text-white">
-        Einstellungen
+        Einstellungen für die Finanzanalysen:
       </h2>
       <br />
       <h3 className="text-lg font-bold text-mm-text-white">
-  <span className="inline-flex items-center">
-    Notgroschen
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className="w-4 h-4 ml-1 text-gray-400 cursor-pointer"
-      onClick={handleEmergencyFundInfoToggle}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
-      />
-    </svg>
-  </span>
-  {showEmergencyFundInfo && (
-    <div className="text-sm text-gray-500 mt-1">
-      This is the emergency fund information.
-    </div>
-  )}
-</h3>
+        <span className="inline-flex items-center">
+          1. Notgroschen
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="ml-1 h-4 w-4 cursor-pointer text-gray-400"
+            onClick={handleEmergencyFundInfoToggle}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+            />
+          </svg>
+        </span>
+        {showEmergencyFundInfo && (
+          <div className="mt-1 text-sm text-gray-500">
+            This is the emergency fund information.
+          </div>
+        )}
+      </h3>
       <div className="mb-4 p-2 shadow-lg">
         <label
           htmlFor="emergencyFund"
@@ -110,30 +110,30 @@ const FinancialOptionsSettings: React.FC = () => {
 
       <br></br>
       <h3 className="mb-2 text-lg font-bold text-mm-text-white">
-  <span className="inline-flex items-center">
-    Angestrebte Aufteilung des Einkommens
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className="w-4 h-4 ml-1 text-gray-400 cursor-pointer"
-      onClick={handleSplitIncomeInfoToggle}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
-      />
-    </svg>
-  </span>
-  {showSplitIncomeInfo && (
-    <div className="text-sm text-gray-500 mt-1">
-      This is the split income information.
-    </div>
-  )}
-</h3>
+        <span className="inline-flex items-center">
+          2. Angestrebte Aufteilung des Einkommens
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="ml-1 h-4 w-4 cursor-pointer text-gray-400"
+            onClick={handleSplitIncomeInfoToggle}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+            />
+          </svg>
+        </span>
+        {showSplitIncomeInfo && (
+          <div className="mt-1 text-sm text-gray-500">
+            This is the split income information.
+          </div>
+        )}
+      </h3>
 
       <div className="mb-4 ml-4 ">
         <label
