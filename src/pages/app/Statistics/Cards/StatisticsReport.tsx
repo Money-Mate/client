@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-import useDashboardStore from "../../../context/DashboardStore";
-import DownloadPDFButton from "./Components/StatisticsReportPDF";
+import useDashboardStore, {
+} from "../../../../context/DashboardStore";
+
+
 
 const StatisticsReport: React.FC = () => {
   const dashboardData = useDashboardStore((state) => state.dashboardData);
@@ -13,8 +15,17 @@ const StatisticsReport: React.FC = () => {
   }, [fetchDashboardData]);
 
   if (!dashboardData) {
-    return <div>Loading...</div>; // Render a loading state while data is being fetched
+    return <div>Loading...</div>; 
   }
+  const {
+    lastSixMonthsBalance,
+    lastSixMonthsIncomeAndExpenses,
+    bankBalance,
+    saved,
+    lastSixMonthsExpensesByCategory,
+    wishlist,
+    emergencyFundPercent,
+  } = dashboardData;
 
   const formatCurrency = (amount: number) => {
     const formattedAmount = amount.toLocaleString("de-DE", {
@@ -27,15 +38,6 @@ const StatisticsReport: React.FC = () => {
       ? formattedAmount.replace(",00", "")
       : formattedAmount;
   };
-  const {
-    lastSixMonthsBalance,
-    lastSixMonthsIncomeAndExpenses,
-    bankBalance,
-    saved,
-    lastSixMonthsExpensesByCategory,
-    wishlist,
-    emergencyFundPercent,
-  } = dashboardData;
 
   // Sort the expenses by amount (in descending order)
   const sortedExpenses = lastSixMonthsExpensesByCategory.sort((a, b) => {
@@ -43,7 +45,7 @@ const StatisticsReport: React.FC = () => {
   });
 
   return (
-    <div className="m-2 w-full bg-mm-foreground p-4 text-mm-text-white md:p-20">
+    <div className="w-full rounded bg-mm-foreground p-4 text-mm-text-white md:p-20">
       <h2 className="mb-4 text-xl font-bold">Finanzbericht</h2>
 
       {/* Kontostand der letzten sechs Monate */}
@@ -154,9 +156,6 @@ const StatisticsReport: React.FC = () => {
             ))}
           </tbody>
         </table>
-        <div className="mb-4 flex justify-end">
-          <DownloadPDFButton dashboardData={dashboardData} />
-        </div>
       </div>
     </div>
   );
