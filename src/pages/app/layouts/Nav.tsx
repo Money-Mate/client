@@ -31,7 +31,7 @@ function Nav() {
     },
     {
       name: "Finanzgesundheit",
-      to: "/app/",
+      to: "/app/financialOptions",
       id: 3,
     },
   ];
