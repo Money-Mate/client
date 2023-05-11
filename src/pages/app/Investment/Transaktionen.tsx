@@ -15,16 +15,16 @@ export const transactions: Transaction[] = [
         value: -20,
         type: "Trade",
     },
-    // {
-    //     name: "Apple",
-    //     value: 2.34,
-    //     type: "Dividend",
-    // },
-    // {
-    //     name: "Dax",    
-    //     value: 120,
-    //     type: "Trade",
-    // },
+    {
+        name: "Apple",
+        value: 2.34,
+        type: "Dividend",
+    },
+    {
+        name: "Dax",    
+        value: 120,
+        type: "Trade",
+    },
     // {
     //     name: "Dow",
     //     value: -230,
