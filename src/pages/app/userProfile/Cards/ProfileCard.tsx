@@ -14,11 +14,11 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ user }) => {
       <div className="mb-4 flex items-center justify-between">
         <img
           className="mr-4 h-16 w-16 rounded-full"
-          src={user.picture}
-          alt={`${user.name}'s profile picture`}
+          src={user.profilePicture}
+          alt={`${user.username}'s profile picture`}
         />
         <div>
-          <h1 className="text-lg font-bold text-mm-text-white">{user.name}</h1>
+          <h1 className="text-lg font-bold text-mm-text-white">{user.username}</h1>
           <p className="text-sm text-mm-text-dark">{user.email}</p>
         </div>
         <div className="block">
