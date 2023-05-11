@@ -13,7 +13,7 @@ export const paths = {
   userprofile: "/userprofile",
   transactionsGiro: "/transactionsgiro",
   investmentDashboard: "/investmentdashboard",
-  financialOptionsChecklist: "/financialOptions",
+  financialHealthStatistics: "/statistics",
 };
 
 const routes = [
@@ -45,11 +45,11 @@ const routes = [
     redirectPath: paths.landingPage,
     id: "InvestmentDashboard",
   },{
-    path: paths.financialOptionsChecklist,
+    path: paths.financialHealthStatistics,
     element: <FinancialOptionsPage />,
     isProtected: true,
     redirectPath: paths.landingPage,
-    id: "FinancialOptionsPage",
+    id: "FinancialHealthStatistics",
   }
 ];
 
