@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import piggyBank from "../../../assets/piggy-bank-green.svg";
 
 interface Sublink {
   name: string;
@@ -30,10 +31,14 @@ function Nav() {
       id: 2,
     },
     {
-      name: "Finanzgesundheit",
-      to: "/app/",
+      name: "Statistik",
+      to: "/app/statistics",
       id: 3,
     },{
+      name: "Wünsche",
+      to: "/app/wishes",
+      id: 5,
+    }{
       name: "Budgets",
       to: "/app/budgets",
       id: 4,
@@ -57,22 +62,25 @@ function Nav() {
 
   return (
     <div className="relative h-full w-full bg-mm-foreground p-5">
-      <h1 className="mb-5 ml-2 mt-2 text-3xl font-bold text-white">
+   
+
+        <img src={piggyBank} alt="Logo" className="w-20"/>
+      <h1 className="text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-3xl font-bold leading-tight text-transparent">
         MoneyMate
       </h1>
-      <ul className="p-3 leading-loose tracking-wide text-white">
+      <ul className="p-3 mt-2 leading-loose tracking-wide text-white">
         {items.map((item) => (
           <li
-            className=" text-blue m-4 p-2 text-xl/6 font-semibold"
+            className=" text-blue m-4 p-2 text-xl/4 font-semibold"
             key={item.id}
           >
             {item.sublinks ? (
               <div>
-                <NavLink to={item.to}>{item.name}</NavLink>
+                <NavLink to={item.to} className="text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent">{item.name}</NavLink>
                 {renderSublinks(item.sublinks)}
               </div>
             ) : (
-              <NavLink to={item.to}>{item.name}</NavLink>
+              <NavLink to={item.to} className="text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent">{item.name}</NavLink>
             )}
           </li>
         ))}
@@ -82,7 +90,7 @@ function Nav() {
           <img
             src="https://picsum.photos/200"
             alt="User Profile Picture"
-            className="h-full w-full rounded-full"
+            className="h-full w-full rounded-full border-2 border-mm-primary"
           />
         </NavLink>
       </div>

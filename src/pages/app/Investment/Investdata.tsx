@@ -1,189 +1,125 @@
-export const invests = [
+interface Investment {
+  name: string;
+  value: number;
+  amount: number;
+  buyIn: number;
+  dividend?: number;
+  type: string;
+  symbol?: string;
+}
+
+export const deleteInvests = (newInvests: Investment[]) => {
+  invests = newInvests;
+}
+
+export let invests: Investment[] = [
   {
-    id: 1,
     name: "Apple",
-    value: 1000.34,
+    value: 1000.45,
     amount: 3,
-    buyIn: 120,
-    dividend: 0.56,
-    type: "Stocks",
+    buyIn: 12560,
+    dividend: 0.45,
+    type: "Aktien/ETF's",
     symbol: "AAPL",
   },
   {
-    id: 2,
     name: "Tesla",
     value: 2500,
     amount: 4,
     buyIn: 500,
-    dividend: 0.56,
-    type: "Stocks",
+    dividend: 0.34,
+    type: "Aktien/ETF's",
     symbol: "TSLA",
   },
   {
-    id: 3,
     name: "Einzimmerwohnung",
     value: 3000,
-    type: "Real Estate",
-    symbol: ""
+    amount: 1,
+    buyIn: 120,
+    dividend: 0,
+    type: "Immobilien",
+    symbol: "",
   },
   {
-    id: 4,
     name: "Bitcoin",
     value: 4000,
-    type: "Crypto",
+    amount: 1,
+    buyIn: 120,
+    dividend: 0,
+    type: "Kryptowährungen",
     symbol: "",
   },
   {
-    id: 5,
     name: "Ethereum",
-    value: 5000,
-    type: "Crypto",
-    symbol: ""
+    value: 7000,
+    amount: 1,
+    buyIn: 120,
+    dividend: 0,
+    type: "Kryptowährungen",
+    symbol: "",
   },
   {
-    id: 6,
     name: "Strandvilla",
-    value: 6000,
-    type: "Real Estate",
-    symbol: ""
+    value: 3000,
+    amount: 1,
+    buyIn: 120,
+    dividend: 0,
+    type: "Immobilien",
+    symbol: "",
   },
   {
-    id: 7,
     name: "Flughafen Tegel",
-    value: 2000,
-    type: "Real Estate",
-    symbol: ""
+    value: 3000,
+    amount: 1,
+    buyIn: 120,
+    dividend: 0,
+    type: "Immobilien",
+    symbol: "",
   },
   {
-    id: 8,
     name: "Gold",
     value: 2000,
-    type: "Commodities",
-    symbol: ""
-  },
-  {
-    id: 9,
-    name: "Silber",
-    value: 5000,
-    type: "Commodities",
-    symbol: ""
-  },
-  {
-    id: 10,
-    name: "BMW",
-    value: 4000,
-    type: "Stocks",
+    amount: 5,
+    buyIn: 120,
+    dividend: 0,
+    type: "Rohstoffe",
     symbol: "",
   },
   {
-    id: 11,
-    name: "Eisdiele",
+    name: "Silber",
     value: 3000,
-    type: "Real Estate",
-    symbol: ""
+    amount: 5,
+    buyIn: 120,
+    dividend: 0,
+    type: "Rohstoffe",
+    symbol: "",
   },
   {
-    id: 12,
-    name: "Porsche",
-    value: 1000,
-    type: "Stocks",
-    symbol: ""
-  },
-  {
-    id: 13,
-    name: "VW",
-    value: 2000,
-    type: "Stocks",
-    symbol: ""
-  },
-  {
-    id: 14,
-    name: "Mercedes",
-    value: 3000,
-    type: "Stocks",
-    symbol: ""
-  },
-  {
-    id: 15,
-    name: "Platin",
-    value: 4000,
-    type: "Commodities",
-    symbol: ""
-  },
-  {
-    id: 16,
-    name: "Palladium",
-    value: 5000,
-    type: "Commodities",
-    symbol: ""
-  },
-  {
-    id: 17,
-    name: "Uran",
-    value: 2000,
-    type: "Commodities",
-    symbol: ""
-  },
-  {
-    id: 18,
-    name: "Plutonium",
-    value: 5000,
-    type: "Commodities",
-    symbol: ""
-  },
-  {
-    id: 19,
     name: "Microsoft",
     value: 3000,
     amount: 3,
-    type: "Stocks",
+    buyIn: 120,
+    dividend: 1.23,
+    type: "Aktien/ETF's",
     symbol: "MSFT",
   },
   {
-    id: 20,
     name: "Nvidia",
-    value: 2000,
+    value: 3700,
     amount: 3,
-    type: "Stocks",
+    buyIn: 120,
+    dividend: 0,
+    type: "Aktien/ETF's",
     symbol: "NVDA",
-  },
-  {
-    id: 21,
-    name: "Eisen",
-    value: 3000,
-    type: "Commodities",
-    symbol: ""
-  },
-  {
-    id: 22,
-    name: "Kupfer",
-    value: 5000,
-    type: "Commodities",
-    symbol: ""
-  },
-  {
-    id: 23,
-    name: "Lithium",
-    value: 2000,
-    type: "Commodities",
-    symbol: ""
-  },
-  {
-    id: 24,
-    name: "Kobalt",
-    value: 5000,
-    type: "Commodities",
-    symbol: ""
-  },
-  {
-    id: 25,
-    name: "Aluminium",
-    value: 2000,
-    type: "Commodities",
-    symbol: ""
   },
 ].sort((a, b) => b.value - a.value);
 
 
-
-
+export const calculateDividendSum = (invests: Investment[]) => {
+  let dividendSum = 0;
+  invests.forEach((invest) => {
+    dividendSum +=
+      (invest.value * invest.amount * (invest.dividend ?? 0)) / 1000;
+  });
+  return dividendSum;
+};

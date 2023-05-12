@@ -74,7 +74,7 @@ const BankAccountsCard: React.FC = () => {
                   <h5 className="mb-2 text-lg font-bold text-mm-text-white">
                     {account.name}
                   </h5>
-                  <p className="mb-2 h-5 w-10 text-gray-600">
+                  <p className="mb-2 h-5 w-10 text-mm-text-dark ">
                     {account.iban ? account.iban : ""}{" "}
                   </p>
                   <div className="flex justify-end">
@@ -110,7 +110,7 @@ const BankAccountsCard: React.FC = () => {
                   <h5 className="mb-2 text-lg font-bold text-mm-text-white">
                     {account.name}
                   </h5>
-                  <p className="mb-2 h-5 w-10 text-gray-600">
+                  <p className="mb-2 h-5 w-10 text-mm-text-dark">
                     {account.iban ? account.iban : ""}{" "}
                   </p>
                   <div className="flex justify-end">

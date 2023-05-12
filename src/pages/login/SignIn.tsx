@@ -1,7 +1,8 @@
-import React, { useState, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as z from "zod";
+import PiggyBank from "../../assets/piggy-bank-green.svg";
 
 interface UserLogin {
   email: string;
@@ -46,22 +47,33 @@ const SignIn = () => {
   return (
     <div className="flex h-screen bg-gray-200">
       {/* Left Side - Image */}
-      <div
-        className="w-1/2 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('https://picsum.photos/id/239/1000/1000')",
-        }}
-      ></div>
+      <div className="w-1/2 bg-mm-foreground bg-cover bg-center">
+        <div className="flex flex-col items-center sm:flex-row sm:items-start sm:justify-center">
+          <div className="flex-row items-center">
+            <img src={PiggyBank} alt="Piggy" className="mt-20" />
+            <div className="ml-4">
+              <br />
+              <h1 className="text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-5xl font-bold leading-tight text-transparent">
+                Money Mate
+              </h1>
+              <br />
+              <p className="text-lg font-semibold text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text leading-tight text-transparent">
+                Dein All-in-One-Tool für kluge Finanzentscheidungen.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Right Side - Login Form */}
-      <div className="flex w-1/2 items-center justify-center bg-white">
+      <div className="flex w-1/2 items-center justify-center bg-mm-background ">
         <div className="w-full max-w-md">
-          <h1 className="mb-6 text-2xl font-bold">Login</h1>
+          <h1 className="mb-6 text-3xl font-bold text-mm-foreground ">Login</h1>
           <form onSubmit={handleSubmit}>
             {/* Email Input */}
             <div className="mb-4">
               <label
-                className="mb-2 block font-bold text-gray-700"
+                className="mb-2 block font-bold text-mm-foreground"
                 htmlFor="email"
               >
                 Email
@@ -84,7 +96,7 @@ const SignIn = () => {
             {/* Password Input */}
             <div className="mb-4">
               <label
-                className="mb-2 block font-bold text-gray-700"
+                className="mb-2 block font-bold text-mm-foreground"
                 htmlFor="password"
               >
                 Password
@@ -109,7 +121,7 @@ const SignIn = () => {
             {/* Login Button */}
             <div className="mb-6">
               <button
-                className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                className="m-2 rounded-lg bg-teal-600 px-4 py-2 text-mm-text-white hover:bg-opacity-75"
                 type="submit"
               >
                 Login

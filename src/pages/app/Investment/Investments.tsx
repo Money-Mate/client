@@ -10,24 +10,24 @@ interface InvestmentProps {
 
 const Investments = ({ setClickedData }: InvestmentProps) => {
   const stocks = invests
-    .filter((invest) => invest.type === "Stocks")
-    .reduce((acc, curr) => acc + curr.value, 0);
-  const krypto = invests
-    .filter((invest) => invest.type === "Crypto")
-    .reduce((acc, curr) => acc + curr.value, 0);
+    .filter((invest) => invest.type === "Aktien/ETF's")
+    .reduce((acc, curr) => acc + (curr.value * curr.amount), 0);
+  const crypto = invests
+    .filter((invest) => invest.type === "Kryptowährungen")
+    .reduce((acc, curr) => acc + (curr.value * curr.amount), 0);
   const realEstate = invests
-    .filter((invest) => invest.type === "Real Estate")
-    .reduce((acc, curr) => acc + curr.value, 0);
-  const edelmetalle = invests
-    .filter((invest) => invest.type === "Commodities")
-    .reduce((acc, curr) => acc + curr.value, 0);
+    .filter((invest) => invest.type === "Immobilien")
+    .reduce((acc, curr) => acc + (curr.value * curr.amount), 0);
+  const commodities = invests
+    .filter((invest) => invest.type === "Rohstoffe")
+    .reduce((acc, curr) => acc + (curr.value * curr.amount), 0);
 
   const data = {
-    labels: ["Stocks", "Crypto", "Real Estate", "Commodities"],
+    labels: ["Aktien/ETF's", "Kryptowährungen", "Immobilien", "Rohstoffe"],
     datasets: [
       {
         label: "Wert in €",
-        data: [stocks, krypto, realEstate, edelmetalle],
+        data: [stocks, crypto, realEstate, commodities],
         backgroundColor: skyColors.map((color) => color),
         hoverBackgroundColor: tealColors.map((color) => color),
         borderColor: [""],
@@ -51,33 +51,33 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
         const label = data.labels[index];
         let innerData: number[] = [];
         let innerDataNames: string[] = [];
-        if (label === "Stocks") {
+        if (label === "Aktien/ETF's") {
           innerData = invests
-            .filter((invest) => invest.type === "Stocks")
-            .map((invest) => invest.value);
+            .filter((invest) => invest.type === "Aktien/ETF's")
+            .map((invest) => invest.value * invest.amount);
           innerDataNames = invests
-            .filter((invest) => invest.type === "Stocks")
+            .filter((invest) => invest.type === "Aktien/ETF's")
             .map((invest) => invest.name);
-        } else if (label === "Crypto") {
+        } else if (label === "Kryptowährungen") {
           innerData = invests
-            .filter((invest) => invest.type === "Crypto")
-            .map((invest) => invest.value);
+            .filter((invest) => invest.type === "Kryptowährungen")
+            .map((invest) => invest.value * invest.amount);
           innerDataNames = invests
-            .filter((invest) => invest.type === "Crypto")
+            .filter((invest) => invest.type === "Kryptowährungen")
             .map((invest) => invest.name);
-        } else if (label === "Real Estate") {
+        } else if (label === "Immobilien") {
           innerData = invests
-            .filter((invest) => invest.type === "Real Estate")
-            .map((invest) => invest.value);
+            .filter((invest) => invest.type === "Immobilien")
+            .map((invest) => invest.value * invest.amount);
           innerDataNames = invests
-            .filter((invest) => invest.type === "Real Estate")
+            .filter((invest) => invest.type === "Immobilien")
             .map((invest) => invest.name);
-        } else if (label === "Commodities") {
+        } else if (label === "Rohstoffe") {
           innerData = invests
-            .filter((invest) => invest.type === "Commodities")
-            .map((invest) => invest.value);
+            .filter((invest) => invest.type === "Rohstoffe")
+            .map((invest) => invest.value * invest.amount);
           innerDataNames = invests
-            .filter((invest) => invest.type === "Commodities")
+            .filter((invest) => invest.type === "Rohstoffe")
             .map((invest) => invest.name);
         }
         const value = data.datasets[0].data[index];

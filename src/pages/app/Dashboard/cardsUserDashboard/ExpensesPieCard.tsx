@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { formatNumber } from "../../../../utils/formatterFunctions";
 import ExpensesPie from "../chartsUserDasboard/ExpensesPie";
 import useDashboardStore from "../../../../context/DashboardStore";
+import LoadingSymbol from "../../../../components/LoadingSymbol";
 
 
 function ExpensesPieCard() {
@@ -15,7 +16,7 @@ function ExpensesPieCard() {
   );
 
   if (lastSixMonthsExpensesByCategory === undefined) {
-    return <div>Loading...</div>;
+    return <LoadingSymbol />;
   }
 
   useEffect(() => {
@@ -29,7 +30,7 @@ function ExpensesPieCard() {
 
   return (
     <div className="h-full rounded-md  bg-mm-foreground shadow-lg">
-      <h2 className="m-2 pt-3 text-center text-lg font-semibold text-mm-text-white">
+      <h2 className="m-2 pt-3 text-center text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent">
         Ausgaben der letzten 6 Monate
       </h2>
       {!clickedData && (

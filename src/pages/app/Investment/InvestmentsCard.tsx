@@ -11,18 +11,18 @@ function CardNineInvestments() {
 
   useEffect(() => {
     // hier in Zukunft fetch von Investkonten
-    const stocks = invests.filter((invest) => invest.type === "Stocks").reduce((acc, curr) => acc + curr.value, 0)
-    const krypto = invests.filter((invest) => invest.type === "Crypto").reduce((acc, curr) => acc + curr.value, 0)
-    const realEstate = invests.filter((invest) => invest.type === "Real Estate").reduce((acc, curr) => acc + curr.value, 0)
-    const edelmetalle = invests.filter((invest) => invest.type === "Commodities").reduce((acc, curr) => acc + curr.value, 0)
-    const sum = stocks + krypto + realEstate + edelmetalle;
+    const stocks = invests.filter((invest) => invest.type === "Aktien/ETF's").reduce((acc, curr) => acc + (curr.value * curr.amount), 0)
+    const crypto = invests.filter((invest) => invest.type === "Kryptowährungen").reduce((acc, curr) => acc + (curr.value * curr.amount), 0)
+    const realEstate = invests.filter((invest) => invest.type === "Immobilien").reduce((acc, curr) => acc + (curr.value * curr.amount), 0)
+    const commodities = invests.filter((invest) => invest.type === "Rohstoffe").reduce((acc, curr) => acc + (curr.value * curr.amount), 0)
+    const sum = stocks + crypto + realEstate + commodities
     setSum(sum);
   }, []);
 
   return (
     <div className="h-full rounded-md  bg-mm-foreground shadow-lg">
       <h2 className="m-2 pt-3 text-center text-lg font-semibold text-mm-text-white">
-        Investments
+        Investitionen
       </h2>
       {!clickedData && (
         <p className="m-2 text-center text-sm font-semibold text-mm-text-white">

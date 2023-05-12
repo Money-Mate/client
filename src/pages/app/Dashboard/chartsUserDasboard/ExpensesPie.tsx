@@ -3,6 +3,7 @@ import { Doughnut } from "react-chartjs-2";
 import { ChartConfiguration, ChartData } from "chart.js";
 import useDashboardStore from "../../../../context/DashboardStore";
 import { tealColors, skyColors } from "../../../../context/Colors";
+import LoadingSymbol from "../../../../components/LoadingSymbol";
 
 interface InvestmentProps {
   setClickedData?: Function;
@@ -19,7 +20,7 @@ const ExpensesPie = ({ setClickedData }: InvestmentProps) => {
   );
 
   if (lastSixMonthsExpensesByCategory === undefined) {
-    return <div>Loading...</div>;
+    return <LoadingSymbol />;
   }
 
   const categories = lastSixMonthsExpensesByCategory.reduce(
@@ -45,7 +46,7 @@ const ExpensesPie = ({ setClickedData }: InvestmentProps) => {
     labels: categories.map((category) => category.category),
     datasets: [
       {
-        label: "Wert in €",
+        label: "Ausgaben in €",
         data: categories.map((category) => category.amount),
         backgroundColor: skyColors.map((color) => color),
         hoverBackgroundColor: tealColors.map((color) => color),
@@ -83,7 +84,7 @@ const ExpensesPie = ({ setClickedData }: InvestmentProps) => {
           labels: subcategories,
           datasets: [
             {
-              label: "Wert in €",
+              label: "Ausgaben in €",
               data: amounts,
               backgroundColor: skyColors.map((color) => color),
               hoverBackgroundColor: tealColors.map((color) => color),
