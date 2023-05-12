@@ -12,6 +12,7 @@ import IncomeExpensesCard from "./cardsUserDashboard/ExpensesIncomeCard";
 
 import 'chart.js/auto'
 import ExpensesPieCard from "./cardsUserDashboard/ExpensesPieCard";
+import LoadingSymbol from "../../../components/LoadingSymbol";
 
 function Dashboard() {
   const { dashboardData, fetchDashboardData } = useDashboardStore();
@@ -21,7 +22,7 @@ function Dashboard() {
   }, []);
 
   if (!dashboardData) {
-    return <div>Loading...</div>;
+    return <LoadingSymbol/> ;
   }
 
   return (

@@ -1,3 +1,4 @@
+import LoadingSymbol from "../../../../components/LoadingSymbol";
 import useDashboardStore from "../../../../context/DashboardStore";
 import { formatNumber } from "../../../../utils/formatterFunctions";
 
@@ -7,7 +8,7 @@ const BalanceExpenses = () => {
   );
 
   if (scheduledDebit === undefined) {
-    return <div>Loading...</div>;
+    return <LoadingSymbol/>;
   }
 
   return (
