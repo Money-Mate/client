@@ -93,11 +93,11 @@ const InvestmentForm = ({ onSubmit }: any) => {
 
   return (
     <>
-      <div className="flex justify-evenly">
+      <div className="flex">
         <div>
           <button
             onClick={() => setShowForm(!showForm)}
-            className="m-5 rounded bg-sky-600 px-4 py-2 font-bold text-mm-text-white hover:bg-sky-700"
+            className="mx-5 my-1 rounded bg-sky-600 px-4 py-2 font-bold text-mm-text-white hover:bg-sky-700"
           >
             Füge eine Position hinzu
           </button>
@@ -105,17 +105,19 @@ const InvestmentForm = ({ onSubmit }: any) => {
         <div>
           <button
             onClick={() => setShowTransactionForm(!showTransactionForm)}
-            className="m-5 rounded bg-sky-600 px-4 py-2 font-bold text-mm-text-white hover:bg-sky-700"
+            className="my-1 rounded bg-sky-600 px-4 py-2 font-bold text-mm-text-white hover:bg-sky-700"
           >
             Füge eine Transaktion hinzu
           </button>
         </div>
       </div>
+      <div className="flex">
+
       {showForm && (
         <form
-          className="m-5 h-full rounded-md p-5 text-mm-text-white shadow-lg bg-mm-foreground"
+          className="m-5 h-full w-1/2 rounded-md p-5 text-mm-text-white shadow-lg bg-mm-foreground"
           onSubmit={handleSubmit}
-        >
+          >
           <div className="flex flex-col space-y-3">
             <div>
               <label htmlFor="name" className="font-semibold text-mm-text-white">
@@ -127,7 +129,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-              />
+                />
             </div>
 
             <div>
@@ -141,7 +143,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 step="0.01"
                 value={formData.value}
                 onChange={handleChange}
-              />
+                />
             </div>
 
             <div>
@@ -154,7 +156,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 name="amount"
                 value={formData.amount}
                 onChange={handleChange}
-              />
+                />
             </div>
 
             <div>
@@ -168,7 +170,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 step="0.01"
                 value={formData.buyIn}
                 onChange={handleChange}
-              />
+                />
             </div>
 
             <div>
@@ -217,7 +219,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
               <button
                 type="submit"
                 className="rounded bg-sky-600 px-4 py-2 font-bold text-mm-text-white hover:bg-sky-700"
-              >
+                >
                 Hinzufügen
               </button>
             </div>
@@ -226,9 +228,9 @@ const InvestmentForm = ({ onSubmit }: any) => {
       )}
       {showTransactionForm && (
         <form
-          className="m-5 h-full rounded-md p-5 text-mm-text-white shadow-lg bg-mm-foreground"
+          className="m-5 h-full w-1/2 rounded-md p-5 text-mm-text-white shadow-lg bg-mm-foreground"
           onSubmit={handleTransactionSubmit}
-        >
+          >
           <div className="flex flex-col space-y-3">
             <div>
               <label htmlFor="name" className="font-semibold text-mm-text-white">
@@ -281,6 +283,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
           </div>
         </form>
       )}
+      </div>
       {transactions && (
         <div className="m-5 h-full rounded-md p-5 bg-mm-foreground text-mm-text-white shadow-lg">
           {transactions.map((transaction) => (

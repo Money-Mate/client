@@ -5,7 +5,6 @@ import InvestmentDashboard from "../pages/app/Investment/InvestmentDashboard";
 import InvestmentForm from "../pages/app/Investment/InvestmentForm";
 import FinancialOptionsPage from "../pages/app/Statistics/StatisticsPage";
 
-
 export const paths = {
   landingPage: "/landingpage",
   signIn: "/signin",
@@ -49,17 +48,18 @@ const routes = [
   },
   {
     path: paths.transactionsInvest,
-    element: <InvestmentForm/>,
+    element: <InvestmentForm />,
     isProtected: true,
     redirectPath: paths.landingPage,
     id: "TransactionsInvest",
-  },{
+  },
+  {
     path: paths.financialHealthStatistics,
     element: <FinancialOptionsPage />,
     isProtected: true,
     redirectPath: paths.landingPage,
     id: "FinancialHealthStatistics",
-  }
+  },
 ];
 
 export default routes;
