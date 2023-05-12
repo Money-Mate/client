@@ -55,7 +55,7 @@ const AssetCard = ({ setClickedData }: Props) => {
       <div className="my-4 flex items-center justify-around pb-5">
         <button
           className={`${
-            selectedType === "Aktien/ETF's" ? "bg-teal-600" : "bg-sky-700"
+            selectedType === "Aktien/ETF's" ? "bg-teal-600" : "bg-sky-600"
           } rounded-md px-4 py-2 text-sm font-semibold text-mm-text-white hover:bg-teal-600`}
           onClick={() => handleClick("Aktien/ETF's")}
         >
@@ -63,7 +63,7 @@ const AssetCard = ({ setClickedData }: Props) => {
         </button>
         <button
           className={`${
-            selectedType === "Kryptowährungen" ? "bg-teal-600" : "bg-sky-700"
+            selectedType === "Kryptowährungen" ? "bg-teal-600" : "bg-sky-600"
           } rounded-md px-4 py-2 text-sm font-semibold text-mm-text-white hover:bg-teal-600`}
           onClick={() => handleClick("Kryptowährungen")}
         >
@@ -71,7 +71,7 @@ const AssetCard = ({ setClickedData }: Props) => {
         </button>
         <button
           className={`${
-            selectedType === "Immobilien" ? "bg-teal-600" : "bg-sky-700"
+            selectedType === "Immobilien" ? "bg-teal-600" : "bg-sky-600"
           } rounded-md px-4 py-2 text-sm font-semibold text-mm-text-white hover:bg-teal-600`}
           onClick={() => handleClick("Immobilien")}
         >
@@ -79,7 +79,7 @@ const AssetCard = ({ setClickedData }: Props) => {
         </button>
         <button
           className={`${
-            selectedType === "Rohstoffe" ? "bg-teal-600" : "bg-sky-700"
+            selectedType === "Rohstoffe" ? "bg-teal-600" : "bg-sky-600"
           } rounded-md px-4 py-2 text-sm font-semibold text-mm-text-white hover:bg-teal-600`}
           onClick={() => handleClick("Rohstoffe")}
         >
@@ -119,13 +119,13 @@ const AssetCard = ({ setClickedData }: Props) => {
             <td className="p-2">
               <button
                 // onClick={() => handleEdit(invest.id)}
-                className="m-1 bg-teal-600 hover:bg-teal-700 px-2 py-1 rounded-md text-white text-sm"
+                className="m-1 bg-sky-600 hover:bg-sky-700 px-2 py-1 rounded-md text-white text-sm"
                 >
                 Edit
               </button>
               <button
                 onClick={() => handleDelete(invest.name)}
-                className="m-1 bg-red-600 hover:bg-red-700 px-2 py-1 rounded-md text-white text-sm"
+                className="m-1 bg-red-500 hover:bg-red-600 px-2 py-1 rounded-md text-white text-sm"
                 >
                 Delete
               </button>
