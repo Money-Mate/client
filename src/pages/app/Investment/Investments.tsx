@@ -11,16 +11,16 @@ interface InvestmentProps {
 const Investments = ({ setClickedData }: InvestmentProps) => {
   const stocks = invests
     .filter((invest) => invest.type === "Aktien/ETF's")
-    .reduce((acc, curr) => acc + curr.value, 0);
+    .reduce((acc, curr) => acc + (curr.value * curr.amount), 0);
   const crypto = invests
     .filter((invest) => invest.type === "Kryptowährungen")
-    .reduce((acc, curr) => acc + curr.value, 0);
+    .reduce((acc, curr) => acc + (curr.value * curr.amount), 0);
   const realEstate = invests
     .filter((invest) => invest.type === "Immobilien")
-    .reduce((acc, curr) => acc + curr.value, 0);
+    .reduce((acc, curr) => acc + (curr.value * curr.amount), 0);
   const commodities = invests
     .filter((invest) => invest.type === "Rohstoffe")
-    .reduce((acc, curr) => acc + curr.value, 0);
+    .reduce((acc, curr) => acc + (curr.value * curr.amount), 0);
 
   const data = {
     labels: ["Aktien/ETF's", "Kryptowährungen", "Immobilien", "Rohstoffe"],
@@ -54,28 +54,28 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
         if (label === "Aktien/ETF's") {
           innerData = invests
             .filter((invest) => invest.type === "Aktien/ETF's")
-            .map((invest) => invest.value);
+            .map((invest) => invest.value * invest.amount);
           innerDataNames = invests
             .filter((invest) => invest.type === "Aktien/ETF's")
             .map((invest) => invest.name);
         } else if (label === "Kryptowährungen") {
           innerData = invests
             .filter((invest) => invest.type === "Kryptowährungen")
-            .map((invest) => invest.value);
+            .map((invest) => invest.value * invest.amount);
           innerDataNames = invests
             .filter((invest) => invest.type === "Kryptowährungen")
             .map((invest) => invest.name);
         } else if (label === "Immobilien") {
           innerData = invests
             .filter((invest) => invest.type === "Immobilien")
-            .map((invest) => invest.value);
+            .map((invest) => invest.value * invest.amount);
           innerDataNames = invests
             .filter((invest) => invest.type === "Immobilien")
             .map((invest) => invest.name);
         } else if (label === "Rohstoffe") {
           innerData = invests
             .filter((invest) => invest.type === "Rohstoffe")
-            .map((invest) => invest.value);
+            .map((invest) => invest.value * invest.amount);
           innerDataNames = invests
             .filter((invest) => invest.type === "Rohstoffe")
             .map((invest) => invest.name);

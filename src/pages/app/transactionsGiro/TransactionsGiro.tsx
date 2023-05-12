@@ -336,10 +336,10 @@ const TransactionsTable = () => {
   };
 
   return (
-    <div className="h-screen overflow-x-auto">
-      <div className="flex items-center">
+    <div className="h-screen overflow-x-auto mx-2">
+      <div className="flex items-center bg-mm-foreground rounded my-2">
         <button
-          className="mx-5 my-2 rounded bg-mm-primary px-4 py-2 font-bold text-mm-text-white hover:bg-blue-700"
+          className="m-2 mx-2 rounded bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75 border-2 border-mm-foreground"
           onClick={() => {
             setIsAddingTransaction(true);
             setEditingRowIndex(0);
