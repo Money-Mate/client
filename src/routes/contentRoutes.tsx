@@ -2,6 +2,7 @@ import UserDashboard from "../pages/app/Dashboard/UserDashboard";
 import TransactionsGiro from "../pages/app/transactionsGiro/TransactionsGiro";
 import UserProfilePage from "../pages/app/userProfile/UserProfilePage";
 import InvestmentDashboard from "../pages/app/Investment/InvestmentDashboard";
+import FinancialOptionsPage from "../pages/app/Statistics/StatisticsPage";
 
 
 export const paths = {
@@ -12,6 +13,7 @@ export const paths = {
   userprofile: "/userprofile",
   transactionsGiro: "/transactionsgiro",
   investmentDashboard: "/investmentdashboard",
+  financialHealthStatistics: "/statistics",
 };
 
 const routes = [
@@ -42,6 +44,12 @@ const routes = [
     isProtected: true,
     redirectPath: paths.landingPage,
     id: "InvestmentDashboard",
+  },{
+    path: paths.financialHealthStatistics,
+    element: <FinancialOptionsPage />,
+    isProtected: true,
+    redirectPath: paths.landingPage,
+    id: "FinancialHealthStatistics",
   }
 ];
 

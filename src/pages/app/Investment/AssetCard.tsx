@@ -43,35 +43,35 @@ const AssetCard = ({ setClickedData }: Props) => {
       <div className="flex justify-around items-center my-4 pb-5">
       <button
           className={`${
-            selectedType === "Stocks" ? "bg-teal-600" : "bg-sky-700"
+            selectedType === "Aktien/ETF's" ? "bg-teal-600" : "bg-sky-700"
           } hover:bg-teal-600 py-2 px-4 rounded-md font-semibold text-sm text-mm-text-white`}
-          onClick={() => handleClick("Stocks")}
+          onClick={() => handleClick("Aktien/ETF's")}
         >
-          Stocks
+          Aktien/ETF's
         </button>
         <button
           className={`${
-            selectedType === "Crypto" ? "bg-teal-600" : "bg-sky-700"
+            selectedType === "Kryptowährungen" ? "bg-teal-600" : "bg-sky-700"
           } hover:bg-teal-600 py-2 px-4 rounded-md font-semibold text-sm text-mm-text-white`}
-          onClick={() => handleClick("Crypto")}
+          onClick={() => handleClick("Kryptowährungen")}
         >
-          Crypto
+          Kryptowährungen
         </button>
         <button
           className={`${
-            selectedType === "Real Estate" ? "bg-teal-600" : "bg-sky-700"
+            selectedType === "Immobilien" ? "bg-teal-600" : "bg-sky-700"
           } hover:bg-teal-600 py-2 px-4 rounded-md font-semibold text-sm text-mm-text-white`}
-          onClick={() => handleClick("Real Estate")}
+          onClick={() => handleClick("Immobilien")}
         >
-          Real Estate
+          Immobilien
         </button>
         <button
           className={`${
-            selectedType === "Commodities" ? "bg-teal-600" : "bg-sky-700"
+            selectedType === "Rohstoffe" ? "bg-teal-600" : "bg-sky-700"
           } hover:bg-teal-600 py-2 px-4 rounded-md font-semibold text-sm text-mm-text-white`}
-          onClick={() => handleClick("Commodities")}
+          onClick={() => handleClick("Rohstoffe")}
         >
-          Commodities
+          Rohstoffe
         </button>
       </div>
       <div className="">
@@ -85,7 +85,7 @@ const AssetCard = ({ setClickedData }: Props) => {
           </ul>
         ) : (
             <p className="text-center text-mm-text-white pb-2">
-                Please select an investment category
+                Bitte wähle eine Kategorie aus
             </p>
         )}
       </div>

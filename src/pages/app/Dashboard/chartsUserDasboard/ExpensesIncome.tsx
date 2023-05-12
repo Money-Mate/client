@@ -2,6 +2,7 @@ import { ChartData, ChartOptions } from "chart.js/auto";
 import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import useDashboardStore from "../../../../context/DashboardStore";
+import LoadingSymbol from "../../../../components/LoadingSymbol";
 
 interface ExpenseIncomeChartData extends ChartData<"bar"> {
   datasets: [
@@ -58,7 +59,7 @@ const ExpenseIncomeChart = () => {
     (state) => state.dashboardData?.lastSixMonthsIncomeAndExpenses
   );
   if (expensesIncome === undefined) {
-    return <div>Loading...</div>;
+    return <LoadingSymbol />;
   }
   const [data, setData] = useState<ExpenseIncomeChartData>(
     generateExpenseIncomeChartData(expensesIncome)
