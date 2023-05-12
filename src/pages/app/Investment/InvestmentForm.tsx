@@ -6,7 +6,7 @@ interface FormData {
   amount: number;
   buyIn: number;
   dividend: number;
-  type: "Stocks" | "Real Estate" | "Crypto" | "Commodities";
+  type: "Aktien/ETF's" | "Kryptowährungen" | "Immobilien" | "Rohstoffe";
   symbol: string;
 }
 
@@ -18,7 +18,7 @@ const InvestmentForm =  ({ onSubmit }:any) => {
     amount: 0,
     buyIn: 0,
     dividend: 0,
-    type: "Stocks",
+    type: "Aktien/ETF's",
     symbol: "",
   });
 
@@ -36,7 +36,7 @@ const InvestmentForm =  ({ onSubmit }:any) => {
       amount: 0,
       buyIn: 0,
       dividend: 0,
-      type: "Stocks",
+      type: "Aktien/ETF's",
       symbol: "",
     });
   };
@@ -46,32 +46,32 @@ const InvestmentForm =  ({ onSubmit }:any) => {
         <div className="">
 
       <label htmlFor="name">Name:</label>
-      <input type="text" name="name" value={formData.name} onChange={handleChange} />
+      <input className="bg-mm-background" type="text" name="name" value={formData.name} onChange={handleChange} />
 
-      <label htmlFor="value">Value:</label>
-      <input type="number" name="value" value={formData.value} onChange={handleChange} />
+      <label htmlFor="value">Wert:</label>
+      <input className="bg-mm-background" type="number" name="value" value={formData.value} onChange={handleChange} />
 
-      <label htmlFor="amount">Amount:</label>
-      <input type="number" name="amount" value={formData.amount} onChange={handleChange} />
+      <label htmlFor="amount">Anzahl:</label>
+      <input className="bg-mm-background" type="number" name="amount" value={formData.amount} onChange={handleChange} />
 
-      <label htmlFor="buyIn">Buy In:</label>
-      <input type="number" name="buyIn" value={formData.buyIn} onChange={handleChange} />
+      <label htmlFor="buyIn">Einkaufswert:</label>
+      <input className="bg-mm-background" type="number" name="buyIn" value={formData.buyIn} onChange={handleChange} />
 
-      <label htmlFor="dividend">Dividend:</label>
-      <input type="number" name="dividend" value={formData.dividend} onChange={handleChange} />
+      <label htmlFor="dividend">Dividende:</label>
+      <input className="bg-mm-background" type="number" name="dividend" value={formData.dividend} onChange={handleChange} />
 
-      <label htmlFor="type">Type:</label>
-      <select name="type" value={formData.type} onChange={handleChange}>
-        <option value="Stocks">Stocks</option>
-        <option value="Real Estate">Real Estate</option>
-        <option value="Crypto">Krypto</option>
-        <option value="Commodities">Edelmetalle</option>
+      <label htmlFor="type">Typ:</label>
+      <select className="bg-mm-background" name="type" value={formData.type} onChange={handleChange}>
+        <option value="Aktien/ETF's">Aktien/ETF's</option>
+        <option value="Kryptowährungen">Kryptowährungen</option>
+        <option value="Immobilien">Immobilien</option>
+        <option value="Rohstoffe">Rohstoffe</option>
       </select>
 
       <label htmlFor="symbol">Symbol:</label>
-      <input type="text" name="symbol" value={formData.symbol} onChange={handleChange} />
+      <input className="bg-mm-background" type="text" name="symbol" value={formData.symbol} onChange={handleChange} />
 
-      <button type="submit">Add</button>
+      <button type="submit">Hinzufügen</button>
         </div>
     </form>
   );

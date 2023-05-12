@@ -1,3 +1,4 @@
+import LoadingSymbol from "../../../../components/LoadingSymbol";
 import useDashboardStore from "../../../../context/DashboardStore";
 import { formatNumber } from "../../../../utils/formatterFunctions";
 
@@ -5,7 +6,7 @@ const Savings = () => {
   const saved = useDashboardStore((state) => state.dashboardData?.saved);
 
   if (saved === undefined) {
-    return <div>Loading...</div>;
+    return <LoadingSymbol />;
   }
 
   return (

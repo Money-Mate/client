@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import piggyBank from "../../../assets/piggy-bank.svg";
 
 function Header() {
   const [username, setUsername] = useState("");
@@ -28,7 +29,8 @@ function Header() {
           <h1 className="mb-2 mt-2 text-2xl font-bold md:text-3xl ">
             {username && `Hallo ${username}! 👋`}
           </h1>
-          <p className="ml-1">Willkommen auf deinem Dashboard, Money Mate!</p>
+          <p className="ml-1 text-mm-text-dark">Willkommen auf deinem Dashboard, Money Mate!</p>
+        <div className="w-8"> <img src={piggyBank} alt="Logo" /> </div>
         </div>
       </header>
     </>
