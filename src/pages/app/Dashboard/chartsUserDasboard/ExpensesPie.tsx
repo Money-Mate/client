@@ -45,7 +45,7 @@ const ExpensesPie = ({ setClickedData }: InvestmentProps) => {
     labels: categories.map((category) => category.category),
     datasets: [
       {
-        label: "Wert in €",
+        label: "Ausgaben in €",
         data: categories.map((category) => category.amount),
         backgroundColor: skyColors.map((color) => color),
         hoverBackgroundColor: tealColors.map((color) => color),
@@ -83,7 +83,7 @@ const ExpensesPie = ({ setClickedData }: InvestmentProps) => {
           labels: subcategories,
           datasets: [
             {
-              label: "Wert in €",
+              label: "Ausgaben in €",
               data: amounts,
               backgroundColor: skyColors.map((color) => color),
               hoverBackgroundColor: tealColors.map((color) => color),
