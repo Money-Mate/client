@@ -7,6 +7,9 @@ import { fetchInvests } from "./Fetch";
 import Trades from "./Trades";
 import DividendCard from "./DividendCard";
 import { transactions } from "./Transaktionen";
+import Nasdaq from "./Nasdaq";
+import Dax from "./Dax";
+import { invests } from "./Investdata";
 
 
 
@@ -19,6 +22,7 @@ function InvestmentDashboard() {
     fetchCoin();
     fetchInvests();
     console.log(transactions)
+    console.log(invests)
   }, []);
 
   return (
@@ -35,6 +39,12 @@ function InvestmentDashboard() {
      </div>
      <div className=" h-fit rounded-lg sm:col-span-8 lg:col-span-12">
         <AssetCard setClickedData={setClickedData} />
+     </div>
+     <div className="h-full rounded-lg sm:col-span-8 lg:col-span-6">
+        <Nasdaq />
+     </div>
+     <div className="h-full rounded-lg sm:col-span-8 lg:col-span-6">
+        <Dax />
      </div>
     </div>
   );

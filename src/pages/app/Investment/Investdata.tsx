@@ -8,7 +8,11 @@ interface Investment {
   symbol?: string;
 }
 
-export const invests: Investment[] = [
+export const deleteInvests = (newInvests: Investment[]) => {
+  invests = newInvests;
+}
+
+export let invests: Investment[] = [
   {
     name: "Apple",
     value: 1000.45,

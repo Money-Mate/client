@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { invests } from "./Investdata";
+import { invests, deleteInvests } from "./Investdata";
 import { formatNumber } from "../../../utils/formatterFunctions";
 
 type InvestmentType =
@@ -11,6 +11,7 @@ type InvestmentType =
 type Props = {
   setClickedData: (data: { label: string; value: number } | undefined) => void;
 };
+
 
 const AssetCard = ({ setClickedData }: Props) => {
   const [selectedType, setSelectedType] = useState<InvestmentType | null>(null);
@@ -38,15 +39,18 @@ const AssetCard = ({ setClickedData }: Props) => {
     ? invests.filter((invest) => invest.type === selectedType)
     : [];
 
+    const handleDelete = (name: string) => {
+      const newInvests = invests.filter((invest) => invest.name !== name);
+      console.log(newInvests);
+      deleteInvests(newInvests);
+    }
+
   return (
     <div className="h-full rounded-md  bg-mm-foreground shadow-lg">
       <h2 className="m-2 pt-3 text-center text-lg font-semibold text-mm-text-white">
         Positionen
       </h2>
 
-      <p className="pb-2 text-center text-mm-text-white">
-        Bitte wähle eine Kategorie aus
-      </p>
 
       <div className="my-4 flex items-center justify-around pb-5">
         <button
@@ -107,7 +111,7 @@ const AssetCard = ({ setClickedData }: Props) => {
             <td>{formatNumber(invest.value)}</td>
             <td
               className={`${
-                invest.amount * (invest.value - invest.buyIn) >= 0 ? "text-green-500" : "text-red-500"
+                invest.amount * (invest.value - invest.buyIn) >= 0 ? "text-teal-500" : "text-red-600"
               }`}
               >
               {formatNumber(invest.amount * (invest.value - invest.buyIn))}
@@ -115,13 +119,13 @@ const AssetCard = ({ setClickedData }: Props) => {
             <td className="p-2">
               <button
                 // onClick={() => handleEdit(invest.id)}
-                className="mx-2 bg-teal-600 hover:bg-teal-700 px-2 py-1 rounded-md text-white text-sm"
+                className="m-1 bg-teal-600 hover:bg-teal-700 px-2 py-1 rounded-md text-white text-sm"
                 >
                 Edit
               </button>
               <button
-                // onClick={() => handleDelete(invest.id)}
-                className="bg-red-600 hover:bg-red-700 px-2 py-1 rounded-md text-white text-sm"
+                onClick={() => handleDelete(invest.name)}
+                className="m-1 bg-red-600 hover:bg-red-700 px-2 py-1 rounded-md text-white text-sm"
                 >
                 Delete
               </button>
