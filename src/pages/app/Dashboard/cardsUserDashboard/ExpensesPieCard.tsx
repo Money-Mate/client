@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { formatNumber } from "../../../../utils/formatterFunctions";
 import ExpensesPie from "../chartsUserDasboard/ExpensesPie";
 import useDashboardStore from "../../../../context/DashboardStore";
+import LoadingSymbol from "../../../../components/LoadingSymbol";
 
 
 function ExpensesPieCard() {
@@ -15,7 +16,7 @@ function ExpensesPieCard() {
   );
 
   if (lastSixMonthsExpensesByCategory === undefined) {
-    return <div>Loading...</div>;
+    return <LoadingSymbol />;
   }
 
   useEffect(() => {

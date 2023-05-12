@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import useDashboardStore, {
 } from "../../../../context/DashboardStore";
 import StatisticsReportPDFButton from "../Components/StatisticsReportPDF";
+import LoadingSymbol from "../../../../components/LoadingSymbol";
 
 
 
@@ -16,7 +17,7 @@ const StatisticsReport: React.FC = () => {
   }, [fetchDashboardData]);
 
   if (!dashboardData) {
-    return <div>Loading...</div>; 
+    return <LoadingSymbol />; 
   }
   const {
     lastSixMonthsBalance,
@@ -58,6 +59,7 @@ const cannotAffordItems = Object.entries(wishlist).filter(
       <h2 className="mb-4 text-xl font-bold">Finanzbericht</h2>
 
       {/* Kontostand der letzten sechs Monate */}
+      
       <div className="mb-6">
         <h3 className="mb-2 text-lg font-semibold">
           Kontostand der letzten sechs Monate 
