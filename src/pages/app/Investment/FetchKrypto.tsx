@@ -14,15 +14,48 @@ interface CoinResponse {
 }
 
 const symbol = "btc-bitcoin";
-const symbol1 = "eth-ethereum";
+
+const symbols = [
+  "btc-bitcoin",
+  "eth-ethereum",
+  "usdt-tether",
+  "bnb-binance-coin",
+  "usdc-usd-coin",
+  "xrp-xrp",
+  "hex-hex",
+  "ada-cardano",
+  "doge-dogecoin",
+  "sol-solana",
+  "matic-polygon",
+  "dai-dai",
+  "trx-tron",
+  "ltc-litecoin",
+  "dot-polkadot",
+  "shib-shiba-inu",
+  "avax-avalanche",
+  "leo-leo-token",
+  "link-chainlink",
+  "xmr-monero",
+  "etc-ethereum-classic",
+  "xlm-stellar",
+  "uni-uniswap",
+  "bch-bitcoin-cash",
+  "algo-algorand",
+  "grt-the-graph",
+  "ftm-fantom",
+  "ape-apecoin",
+  "egld-elrond",
+  "sand-the-sandbox",
+];
 
 let coinPromise: Promise<string> | null = null;
 
 export function fetchCoin(): Promise<string> {
+
   if (!coinPromise) {
     coinPromise = axios
       .get<CoinResponse[]>(
-        `https://api.coinpaprika.com/v1/coins/${symbol1}/ohlcv/today`
+        `https://api.coinpaprika.com/v1/coins/${symbol}/ohlcv/today`
       )
       .then((response) => {
         coinPromise = null;
