@@ -11,10 +11,10 @@ function CardNineInvestments() {
 
   useEffect(() => {
     // hier in Zukunft fetch von Investkonten
-    const stocks = invests.filter((invest) => invest.type === "Aktien/ETF's").reduce((acc, curr) => acc + curr.value, 0)
-    const crypto = invests.filter((invest) => invest.type === "Kryptowährungen").reduce((acc, curr) => acc + curr.value, 0)
-    const realEstate = invests.filter((invest) => invest.type === "Immobilien").reduce((acc, curr) => acc + curr.value, 0)
-    const commodities = invests.filter((invest) => invest.type === "Rohstoffe").reduce((acc, curr) => acc + curr.value, 0)
+    const stocks = invests.filter((invest) => invest.type === "Aktien/ETF's").reduce((acc, curr) => acc + (curr.value * curr.amount), 0)
+    const crypto = invests.filter((invest) => invest.type === "Kryptowährungen").reduce((acc, curr) => acc + (curr.value * curr.amount), 0)
+    const realEstate = invests.filter((invest) => invest.type === "Immobilien").reduce((acc, curr) => acc + (curr.value * curr.amount), 0)
+    const commodities = invests.filter((invest) => invest.type === "Rohstoffe").reduce((acc, curr) => acc + (curr.value * curr.amount), 0)
     const sum = stocks + crypto + realEstate + commodities
     setSum(sum);
   }, []);
