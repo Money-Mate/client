@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { formatNumber } from "../../../utils/formatterFunctions";
+import LoadingSymbol from "../../../components/LoadingSymbol";
 
 interface IWish {
   _id: string;
@@ -101,7 +102,7 @@ function Wishes() {
 
   return (
     <div className="p-6 text-white">
-      <section>
+      <section className="my-2 mb-8 rounded bg-mm-foreground px-2">
         <form onSubmit={newHandler} className="flex items-center gap-4">
           <div>
             <label htmlFor="name">Name des Wunsches:</label>
@@ -110,7 +111,7 @@ function Wishes() {
               id="name"
               value={newFormData.name}
               onChange={onNewFormChange}
-              className="ml-2 text-black"
+              className="ml-2 rounded bg-mm-background p-1 text-white"
             ></input>
           </div>
           <div>
@@ -120,23 +121,26 @@ function Wishes() {
               id="price"
               value={newFormData.price}
               onChange={onNewFormChange}
-              className="ml-2 text-black"
+              className="ml-2 rounded bg-mm-background p-1 text-white"
             ></input>
           </div>
-          <button className="m-4 bg-green-400 p-2">
+          <button className="m-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75">
             Neuen Wunsch erstellen
           </button>
         </form>
       </section>
       <section>
         {loading ? (
-          <div>loading...</div>
+          <LoadingSymbol />
         ) : (
           <ul>
             {wishes.map((wish) => {
               if (wish._id === edit) {
                 return (
-                  <li key={wish._id} className="my-4 flex bg-slate-800 p-4">
+                  <li
+                    key={wish._id}
+                    className="my-4 flex items-center rounded border-2 border-white bg-mm-foreground p-4"
+                  >
                     <form
                       className="flex h-full w-full"
                       onSubmit={(e) => editHandler(e, wish._id)}
@@ -148,7 +152,7 @@ function Wishes() {
                           placeholder={wish.name}
                           value={editFormData.name}
                           onChange={onEditFormChange}
-                          className="h-full w-[90%] p-1 text-black"
+                          className="h-full w-[90%] rounded bg-mm-background p-1 text-white"
                         ></input>
                       </div>
                       <div className="min-w-[25%]">
@@ -158,16 +162,19 @@ function Wishes() {
                           placeholder={wish.price.toString()}
                           value={editFormData.price}
                           onChange={onEditFormChange}
-                          className="h-full w-[90%] p-1 text-black"
+                          className="h-full w-[90%] rounded bg-mm-background p-1 text-white"
                         ></input>
                       </div>
                       <div className="ml-auto">
-                        <button type="submit" className="mx-1 bg-green-400 p-1">
+                        <button
+                          type="submit"
+                          className="mx-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
+                        >
                           speichern
                         </button>
                         <button
                           type="button"
-                          className="mx-1 bg-red-300 p-1"
+                          className="mx-2 rounded-lg bg-red-500 px-4 py-2 text-mm-text-white hover:bg-opacity-75"
                           onClick={() => setEdit("")}
                         >
                           abbrechen
@@ -178,19 +185,22 @@ function Wishes() {
                 );
               }
               return (
-                <li key={wish._id} className="my-4 flex bg-slate-800 p-4">
+                <li
+                  key={wish._id}
+                  className="my-4 flex items-center rounded bg-mm-foreground p-4"
+                >
                   <div className="min-w-[25%]">{wish.name}</div>
                   <div className="min-w-[25%]">{formatNumber(wish.price)}</div>
                   <div className="ml-auto">
                     <button
                       onClick={() => setEdit(wish._id)}
-                      className="mx-1 bg-yellow-400 p-1"
+                      className="mx-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
                     >
                       bearbeiten
                     </button>
                     <button
                       onClick={() => deleteHandler(wish._id)}
-                      className="mx-1 bg-red-400 p-1"
+                      className="mx-2 rounded-lg bg-red-500 px-4 py-2 text-mm-text-white hover:bg-opacity-75"
                     >
                       löschen
                     </button>
