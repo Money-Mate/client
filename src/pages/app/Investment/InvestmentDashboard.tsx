@@ -40,10 +40,10 @@ function InvestmentDashboard() {
      <div className=" h-fit rounded-lg sm:col-span-8 lg:col-span-12">
         <AssetCard setClickedData={setClickedData} />
      </div>
-     <div className="h-full rounded-lg sm:col-span-8 lg:col-span-6">
+     <div className="h-80 rounded-lg sm:col-span-8 lg:col-span-6">
         <Nasdaq />
      </div>
-     <div className="h-full rounded-lg sm:col-span-8 lg:col-span-6">
+     <div className="h-80 rounded-lg sm:col-span-8 lg:col-span-6">
         <Dax />
      </div>
     </div>

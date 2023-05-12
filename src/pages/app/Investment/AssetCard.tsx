@@ -92,13 +92,14 @@ const AssetCard = ({ setClickedData }: Props) => {
       <thead>
         <tr className="bg-sky-700 text-mm-text-white">
           <th className="w-2/12 p-2">Name</th>
-          <th className="w-2/12 p-2">Amount</th>
-          <th className="w-2/12 p-2">Buy In</th>
-          <th className="w-2/12 p-2">Value</th>
-          <th className="w-2/12 p-2">Profit/Loss</th>
-          <th className="w-2/12 p-2">Actions</th>
+          <th className="w-2/12 p-2">Anzahl</th>
+          <th className="w-2/12 p-2">Einkaufswert</th>
+          <th className="w-2/12 p-2">Wert</th>
+          <th className="w-2/12 p-2">Gesamtwert</th>
+          <th className="w-2/12 p-2">Gewinn/Verlust</th>
+          <th className="w-2/12 p-2">Aktion</th>
           {investments.some((invest) => invest.dividend ) && (
-            <th className="w-2/12 p-2">Dividend</th>
+            <th className="w-2/12 p-2">Dividende</th>
           )}
         </tr>
       </thead>
@@ -109,6 +110,7 @@ const AssetCard = ({ setClickedData }: Props) => {
             <td>{invest.amount}</td>
             <td>{formatNumber(invest.buyIn)}</td>
             <td>{formatNumber(invest.value)}</td>
+            <td>{formatNumber(invest.amount * invest.value)}</td>
             <td
               className={`${
                 invest.amount * (invest.value - invest.buyIn) >= 0 ? "text-teal-500" : "text-red-600"
