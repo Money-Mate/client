@@ -1,7 +1,8 @@
-import React, { useState, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as z from "zod";
+import PiggyBank from "../../assets/piggy-bank-green.svg";
 
 interface UserLogin {
   email: string;
@@ -46,12 +47,23 @@ const SignIn = () => {
   return (
     <div className="flex h-screen bg-gray-200">
       {/* Left Side - Image */}
-      <div
-        className="w-1/2 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('https://picsum.photos/id/239/1000/1000')",
-        }}
-      ></div>
+      <div className="w-1/2 bg-mm-foreground bg-cover bg-center">
+        <div className="flex flex-col items-center sm:flex-row sm:items-start sm:justify-center">
+          <div className="flex-row items-center">
+            <img src={PiggyBank} alt="Piggy" className="mt-6" />
+            <div className="ml-4">
+              <br />
+              <h1 className="text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-3xl font-bold leading-tight text-transparent">
+                Money Mate
+              </h1>
+              <br />
+              <p className="text-lg font-semibold text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text leading-tight text-transparent">
+                Dein All-in-One-Tool für kluge Finanzentscheidungen.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Right Side - Login Form */}
       <div className="flex w-1/2 items-center justify-center bg-white">
