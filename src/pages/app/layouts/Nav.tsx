@@ -34,7 +34,11 @@ function Nav() {
       name: "Statistik",
       to: "/app/statistics",
       id: 3,
-    },
+    },{
+      name: "Wünsche",
+      to: "/app/wishes",
+      id: 5,
+    }
   ];
 
   const renderSublinks = (sublinks: Sublink[]) => {
