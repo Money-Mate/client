@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {invests} from "./Investdata";
 import {transactions} from "./Transaktionen"; 
+import { formatNumber } from "../../../utils/formatterFunctions";
 
 interface FormData {
   name: string;
@@ -279,6 +280,17 @@ const InvestmentForm = ({ onSubmit }: any) => {
           </div>
         </form>
       )}
+      {transactions && (
+        <div className="m-5 h-full rounded-md p-5 bg-mm-foreground text-mm-text-white shadow-lg">
+          {transactions.map((transaction) => (
+            <ul>
+              <li>
+                {transaction.name} {formatNumber(transaction.value)} {transaction.type}
+              </li>
+            </ul>
+            ))}
+        </div>
+      )} 
     </>
   );
 };
