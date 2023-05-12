@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { formatNumber } from "../../../utils/formatterFunctions";
 
 interface IWish {
@@ -9,6 +9,8 @@ interface IWish {
 }
 
 const BE_URL = import.meta.env.VITE_BE_PORT;
+const defaultNewFormData = { name: "", price: "" };
+const defaultEditFormData = { name: "", price: "" };
 
 const fetchWishes = async (): Promise<IWish[]> => {
   try {
@@ -26,6 +28,8 @@ function Wishes() {
   const [wishes, setWishes] = useState<IWish[]>([]);
   const [loading, setLoading] = useState(true);
   const [edit, setEdit] = useState("");
+  const [newFormData, setNewFormData] = useState(defaultNewFormData);
+  const [editFormData, setEditFormData] = useState(defaultEditFormData);
 
   useEffect(() => {
     (async () => {
@@ -34,11 +38,19 @@ function Wishes() {
     })();
   }, []);
 
-  const newHandler = (e: FormEvent) => {
+  const onNewFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const onEditFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const newHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = {
-      name: e.target[0].value,
-      price: Number(e.target[1].value),
+      name: newFormData.name,
+      price: Number(newFormData.price),
     };
     try {
       axios
@@ -47,8 +59,7 @@ function Wishes() {
         })
         .then(async () => {
           setWishes(await fetchWishes());
-          e.target[0].value = "";
-          e.target[1].value = "";
+          setNewFormData(defaultNewFormData);
         });
     } catch (err) {
       console.log(err);
@@ -60,14 +71,8 @@ function Wishes() {
     const data = {
       wishId: id,
       data: {
-        name:
-          e.target[0].value === ""
-            ? e.target[0].placeholder
-            : e.target[0].value,
-        price:
-          e.target[1].value === ""
-            ? Number(e.target[1].placeholder)
-            : Number(e.target[1].value),
+        ...(editFormData.name !== "" && { name: editFormData.name }),
+        ...(editFormData.price !== "" && { price: Number(editFormData.price) }),
       },
     };
     try {
@@ -97,17 +102,26 @@ function Wishes() {
   return (
     <div className="p-6 text-white">
       <section>
-        <form
-          onSubmit={(e) => newHandler(e)}
-          className="flex items-center gap-4"
-        >
+        <form onSubmit={newHandler} className="flex items-center gap-4">
           <div>
             <label htmlFor="name">Name des Wunsches:</label>
-            <input type="text" id="name" className="ml-2 text-black"></input>
+            <input
+              type="text"
+              id="name"
+              value={newFormData.name}
+              onChange={onNewFormChange}
+              className="ml-2 text-black"
+            ></input>
           </div>
           <div>
             <label htmlFor="price">Preis des Wunsches:</label>
-            <input type="number" id="price" className="ml-2 text-black"></input>
+            <input
+              type="number"
+              id="price"
+              value={newFormData.price}
+              onChange={onNewFormChange}
+              className="ml-2 text-black"
+            ></input>
           </div>
           <button className="m-4 bg-green-400 p-2">
             Neuen Wunsch erstellen
@@ -115,68 +129,77 @@ function Wishes() {
         </form>
       </section>
       <section>
-        {loading ?? <div>loading...</div>}
-        <ul>
-          {wishes.map((wish) => {
-            if (wish._id === edit) {
+        {loading ? (
+          <div>loading...</div>
+        ) : (
+          <ul>
+            {wishes.map((wish) => {
+              if (wish._id === edit) {
+                return (
+                  <li key={wish._id} className="my-4 flex bg-slate-800 p-4">
+                    <form
+                      className="flex h-full w-full"
+                      onSubmit={(e) => editHandler(e, wish._id)}
+                    >
+                      <div className="min-w-[25%]">
+                        <input
+                          id="name"
+                          type="text"
+                          placeholder={wish.name}
+                          value={editFormData.name}
+                          onChange={onEditFormChange}
+                          className="h-full w-[90%] p-1 text-black"
+                        ></input>
+                      </div>
+                      <div className="min-w-[25%]">
+                        <input
+                          id="price"
+                          type="number"
+                          placeholder={wish.price.toString()}
+                          value={editFormData.price}
+                          onChange={onEditFormChange}
+                          className="h-full w-[90%] p-1 text-black"
+                        ></input>
+                      </div>
+                      <div className="ml-auto">
+                        <button type="submit" className="mx-1 bg-green-400 p-1">
+                          speichern
+                        </button>
+                        <button
+                          type="button"
+                          className="mx-1 bg-red-300 p-1"
+                          onClick={() => setEdit("")}
+                        >
+                          abbrechen
+                        </button>
+                      </div>
+                    </form>
+                  </li>
+                );
+              }
               return (
                 <li key={wish._id} className="my-4 flex bg-slate-800 p-4">
-                  <form
-                    className="flex h-full w-full"
-                    onSubmit={(e) => editHandler(e, wish._id)}
-                  >
-                    <div className="min-w-[25%]">
-                      <input
-                        type="text"
-                        placeholder={wish.name}
-                        className="h-full w-[90%] p-1 text-black"
-                      ></input>
-                    </div>
-                    <div className="min-w-[25%]">
-                      <input
-                        type="number"
-                        placeholder={wish.price.toString()}
-                        className="h-full w-[90%] p-1 text-black"
-                      ></input>
-                    </div>
-                    <div className="ml-auto">
-                      <button type="submit" className="mx-1 bg-green-400 p-1">
-                        speichern
-                      </button>
-                      <button
-                        type="button"
-                        className="mx-1 bg-red-300 p-1"
-                        onClick={() => setEdit("")}
-                      >
-                        abbrechen
-                      </button>
-                    </div>
-                  </form>
+                  <div className="min-w-[25%]">{wish.name}</div>
+                  <div className="min-w-[25%]">{formatNumber(wish.price)}</div>
+                  <div className="ml-auto">
+                    <button
+                      onClick={() => setEdit(wish._id)}
+                      className="mx-1 bg-yellow-400 p-1"
+                    >
+                      bearbeiten
+                    </button>
+                    <button
+                      onClick={() => deleteHandler(wish._id)}
+                      className="mx-1 bg-red-400 p-1"
+                    >
+                      löschen
+                    </button>
+                  </div>
                 </li>
               );
-            }
-            return (
-              <li key={wish._id} className="my-4 flex bg-slate-800 p-4">
-                <div className="min-w-[25%]">{wish.name}</div>
-                <div className="min-w-[25%]">{formatNumber(wish.price)}</div>
-                <div className="ml-auto">
-                  <button
-                    onClick={() => setEdit(wish._id)}
-                    className="mx-1 bg-yellow-400 p-1"
-                  >
-                    bearbeiten
-                  </button>
-                  <button
-                    onClick={() => deleteHandler(wish._id)}
-                    className="mx-1 bg-red-400 p-1"
-                  >
-                    löschen
-                  </button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+            })}
+          </ul>
+        )}
       </section>
     </div>
   );
