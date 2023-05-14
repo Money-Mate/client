@@ -20,8 +20,8 @@ const key: string = import.meta.env.VITE_API_KEY as string;
 api_key.apiKey = key;
 const finnhubClient = new finnhub.DefaultApi();
 
-export async function fetchInvests(): Promise<string[]> {
-  const filteredSymbols = invests.filter((invest) => invest.symbol);
+export async function fetchInvests(): Promise<void> {
+  const filteredSymbols = invests.filter((invest) => invest.symbol && invest.symbol.length <=6);
   const symbols = filteredSymbols.map((invest) => invest.symbol);
   console.log(symbols)
   const promises = symbols.map((symbol) => {
@@ -32,6 +32,13 @@ export async function fetchInvests(): Promise<string[]> {
         } else {
           const amount = convertUSDToEUR(data.c);
           resolve(formatNumber(amount));
+          console.log(amount)
+          invests.forEach((invest) => {
+            if (invest.symbol === symbol) {
+              invest.value = Number(amount.toFixed(2));
+            }
+          }
+          );
         }
       });
     });
@@ -40,9 +47,9 @@ export async function fetchInvests(): Promise<string[]> {
   try {
     const results = await Promise.all(promises);
     console.log(results)
-    return results;
+    
   } catch (error) {
     console.error(error);
-    return [];
+    
   }
 }

@@ -49,11 +49,13 @@ export default function Dax(): JSX.Element {
   );
 
   return (
-    <div className='tradingview-widget-container'>
+    <div className="h-full rounded-md  bg-mm-foreground shadow-lg">
+    <div className='m-1 p-2 tradingview-widget-container'>
       <div id='tradingview_7e394' />
       {/* <div className="tradingview-widget-copyright">
         <a href="https://de.tradingview.com/" rel="noopener nofollow" target="_blank"><span className="blue-text">Track all markets</span></a> on TradingView
       </div> */}
     </div>
+      </div>
   );
 }

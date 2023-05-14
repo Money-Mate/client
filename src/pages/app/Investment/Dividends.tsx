@@ -25,12 +25,12 @@ const Dividends = () => {
     labels: [""],
     datasets: [
       {
-        label: "bereits erhalten",
+        label: "bereits erhalten in €",
         data: [dividends],
         backgroundColor: "#14b8a6",
       },
       {
-        label: "insgesamt erwartet",
+        label: "insgesamt erwartet in €",
         data: [sumDividends],
         backgroundColor: getBarColors([sumDividends]),
       },

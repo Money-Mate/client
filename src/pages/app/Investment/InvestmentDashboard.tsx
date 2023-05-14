@@ -19,14 +19,14 @@ function InvestmentDashboard() {
   >(undefined);
   
   useEffect(() => {
-    fetchCoin();
+    // fetchCoin();
     fetchInvests();
     console.log(transactions)
     console.log(invests)
   }, []);
 
   return (
-    <div className="mx-5 mb-5 grid min-h-fit gap-4 pt-3 sm:grid-cols-8 lg:grid-cols-12">
+    <div className="mx-2 grid min-h-fit gap-4 pt-1 p-3 sm:grid-cols-8 lg:grid-cols-12">
       
       <div className=" h-80 rounded-lg sm:col-span-8 lg:col-span-4">
         <Investments  />
