@@ -19,7 +19,7 @@ function InvestmentDashboard() {
   >(undefined);
   
   useEffect(() => {
-    // fetchCoin();
+    fetchCoin();
     fetchInvests();
     console.log(transactions)
     console.log(invests)

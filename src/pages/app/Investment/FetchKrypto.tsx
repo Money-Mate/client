@@ -58,7 +58,9 @@ export async function fetchCoin(): Promise<void> {
     coinResponses.forEach((response, index) => {
       const investToUpdate = filteredInvests[index];
       const amount = convertUSDToEUR(response.data[0].close);
-      investToUpdate.value = Number(amount.toFixed);
+      console.log(amount)
+      investToUpdate.value = Number(amount.toFixed(2));
+      console.log(investToUpdate.value)
     });
   } catch (error) {
     console.error(error);
