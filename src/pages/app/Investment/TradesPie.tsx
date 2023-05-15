@@ -26,7 +26,7 @@ for (let i = 0; i < transactions.length; i++) {
       {
         label: "Wert in €",
         data: [`${negativeSum} `, `${positiveSum}`],
-        backgroundColor: [skyColors[2], tealColors[2]],
+        backgroundColor: [skyColors[3], tealColors[3]],
         borderColor: [""],
         borderWidth: 0,
       },

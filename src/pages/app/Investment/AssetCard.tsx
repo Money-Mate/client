@@ -3,10 +3,10 @@ import { invests, deleteInvests } from "./Investdata";
 import { formatNumber } from "../../../utils/formatterFunctions";
 
 type InvestmentType =
-  | "Aktien/ETF's"
-  | "Kryptowährungen"
-  | "Immobilien"
-  | "Rohstoffe";
+| "Aktien/ETF's"
+| "Kryptowährungen"
+| "Immobilien"
+| "Rohstoffe";
 
 type Props = {
   setClickedData: (data: { label: string; value: number } | undefined) => void;
@@ -15,38 +15,38 @@ type Props = {
 
 const AssetCard = ({ setClickedData }: Props) => {
   const [selectedType, setSelectedType] = useState<InvestmentType | null>(null);
-
+  
   const handleClick = (type: InvestmentType) => {
     setSelectedType((prevSelectedType) => {
       const newSelectedType = prevSelectedType === type ? null : type;
       const investmentsOfType = invests.filter(
         (invest) => invest.type === newSelectedType
-      );
-      const sumOfType = investmentsOfType.reduce(
+        );
+        const sumOfType = investmentsOfType.reduce(
         (acc, curr) => acc + curr.value,
         0
-      );
-      setClickedData(
-        newSelectedType
+        );
+        setClickedData(
+          newSelectedType
           ? { label: newSelectedType, value: sumOfType }
           : undefined
-      );
-      return newSelectedType;
-    });
-  };
-
-  const investments = selectedType
-    ? invests.filter((invest) => invest.type === selectedType)
-    : [];
-
-    const handleDelete = (name: string) => {
-      const newInvests = invests.filter((invest) => invest.name !== name);
-      console.log(newInvests);
-      deleteInvests(newInvests);
-    }
-
-  return (
-    <div className="h-full rounded-md  bg-mm-foreground shadow-lg">
+          );
+          return newSelectedType;
+        });
+      };
+      
+      const investments = selectedType
+      ? invests.filter((invest) => invest.type === selectedType)
+      : [];
+      
+      const handleDelete = (name: string) => {
+        const newInvests = invests.filter((invest) => invest.name !== name);
+        console.log(newInvests);
+        deleteInvests(newInvests);
+      }
+      
+      return (
+        <div className="h-full rounded-md  bg-mm-foreground shadow-lg">
       <h2 className="m-2 pt-3 text-center text-lg font-semibold text-mm-text-white">
         Positionen
       </h2>
@@ -66,7 +66,7 @@ const AssetCard = ({ setClickedData }: Props) => {
             selectedType === "Kryptowährungen" ? "bg-teal-600" : "bg-sky-600"
           } rounded-md px-4 py-2 text-sm font-semibold text-mm-text-white hover:bg-teal-600`}
           onClick={() => handleClick("Kryptowährungen")}
-        >
+          >
           Kryptowährungen
         </button>
         <button
@@ -92,13 +92,14 @@ const AssetCard = ({ setClickedData }: Props) => {
       <thead>
         <tr className="bg-sky-700 text-mm-text-white">
           <th className="w-2/12 p-2">Name</th>
-          <th className="w-2/12 p-2">Amount</th>
-          <th className="w-2/12 p-2">Buy In</th>
-          <th className="w-2/12 p-2">Value</th>
-          <th className="w-2/12 p-2">Profit/Loss</th>
-          <th className="w-2/12 p-2">Actions</th>
+          <th className="w-2/12 p-2">Anzahl</th>
+          <th className="w-2/12 p-2">Einkaufswert</th>
+          <th className="w-2/12 p-2">Wert</th>
+          <th className="w-2/12 p-2">Gesamtwert</th>
+          <th className="w-2/12 p-2">Gewinn/Verlust</th>
+          <th className="w-2/12 p-2">Aktion</th>
           {investments.some((invest) => invest.dividend ) && (
-            <th className="w-2/12 p-2">Dividend</th>
+            <th className="w-2/12 p-2">Dividende p.A.</th>
           )}
         </tr>
       </thead>
@@ -109,29 +110,30 @@ const AssetCard = ({ setClickedData }: Props) => {
             <td>{invest.amount}</td>
             <td>{formatNumber(invest.buyIn)}</td>
             <td>{formatNumber(invest.value)}</td>
+            <td>{formatNumber(invest.amount * invest.value)}</td>
             <td
               className={`${
                 invest.amount * (invest.value - invest.buyIn) >= 0 ? "text-teal-500" : "text-red-600"
-              }`}
+              }` } 
               >
-              {formatNumber(invest.amount * (invest.value - invest.buyIn))}
+              {formatNumber(invest.amount * (invest.value - invest.buyIn))} ({((invest.value - invest.buyIn) / invest.buyIn * 100).toFixed(2)}%)
             </td>
             <td className="p-2">
               <button
                 // onClick={() => handleEdit(invest.id)}
                 className="m-1 bg-sky-600 hover:bg-sky-700 px-2 py-1 rounded-md text-white text-sm"
                 >
-                Edit
+                bearbeiten
               </button>
               <button
                 onClick={() => handleDelete(invest.name)}
                 className="m-1 bg-red-500 hover:bg-red-600 px-2 py-1 rounded-md text-white text-sm"
                 >
-                Delete
+                löschen
               </button>
             </td>
                 {invest.dividend? (
-                  <td>{invest.dividend}%</td>
+                  <td>{formatNumber(invest.value * invest.amount * (invest.dividend ?? 0) / 1000)} ({invest.dividend}%)</td>
                 ) : (
                   <td></td>
                 )}
