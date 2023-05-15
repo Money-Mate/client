@@ -11,10 +11,10 @@ interface InvestmentProps {
 const Investments = ({ setClickedData }: InvestmentProps) => {
   const stocks = invests
     .filter((invest) => invest.type === "Aktien/ETF's")
-    .reduce((acc, curr) => acc + (curr.value * curr.amount), 0);
+    .reduce((acc, curr) => acc + (curr.value * curr.amount), 0).toFixed(2);
   const crypto = invests
     .filter((invest) => invest.type === "Kryptowährungen")
-    .reduce((acc, curr) => acc + (curr.value * curr.amount), 0);
+    .reduce((acc, curr) => acc + (curr.value * curr.amount), 0).toFixed(2);
   const realEstate = invests
     .filter((invest) => invest.type === "Immobilien")
     .reduce((acc, curr) => acc + (curr.value * curr.amount), 0);
@@ -54,14 +54,14 @@ const Investments = ({ setClickedData }: InvestmentProps) => {
         if (label === "Aktien/ETF's") {
           innerData = invests
             .filter((invest) => invest.type === "Aktien/ETF's")
-            .map((invest) => invest.value * invest.amount);
+            .map((invest) => Number((invest.value * invest.amount).toFixed(2)));
           innerDataNames = invests
             .filter((invest) => invest.type === "Aktien/ETF's")
             .map((invest) => invest.name);
         } else if (label === "Kryptowährungen") {
           innerData = invests
             .filter((invest) => invest.type === "Kryptowährungen")
-            .map((invest) => invest.value * invest.amount);
+            .map((invest) => Number((invest.value * invest.amount).toFixed(2)));
           innerDataNames = invests
             .filter((invest) => invest.type === "Kryptowährungen")
             .map((invest) => invest.name);
