@@ -30,7 +30,7 @@ export async function fetchInvests(): Promise<void> {
         if (error) {
           reject(error);
         } else {
-          const amount = convertUSDToEUR(data.o);
+          const amount = convertUSDToEUR(data.c);
           resolve(formatNumber(amount));
           console.log(amount)
           invests.forEach((invest) => {
