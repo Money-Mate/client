@@ -40,15 +40,15 @@ function LandingPage() {
               <TypeAnimation
                 sequence={[
                   "Mate",
-                  2000,
+                  2500,
                   "Florian",
-                  2000,
+                  2500,
                   "Leonie",
-                  2000,
+                  2500,
                   "Sebastian",
-                  2000,
+                  2500,
                   "Quan",
-                  2000,
+                  2500,
                 ]}
                 speed={50}
                 className="text-mm-success"
