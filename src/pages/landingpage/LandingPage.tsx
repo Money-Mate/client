@@ -56,7 +56,7 @@ function LandingPage() {
                 repeat={Infinity}
               />
             </div>
-            <p className="mx-auto mb-8 max-w-lg lg:mx-0">
+            <p className="mx-auto mb-8 max-w-lg lg:mx-0 text-white">
               Mit Money Mate könnt ihr ganz einfach eure Finanzen im Auge
               behalten.
             </p>

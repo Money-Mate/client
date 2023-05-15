@@ -313,9 +313,9 @@ const TransactionsTable = () => {
           <td className="hidden whitespace-nowrap px-6 py-3 text-left md:table-cell ">
             {row.subCategory.name}
           </td>
-          <td className="hidden px-6 py-3 text-left md:table-cell">
+          {/* <td className="hidden px-6 py-3 text-left md:table-cell">
             {row.tags}
-          </td>
+          </td> */}
           <td className="px-6 py-3 text-left ">{row.date.slice(0, 10)}</td>
           <td>
             <button
@@ -439,9 +439,9 @@ const TransactionsTable = () => {
             <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
               Unterkategorie
             </th>
-            <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
+            {/* <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
               Tags
-            </th>
+            </th> */}
             <th className="px-6 py-3 text-left font-bold">Datum</th>
             <th className="px-6 py-3 text-left font-bold"></th>
           </tr>
