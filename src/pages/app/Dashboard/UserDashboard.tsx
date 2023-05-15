@@ -13,12 +13,16 @@ import IncomeExpensesCard from "./cardsUserDashboard/ExpensesIncomeCard";
 import 'chart.js/auto'
 import ExpensesPieCard from "./cardsUserDashboard/ExpensesPieCard";
 import LoadingSymbol from "../../../components/LoadingSymbol";
+import { fetchInvests } from "../Investment/Fetch";
+import { fetchCoin } from "../Investment/FetchKrypto";
 
 function Dashboard() {
   const { dashboardData, fetchDashboardData } = useDashboardStore();
 
   useEffect(() => {
     fetchDashboardData();
+    fetchInvests()
+    fetchCoin()
   }, []);
 
   if (!dashboardData) {
