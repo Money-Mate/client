@@ -18,7 +18,7 @@ const BalanceExpenses = () => {
           geplante Abbuchungen
         </h2>
         <div className="mb-1 text-xs font-semibold uppercase text-mm-text-dark">
-          März
+          Mai
         </div>
         <div className="flex items-start">
           <div className="m-2 text-3xl font-bold text-mm-text-white">
