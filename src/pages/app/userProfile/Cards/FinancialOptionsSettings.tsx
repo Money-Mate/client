@@ -82,7 +82,7 @@ const FinancialOptionsSettings: React.FC = () => {
         </span>
         {showEmergencyFundInfo && (
           <div className="mt-1 text-sm text-gray-500">
-            Dein Monatseinkommen beträgt 3.000,00 €. 
+            Dein Monatseinkommen beträgt 2.000,00 €. 
             <br />
             Es wird empfohlen 3-6 Nettogehälter für unvorhergesehene Ausgaben zurückzulegen.
           </div>
