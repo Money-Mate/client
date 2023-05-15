@@ -57,7 +57,7 @@ const FinancialOptionsSettings: React.FC = () => {
       onSubmit={handleSubmit}
       className="mb-4 w-full rounded-md bg-mm-foreground p-6 shadow-lg"
     >
-      <h2 className="mb-2 text-lg font-bold text-mm-text-white">
+      <h2 className="m-2 text-left text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3xt-lg font-semibold">
         Einstellungen für die Finanzanalysen:
       </h2>
       <br />
@@ -82,7 +82,9 @@ const FinancialOptionsSettings: React.FC = () => {
         </span>
         {showEmergencyFundInfo && (
           <div className="mt-1 text-sm text-gray-500">
-            This is the emergency fund information.
+            Dein Monatseinkommen beträgt 3.000,00 €. 
+            <br />
+            Es wird empfohlen 3-6 Nettogehälter für unvorhergesehene Ausgaben zurückzulegen.
           </div>
         )}
       </h3>
@@ -124,8 +126,8 @@ const FinancialOptionsSettings: React.FC = () => {
           </svg>
         </span>
         {showSplitIncomeInfo && (
-          <div className="mt-1 text-sm text-gray-500">
-            This is the split income information.
+          <div className="mt-1 mb-2 text-sm text-gray-500">
+            Es wird empfohlen 50% des Einkommens für Notwendiges, 30% für Wünsche und 20% für Investitionen zu verwenden.
           </div>
         )}
       </h3>

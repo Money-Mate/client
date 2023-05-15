@@ -2,12 +2,11 @@ import Progressbar from "../../../../components/Progressbar";
 
 function WishlistCard() {
   const dummy = {
-    Schwimmbad: 90,
+    Boot: 5,
     Urlaub: 10,
-    Hundekostüm: 5,
-    Entenfutter: 20,
-    Boot: 20,
-    Krokodil: 70,
+    Fahrradpumpe: 85,
+    Grafikkarte: 20,
+    Hochbeet: 70,
   };
 
   const progressBars = Object.entries(dummy).map(([key, value]) => (
@@ -29,7 +28,7 @@ function WishlistCard() {
 
   return (
     <div className=" h-full rounded-md  bg-mm-foreground">
-      <h2 className="m-2 pt-3 text-center text-lg font-semibold text-mm-text-white">
+      <h2 className="m-2 text-center text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3">
         Wunschliste
       </h2>
       <div className="p-1">{progressBars}</div>

@@ -30,7 +30,7 @@ function LandingPage() {
           <div className="flex flex-col gap-y-8 bg-mm-background p-10 lg:items-center ">
             {/* {text} */}
             <div className="flex-1 text-center lg:text-left">
-              <h1 className="text-[55px] font-bold leading-[0.8] lg:text-[100px]">
+              <h1 className="text-[55px] font-bold leading-[0.8] lg:text-[100px] text-mm-text-white">
                 Money Mate
               </h1>
             </div>
@@ -56,9 +56,8 @@ function LandingPage() {
                 repeat={Infinity}
               />
             </div>
-            <p className="mx-auto mb-8 max-w-lg lg:mx-0 text-white">
-              Mit Money Mate könnt ihr ganz einfach eure Finanzen im Auge
-              behalten.
+            <p className="mx-auto mb-8 max-w-lg lg:mx-0 text-mm-text-white">
+              Mit Money Mate behaltet ihr ganz einfach eure Finanzen im Auge
             </p>
           </div>
           <div className="mx-auto mb-12 flex items-center justify-center gap-x-6 bg-mm-background lg:mx-0">

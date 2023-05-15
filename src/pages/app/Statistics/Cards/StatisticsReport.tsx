@@ -56,12 +56,12 @@ const cannotAffordItems = Object.entries(wishlist).filter(
 
   return (
     <div className="w-full rounded bg-mm-foreground p-4 text-mm-text-white md:p-20">
-      <h2 className="mb-4 text-xl font-bold">Finanzbericht</h2>
+      <h2 className="m-2 text-center text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3">Finanzbericht</h2>
 
       {/* Kontostand der letzten sechs Monate */}
       
       <div className="mb-6">
-        <h3 className="mb-2 text-lg font-semibold">
+        <h3 className="m-2 text-center text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3">
           Kontostand der letzten sechs Monate 
         </h3>
         <div className="flex flex-wrap justify-start lg:flex-nowrap">
@@ -81,7 +81,7 @@ const cannotAffordItems = Object.entries(wishlist).filter(
 
       {/* Einnahmen und Ausgaben der letzten sechs Monate */}
       <div className="mb-6">
-        <h3 className="mb-2 text-lg font-semibold">
+        <h3 className="m-2 text-center text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3">
           Einnahmen und Ausgaben der letzten sechs Monate 
         </h3>
         <div className="flex flex-wrap justify-start lg:flex-nowrap">
@@ -113,18 +113,18 @@ const cannotAffordItems = Object.entries(wishlist).filter(
       {/* Weitere finanzielle Daten */}
       <div className="mb-6 grid grid-cols-2 gap-4">
         <div>
-          <h3 className="text-lg font-semibold">Kontostand</h3>
+          <h3 className="m-2 text-left text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3">Kontostand</h3>
           <div className="text-2xl">{formatCurrency(bankBalance)}</div>
         </div>
         <div>
-          <h3 className="text-lg font-semibold">Gespart</h3>
+          <h3 className="m-2 text-left text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3">Gespart</h3>
           <div className="text-2xl">{formatCurrency(saved)}</div>
         </div>
         {/* Füge hier weitere Datenfelder hinzu */}
       </div>
 
       {/* Wunschliste */}
-      <h3 className="mb-2 text-lg font-semibold">Wunschliste</h3>
+      <h3 className="m-2 text-left text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3">Wunschliste</h3>
   <div className="mb-6 grid grid-cols-2 gap-4">
     {/* Afford items */}
     {affordItems.map(([itemName, itemData]: [string, any]) => (
@@ -154,12 +154,12 @@ const cannotAffordItems = Object.entries(wishlist).filter(
   </div>
 
       {/* Notfallfonds */}
-      <h3 className="mb-2 text-lg font-semibold">Notfallfonds</h3>
+      <h3 className="m-2 text-left text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3">Notfallfonds</h3>
       <div>Prozent: {emergencyFundPercent}%</div>
 
       {/* Ausgaben der letzten sechs Monate nach Kategorie */}
       <div className="mb-6 mt-2">
-        <h3 className="text-lg font-semibold">
+        <h3 className="m-2 text-left text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3xt-lg font-semibold">
           Ausgaben der letzten sechs Monate nach Kategorie
         </h3>
         <table className="mt-4 w-full">

@@ -27,7 +27,7 @@ function CardNineInvestments() {
   
   return (
     <div className="h-full rounded-md  bg-mm-foreground shadow-lg">
-      <h2 className="m-2 pt-3 text-center text-lg font-semibold text-mm-text-white">
+      <h2 className="m-2 text-center text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3">
         Investitionen
       </h2>
       {!clickedData && (

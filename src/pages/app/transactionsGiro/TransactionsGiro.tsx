@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import { formatNumber } from "../../../utils/formatterFunctions";
 import { Pagination } from "antd";
 import EditTransactionModal from "./Modals/EditTransactions";
 import FilterTransactionsModal from "./Modals/FilterTransactionsModal";
@@ -301,7 +301,7 @@ const TransactionsTable = () => {
               row.amount < 0 ? "text-red-500" : "text-green-500"
             }`}
           >
-            {row.amount ? row.amount.toFixed(2) : ""} {row.currency}
+            {formatNumber(row.amount)}
           </td>
           <td className="hidden px-6 py-3 text-left md:table-cell">
             {row.recipientName}
@@ -319,7 +319,7 @@ const TransactionsTable = () => {
           <td className="px-6 py-3 text-left ">{row.date.slice(0, 10)}</td>
           <td>
             <button
-              className="font-bold text-mm-primary"
+              className="m-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
               onClick={(e) => {
                 setEditingTransactionId(row._id);
                 setEditingRowIndex(rowIndex);

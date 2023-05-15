@@ -21,8 +21,8 @@ export type UserStore = {
 
 export const useUserStore = create<UserStore>((set) => ({
   user: {
-    name: 'John Doe',
-    email: 'johndoe@example.com',
+    name: 'Willy',
+    email: 'Willy@aol.com',
     picture: 'https://picsum.photos/200',
     financialOptions:{
       emergencyFund: 0,

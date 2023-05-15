@@ -16,7 +16,7 @@ const Savings = () => {
           Erspartes
         </h2>
         <div className="mb-1 text-xs font-semibold uppercase text-slate-400">
-          April
+          April 2023
         </div>
         <div className="flex items-start">
           <div className="m-2 text-3xl font-bold text-mm-text-white">
