@@ -64,8 +64,8 @@ function Nav() {
 
   return (
     <div className="relative h-full w-full bg-mm-foreground p-5">
-      <img src={piggyBank} alt="Logo" className="w-20" />
-      <h1 className="text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-3xl font-bold leading-tight text-transparent">
+      <img src={piggyBank} alt="Logo" className="w-20 mx-auto mb-2" />
+      <h1 className="text-center text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-3xl font-bold leading-tight text-transparent">
         MoneyMate
       </h1>
       <ul className="mt-2 p-3 leading-loose tracking-wide text-white">
