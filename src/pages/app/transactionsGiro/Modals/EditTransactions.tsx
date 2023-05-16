@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import * as z from "zod";
 import axios from "axios";
+import React, { useState } from "react";
 import isIBAN from "validator/lib/isIBAN";
+import * as z from "zod";
 
 //  TAGS
 // DYNAMIC SUBCATEGORIES
@@ -169,10 +169,10 @@ const TransactionModal: React.FC<ModalProps> = ({
         <div className="transform overflow-hidden rounded-lg bg-mm-foreground shadow-xl transition-all sm:w-full sm:max-w-lg">
           <div className="px-4 py-5 sm:px-6">
             <h2
-              className="text-lg font-medium leading-6 text-white mt-2"
+              className="mt-2 text-lg font-medium leading-6 text-white"
               id="modal-title"
             >
-              Transaktion {title}: 
+              Transaktion {title}:
             </h2>
           </div>
           <div className="px-4 py-5 sm:p-6">
@@ -383,50 +383,49 @@ const TransactionModal: React.FC<ModalProps> = ({
                   ))}
                 </select>
               </div>
-           {/* buttons for editing/ adding transaction */}
-           <div className="mt-4">
-  {isAddingTransaction ? (
-    <>
-      <button
-        type="button"
-        onClick={handleCancel}
-        className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:mt-0 sm:w-auto sm:text-sm"
-      >
-        Abbrechen
-      </button>
-      <button
-        type="submit"
-        className="m-2 mx-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
-      >
-        Hinzufügen
-      </button>
-    </>
-  ) : (
-    <>
-      <button
-        type="button"
-        onClick={handleCancel}
-        className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:mt-0 sm:w-auto sm:text-sm"
-      >
-        Abbrechen
-      </button>
-      <button
-        type="submit"
-        className="m-2 mx-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
-      >
-        Änderungen speichern
-      </button>
-      <button
-        type="button"
-        onClick={handleDelete}
-        className="m-2 rounded-lg bg-red-500 px-4 py-2 text-mm-text-white hover:bg-opacity-75"
-      >
-        Transaktion löschen
-      </button>
-    </>
-  )}
-</div>
-
+              {/* buttons for editing/ adding transaction */}
+              <div className="mt-4">
+                {isAddingTransaction ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={handleCancel}
+                      className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:mt-0 sm:w-auto sm:text-sm"
+                    >
+                      Abbrechen
+                    </button>
+                    <button
+                      type="submit"
+                      className="m-2 mx-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
+                    >
+                      Hinzufügen
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      onClick={handleCancel}
+                      className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:mt-0 sm:w-auto sm:text-sm"
+                    >
+                      Abbrechen
+                    </button>
+                    <button
+                      type="submit"
+                      className="m-2 mx-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
+                    >
+                      Änderungen speichern
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleDelete}
+                      className="m-2 rounded-lg bg-red-500 px-4 py-2 text-mm-text-white hover:bg-opacity-75"
+                    >
+                      Transaktion löschen
+                    </button>
+                  </>
+                )}
+              </div>
             </form>
           </div>
         </div>
