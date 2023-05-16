@@ -14,33 +14,7 @@ interface CoinResponse {
   date: string;
 }
 
-const symbol = "btc-bitcoin";
 
-
-let coinPromise: Promise<string> | null = null;
-
-// export function fetchCoin(): Promise<string> {
-
-//   if (!coinPromise) {
-//     coinPromise = axios
-//       .get<CoinResponse[]>(
-//         `https://api.coinpaprika.com/v1/coins/${symbol}/ohlcv/today`
-//       )
-//       .then((response) => {
-//         coinPromise = null;
-//         const amount = convertUSDToEUR(response.data[0].close);
-//         const formattedAmount = formatNumber(amount);
-//         console.log(formattedAmount);
-//         return formattedAmount;
-//       })
-//       .catch((error) => {
-//         coinPromise = null;
-//         console.error(error);
-//         return "";
-//       });
-//     }
-//     return coinPromise;
-//   }
   
 export async function fetchCoin(): Promise<void> {
   try {
@@ -58,9 +32,7 @@ export async function fetchCoin(): Promise<void> {
     coinResponses.forEach((response, index) => {
       const investToUpdate = filteredInvests[index];
       const amount = convertUSDToEUR(response.data[0].close);
-      console.log(amount)
       investToUpdate.value = Number(amount.toFixed(2));
-      console.log(investToUpdate.value)
     });
   } catch (error) {
     console.error(error);

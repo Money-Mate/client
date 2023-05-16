@@ -18,7 +18,6 @@ const BankAccountsCard: React.FC = () => {
     setSelectedAccount(null);
   };
   const handleEditClick = (account: IBankAccountData) => {
-    console.log(account);
     setShowModal(true);
     setSelectedAccount(account);
   };

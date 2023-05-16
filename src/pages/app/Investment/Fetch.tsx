@@ -13,17 +13,14 @@ interface Idata {
   pc: number;
 }
 
-// Map Datenstruktur -> MDN
-
 const api_key = finnhub.ApiClient.instance.authentications["api_key"];
 const key: string = import.meta.env.VITE_API_KEY as string;
 api_key.apiKey = key;
 const finnhubClient = new finnhub.DefaultApi();
 
 export async function fetchInvests(): Promise<void> {
-  const filteredSymbols = invests.filter((invest) => invest.symbol && invest.symbol.length <=6);
+  const filteredSymbols = invests.filter((invest) => invest.symbol && invest.symbol.length <= 6);
   const symbols = filteredSymbols.map((invest) => invest.symbol);
-  console.log(symbols)
   const promises = symbols.map((symbol) => {
     return new Promise<string>((resolve, reject) => {
       finnhubClient.quote(symbol, (error: string, data: Idata) => {
@@ -32,13 +29,11 @@ export async function fetchInvests(): Promise<void> {
         } else {
           const amount = convertUSDToEUR(data.c);
           resolve(formatNumber(amount));
-          console.log(amount)
           invests.forEach((invest) => {
             if (invest.symbol === symbol) {
               invest.value = Number(amount.toFixed(2));
             }
-          }
-          );
+          });
         }
       });
     });
@@ -46,7 +41,6 @@ export async function fetchInvests(): Promise<void> {
 
   try {
     const results = await Promise.all(promises);
-    console.log(results)
     
   } catch (error) {
     console.error(error);

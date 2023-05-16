@@ -158,14 +158,14 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
       </div>
       <div className="flex items-center justify-between">
         <button
-          className="focus:shadow-outline rounded bg-gray-500 px-4 py-2 font-bold text-white hover:bg-gray-700 focus:outline-none"
+          className="m-2 mx-2 rounded bg-white px-4 py-2 text-gray-700 hover:bg-opacity-75 border-2 border-mm-foreground"
           type="button"
           onClick={onClose}
         >
           Abbrechen
         </button>
         <button
-          className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
+          className="m-2 mx-2 rounded bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75 border-2 border-mm-foreground"
           type="submit"
         >
           {account ? "Speichern" : "Hinzufügen"}
