@@ -166,13 +166,13 @@ const TransactionModal: React.FC<ModalProps> = ({
           aria-hidden="true"
           onClick={onCancel}
         ></div>
-        <div className="transform overflow-hidden rounded-lg bg-white shadow-xl transition-all sm:w-full sm:max-w-lg">
+        <div className="transform overflow-hidden rounded-lg bg-mm-foreground shadow-xl transition-all sm:w-full sm:max-w-lg">
           <div className="px-4 py-5 sm:px-6">
             <h2
-              className="text-lg font-medium leading-6 text-gray-900"
+              className="text-lg font-medium leading-6 text-white mt-2"
               id="modal-title"
             >
-              {title}
+              Transaktion {title}: 
             </h2>
           </div>
           <div className="px-4 py-5 sm:p-6">
@@ -180,7 +180,7 @@ const TransactionModal: React.FC<ModalProps> = ({
               <div className="mb-4">
                 <label
                   htmlFor="accountIBAN"
-                  className="mb-2 block font-bold text-gray-700"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Konto
                 </label>
@@ -205,7 +205,7 @@ const TransactionModal: React.FC<ModalProps> = ({
               <div className="mb-4">
                 <label
                   htmlFor="date"
-                  className="mb-2 block font-bold text-gray-700"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Datum
                 </label>
@@ -230,7 +230,7 @@ const TransactionModal: React.FC<ModalProps> = ({
               <div className="mb-4">
                 <label
                   htmlFor="amount"
-                  className="mb-2 block font-bold text-gray-700"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Summe
                 </label>
@@ -255,7 +255,7 @@ const TransactionModal: React.FC<ModalProps> = ({
               <div className="mb-4">
                 <label
                   htmlFor="currency"
-                  className="mb-2 block font-bold text-gray-700"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Währung
                 </label>
@@ -280,7 +280,7 @@ const TransactionModal: React.FC<ModalProps> = ({
               <div className="mb-4">
                 <label
                   htmlFor="recipientName"
-                  className="mb-2 block font-bold text-gray-700"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Empfänger
                 </label>
@@ -305,7 +305,7 @@ const TransactionModal: React.FC<ModalProps> = ({
               <div className="mb-4">
                 <label
                   htmlFor="transactionText"
-                  className="mb-2 block font-bold text-gray-700"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Verwendungszweck
                 </label>
@@ -329,7 +329,7 @@ const TransactionModal: React.FC<ModalProps> = ({
               <div className="mb-4">
                 <label
                   htmlFor="category"
-                  className="mb-2 block font-bold text-gray-700"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Kategorie
                 </label>
@@ -360,7 +360,7 @@ const TransactionModal: React.FC<ModalProps> = ({
               <div className="mb-4">
                 <label
                   htmlFor="subCategory"
-                  className="mb-2 block font-bold text-gray-700"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Unterkategorie
                 </label>
@@ -383,32 +383,50 @@ const TransactionModal: React.FC<ModalProps> = ({
                   ))}
                 </select>
               </div>
-              <div className="mt-4">
-                <button
-                  type="submit"
-                  className="inline-flex w-full justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:col-start-2 sm:text-sm"
-                >
-                  {isAddingTransaction ? "Hinzufügen" : "Änderungen speichern"}
-                </button>
-                {isAddingTransaction ? null : (
-                  <>
-                    <button
-                      type="button"
-                      onClick={handleDelete}
-                      className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:mt-0 sm:w-auto sm:text-sm"
-                    >
-                      Transaktion löschen
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleCancel}
-                      className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:mt-0 sm:w-auto sm:text-sm"
-                    >
-                      Abbrechen
-                    </button>
-                  </>
-                )}
-              </div>
+           {/* buttons for editing/ adding transaction */}
+           <div className="mt-4">
+  {isAddingTransaction ? (
+    <>
+      <button
+        type="button"
+        onClick={handleCancel}
+        className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:mt-0 sm:w-auto sm:text-sm"
+      >
+        Abbrechen
+      </button>
+      <button
+        type="submit"
+        className="m-2 mx-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
+      >
+        Hinzufügen
+      </button>
+    </>
+  ) : (
+    <>
+      <button
+        type="button"
+        onClick={handleCancel}
+        className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:mt-0 sm:w-auto sm:text-sm"
+      >
+        Abbrechen
+      </button>
+      <button
+        type="submit"
+        className="m-2 mx-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
+      >
+        Änderungen speichern
+      </button>
+      <button
+        type="button"
+        onClick={handleDelete}
+        className="m-2 rounded-lg bg-red-500 px-4 py-2 text-mm-text-white hover:bg-opacity-75"
+      >
+        Transaktion löschen
+      </button>
+    </>
+  )}
+</div>
+
             </form>
           </div>
         </div>
