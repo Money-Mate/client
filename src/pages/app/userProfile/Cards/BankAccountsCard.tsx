@@ -63,7 +63,7 @@ const BankAccountsCard: React.FC = () => {
       </div>
       <div className="mb-2">
         <div className="m-4 flex flex-col">
-          <h2 className="mb-1 font-bold text-mm-text-white">Girokonten</h2>
+          <h2 className="mb-1 text-lg font-bold text-mm-text-white">Girokonten</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {giroAccounts?.map((account: IBankAccountData) => (
               <div
@@ -97,7 +97,7 @@ const BankAccountsCard: React.FC = () => {
           </div>
         </div>
         <div className="m-4 flex flex-col">
-          <h2 className="mb-1 font-bold text-mm-text-white">
+          <h2 className="mb-1 text-lg font-bold text-mm-text-white">
             Investmentkonten
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
