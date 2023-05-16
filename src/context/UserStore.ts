@@ -25,7 +25,7 @@ export const useUserStore = create<UserStore>((set) => ({
     email: 'Willy@aol.com',
     picture: 'https://picsum.photos/200',
     financialOptions:{
-      emergencyFund: 0,
+      emergencyFund: 3000,
       splitIncome: {
         needs: 50,
         wants: 30,
