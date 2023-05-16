@@ -53,7 +53,7 @@ const BankAccountsCard: React.FC = () => {
   return (
     <div className="mb-4 w-full rounded-md bg-mm-foreground p-4 shadow-lg">
       <div className="flex justify-between">
-        <h2 className="m-2 text-left text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3xt-lg font-semibold">Konten</h2>
+        <h2 className="m-2 text-left text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl leading-tight text-transparent pt-3xt-lg font-semibold">Konten</h2>
         <button
           className="m-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
           onClick={handleAddClick}

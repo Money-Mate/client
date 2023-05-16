@@ -34,9 +34,6 @@ function Header() {
           Willkommen auf deinem Dashboard, Money Mate!
         </p>
       </div>
-      <div className="w-16">
-        <img src={piggyBank} alt="Logo" style={{ transform: 'scaleX(-1)' }} />
-      </div>
     </div>
   </header>
 </>
