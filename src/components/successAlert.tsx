@@ -1,8 +1,19 @@
-interface successAlertProps {
+import React, { useEffect } from 'react';
+
+interface SuccessAlertProps {
   message: string | undefined;
+  onClose: () => void;
 }
 
-function successAlert(props: successAlertProps) {
+function SuccessAlert(props: SuccessAlertProps) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      props.onClose();
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [props.onClose]);
+
   return (
     <div
       className="mb-4 rounded-lg bg-green-50 p-4 text-sm text-green-800 dark:bg-gray-800 dark:text-green-400"
@@ -14,4 +25,4 @@ function successAlert(props: successAlertProps) {
   );
 }
 
-export default successAlert;
+export default SuccessAlert;
