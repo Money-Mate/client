@@ -23,10 +23,10 @@ interface TransaktionData {
 const InvestmentForm = ({ onSubmit }: any) => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
-    value: 0,
-    amount: 0,
-    buyIn: 0,
-    dividend: 0,
+    value: NaN,
+    amount: NaN,
+    buyIn: NaN,
+    dividend: NaN,
     type: "Aktien/ETF's",
     symbol: "",
   });
@@ -34,10 +34,9 @@ const InvestmentForm = ({ onSubmit }: any) => {
   const [transactionData, setTransactionData] = useState<TransaktionData>({
     account: "",
     name: "",
-    value: 0,
+    value: NaN,
     type: "Dividend",
   });
-  console.log(transactionData);
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -108,24 +107,27 @@ const InvestmentForm = ({ onSubmit }: any) => {
 
   return (
     <>
-      <div className="flex">
+        <div className="mx-2">
+      <div className="flex my-2 rounded bg-mm-foreground">
+
         <div>
           <button
             onClick={() => setShowForm(!showForm)}
-            className="mx-5 my-1 rounded bg-sky-600 px-4 py-2 font-bold text-mm-text-white hover:bg-sky-700"
-          >
+            className="m-2 mx-2 rounded bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75 border-2 border-mm-foreground"
+            >
             Position hinzufügen
           </button>
         </div>
         <div>
           <button
             onClick={() => setShowTransactionForm(!showTransactionForm)}
-            className="my-1 rounded bg-sky-600 px-4 py-2 font-bold text-mm-text-white hover:bg-sky-700"
-          >
+            className="m-2 mx-2 rounded bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75 border-2 border-mm-foreground"
+            >
             Transaktion hinzufügen
           </button>
         </div>
       </div>
+            </div>
       <div className="flex">
         {showForm && (
           <form
@@ -136,12 +138,12 @@ const InvestmentForm = ({ onSubmit }: any) => {
               <div>
                 <label
                   htmlFor="name"
-                  className="font-semibold text-mm-text-white"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Name:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="text"
                   name="name"
                   value={formData.name}
@@ -152,12 +154,12 @@ const InvestmentForm = ({ onSubmit }: any) => {
               <div>
                 <label
                   htmlFor="value"
-                  className="font-semibold text-mm-text-white"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Wert:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="number"
                   name="value"
                   step="0.01"
@@ -169,12 +171,12 @@ const InvestmentForm = ({ onSubmit }: any) => {
               <div>
                 <label
                   htmlFor="amount"
-                  className="font-semibold text-mm-text-white"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Anzahl:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="number"
                   name="amount"
                   value={formData.amount}
@@ -185,12 +187,12 @@ const InvestmentForm = ({ onSubmit }: any) => {
               <div>
                 <label
                   htmlFor="buyIn"
-                  className="font-semibold text-mm-text-white"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Einkaufswert:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="number"
                   name="buyIn"
                   step="0.01"
@@ -202,12 +204,12 @@ const InvestmentForm = ({ onSubmit }: any) => {
               <div>
                 <label
                   htmlFor="dividend"
-                  className="font-semibold text-mm-text-white"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Dividende:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="number"
                   name="dividend"
                   step="0.01"
@@ -219,12 +221,12 @@ const InvestmentForm = ({ onSubmit }: any) => {
               <div>
                 <label
                   htmlFor="type"
-                  className="font-semibold text-mm-text-white"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Typ:
                 </label>
                 <select
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   name="type"
                   value={formData.type}
                   onChange={handleChange}
@@ -237,13 +239,13 @@ const InvestmentForm = ({ onSubmit }: any) => {
               </div>
               <div>
                 <label
-                  className="font-semibold text-mm-text-white"
+                  className="mb-2 block font-bold text-mm-text-dark"
                   htmlFor="symbol"
                 >
                   Symbol:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="text"
                   name="symbol"
                   value={formData.symbol}
@@ -253,7 +255,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
               <div className="mt-6 flex justify-center">
                 <button
                   type="submit"
-                  className="rounded bg-sky-600 px-4 py-2 font-bold text-mm-text-white hover:bg-sky-700"
+                  className="m-2 mx-2 rounded bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75 border-2 border-mm-foreground"
                 >
                   Hinzufügen
                 </button>
@@ -271,12 +273,12 @@ const InvestmentForm = ({ onSubmit }: any) => {
             <div>
                 <label
                   htmlFor="name"
-                  className="font-semibold text-mm-text-white"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Konto:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="text"
                   name="account"
                   value={transactionData.account}
@@ -286,12 +288,12 @@ const InvestmentForm = ({ onSubmit }: any) => {
               <div>
                 <label
                   htmlFor="name"
-                  className="font-semibold text-mm-text-white"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Name:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="text"
                   name="name"
                   value={transactionData.name}
@@ -302,12 +304,12 @@ const InvestmentForm = ({ onSubmit }: any) => {
               <div>
                 <label
                   htmlFor="value"
-                  className="font-semibold text-mm-text-white"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Wert:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="number"
                   name="value"
                   step="0.01"
@@ -318,12 +320,12 @@ const InvestmentForm = ({ onSubmit }: any) => {
               <div>
                 <label
                   htmlFor="type"
-                  className="font-semibold text-mm-text-white"
+                  className="mb-2 block font-bold text-mm-text-dark"
                 >
                   Typ:
                 </label>
                 <select
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   name="type"
                   value={transactionData.type}
                   onChange={handleTransactionChange}
@@ -335,7 +337,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
               <div className="mt-6 flex justify-center">
                 <button
                   type="submit"
-                  className="rounded bg-sky-600 px-4 py-2 font-bold text-mm-text-white hover:bg-sky-700"
+                  className="m-2 mx-2 rounded bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75 border-2 border-mm-foreground"
                 >
                   Hinzufügen
                 </button>

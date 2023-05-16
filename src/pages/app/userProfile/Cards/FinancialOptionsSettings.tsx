@@ -20,7 +20,6 @@ const FinancialOptionsSettings: React.FC = () => {
     setShowSplitIncomeInfo(!showSplitIncomeInfo);
   };
 
-  console.log(user);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
