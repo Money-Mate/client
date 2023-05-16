@@ -1,7 +1,7 @@
+import { Pagination } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { formatNumber } from "../../../utils/formatterFunctions";
-import { Pagination } from "antd";
 import EditTransactionModal from "./Modals/EditTransactions";
 import FilterTransactionsModal from "./Modals/FilterTransactionsModal";
 
@@ -181,7 +181,7 @@ const TransactionsTable = () => {
       console.log(error);
     }
   };
-// load transactions on page change/filterchange
+  // load transactions on page change/filterchange
   const onCloseFilterModal = () => {
     fetchTransactions();
     setIsFilterModalOpen(false);
@@ -362,9 +362,7 @@ const TransactionsTable = () => {
               : "block items-center space-x-2 rounded-lg p-4 text-sm text-mm-text-white shadow"
           }
         >
-          <div className="whitespace-nowrap  text-left">
-            {row.accountIBAN}
-          </div>
+          <div className="whitespace-nowrap  text-left">{row.accountIBAN}</div>
           <div
             className={`whitespace-nowrap  text-left ${
               row.amount < 0 ? "text-red-500" : "text-green-500"
@@ -390,10 +388,10 @@ const TransactionsTable = () => {
   };
 
   return (
-    <div className="h-screen overflow-x-auto mx-2">
-      <div className="flex items-center bg-mm-foreground rounded my-2">
+    <div className="mx-2 h-screen overflow-x-auto">
+      <div className="my-2 flex items-center rounded bg-mm-foreground">
         <button
-          className="m-2 mx-2 rounded bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75 border-2 border-mm-foreground"
+          className="m-2 mx-2 rounded border-2 border-mm-foreground bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
           onClick={() => {
             setIsAddingTransaction(true);
             setEditingRowIndex(0);
@@ -424,32 +422,34 @@ const TransactionsTable = () => {
       {/* Table */}
       <div className="hidden overflow-auto rounded-lg p-5 shadow md:block">
         {" "}
-      <table className="w-full table-auto md:w-screen md:table-fixed">
-        <thead>
-          <tr className="bg-mm-foreground text-sm uppercase leading-normal text-mm-text-white">
-            <th className="px-6 py-3 text-left font-bold ">Konto</th>
-            <th className="px-6 py-3 text-left font-bold">Summe</th>
-            <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
-              Empfänger
-            </th>
-            <th className="px-6 py-3 text-left font-bold">Verwendungszweck</th>
-            <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
-              Kategorie
-            </th>
-            <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
-              Unterkategorie
-            </th>
-            {/* <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
+        <table className="w-full table-auto md:w-screen md:table-fixed">
+          <thead>
+            <tr className="bg-mm-foreground text-sm uppercase leading-normal text-mm-text-white">
+              <th className="px-6 py-3 text-left font-bold ">Konto</th>
+              <th className="px-6 py-3 text-left font-bold">Summe</th>
+              <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
+                Empfänger
+              </th>
+              <th className="px-6 py-3 text-left font-bold">
+                Verwendungszweck
+              </th>
+              <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
+                Kategorie
+              </th>
+              <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
+                Unterkategorie
+              </th>
+              {/* <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
               Tags
             </th> */}
-            <th className="px-6 py-3 text-left font-bold">Datum</th>
-            <th className="px-6 py-3 text-left font-bold"></th>
-          </tr>
-        </thead>
-        <tbody className="text-sm font-light text-mm-background">
-          {renderTableData()}
-        </tbody>
-      </table>
+              <th className="px-6 py-3 text-left font-bold">Datum</th>
+              <th className="px-6 py-3 text-left font-bold"></th>
+            </tr>
+          </thead>
+          <tbody className="text-sm font-light text-mm-background">
+            {renderTableData()}
+          </tbody>
+        </table>
       </div>
 
       <div className="grid grid-cols-1 p-4 md:hidden">
@@ -463,8 +463,8 @@ const TransactionsTable = () => {
         pageSize={pageSize}
         showSizeChanger={true}
         pageSizeOptions={[
-          "10",
-          "20",
+          ...(maxDocs >= 10 ? ["10"] : []),
+          ...(maxDocs >= 20 ? ["20"] : []),
           ...(maxDocs >= 50 ? ["50"] : []),
           ...(maxDocs >= pageSize ? [`${maxDocs}`] : []),
         ]}
