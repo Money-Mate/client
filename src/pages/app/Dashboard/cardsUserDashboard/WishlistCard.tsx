@@ -7,7 +7,11 @@ function WishlistCard() {
 
   if (wishes === undefined) return <LoadingSymbol />;
 
-  const progressBars = Object.entries(wishes).map(([key, value]) => (
+  const sorted = Object.entries(wishes).sort(
+    (a, b) => b[1].percent - a[1].percent
+  );
+
+  const progressBars = sorted.map(([key, value]) => (
     <div key={key} className="m-2 flex items-center justify-between">
       <div className="w-1/2 text-mm-text-white">{key}</div>
 
