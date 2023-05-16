@@ -82,7 +82,7 @@ const FinancialOptionsSettings: React.FC = () => {
         </span>
         {showEmergencyFundInfo && (
           <div className="mt-1 text-sm text-gray-500">
-            Dein Monatseinkommen beträgt 2.000,00 €. 
+            Dein Monatseinkommen beträgt ca 2.000,00 €. 
             <br />
             Es wird empfohlen 3-6 Nettogehälter für unvorhergesehene Ausgaben zurückzulegen.
           </div>
@@ -100,7 +100,7 @@ const FinancialOptionsSettings: React.FC = () => {
           id="emergencyFund"
           value={emergencyFund}
           onChange={(e) => setEmergencyFund(Number(e.target.value))}
-          className="w-30 ml-4 rounded-md border border-gray-300 px-3 py-2 "
+          className="w-30 text-black ml-4 rounded-md border border-gray-300 px-3 py-2 "
           required
         />
       </div>
@@ -135,7 +135,7 @@ const FinancialOptionsSettings: React.FC = () => {
       <div className="mb-4 ml-4 ">
         <label
           htmlFor="needsPercentage"
-          className="mb-2 block font-medium text-mm-text-dark"
+          className="mb-2 text-black block font-medium"
         >
           % des Einkommens für Notwendiges
         </label>
@@ -144,7 +144,7 @@ const FinancialOptionsSettings: React.FC = () => {
           id="needsPercentage"
           value={needsPercentage}
           onChange={(e) => setNeedsPercentage(Number(e.target.value))}
-          className="w-30 rounded-md border border-gray-300 px-3 py-2 text-mm-text-dark"
+          className="w-30 rounded-md border border-gray-300 px-3 py-2  text-black"
           required
         />
       </div>
@@ -161,7 +161,7 @@ const FinancialOptionsSettings: React.FC = () => {
           id="wishesPercentage"
           value={wishesPercentage}
           onChange={(e) => setWishesPercentage(Number(e.target.value))}
-          className="w-30 rounded-md border border-gray-300 px-3 py-2 text-mm-text-dark"
+          className="w-30  text-black rounded-md border border-gray-300 px-3 py-2"
           required
         />
       </div>
@@ -178,7 +178,7 @@ const FinancialOptionsSettings: React.FC = () => {
           id="savingsPercentage"
           value={savingsPercentage}
           onChange={(e) => setSavingsPercentage(Number(e.target.value))}
-          className="w-30 rounded-md border border-gray-300 px-3 py-2 text-mm-text-dark"
+          className="w-30 rounded-md border border-gray-300 px-3 py-2 text-black"
           required
         />
       </div>
