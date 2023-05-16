@@ -20,7 +20,6 @@ const FinancialOptionsSettings: React.FC = () => {
     setShowSplitIncomeInfo(!showSplitIncomeInfo);
   };
 
-  console.log(user);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,7 +56,7 @@ const FinancialOptionsSettings: React.FC = () => {
       onSubmit={handleSubmit}
       className="mb-4 w-full rounded-md bg-mm-foreground p-6 shadow-lg"
     >
-      <h2 className="m-2 text-left text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3xt-lg font-semibold">
+      <h2 className="m-2 text-left text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl leading-tight text-transparent pt-3xt-lg font-semibold">
         Einstellungen für die Finanzanalysen:
       </h2>
       <br />

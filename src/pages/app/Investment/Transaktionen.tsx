@@ -41,7 +41,6 @@ export const transactions: Transaction[] = [
     //     type: "Trade",
     // },
 ]
-console.log(transactions)
 
 
 

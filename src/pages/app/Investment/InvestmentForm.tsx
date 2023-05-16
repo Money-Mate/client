@@ -37,7 +37,6 @@ const InvestmentForm = ({ onSubmit }: any) => {
     value: 0,
     type: "Dividend",
   });
-  console.log(transactionData);
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -141,7 +140,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                   Name:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="mt-1 w-full rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
                   type="text"
                   name="name"
                   value={formData.name}
@@ -157,7 +156,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                   Wert:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="mt-1 w-full rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
                   type="number"
                   name="value"
                   step="0.01"
@@ -174,7 +173,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                   Anzahl:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="mt-1 w-full rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
                   type="number"
                   name="amount"
                   value={formData.amount}
@@ -190,7 +189,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                   Einkaufswert:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="mt-1 w-full rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
                   type="number"
                   name="buyIn"
                   step="0.01"
@@ -207,7 +206,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                   Dividende:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="mt-1 w-full rounded-md  px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
                   type="number"
                   name="dividend"
                   step="0.01"
@@ -224,7 +223,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                   Typ:
                 </label>
                 <select
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="mt-1 w-full rounded-md text-mm-text-dark px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
                   name="type"
                   value={formData.type}
                   onChange={handleChange}
@@ -243,7 +242,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                   Symbol:
                 </label>
                 <input
-                  className="mt-1 w-full rounded-md bg-mm-background px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="mt-1 w-full rounded-md text-mm-text-dark px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
                   type="text"
                   name="symbol"
                   value={formData.symbol}

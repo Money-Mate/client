@@ -6,10 +6,9 @@ import {fetchCoin} from "./FetchKrypto";
 import { fetchInvests } from "./Fetch";
 import Trades from "./Trades";
 import DividendCard from "./DividendCard";
-import { transactions } from "./Transaktionen";
 import Nasdaq from "./Nasdaq";
 import Dax from "./Dax";
-import { invests } from "./Investdata";
+
 
 
 
@@ -21,8 +20,6 @@ function InvestmentDashboard() {
   useEffect(() => {
     fetchCoin();
     fetchInvests();
-    console.log(transactions)
-    console.log(invests)
   }, []);
 
   return (
