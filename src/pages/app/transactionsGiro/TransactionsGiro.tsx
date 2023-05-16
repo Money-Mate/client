@@ -289,8 +289,8 @@ const TransactionsTable = () => {
           key={row._id}
           className={
             rowIndex % 2 === 0
-              ? "bg-mm-foreground text-mm-text-white "
-              : "text-mm-text-white"
+              ? " text-mm-text-white "
+              : "bg-mm-foreground text-mm-text-white"
           }
         >
           <td className="whitespace-nowrap px-6 py-3 text-left  ">
