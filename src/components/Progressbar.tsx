@@ -7,10 +7,14 @@ interface ProgressbarProps {
 
 function Progressbar(props: ProgressbarProps) {
   const { percentage, color, isLimited } = props;
+// apply red color for main component if percentage is higher than 80%
 
   let barColor = color;
   if (isLimited && percentage > 80) {
-    barColor = "bg-violet-400"; // apply red color for main component if percentage is higher than 80%
+    barColor = "bg-violet-400"; 
+  }
+  if (!isLimited && percentage > 80) {
+    barColor = "bg-teal-400";
   }
 
   return (

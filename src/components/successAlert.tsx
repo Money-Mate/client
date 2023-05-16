@@ -9,7 +9,7 @@ function successAlert(props: successAlertProps) {
       role="alert"
     >
       <span className="font-medium">Ok!</span>
-      {props.message}
+      {props.message && ` ${props.message}`}
     </div>
   );
 }

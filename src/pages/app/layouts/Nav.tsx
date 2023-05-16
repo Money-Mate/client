@@ -31,7 +31,7 @@ function Nav() {
       id: 2,
     },
     {
-      name: "Statistik",
+      name: "Auswertung",
       to: "/app/statistics",
       id: 3,
     },
