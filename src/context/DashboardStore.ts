@@ -16,6 +16,17 @@ interface LastSixMonthsIncomeAndExpenses {
     expenses: number[];
   };
 }
+
+interface BudgetlistItem {
+  now: number;
+  of: number;
+  percent: number;
+}
+
+interface Budgetlist {
+  [itemName: string]: BudgetlistItem;
+}
+
 interface WishlistItem {
   now: number;
   of: number;
@@ -38,8 +49,9 @@ export interface IDashboardData {
   lastSixMonthsBalance: LastSixMonthsBalance;
   lastSixMonthsExpensesByCategory: lastSixMonthsExpensesByCategory[];
   lastSixMonthsIncomeAndExpenses: LastSixMonthsIncomeAndExpenses;
+  budgetlist: Budgetlist;
   wishlist: Wishlist;
-  emergencyFundPercent: number
+  emergencyFundPercent: number;
 }
 interface DashboardStore {
   dashboardData: IDashboardData | null;
