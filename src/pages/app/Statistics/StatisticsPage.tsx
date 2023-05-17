@@ -16,8 +16,8 @@ import StatisticsReport from "./Cards/StatisticsReport";
 
 function FinancialOptionsPage() {
   return (
-    <div className="h-full items-center bg-mm-background text-mm-text-dark mx-5 rounded-lg overflow-x-hidden">
-        <StatisticsReport />
+    <div className="mx-5 h-full items-center overflow-x-hidden rounded-lg bg-mm-background text-mm-text-dark">
+      <StatisticsReport />
     </div>
   );
 }

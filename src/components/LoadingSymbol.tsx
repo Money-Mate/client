@@ -1,4 +1,3 @@
-import React from 'react';
 import PiggyBank from '../assets/piggy-bank.svg';
 
 function LoadingSymbol() {

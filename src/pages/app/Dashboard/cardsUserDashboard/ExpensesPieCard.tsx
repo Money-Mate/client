@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
+import LoadingSymbol from "../../../../components/LoadingSymbol";
+import useDashboardStore from "../../../../context/DashboardStore";
 import { formatNumber } from "../../../../utils/formatterFunctions";
 import ExpensesPie from "../chartsUserDasboard/ExpensesPie";
-import useDashboardStore from "../../../../context/DashboardStore";
-import LoadingSymbol from "../../../../components/LoadingSymbol";
-
 
 function ExpensesPieCard() {
   const [clickedData, setClickedData] = useState<
@@ -20,17 +19,16 @@ function ExpensesPieCard() {
   }
 
   useEffect(() => {
-
-  const sum = lastSixMonthsExpensesByCategory.reduce((acc, { amount }) => {
-    return acc + amount;
+    const sum = lastSixMonthsExpensesByCategory.reduce((acc, { amount }) => {
+      return acc + amount;
     }, 0);
-    
+
     setSum(sum);
   }, []);
 
   return (
     <div className="h-full rounded-md  bg-mm-foreground shadow-lg">
-      <h2 className="m-2 pt-3 text-center text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent">
+      <h2 className="text-gradient m-2 bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text pt-3 text-center text-xl font-bold leading-tight text-transparent">
         Ausgaben der letzten 6 Monate
       </h2>
       {!clickedData && (
@@ -52,4 +50,4 @@ function ExpensesPieCard() {
   );
 }
 
-export default ExpensesPieCard
+export default ExpensesPieCard;

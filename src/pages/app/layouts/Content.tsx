@@ -1,7 +1,7 @@
-import React, { ReactElement } from "react";
-import Header from "./Header";
+import { ReactElement } from "react";
 import { useRoutes } from "react-router-dom";
 import contentRoutes from "../../../routes/contentRoutes";
+import Header from "./Header";
 
 function LayoutContent(): ReactElement {
   const element = useRoutes(contentRoutes);
