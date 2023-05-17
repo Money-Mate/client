@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { formatNumber } from "../../../utils/formatterFunctions";
 import LoadingSymbol from "../../../components/LoadingSymbol";
+import { formatNumber } from "../../../utils/formatterFunctions";
 
 interface IWish {
   _id: string;
@@ -101,7 +101,7 @@ function Wishes() {
   };
 
   return (
-    <div className="p-6 text-white">
+    <div className="w-full p-6 text-white">
       <section className="my-2 mb-8 rounded bg-mm-foreground px-2">
         <form onSubmit={newHandler} className="flex items-center gap-4">
           <div>
