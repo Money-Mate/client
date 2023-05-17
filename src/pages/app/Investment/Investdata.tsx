@@ -1,4 +1,5 @@
 interface Investment {
+  account?: string;
   name: string;
   value: number;
   amount: number;

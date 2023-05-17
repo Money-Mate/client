@@ -2,8 +2,22 @@ import { useState } from "react";
 import { invests } from "./Investdata";
 import { transactions } from "./Transaktionen";
 import { formatNumber } from "../../../utils/formatterFunctions";
+import * as z from "zod";
+import isIBAN from "validator/lib/isIBAN"; 
+
+interface FormErrors {
+  account?: string;
+  name?: string;
+  value?: string;
+  amount?: string;
+  buyIn?: string;
+  dividend?: string;
+  type?: string;
+  symbol?: string;
+}
 
 interface FormData {
+  account: string;
   name: string;
   value: number;
   amount: number;
@@ -22,6 +36,7 @@ interface TransaktionData {
 
 const InvestmentForm = ({ onSubmit }: any) => {
   const [formData, setFormData] = useState<FormData>({
+    account: "",
     name: "",
     value: NaN,
     amount: NaN,
@@ -73,6 +88,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
     event.preventDefault();
     addInvestment(formData);
     setFormData({
+      account: "",
       name: "",
       value: 0,
       amount: 0,
@@ -134,7 +150,23 @@ const InvestmentForm = ({ onSubmit }: any) => {
             className="m-5 h-full w-1/2 rounded-md bg-mm-foreground p-5 text-mm-text-white shadow-lg"
             onSubmit={handleSubmit}
           >
+            
             <div className="flex flex-col space-y-3">
+            <div>
+                <label
+                  htmlFor="name"
+                  className="mb-2 block font-bold text-mm-text-dark"
+                >
+                  Konto:
+                </label>
+                <input
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                  type="text"
+                  name="account"
+                  value={formData.account}
+                  onChange={handleChange}
+                />
+              </div>
               <div>
                 <label
                   htmlFor="name"
