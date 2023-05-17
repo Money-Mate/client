@@ -137,7 +137,7 @@ function Budgets() {
                   </div>
                 </div>
                 <div className="flex w-full gap-4">
-                  <div className="w-1/3 bg-mm-background p-2">
+                  <div className="w-1/3 bg-mm-background p-2 rounded">
                     <h5 className="font-bold">Kategorien</h5>
                     <ul className="list-disc pl-8">
                       {budget.categories.map((category) => (
@@ -145,7 +145,7 @@ function Budgets() {
                       ))}
                     </ul>
                   </div>
-                  <div className="w-1/3 bg-mm-background p-2">
+                  <div className="w-1/3 bg-mm-background p-2 rounded">
                     <h5 className="font-bold">Unterkategorien</h5>
                     <ul className="list-disc pl-8">
                       {budget.subCategories.map((subCategory) => (
@@ -153,7 +153,7 @@ function Budgets() {
                       ))}
                     </ul>
                   </div>
-                  <div className="w-1/3 bg-mm-background p-2">
+                  <div className="w-1/3 bg-mm-background p-2 rounded">
                     <h5 className="font-bold">Tags</h5>
                     <ul className="list-disc pl-8">
                       {budget.tags.map((tag) => (
