@@ -1,9 +1,6 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  Bars3Icon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Nav from "./Nav";
 
 import LayoutContent from "./Content";
@@ -83,7 +80,7 @@ export default function LayoutPage() {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col bg-mm-background">
+        <div className="hidden bg-mm-background lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <Nav />
         </div>
@@ -102,8 +99,8 @@ export default function LayoutPage() {
           </div>
         </div>
 
-        <main className="lg:pl-72 h-full">
-            <LayoutContent />
+        <main className="min-h-full lg:pl-72">
+          <LayoutContent />
         </main>
       </div>
     </>

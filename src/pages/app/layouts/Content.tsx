@@ -1,13 +1,13 @@
-import React, { ReactElement } from "react";
-import Header from "./Header";
+import { ReactElement } from "react";
 import { useRoutes } from "react-router-dom";
 import contentRoutes from "../../../routes/contentRoutes";
+import Header from "./Header";
 
 function LayoutContent(): ReactElement {
   const element = useRoutes(contentRoutes);
 
   return (
-    <div className="h-full w-full flex-col bg-mm-background">
+    <div className="min-h-full w-full flex-col bg-mm-background">
       <Header />
       {element}
     </div>

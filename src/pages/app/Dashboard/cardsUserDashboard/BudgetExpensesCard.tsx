@@ -31,8 +31,8 @@ function BudgetExpenses() {
   ));
 
   return (
-    <div className=" h-full rounded-md  bg-mm-foreground">
-      <h2 className="text-gradient m-2 bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text pt-3 text-center text-xl font-bold leading-tight text-transparent">
+    <div className=" verflow-auto mt-2  h-full rounded-md bg-mm-foreground">
+      <h2 className="text-gradient mb-2 bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text pt-3 text-center text-xl font-bold leading-tight text-transparent">
         Budgets
       </h2>
       <div className="p-1">{progressBars}</div>

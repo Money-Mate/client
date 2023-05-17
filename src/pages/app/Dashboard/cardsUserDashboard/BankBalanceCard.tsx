@@ -8,7 +8,7 @@ const bankBalance = () => {
   );
 
   if (bankBalance === undefined) {
-    return < LoadingSymbol />;
+    return <LoadingSymbol />;
   }
 
   return (
