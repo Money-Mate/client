@@ -159,7 +159,7 @@ const cannotAffordItems = Object.entries(wishlist).filter(
 
       {/* Ausgaben der letzten sechs Monate nach Kategorie */}
       <div className="mb-6 mt-2">
-        <h3 className="m-2 text-left text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3xt-lg font-semibold">
+        <h3 className="m-2 text-left text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3xt-lg">
           Ausgaben der letzten sechs Monate nach Kategorie
         </h3>
         <table className="mt-4 w-full">

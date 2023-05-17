@@ -87,7 +87,7 @@ const FinancialOptionsSettings: React.FC = () => {
           </div>
         )}
       </h3>
-      <div className="mb-4 p-2 shadow-lg">
+      <div className="mb-4 p-2">
         <label
           htmlFor="emergencyFund"
           className="mb-2 block p-2 font-medium text-mm-text-dark"
@@ -104,7 +104,7 @@ const FinancialOptionsSettings: React.FC = () => {
         />
       </div>
 
-      <br></br>
+          <br></br>
       <h3 className="mb-2 text-lg font-bold text-mm-text-white">
         <span className="inline-flex items-center">
           2. Angestrebte Aufteilung des Einkommens
