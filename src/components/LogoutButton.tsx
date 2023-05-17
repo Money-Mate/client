@@ -1,5 +1,5 @@
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LogoutButton = () => {
@@ -13,7 +13,6 @@ const LogoutButton = () => {
       await axios.get(`${BE_URL}/user/logout`, {
         withCredentials: true,
       });
-      console.log("user removed from localstorage");
       setLoading(false);
       navigate("/signin");
     } catch (error) {

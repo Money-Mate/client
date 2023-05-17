@@ -1,33 +1,25 @@
-import React from 'react'
-import StatisticsReport from './Cards/StatisticsReport'
+import StatisticsReport from "./Cards/StatisticsReport";
 
 //  KATEGORIEN
 // wobei will user unterstützung? Checkboxes mit heading und Erklärungsdropdown und ggf Slider?
 
+// 4. 30-50-20 regel: 30% für Leben, Wohnen, Essen, 50% für Spaß/ freiwillige Ausgaben, 20% für Sparen+ Investitionen
+// 4.a nach eigenen Bedürfnissen justierbar mit Slider Range für 3 component total100%?
 
-  // 4. 30-50-20 regel: 30% für Leben, Wohnen, Essen, 50% für Spaß/ freiwillige Ausgaben, 20% für Sparen+ Investitionen
-    // 4.a nach eigenen Bedürfnissen justierbar mit Slider Range für 3 component total100%?
+// 5. Notgroschen: 3 Monatsnettogehälter gespart -> = extra Konto in unserer app? -> brauchen wir dann noch section other konten für kontoübersicht?
+// EInnahmen : 6 x 3
+// Extrakonto
 
-  // 5. Notgroschen: 3 Monatsnettogehälter gespart -> = extra Konto in unserer app? -> brauchen wir dann noch section other konten für kontoübersicht?
-      // EInnahmen : 6 x 3
-      // Extrakonto
+//wurden alle budgets eingehalten?
+// schulden vermeiden: sind alle konten positiv? sonst !
+// Saldo negativ? sonst !
 
-      //wurden alle budgets eingehalten?
-     // schulden vermeiden: sind alle konten positiv? sonst !
-     // Saldo negativ? sonst !
+function FinancialOptionsPage() {
+  return (
+    <div className="mx-5 h-full items-center overflow-x-hidden rounded-lg bg-mm-background text-mm-text-dark">
+      <StatisticsReport />
+    </div>
+  );
+}
 
-
-
-
-
-     function FinancialOptionsPage() {
-      return (
-        <div className="m-6 flex min-h-screen items-center bg-mm-background text-mm-text-dark">
-          <div className="container mx-auto">
-            <StatisticsReport />
-          </div>
-        </div>
-      );
-    }
-    
-    export default FinancialOptionsPage;
+export default FinancialOptionsPage;

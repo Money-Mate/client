@@ -1,6 +1,5 @@
-import React from "react";
-import { Bar } from "react-chartjs-2";
 import { ChartData, ChartOptions } from "chart.js/auto";
+import { Bar } from "react-chartjs-2";
 
 const getBarColors = (values: number[]): string[] => {
   return values.map((value, index) => {

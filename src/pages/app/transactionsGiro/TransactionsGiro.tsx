@@ -1,7 +1,7 @@
+import { Pagination } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-import { Pagination } from "antd";
+import { formatNumber } from "../../../utils/formatterFunctions";
 import EditTransactionModal from "./Modals/EditTransactions";
 import FilterTransactionsModal from "./Modals/FilterTransactionsModal";
 
@@ -181,7 +181,7 @@ const TransactionsTable = () => {
       console.log(error);
     }
   };
-// load transactions on page change/filterchange
+  // load transactions on page change/filterchange
   const onCloseFilterModal = () => {
     fetchTransactions();
     setIsFilterModalOpen(false);
@@ -289,19 +289,19 @@ const TransactionsTable = () => {
           key={row._id}
           className={
             rowIndex % 2 === 0
-              ? "bg-mm-foreground text-mm-text-white "
-              : "text-mm-text-white"
+              ? " text-mm-text-white "
+              : "bg-mm-foreground text-mm-text-white"
           }
         >
           <td className="whitespace-nowrap px-6 py-3 text-left  ">
             {row.accountIBAN}
           </td>
           <td
-            className={`whitespace-nowrap px-6 py-3 text-left ${
+            className={`whitespace-nowrap px-6 py-3 text-center ${
               row.amount < 0 ? "text-red-500" : "text-green-500"
             }`}
           >
-            {row.amount ? row.amount.toFixed(2) : ""} {row.currency}
+            {formatNumber(row.amount)}
           </td>
           <td className="hidden px-6 py-3 text-left md:table-cell">
             {row.recipientName}
@@ -313,13 +313,13 @@ const TransactionsTable = () => {
           <td className="hidden whitespace-nowrap px-6 py-3 text-left md:table-cell ">
             {row.subCategory.name}
           </td>
-          <td className="hidden px-6 py-3 text-left md:table-cell">
+          {/* <td className="hidden px-6 py-3 text-left md:table-cell">
             {row.tags}
-          </td>
+          </td> */}
           <td className="px-6 py-3 text-left ">{row.date.slice(0, 10)}</td>
           <td>
             <button
-              className="font-bold text-mm-primary"
+              className="m-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
               onClick={(e) => {
                 setEditingTransactionId(row._id);
                 setEditingRowIndex(rowIndex);
@@ -335,11 +335,63 @@ const TransactionsTable = () => {
     });
   };
 
+  const renderTableDataSmall = () => {
+    let visibleRowIndex = 0;
+    const data = tableDataState ?? [];
+    if (data.length === 0) {
+      return (
+        <tr>
+          <td
+            className="bg-mm-foreground px-6 py-3 text-left text-mm-text-dark"
+            colSpan={8}
+          >
+            Zu deiner Anfrage gibt es keine passenden Daten
+          </td>
+        </tr>
+      );
+    }
+
+    return data.map((row, index) => {
+      const rowIndex = visibleRowIndex++;
+      return (
+        <div
+          key={row._id}
+          className={
+            rowIndex % 2 === 0
+              ? " block items-center space-x-2 rounded-lg bg-mm-foreground p-4 text-sm text-mm-text-white shadow"
+              : "block items-center space-x-2 rounded-lg p-4 text-sm text-mm-text-white shadow"
+          }
+        >
+          <div className="whitespace-nowrap  text-left">{row.accountIBAN}</div>
+          <div
+            className={`whitespace-nowrap  text-left ${
+              row.amount < 0 ? "text-red-500" : "text-green-500"
+            }`}
+          >
+            {row.amount ? row.amount.toFixed(2) : ""} {row.currency}
+          </div>
+          <div className=" text-left">{row.recipientName}</div>
+          <button
+            className="m-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
+            onClick={(e) => {
+              setEditingTransactionId(row._id);
+              setEditingRowIndex(rowIndex);
+              setIsAddingTransaction(false);
+              setIsModalOpen(true);
+            }}
+          >
+            Bearbeiten
+          </button>
+        </div>
+      );
+    });
+  };
+
   return (
-    <div className="h-screen overflow-x-auto">
-      <div className="flex items-center">
+    <div className="">
+      <div className="mx-5 my-2 flex items-center rounded bg-mm-foreground">
         <button
-          className="mx-5 my-2 rounded bg-mm-primary px-4 py-2 font-bold text-mm-text-white hover:bg-blue-700"
+          className="m-2 mx-2 rounded border-2 border-mm-foreground bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
           onClick={() => {
             setIsAddingTransaction(true);
             setEditingRowIndex(0);
@@ -368,32 +420,41 @@ const TransactionsTable = () => {
         </svg>
       </div>
       {/* Table */}
-      <table className="w-full table-auto md:w-screen md:table-fixed">
-        <thead>
-          <tr className="bg-mm-foreground text-sm uppercase leading-normal text-mm-text-white">
-            <th className="px-6 py-3 text-left font-bold ">Konto</th>
-            <th className="px-6 py-3 text-left font-bold">Summe</th>
-            <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
-              Empfänger
-            </th>
-            <th className="px-6 py-3 text-left font-bold">Verwendungszweck</th>
-            <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
-              Kategorie
-            </th>
-            <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
-              Unterkategorie
-            </th>
-            <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
+      <div className="m-5 hidden overflow-auto rounded-lg shadow md:block">
+        {" "}
+        <table className=" table-auto md:w-screen">
+          <thead>
+            <tr className="bg-mm-foreground text-sm uppercase leading-normal text-mm-text-white">
+              <th className="px-6 py-3 text-left font-bold ">Konto</th>
+              <th className="px-6 py-3 text-center font-bold">Summe</th>
+              <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
+                Empfänger
+              </th>
+              <th className="px-6 py-3 text-left font-bold">
+                Verwendungszweck
+              </th>
+              <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
+                Kategorie
+              </th>
+              <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
+                Unterkategorie
+              </th>
+              {/* <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
               Tags
-            </th>
-            <th className="px-6 py-3 text-left font-bold">Datum</th>
-            <th className="px-6 py-3 text-left font-bold"></th>
-          </tr>
-        </thead>
-        <tbody className="text-sm font-light text-mm-background">
-          {renderTableData()}
-        </tbody>
-      </table>
+            </th> */}
+              <th className="px-6 py-3 text-left font-bold">Datum</th>
+              <th className="px-6 py-3 text-left font-bold"></th>
+            </tr>
+          </thead>
+          <tbody className="text-sm font-light text-mm-background">
+            {renderTableData()}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="grid grid-cols-1 p-4 md:hidden">
+        {renderTableDataSmall()}
+      </div>
       {/* Pagination */}
       <Pagination
         className="mt-5 text-mm-background"
@@ -402,8 +463,8 @@ const TransactionsTable = () => {
         pageSize={pageSize}
         showSizeChanger={true}
         pageSizeOptions={[
-          "10",
-          "20",
+          ...(maxDocs >= 10 ? ["10"] : []),
+          ...(maxDocs >= 20 ? ["20"] : []),
           ...(maxDocs >= 50 ? ["50"] : []),
           ...(maxDocs >= pageSize ? [`${maxDocs}`] : []),
         ]}

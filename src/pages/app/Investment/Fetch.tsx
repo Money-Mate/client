@@ -1,9 +1,7 @@
 //@ts-ignore
 import * as finnhub from "finnhub";
-import { useEffect, useState } from "react";
-import { invests } from "./Investdata";
 import { formatNumber, convertUSDToEUR } from "../../../utils/formatterFunctions";
-import { fetchCoin } from "./FetchKrypto";
+import { invests } from "./Investdata";
 
 interface Idata {
   c: number;
@@ -14,57 +12,38 @@ interface Idata {
   o: number;
   pc: number;
 }
+
 const api_key = finnhub.ApiClient.instance.authentications["api_key"];
 const key: string = import.meta.env.VITE_API_KEY as string;
 api_key.apiKey = key;
 const finnhubClient = new finnhub.DefaultApi();
 
-const Fetch = () => {
-  const [values, setValues] = useState<string[]>([]);
-
-  const fetchValues = async () => {
-    const filteredSymbols = invests.filter((invest) => invest.symbol);
-    const symbols = filteredSymbols.map((invest) => invest.symbol);
-    console.log(symbols);
-    const promises = symbols.map((symbol) => {
-      return new Promise<string>((resolve, reject) => {
-        finnhubClient.quote(symbol, (error: string, data: Idata) => {
-          if (error) {
-            reject(error);
-          } else {
-            const amount = convertUSDToEUR(data.c);
-            resolve(formatNumber(amount));
-          }
-        });
+export async function fetchInvests(): Promise<void> {
+  const filteredSymbols = invests.filter((invest) => invest.symbol && invest.symbol.length <= 6);
+  const symbols = filteredSymbols.map((invest) => invest.symbol);
+  const promises = symbols.map((symbol) => {
+    return new Promise<string>((resolve, reject) => {
+      finnhubClient.quote(symbol, (error: string, data: Idata) => {
+        if (error) {
+          reject(error);
+        } else {
+          const amount = convertUSDToEUR(data.c);
+          resolve(formatNumber(amount));
+          invests.forEach((invest) => {
+            if (invest.symbol === symbol) {
+              invest.value = Number(amount.toFixed(2));
+            }
+          });
+        }
       });
     });
+  });
 
-    try {
-      const results = await Promise.all(promises);
-      console.log(results);
-      setValues(results);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchValues();
-    fetchCoin();
-  }, []);
-
-  return (
-    <>
-      <div className="text-center">
-        {values.length > 0 &&
-          values.map((value, index) => (
-            <div className="text-mm-text-white " key={index}>
-              {value}
-            </div>
-          ))}
-      </div>
-    </>
-  );
-};
-
-export default Fetch;
+  try {
+    const results = await Promise.all(promises);
+    
+  } catch (error) {
+    console.error(error);
+    
+  }
+}

@@ -18,7 +18,6 @@ const BankAccountsCard: React.FC = () => {
     setSelectedAccount(null);
   };
   const handleEditClick = (account: IBankAccountData) => {
-    console.log(account);
     setShowModal(true);
     setSelectedAccount(account);
   };
@@ -53,7 +52,7 @@ const BankAccountsCard: React.FC = () => {
   return (
     <div className="mb-4 w-full rounded-md bg-mm-foreground p-4 shadow-lg">
       <div className="flex justify-between">
-        <h2 className="mb-2 text-lg font-bold text-mm-text-white">Konten</h2>
+        <h2 className="m-2 text-left text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl leading-tight text-transparent pt-3xt-lg font-semibold">Konten</h2>
         <button
           className="m-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
           onClick={handleAddClick}
@@ -63,7 +62,7 @@ const BankAccountsCard: React.FC = () => {
       </div>
       <div className="mb-2">
         <div className="m-4 flex flex-col">
-          <h2 className="mb-1 font-bold text-mm-text-white">Girokonten</h2>
+          <h2 className="mb-1 text-lg font-bold text-mm-text-white">Girokonten</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {giroAccounts?.map((account: IBankAccountData) => (
               <div
@@ -97,7 +96,7 @@ const BankAccountsCard: React.FC = () => {
           </div>
         </div>
         <div className="m-4 flex flex-col">
-          <h2 className="mb-1 font-bold text-mm-text-white">
+          <h2 className="mb-1 text-lg font-bold text-mm-text-white">
             Investmentkonten
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

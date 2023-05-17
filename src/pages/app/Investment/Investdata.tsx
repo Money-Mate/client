@@ -1,10 +1,24 @@
-export const invests = [
+interface Investment {
+  name: string;
+  value: number;
+  amount: number;
+  buyIn: number;
+  dividend?: number;
+  type: string;
+  symbol?: string;
+}
+
+export const deleteInvests = (newInvests: Investment[]) => {
+  invests = newInvests;
+}
+
+export let invests: Investment[] = [
   {
     name: "Apple",
-    value: 1000.34,
+    value: 1000.45,
     amount: 3,
-    buyIn: 120,
-    dividend: 0.56,
+    buyIn: 182,
+    dividend: 1.61,
     type: "Aktien/ETF's",
     symbol: "AAPL",
   },
@@ -13,58 +27,79 @@ export const invests = [
     value: 2500,
     amount: 4,
     buyIn: 500,
-    dividend: 0.56,
+    dividend: 0,
     type: "Aktien/ETF's",
     symbol: "TSLA",
   },
   {
     name: "Einzimmerwohnung",
     value: 3000,
+    amount: 1,
+    buyIn: 120,
+    dividend: 0,
     type: "Immobilien",
-    symbol: ""
-  },
-  {
-    name: "Bitcoin",
-    value: 4000,
-    type: "Kryptowährungen",
     symbol: "",
   },
   {
-    name: "Ethereum",
-    value: 5000,
+    name: "Bitcoin",
+    value: 25282.30,
+    amount: 0.03,
+    buyIn: 18000,
+    dividend: 0,
     type: "Kryptowährungen",
-    symbol: ""
+    symbol: "btc-bitcoin",
+  },
+  {
+    name: "Ethereum",
+    value: 1684.76,
+    amount: 0.5,
+    buyIn: 1700,
+    dividend: 0,
+    type: "Kryptowährungen",
+    symbol: "eth-ethereum",
   },
   {
     name: "Strandvilla",
-    value: 6000,
+    value: 3000,
+    amount: 1,
+    buyIn: 15000,
+    dividend: 0,
     type: "Immobilien",
-    symbol: ""
+    symbol: "",
   },
   {
     name: "Flughafen Tegel",
-    value: 2000,
+    value: 1000,
+    amount: 1,
+    buyIn: 190,
+    dividend: 0,
     type: "Immobilien",
-    symbol: ""
+    symbol: "",
   },
   {
     name: "Gold",
-    value: 2000,
+    value: 200,
+    amount: 5,
+    buyIn: 120,
+    dividend: 0,
     type: "Rohstoffe",
-    symbol: ""
+    symbol: "",
   },
   {
     name: "Silber",
-    value: 5000,
+    value: 300,
+    amount: 5,
+    buyIn: 120,
+    dividend: 0,
     type: "Rohstoffe",
-    symbol: ""
+    symbol: "",
   },
   {
     name: "Microsoft",
     value: 3000,
     amount: 3,
     buyIn: 120,
-    dividend: 0.56,
+    dividend: 1.34,
     type: "Aktien/ETF's",
     symbol: "MSFT",
   },
@@ -73,12 +108,18 @@ export const invests = [
     value: 3700,
     amount: 3,
     buyIn: 120,
-    dividend: 0.56,
+    dividend: 0.61,
     type: "Aktien/ETF's",
     symbol: "NVDA",
   },
 ].sort((a, b) => b.value - a.value);
 
 
-
-
+export const calculateDividendSum = (invests: Investment[]) => {
+  let dividendSum = 0;
+  invests.forEach((invest) => {
+    dividendSum +=
+      (invest.value * invest.amount * (invest.dividend ?? 0)) / 1000;
+  });
+  return dividendSum;
+};
