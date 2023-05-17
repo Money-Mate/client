@@ -9,7 +9,7 @@ const UserProfile: React.FC = () => {
 
   return (
     <div className="w-full mx-5 rounded-lg">
-      <div className="flex min-h-screen w-full flex-col items-center bg-mm-background text-mm-text-dark">
+      <div className="flex min-h-full w-full flex-col items-center bg-mm-background text-mm-text-dark">
         <ProfileCard user={user} />
         <BankAccountsCard />
         <FinancialOptionsSettings />
