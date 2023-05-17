@@ -30,7 +30,7 @@ function Header() {
               {username && `Hallo ${username}! 👋`}
             </h1>
             <p className="ml-1 text-mm-text-dark">
-              Willkommen auf deinem Dashboard, Money Mate!
+              Willkommen zurück bei Money Mate!
             </p>
           </div>
         </div>
