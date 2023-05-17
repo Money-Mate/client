@@ -1,7 +1,7 @@
+import { Pagination } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { formatNumber } from "../../../utils/formatterFunctions";
-import { Pagination } from "antd";
 import EditTransactionModal from "./Modals/EditTransactions";
 import FilterTransactionsModal from "./Modals/FilterTransactionsModal";
 
@@ -463,8 +463,8 @@ const TransactionsTable = () => {
         pageSize={pageSize}
         showSizeChanger={true}
         pageSizeOptions={[
-          "10",
-          "20",
+          ...(maxDocs >= 10 ? ["10"] : []),
+          ...(maxDocs >= 20 ? ["20"] : []),
           ...(maxDocs >= 50 ? ["50"] : []),
           ...(maxDocs >= pageSize ? [`${maxDocs}`] : []),
         ]}
