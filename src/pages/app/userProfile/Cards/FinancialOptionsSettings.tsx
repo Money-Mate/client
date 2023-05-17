@@ -134,7 +134,7 @@ const FinancialOptionsSettings: React.FC = () => {
       <div className="mb-4 ml-4 ">
         <label
           htmlFor="needsPercentage"
-          className="mb-2 text-black block font-medium"
+          className="mb-2 text-gray-400 block font-medium"
         >
           % des Einkommens für Notwendiges
         </label>
@@ -143,7 +143,7 @@ const FinancialOptionsSettings: React.FC = () => {
           id="needsPercentage"
           value={needsPercentage}
           onChange={(e) => setNeedsPercentage(Number(e.target.value))}
-          className="w-30 rounded-md border border-gray-300 px-3 py-2  text-black"
+          className="w-30 ml-1 rounded-md border border-gray-300 px-3 py-2  text-black"
           required
         />
       </div>
@@ -160,7 +160,7 @@ const FinancialOptionsSettings: React.FC = () => {
           id="wishesPercentage"
           value={wishesPercentage}
           onChange={(e) => setWishesPercentage(Number(e.target.value))}
-          className="w-30  text-black rounded-md border border-gray-300 px-3 py-2"
+          className="w-30  ml-2 text-black rounded-md border border-gray-300 px-3 py-2"
           required
         />
       </div>
@@ -177,7 +177,7 @@ const FinancialOptionsSettings: React.FC = () => {
           id="savingsPercentage"
           value={savingsPercentage}
           onChange={(e) => setSavingsPercentage(Number(e.target.value))}
-          className="w-30 rounded-md border border-gray-300 px-3 py-2 text-black"
+          className="w-30 ml-1 rounded-md border border-gray-300 px-3 py-2 text-black"
           required
         />
       </div>
