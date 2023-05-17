@@ -388,7 +388,7 @@ const TransactionsTable = () => {
   };
 
   return (
-    <div className="h-screen w-full">
+    <div className="">
       <div className="mx-5 my-2 flex items-center rounded bg-mm-foreground">
         <button
           className="m-2 mx-2 rounded border-2 border-mm-foreground bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"

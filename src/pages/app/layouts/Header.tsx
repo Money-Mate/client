@@ -23,7 +23,7 @@ function Header() {
 
   return (
     <>
-      <header className="w-90">
+      <header className="">
         <div className="mx-5 mb-5 items-center rounded-lg bg-mm-foreground p-4 text-gray-50">
           <div className="mr-4">
             <h1 className="mb-2 mt-2 text-2xl font-bold md:text-3xl ">
