@@ -92,17 +92,17 @@ const FilterTransactionsModal = ({
           &#8203;
         </span>
         <div
-          className="inline-block transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 sm:align-middle"
+          className="inline-block transform overflow-hidden rounded-lg bg-mm-foreground px-4 pb-4 pt-5 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 sm:align-middle"
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-headline"
         >
           <div>
-            <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900">
+            <h3 className="mb-2 text-lg font-medium leading-6 text-white">
               Filteroptionen:
             </h3>
             <div className="mt-2">
-              <label className="mb-1 block text-sm font-medium text-gray-700">
+              <label className="mb-1 block text-sm font-medium text-white">
                 Konten
               </label>
               {filteredOptions.accounts?.map((account) => (
@@ -115,12 +115,12 @@ const FilterTransactionsModal = ({
                     checked={accountIBANs.includes(account)}
                     className="mr-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                   />
-                  <span>{account}</span>
+                  <span className="text-mm-text-dark">{account}</span>
                 </div>
               ))}
             </div>
             <div className="mt-2">
-              <label className="mb-1 block text-sm font-medium text-gray-700">
+              <label className="mb-1 block text-sm font-medium text-white">
                 Kategorien
               </label>
               {filteredOptions.categories?.map((category) => (
@@ -133,12 +133,12 @@ const FilterTransactionsModal = ({
                     checked={categories.some((c) => c.id === category.id)}
                     className="mr-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                   />
-                  <span>{category.name}</span>
+                  <span className="text-mm-text-dark">{category.name}</span>
                 </div>
               ))}
             </div>
             <div className="mt-2">
-              <label className="mb-1 block text-sm font-medium text-gray-700">
+              <label className="mb-1 block text-sm font-medium text-white">
                 Unterkategorien
               </label>
               {filteredOptions.subCategories?.map((subCategory) => (
@@ -151,12 +151,12 @@ const FilterTransactionsModal = ({
                     checked={subCategories.some((s) => s.id === subCategory.id)}
                     className="mr-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                   />
-                  <span>{subCategory.name}</span>
+                  <span className="text-mm-text-dark">{subCategory.name}</span>
                 </div>
               ))}
             </div>
             <div className="mt-2">
-              <label className="mb-1 block text-sm font-medium text-gray-700">
+              <label className="mb-1 block text-sm font-medium text-white">
                 Zeitraum
               </label>
               <div className="flex">
@@ -177,7 +177,7 @@ const FilterTransactionsModal = ({
               </div>
             </div>
             <div className="mt-2">
-              <label className="mb-1 block text-sm font-medium text-gray-700">
+              <label className="mb-1 block text-sm font-medium text-white">
                 Reihenfolge
               </label>
               <select
@@ -192,7 +192,7 @@ const FilterTransactionsModal = ({
               </select>
             </div>
             <div className="mt-2">
-              <label className="mb-1 block text-sm font-medium text-gray-700">
+              <label className="mb-1 block text-sm font-medium text-white">
                 Einnahmen/Ausgaben
               </label>
               <select
@@ -209,16 +209,16 @@ const FilterTransactionsModal = ({
           </div>
           <div className="mt-5 sm:mt-6">
             <button
-              onClick={handleSubmit}
-              className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
-            >
-              Filter anwenden
-            </button>
-            <button
               onClick={onClose}
-              className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
+              className="m-2 mx-2 rounded-lg bg-white px-4 py-2 text-black hover:bg-opacity-75"
             >
               Abbrechen
+            </button>
+            <button
+              onClick={handleSubmit}
+              className="m-2 mx-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
+            >
+              Filter anwenden
             </button>
           </div>
         </div>

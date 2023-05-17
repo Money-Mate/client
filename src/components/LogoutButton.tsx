@@ -13,7 +13,6 @@ const LogoutButton = () => {
       await axios.get(`${BE_URL}/user/logout`, {
         withCredentials: true,
       });
-      console.log("user removed from localstorage");
       setLoading(false);
       navigate("/signin");
     } catch (error) {
