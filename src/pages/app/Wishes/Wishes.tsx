@@ -101,7 +101,7 @@ function Wishes() {
   };
 
   return (
-    <div className="w-full p-6 text-white">
+    <div className="w-full p-6 text-mm-text-dark ">
       <section className="my-2 mb-8 rounded bg-mm-foreground px-2">
         <form onSubmit={newHandler} className="flex items-center gap-4">
           <div>
@@ -111,7 +111,7 @@ function Wishes() {
               id="name"
               value={newFormData.name}
               onChange={onNewFormChange}
-              className="ml-2 rounded bg-mm-background p-1 text-white"
+              className="ml-2 rounded bg-white p-1 text-black"
             ></input>
           </div>
           <div>
@@ -121,7 +121,7 @@ function Wishes() {
               id="price"
               value={newFormData.price}
               onChange={onNewFormChange}
-              className="ml-2 rounded bg-mm-background p-1 text-white"
+              className="ml-2 rounded bg-white p-1 text-black"
             ></input>
           </div>
           <button className="m-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75">
@@ -152,7 +152,7 @@ function Wishes() {
                           placeholder={wish.name}
                           value={editFormData.name}
                           onChange={onEditFormChange}
-                          className="h-full w-[90%] rounded bg-mm-background p-1 text-white"
+                          className="h-full w-[90%] rounded bg-white p-1 text-black"
                         ></input>
                       </div>
                       <div className="min-w-[25%]">
@@ -162,7 +162,7 @@ function Wishes() {
                           placeholder={wish.price.toString()}
                           value={editFormData.price}
                           onChange={onEditFormChange}
-                          className="h-full w-[90%] rounded bg-mm-background p-1 text-white"
+                          className="h-full w-[90%] rounded bg-white p-1 text-black"
                         ></input>
                       </div>
                       <div className="ml-auto">
@@ -189,8 +189,12 @@ function Wishes() {
                   key={wish._id}
                   className="my-4 flex items-center rounded bg-mm-foreground p-4"
                 >
-                  <div className="min-w-[25%]">{wish.name}</div>
-                  <div className="min-w-[25%]">{formatNumber(wish.price)}</div>
+                  <div className="text-gradient pt-3xt-lg m-2 min-w-[25%] bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-left text-xl font-bold leading-tight text-transparent">
+                    {wish.name}
+                  </div>
+                  <div className="min-w-[25%] text-white">
+                    {formatNumber(wish.price)}
+                  </div>
                   <div className="ml-auto">
                     <button
                       onClick={() => setEdit(wish._id)}

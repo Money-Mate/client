@@ -79,7 +79,7 @@ function Budgets() {
   };
 
   return (
-    <div className="p-6 text-white">
+    <div className="p-6 text-mm-text-dark ">
       <section className="my-2 mb-8 rounded bg-mm-foreground px-2">
         <form onSubmit={newHandler} className="flex items-center gap-4">
           <div>
@@ -89,7 +89,7 @@ function Budgets() {
               id="name"
               value={newFormData.name}
               onChange={onNewFormChange}
-              className="ml-2 rounded bg-mm-background p-1"
+              className="ml-2 rounded bg-white p-1 text-black"
             ></input>
           </div>
           <div>
@@ -99,7 +99,7 @@ function Budgets() {
               id="amount"
               value={newFormData.amount}
               onChange={onNewFormChange}
-              className="ml-2 rounded bg-mm-background p-1"
+              className="ml-2 rounded bg-white p-1 text-black"
             ></input>
           </div>
           <button className="m-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75">
@@ -118,10 +118,12 @@ function Budgets() {
                 className="my-4 flex-col rounded bg-mm-foreground p-4"
               >
                 <div className="mb-4 flex w-full items-center">
-                  <h3 className="min-w-[25%] text-xl font-bold">
+                  <h3 className="text-gradient pt-3xt-lg m-2 min-w-[25%] bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-left text-xl font-bold leading-tight text-transparent">
                     {budget.name}
                   </h3>
-                  <h4 className="text-lg">{formatNumber(budget.amount)}</h4>
+                  <h4 className="text-lg text-white">
+                    {formatNumber(budget.amount)}
+                  </h4>
                   <div className="ml-auto">
                     <button className="mx-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75">
                       bearbeiten
@@ -144,7 +146,7 @@ function Budgets() {
                     </ul>
                   </div>
                   <div className="w-1/3 bg-mm-background p-2">
-                    <h5 className="font-bold">UnterKategorien</h5>
+                    <h5 className="font-bold">Unterkategorien</h5>
                     <ul className="list-disc pl-8">
                       {budget.subCategories.map((subCategory) => (
                         <li>{subCategory.name}</li>

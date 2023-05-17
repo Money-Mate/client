@@ -166,7 +166,7 @@ const StatisticsReport: React.FC = () => {
 
       {/* Ausgaben der letzten sechs Monate nach Kategorie */}
       <div className="mb-6 mt-2">
-        <h3 className="text-gradient pt-3xt-lg m-2 bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-left text-xl font-bold font-semibold leading-tight text-transparent">
+        <h3 className="text-gradient pt-3xt-lg m-2 bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-left text-xl font-bold leading-tight text-transparent">
           Ausgaben der letzten sechs Monate nach Kategorie
         </h3>
         <table className="mt-4 w-full">
