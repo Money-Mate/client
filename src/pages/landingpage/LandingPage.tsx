@@ -30,7 +30,7 @@ function LandingPage() {
           <div className="flex flex-col gap-y-8 bg-mm-background p-10 lg:items-center ">
             {/* {text} */}
             <div className="flex-1 text-center lg:text-left">
-              <h1 className="text-[55px] font-bold leading-[0.8] lg:text-[100px] text-mm-text-white">
+              <h1 className="text-[55px] font-bold leading-[0.8] text-mm-text-white lg:text-[100px]">
                 Money Mate
               </h1>
             </div>
@@ -56,20 +56,20 @@ function LandingPage() {
                 repeat={Infinity}
               />
             </div>
-            <p className="mx-auto mb-8 max-w-lg lg:mx-0 text-mm-text-white">
+            <p className="mx-auto mb-8 max-w-lg text-mm-text-white lg:mx-0">
               Mit Money Mate behaltet ihr ganz einfach eure Finanzen im Auge
             </p>
           </div>
           <div className="mx-auto mb-12 flex items-center justify-center gap-x-6 bg-mm-background lg:mx-0">
             {" "}
             <button
-              className="m-4 rounded-full bg-mm-foreground px-4 py-2 font-bold text-white hover:bg-mm-success"
+              className="m-2 mx-2 rounded border-2 border-mm-foreground bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
               onClick={() => navigate("/signin")}
             >
               Sign In
             </button>
             <button
-              className="m-4 rounded-full bg-mm-foreground px-4 py-2 font-bold text-white hover:bg-mm-success"
+              className="m-2 mx-2 rounded border-2 border-mm-foreground bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
               onClick={() => navigate("/signup")}
             >
               Join now!

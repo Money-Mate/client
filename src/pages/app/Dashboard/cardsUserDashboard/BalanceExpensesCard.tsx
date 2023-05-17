@@ -8,7 +8,7 @@ const BalanceExpenses = () => {
   );
 
   if (scheduledDebit === undefined) {
-    return <LoadingSymbol/>;
+    return <LoadingSymbol />;
   }
 
   return (

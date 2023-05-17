@@ -101,7 +101,7 @@ function Wishes() {
   };
 
   return (
-    <div className="p-6 text-white">
+    <div className="p-6 text-white w-full">
       <section className="my-2 mb-8 rounded bg-mm-foreground px-2">
         <form onSubmit={newHandler} className="flex items-center gap-4">
           <div>

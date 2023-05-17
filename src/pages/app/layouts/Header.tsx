@@ -22,24 +22,20 @@ function Header() {
   }, []);
 
   return (
-
-  <>
-  <header>
-    <div className="relative mb-5 mx-1 rounded bg-mm-foreground p-4 text-gray-50 flex justify-between items-center">
-      <div className="mr-4">
-        <h1 className="mb-2 mt-2 text-2xl font-bold md:text-3xl ">
-          {username && `Hallo ${username}! 👋`}
-        </h1>
-        <p className="ml-1 text-mm-text-dark">
-          Willkommen auf deinem Dashboard, Money Mate!
-        </p>
-      </div>
-    </div>
-  </header>
-</>
-
-
-  
+    <>
+      <header className="w-90">
+        <div className="mx-5 mb-5 items-center rounded-lg bg-mm-foreground p-4 text-gray-50">
+          <div className="mr-4">
+            <h1 className="mb-2 mt-2 text-2xl font-bold md:text-3xl ">
+              {username && `Hallo ${username}! 👋`}
+            </h1>
+            <p className="ml-1 text-mm-text-dark">
+              Willkommen auf deinem Dashboard, Money Mate!
+            </p>
+          </div>
+        </div>
+      </header>
+    </>
   );
 }
 

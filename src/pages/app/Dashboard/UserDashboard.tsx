@@ -10,7 +10,7 @@ import BalanceIncome from "./cardsUserDashboard/BalanceIncomeCard";
 import useDashboardStore from "../../../context/DashboardStore";
 import IncomeExpensesCard from "./cardsUserDashboard/ExpensesIncomeCard";
 
-import 'chart.js/auto'
+import "chart.js/auto";
 import ExpensesPieCard from "./cardsUserDashboard/ExpensesPieCard";
 import LoadingSymbol from "../../../components/LoadingSymbol";
 import { fetchInvests } from "../Investment/Fetch";
@@ -21,12 +21,12 @@ function Dashboard() {
 
   useEffect(() => {
     fetchDashboardData();
-    fetchInvests()
-    fetchCoin()
+    fetchInvests();
+    fetchCoin();
   }, []);
 
   if (!dashboardData) {
-    return <LoadingSymbol/> ;
+    return <LoadingSymbol />;
   }
 
   return (

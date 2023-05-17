@@ -55,7 +55,7 @@ const cannotAffordItems = Object.entries(wishlist).filter(
 );
 
   return (
-    <div className="w-full rounded bg-mm-foreground p-4 text-mm-text-white md:p-20">
+    <div className="w-full rounded bg-mm-foreground p-4 text-mm-text-white md:p-20 mx-auto">
       <h2 className="m-2 text-center text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3">Finanzbericht</h2>
 
       {/* Kontostand der letzten sechs Monate */}

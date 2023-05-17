@@ -8,8 +8,8 @@ const UserProfile: React.FC = () => {
   const { user } = useUserStore();
 
   return (
-    <div className="w-full">
-      <div className="m-3 flex min-h-screen w-full flex-col items-center bg-mm-background text-mm-text-dark">
+    <div className="w-full mx-5 rounded-lg">
+      <div className="flex min-h-screen w-full flex-col items-center bg-mm-background text-mm-text-dark">
         <ProfileCard user={user} />
         <BankAccountsCard />
         <FinancialOptionsSettings />
