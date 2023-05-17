@@ -1,6 +1,5 @@
 import LoadingSymbol from "../../../../components/LoadingSymbol";
 import useDashboardStore from "../../../../context/DashboardStore";
-import { formatNumber } from "../../../../utils/formatterFunctions";
 
 const BalanceIncome = () => {
   const balanceEndOfMonth = useDashboardStore(
@@ -8,7 +7,7 @@ const BalanceIncome = () => {
   );
 
   if (balanceEndOfMonth === undefined) {
-    return <LoadingSymbol />
+    return <LoadingSymbol />;
   }
 
   return (
@@ -22,8 +21,7 @@ const BalanceIncome = () => {
         </div>
         <div className="flex items-start">
           <div className="m-2 text-3xl font-bold text-mm-text-white">
-            {/* {formatNumber(balanceEndOfMonth)} */}
-            0 €
+            {/* {formatNumber(balanceEndOfMonth)} */}0 €
           </div>
         </div>
       </div>

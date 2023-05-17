@@ -289,15 +289,15 @@ const TransactionsTable = () => {
           key={row._id}
           className={
             rowIndex % 2 === 0
-              ? "bg-mm-foreground text-mm-text-white "
-              : "text-mm-text-white"
+              ? " text-mm-text-white "
+              : "bg-mm-foreground text-mm-text-white"
           }
         >
           <td className="whitespace-nowrap px-6 py-3 text-left  ">
             {row.accountIBAN}
           </td>
           <td
-            className={`whitespace-nowrap px-6 py-3 text-left ${
+            className={`whitespace-nowrap px-6 py-3 text-center ${
               row.amount < 0 ? "text-red-500" : "text-green-500"
             }`}
           >
@@ -372,7 +372,7 @@ const TransactionsTable = () => {
           </div>
           <div className=" text-left">{row.recipientName}</div>
           <button
-            className="font-bold text-mm-primary"
+            className="m-2 rounded-lg bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
             onClick={(e) => {
               setEditingTransactionId(row._id);
               setEditingRowIndex(rowIndex);
@@ -388,8 +388,8 @@ const TransactionsTable = () => {
   };
 
   return (
-    <div className="mx-2 h-screen overflow-x-auto">
-      <div className="my-2 flex items-center rounded bg-mm-foreground">
+    <div className="">
+      <div className="mx-5 my-2 flex items-center rounded bg-mm-foreground">
         <button
           className="m-2 mx-2 rounded border-2 border-mm-foreground bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
           onClick={() => {
@@ -420,13 +420,13 @@ const TransactionsTable = () => {
         </svg>
       </div>
       {/* Table */}
-      <div className="hidden overflow-auto rounded-lg p-5 shadow md:block">
+      <div className="m-5 hidden overflow-auto rounded-lg shadow md:block">
         {" "}
-        <table className="w-full table-auto md:w-screen md:table-fixed">
+        <table className=" table-auto md:w-screen">
           <thead>
             <tr className="bg-mm-foreground text-sm uppercase leading-normal text-mm-text-white">
               <th className="px-6 py-3 text-left font-bold ">Konto</th>
-              <th className="px-6 py-3 text-left font-bold">Summe</th>
+              <th className="px-6 py-3 text-center font-bold">Summe</th>
               <th className="hidden px-6 py-3 text-left font-bold md:table-cell">
                 Empfänger
               </th>

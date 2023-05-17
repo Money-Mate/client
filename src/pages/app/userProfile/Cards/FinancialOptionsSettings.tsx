@@ -20,7 +20,6 @@ const FinancialOptionsSettings: React.FC = () => {
     setShowSplitIncomeInfo(!showSplitIncomeInfo);
   };
 
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -48,7 +47,6 @@ const FinancialOptionsSettings: React.FC = () => {
     };
 
     updateUser(updatedUser);
-
   };
 
   return (
@@ -56,7 +54,7 @@ const FinancialOptionsSettings: React.FC = () => {
       onSubmit={handleSubmit}
       className="mb-4 w-full rounded-md bg-mm-foreground p-6 shadow-lg"
     >
-      <h2 className="m-2 text-left text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-xl font-bold leading-tight text-transparent pt-3xt-lg">
+      <h2 className="text-gradient pt-3xt-lg m-2 bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-left text-xl font-bold leading-tight text-transparent">
         Einstellungen für die Finanzanalysen:
       </h2>
       <br />
@@ -81,9 +79,10 @@ const FinancialOptionsSettings: React.FC = () => {
         </span>
         {showEmergencyFundInfo && (
           <div className="mt-1 text-sm text-gray-500">
-            Dein Monatseinkommen beträgt ca 2.000,00 €. 
+            Dein Monatseinkommen beträgt 2.000,00 €.
             <br />
-            Es wird empfohlen 3-6 Nettogehälter für unvorhergesehene Ausgaben zurückzulegen.
+            Es wird empfohlen 3-6 Nettogehälter für unvorhergesehene Ausgaben
+            zurückzulegen.
           </div>
         )}
       </h3>
@@ -125,8 +124,9 @@ const FinancialOptionsSettings: React.FC = () => {
           </svg>
         </span>
         {showSplitIncomeInfo && (
-          <div className="mt-1 mb-2 text-sm text-gray-500">
-            Es wird empfohlen 50% des Einkommens für Notwendiges, 30% für Wünsche und 20% für Investitionen zu verwenden.
+          <div className="mb-2 mt-1 text-sm text-gray-500">
+            Es wird empfohlen 50% des Einkommens für Notwendiges, 30% für
+            Wünsche und 20% für Investitionen zu verwenden.
           </div>
         )}
       </h3>
