@@ -165,7 +165,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
     event.preventDefault();
     if (validateInvestmentForm(formData)) {
     addInvestment(formData);
-    setSuccessMessage("Ok!");
+    setSuccessMessage("Position hinzugefügt");
       setTimeout(() => {
         setSuccessMessage("");
       }, 5000);

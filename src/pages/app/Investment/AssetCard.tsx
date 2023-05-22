@@ -119,12 +119,12 @@ const AssetCard = ({ setClickedData }: Props) => {
               {formatNumber(invest.amount * (invest.value - invest.buyIn))} ({((invest.value - invest.buyIn) / invest.buyIn * 100).toFixed(2)}%)
             </td>
             <td className="p-2">
-              <button
+              {/* <button
                 // onClick={() => handleEdit(invest.id)}
                 className="m-1 bg-mm-primary hover:bg-opacity-75 px-3 py-2 rounded-lg text-mm-text-white text-sm"
                 >
                 bearbeiten
-              </button>
+              </button> */}
               <button
                 onClick={() => handleDelete(invest.name)}
                 className="m-1 bg-red-500 hover:bg-opacity-75 px-3 py-2 rounded-lg text-mm-text-white text-sm"

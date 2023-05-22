@@ -119,8 +119,10 @@ export let invests: Investment[] = [
 export const calculateDividendSum = (invests: Investment[]) => {
   let dividendSum = 0;
   invests.forEach((invest) => {
+    if(invest.dividend && invest.dividend > 0){
     dividendSum +=
       (invest.value * invest.amount * (invest.dividend ?? 0)) / 1000;
-  });
+  }})
+;
   return dividendSum;
 };

@@ -22,7 +22,7 @@ function SuccessAlert(props: SuccessAlertProps) {
 
       role="alert"
     >
-      <span className="font-medium">Ok!</span>
+      <span className="font-medium"></span>
       {props.message && ` ${props.message}`}
     </div>
   );
