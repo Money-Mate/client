@@ -3,6 +3,8 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as z from "zod";
 import PiggyBank from "../../assets/piggy-bank-green.svg";
+import DangerAlert from "../../components/dangerAlert";
+import SuccessAlert from "../../components/successAlert";
 
 interface UserLogin {
   email: string;
@@ -27,6 +29,8 @@ const SignIn = () => {
   });
 
   const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     const BE_URL = import.meta.env.VITE_BE_PORT;
@@ -37,9 +41,17 @@ const SignIn = () => {
         withCredentials: true,
       });
       navigate("/app/userdashboard");
+      setSuccessMessage("Ok!");
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 5000);
     } catch (error) {
       if (error instanceof z.ZodError) {
         setFormErrors(error.flatten().fieldErrors);
+        setErrorMessage("Bitte überprüfe deine Eingaben.");
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 5000);
       }
     }
   };
@@ -57,7 +69,7 @@ const SignIn = () => {
                 Money Mate
               </h1>
               <br />
-              <p className="text-lg font-semibold text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text leading-tight text-transparent">
+              <p className="text-gradient bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-lg font-semibold leading-tight text-transparent">
                 Dein All-in-One-Tool für kluge Finanzentscheidungen.
               </p>
             </div>
@@ -69,6 +81,20 @@ const SignIn = () => {
       <div className="flex w-1/2 items-center justify-center bg-mm-background ">
         <div className="w-full max-w-md">
           <h1 className="mb-6 text-3xl font-bold text-mm-foreground ">Login</h1>
+          {/* Success Alert */}
+          {successMessage && (
+            <SuccessAlert
+              message={successMessage}
+              onClose={() => setSuccessMessage("")}
+            />
+          )}
+          {/* Error Alert */}
+          {errorMessage && (
+            <DangerAlert
+              message={errorMessage}
+              onClose={() => setErrorMessage("")}
+            />
+          )}
           <form onSubmit={handleSubmit}>
             {/* Email Input */}
             <div className="mb-4">
