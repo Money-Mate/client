@@ -4,6 +4,8 @@ import { transactions } from "./Transaktionen";
 import { formatNumber } from "../../../utils/formatterFunctions";
 import * as z from "zod";
 import isIBAN from "validator/lib/isIBAN"; 
+import DangerAlert from "../../../components/dangerAlert";
+import SuccessAlert from "../../../components/successAlert";
 
 interface FormErrors {
   account?: string;
@@ -87,6 +89,9 @@ const InvestmentForm = ({ onSubmit }: any) => {
 
   const [transactionFormErrors, setTransactionFormErrors] = useState<TransactionFormErrors>({});
 
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   const validateInvestmentForm = (data: FormData) => {
     try {
       investmentSchema.parse(data);
@@ -160,6 +165,10 @@ const InvestmentForm = ({ onSubmit }: any) => {
     event.preventDefault();
     if (validateInvestmentForm(formData)) {
     addInvestment(formData);
+    setSuccessMessage("Ok!");
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 5000);
     setFormData({
       account: "",
       name: "",
@@ -171,6 +180,11 @@ const InvestmentForm = ({ onSubmit }: any) => {
       symbol: "",
     });
     setShowForm(!showForm);
+  }else{
+    setErrorMessage("Bitte überprüfe deine Eingaben.");
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 5000);
   }
   }
 
@@ -199,6 +213,20 @@ const InvestmentForm = ({ onSubmit }: any) => {
 
   return (
     <>
+    {/* Success Alert */}
+    {successMessage && (
+            <SuccessAlert
+              message={successMessage}
+              onClose={() => setSuccessMessage("")}
+            />
+          )}
+          {/* Error Alert */}
+          {errorMessage && (
+            <DangerAlert
+              message={errorMessage}
+              onClose={() => setErrorMessage("")}
+            />
+          )}
         <div className="">
       <div className="flex mx-5 my-2 rounded bg-mm-foreground">
 
