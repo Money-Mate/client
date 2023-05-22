@@ -493,6 +493,8 @@ const InvestmentForm = ({ onSubmit }: any) => {
           <th className="w-3/9 px-6 py-3 text-left font-bold md:table-cell">Wert</th>
           <th className="w-3/9 px-6 py-3 text-left font-bold">Typ</th>
           <th className="w-3/9 px-6 py-3 text-left font-bold">Datum</th>
+          <th className="w-3/9 px-6 py-3 text-left font-bold"></th>
+
 
         </tr>
       </thead>
@@ -509,6 +511,15 @@ const InvestmentForm = ({ onSubmit }: any) => {
             </td>
             <td className="px-6 py-3">{transaction.type}</td>
             <td className="px-6 py-3">{transaction.date}</td>
+            <td className="px-6 py-3">
+            <button
+                // onClick={() => handleDelete(invest.name)}
+                className="m-1 bg-red-500 hover:bg-opacity-75 px-3 py-2 rounded-lg text-mm-text-white text-sm"
+                >
+                löschen
+              </button>
+
+            </td>
           </tr>
         ))}
         {transactions.length === 0 && (
