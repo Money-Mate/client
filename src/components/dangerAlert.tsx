@@ -16,7 +16,9 @@ function DangerAlert(props: DangerAlertProps) {
 
   return (
     <div
-      className="my-4 rounded-lg bg-red-50 p-4 text-sm text-red-800 dark:bg-gray-800 dark:text-red-400"
+
+      className="m-5 rounded-lg p-3 text-sm  bg-gray-800 text-red-400"
+
       role="alert"
     >
       <span className="font-medium">Sorry! Etwas ist schiefgegangen ...</span>

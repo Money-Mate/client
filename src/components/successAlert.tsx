@@ -16,7 +16,10 @@ function SuccessAlert(props: SuccessAlertProps) {
 
   return (
     <div
-      className="m-5 rounded-lg bg-green-50 p-3 text-sm text-green-800 dark:bg-gray-800 dark:text-green-400"
+
+      className="m-5 rounded-lg p-3 text-sm bg-gray-800 text-green-400"
+
+
       role="alert"
     >
       <span className="font-medium">Ok!</span>
