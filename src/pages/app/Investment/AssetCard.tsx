@@ -97,7 +97,9 @@ const AssetCard = ({ setClickedData }: Props) => {
           <th className="w-2/12 p-2">Wert</th>
           <th className="w-2/12 p-2">Gesamtwert</th>
           <th className="w-2/12 p-2">Gewinn/Verlust</th>
-          <th className="w-2/12 p-2"></th>
+          <th className="w-1/12 p-2"></th>
+          <th className="w-1/12 p-2"></th>
+
           {investments.some((invest) => invest.dividend ) && (
             <th className="w-2/12 p-2">Dividende p.A.</th>
           )}
@@ -119,12 +121,15 @@ const AssetCard = ({ setClickedData }: Props) => {
               {formatNumber(invest.amount * (invest.value - invest.buyIn))} ({((invest.value - invest.buyIn) / invest.buyIn * 100).toFixed(2)}%)
             </td>
             <td className="p-2">
-              {/* <button
+              <button
                 // onClick={() => handleEdit(invest.id)}
                 className="m-1 bg-mm-primary hover:bg-opacity-75 px-3 py-2 rounded-lg text-mm-text-white text-sm"
                 >
                 bearbeiten
-              </button> */}
+              </button>
+            </td>
+            <td className="p-2">
+              
               <button
                 onClick={() => handleDelete(invest.name)}
                 className="m-1 bg-red-500 hover:bg-opacity-75 px-3 py-2 rounded-lg text-mm-text-white text-sm"
