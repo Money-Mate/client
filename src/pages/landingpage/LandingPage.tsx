@@ -63,13 +63,13 @@ function LandingPage() {
           <div className="mx-auto mb-12 flex items-center justify-center gap-x-6 bg-mm-background lg:mx-0">
             {" "}
             <button
-              className="m-2 mx-2 rounded border-2 border-mm-foreground bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
+              className="m-2 rounded-lg bg-teal-600 px-4 py-2 text-mm-text-white hover:bg-opacity-75"
               onClick={() => navigate("/signin")}
             >
               Sign In
             </button>
             <button
-              className="m-2 mx-2 rounded border-2 border-mm-foreground bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
+              className="m-2 rounded-lg bg-teal-600 px-4 py-2 text-mm-text-white hover:bg-opacity-75"
               onClick={() => navigate("/signup")}
             >
               Join now!

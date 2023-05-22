@@ -130,29 +130,41 @@ const StatisticsReport: React.FC = () => {
       <h3 className="text-gradient m-2 bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text pt-3 text-left text-xl font-bold leading-tight text-transparent">
         Wunschliste
       </h3>
+      {affordItems &&
+        <>
+         <h2 className="text-lg font-bold text-mm-text-dark">
+        Erfüllbare Wünsche:
+          </h2>
+          <br></br>
+          </>}
       <div className="mb-6 grid grid-cols-2 gap-4">
         {/* Afford items */}
-        {affordItems.map(([itemName, itemData]: [string, any]) => (
+        {affordItems?.map(([itemName, itemData]: [string, any]) => (
           <div key={itemName}>
             <h4 className="text-md font-semibold">{itemName}</h4>
             <div>
               <div>Jetzt: {formatCurrency(itemData.now)}</div>
               <div>Von: {formatCurrency(itemData.of)}</div>
-              <div>Prozent: {itemData.percent}%</div>
-              <div>Kann sich leisten: Ja</div>
+              <div>Prozent erfüllt: {itemData.percent}%</div>
             </div>
           </div>
         ))}
 
         {/* Cannot afford items */}
-        {cannotAffordItems.map(([itemName, itemData]: [string, any]) => (
+        {cannotAffordItems &&
+        <>
+         <h2 className="text-lg font-bold text-mm-text-dark">
+          Noch zu besparen:
+          </h2>
+          <br></br>
+          </>}
+        {cannotAffordItems?.map(([itemName, itemData]: [string, any]) => (
           <div key={itemName}>
             <h4 className="text-md font-semibold">{itemName}</h4>
             <div>
               <div>Jetzt: {formatCurrency(itemData.now)}</div>
               <div>Von: {formatCurrency(itemData.of)}</div>
-              <div>Prozent: {itemData.percent}%</div>
-              <div>Kann sich leisten: Nein</div>
+              <div>Prozent erfüllt: {itemData.percent}%</div>
             </div>
           </div>
         ))}
@@ -162,11 +174,11 @@ const StatisticsReport: React.FC = () => {
       <h3 className="text-gradient m-2 bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text pt-3 text-left text-xl font-bold leading-tight text-transparent">
         Notfallfonds
       </h3>
-      <div>Prozent: {emergencyFundPercent}%</div>
+      <div>Du hast {emergencyFundPercent}% Deines empfohlenen Notfallgroschens gespart</div>
 
       {/* Ausgaben der letzten sechs Monate nach Kategorie */}
       <div className="mb-6 mt-2">
-        <h3 className="text-gradient pt-3xt-lg m-2 bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-left text-xl font-bold font-semibold leading-tight text-transparent">
+        <h3 className="text-gradient pt-3xt-lg m-2 bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-left text-xl font-bold leading-tight text-transparent">
           Ausgaben der letzten sechs Monate nach Kategorie
         </h3>
         <table className="mt-4 w-full">
@@ -188,7 +200,9 @@ const StatisticsReport: React.FC = () => {
             ))}
           </tbody>
         </table>
-        <StatisticsReportPDFButton dashboardData={dashboardData} />
+        <div className="m-2 flex justify-end">
+          <StatisticsReportPDFButton dashboardData={dashboardData} />
+        </div>
       </div>
     </div>
   );

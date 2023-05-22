@@ -1,7 +1,9 @@
+import { Pagination } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import DangerAlert from "../../../components/dangerAlert";
+import SuccessAlert from "../../../components/successAlert";
 import { formatNumber } from "../../../utils/formatterFunctions";
-import { Pagination } from "antd";
 import EditTransactionModal from "./Modals/EditTransactions";
 import FilterTransactionsModal from "./Modals/FilterTransactionsModal";
 
@@ -126,6 +128,9 @@ const TransactionsTable = () => {
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptionsData>(
     defaultSelectedOptionsData
   );
+  // Error/Success
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -216,11 +221,19 @@ const TransactionsTable = () => {
         await fetchTransactions();
         setIsModalOpen(false);
         setEditingRowIndex(-1);
+        setSuccessMessage("Transaktion gespeichert!");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 5000);
       } else {
         console.log(`Server returned status code ${response.status}`);
       }
     } catch (error) {
       console.log(error);
+      setErrorMessage("Bitte überprüfe deine Eingaben.");
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 5000);
     }
   };
 
@@ -260,8 +273,13 @@ const TransactionsTable = () => {
       );
       fetchTransactions();
       setIsModalOpen(false);
+      setSuccessMessage("Ok!");
     } catch (error) {
       console.log(error);
+      setErrorMessage("Deine Transaktion konnte nicht gelöscht werden.");
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 5000);
     }
   };
 
@@ -389,6 +407,20 @@ const TransactionsTable = () => {
 
   return (
     <div className="">
+        {/* Success Alert */}
+        {successMessage && (
+          <SuccessAlert
+            message={successMessage}
+            onClose={() => setSuccessMessage("")}
+          />
+        )}
+        {/* Error Alert */}
+        {errorMessage && (
+          <DangerAlert
+            message={errorMessage}
+            onClose={() => setErrorMessage("")}
+          />
+        )}
       <div className="mx-5 my-2 flex items-center rounded bg-mm-foreground">
         <button
           className="m-2 mx-2 rounded border-2 border-mm-foreground bg-mm-primary px-4 py-2 text-mm-text-white hover:bg-opacity-75"
@@ -463,8 +495,8 @@ const TransactionsTable = () => {
         pageSize={pageSize}
         showSizeChanger={true}
         pageSizeOptions={[
-          "10",
-          "20",
+          ...(maxDocs >= 10 ? ["10"] : []),
+          ...(maxDocs >= 20 ? ["20"] : []),
           ...(maxDocs >= 50 ? ["50"] : []),
           ...(maxDocs >= pageSize ? [`${maxDocs}`] : []),
         ]}
