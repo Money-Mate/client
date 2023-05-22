@@ -97,8 +97,8 @@ const AssetCard = ({ setClickedData }: Props) => {
           <th className="w-2/12 p-2">Wert</th>
           <th className="w-2/12 p-2">Gesamtwert</th>
           <th className="w-2/12 p-2">Gewinn/Verlust</th>
-          <th className="w-1/12 p-2"></th>
-          <th className="w-1/12 p-2"></th>
+          <th className="w-2/12 p-2"></th>
+          <th className="w-2/12 p-2"></th>
 
           {investments.some((invest) => invest.dividend ) && (
             <th className="w-2/12 p-2">Dividende p.A.</th>
