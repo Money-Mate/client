@@ -25,14 +25,13 @@ const StatisticsReportPDFButton: React.FC<{ dashboardData: any }> = ({
     const doc = new jsPDF();
     const {
       lastSixMonthsBalance,
-      lastSixMonthsIncomeAndExpenses,
       lastSixMonthsExpensesByCategory,
     } = dashboardData;
 
     // Add content to the PDF
     doc.text("Finanzbericht", 10, 10);
 
-    doc.text("Kontostand der letzten sechs Monate", 10, 20);
+    doc.text("Kontostand der letzten sechs Monate:", 10, 20);
     lastSixMonthsBalance.labels.forEach((label: string, index: number) => {
       doc.text(
         `${label}: ${formatCurrency(lastSixMonthsBalance.data[index])}`,
@@ -41,27 +40,11 @@ const StatisticsReportPDFButton: React.FC<{ dashboardData: any }> = ({
       );
     });
 
-    doc.text("Einnahmen und Ausgaben der letzten sechs Monate", 10, 80);
-    lastSixMonthsIncomeAndExpenses.labels.forEach(
-      (label: string, index: number) => {
-        doc.text(
-          `Einnahmen ${label}: ${formatCurrency(
-            lastSixMonthsIncomeAndExpenses.data.income[index]
-          )}`,
-          10,
-          90 + 10 * index
-        );
-        doc.text(
-          `Ausgaben ${label}: ${formatCurrency(
-            lastSixMonthsIncomeAndExpenses.data.expenses[index]
-          )}`,
-          10,
-          100 + 10 * index
-        );
-      }
+    doc.text(
+      "Höchste Ausgaben der letzten sechs Monate nach Kategorie:",
+      10,
+      100
     );
-
-    doc.text("Ausgaben der letzten sechs Monate nach Kategorie", 10, 150);
     lastSixMonthsExpensesByCategory.forEach((expense: any, index: number) => {
       doc.text(
         `Kategorie: ${expense.category}, Unterkategorie: ${
@@ -72,8 +55,7 @@ const StatisticsReportPDFButton: React.FC<{ dashboardData: any }> = ({
       );
     });
 
-    // Save the PDF file
-    doc.save("statistics_report.pdf");
+    doc.save(`report_${new Date().toLocaleDateString()}.pdf`);
   };
 
   return (

@@ -97,7 +97,9 @@ const AssetCard = ({ setClickedData }: Props) => {
           <th className="w-2/12 p-2">Wert</th>
           <th className="w-2/12 p-2">Gesamtwert</th>
           <th className="w-2/12 p-2">Gewinn/Verlust</th>
-          <th className="w-2/12 p-2">Aktion</th>
+          <th className="w-2/12 p-2"></th>
+          <th className="w-2/12 p-2"></th>
+
           {investments.some((invest) => invest.dividend ) && (
             <th className="w-2/12 p-2">Dividende p.A.</th>
           )}
@@ -125,6 +127,9 @@ const AssetCard = ({ setClickedData }: Props) => {
                 >
                 bearbeiten
               </button>
+            </td>
+            <td className="p-2">
+              
               <button
                 onClick={() => handleDelete(invest.name)}
                 className="m-1 bg-red-500 hover:bg-opacity-75 px-3 py-2 rounded-lg text-mm-text-white text-sm"
