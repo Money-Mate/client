@@ -16,10 +16,10 @@ export const deleteInvests = (newInvests: Investment[]) => {
 export let invests: Investment[] = [
   {
     name: "Apple",
-    value: 1000.45,
+    value: 170,
     amount: 3,
     buyIn: 182,
-    dividend: 1.61,
+    dividend: 1.64,
     type: "Aktien/ETF's",
     symbol: "AAPL",
   },
@@ -97,7 +97,7 @@ export let invests: Investment[] = [
   },
   {
     name: "Microsoft",
-    value: 3000,
+    value: 290,
     amount: 3,
     buyIn: 120,
     dividend: 1.34,
@@ -106,7 +106,7 @@ export let invests: Investment[] = [
   },
   {
     name: "Nvidia",
-    value: 3700,
+    value: 284,
     amount: 3,
     buyIn: 120,
     dividend: 0.61,

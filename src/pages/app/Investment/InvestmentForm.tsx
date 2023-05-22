@@ -8,13 +8,41 @@ import isIBAN from "validator/lib/isIBAN";
 interface FormErrors {
   account?: string;
   name?: string;
-  value?: string;
-  amount?: string;
-  buyIn?: string;
-  dividend?: string;
+  value?: number;
+  amount?: number;
+  buyIn?: number;
+  dividend?: number;
   type?: string;
   symbol?: string;
 }
+
+interface TransactionFormErrors {
+  account?: string;
+  name?: string;
+  value?: number;
+  type?: string;
+  date?: string;
+}
+
+const investmentSchema = z.object({
+  account: z.string().refine((val) => isIBAN(val), { message: "bitte gib eine gültigen IBAN ein" }),
+  name: z.string().min(1, "bitte gib einen Namen ein"),
+  value: z.custom((val) => (val === "" || typeof val === "number" ? true : "")).optional(),
+  amount: z.number().min(1, "bitte gib die Anzahl ein"),
+  buyIn: z.number().min(1, "bitte gib den Kaufpreis ein"),
+  dividend: z.custom((val) => (val === "" || typeof val === "number" ? true : "")).optional(),
+  type: z.enum(["Aktien/ETF's", "Kryptowährungen", "Immobilien", "Rohstoffe"]),
+  symbol: z.string().min(1, "bitte gib das dazugehörige Symbol ein"),
+});
+
+const transactionSchema = z.object({
+  account: z.string().refine((val) => isIBAN(val), { message: "bitte gib eine gültige IBAN ein" }),
+  name: z.string().min(1, "bitte gib einen Namen ein"),
+  value: z.number(),
+  type: z.enum(["Dividend", "Trade"]),
+  date: z.string().min(1, "bitte gib ein Datum ein"),
+});
+
 
 interface FormData {
   account: string;
@@ -32,6 +60,7 @@ interface TransaktionData {
   name: string;
   value: number;
   type: "Dividend" | "Trade";
+  date: string;
 }
 
 const InvestmentForm = ({ onSubmit }: any) => {
@@ -51,7 +80,50 @@ const InvestmentForm = ({ onSubmit }: any) => {
     name: "",
     value: NaN,
     type: "Dividend",
+    date: "",
   });
+
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+
+  const [transactionFormErrors, setTransactionFormErrors] = useState<TransactionFormErrors>({});
+
+  const validateInvestmentForm = (data: FormData) => {
+    try {
+      investmentSchema.parse(data);
+      setFormErrors({});
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errors: any = {};
+        error.errors.forEach((err) => {
+          if (err.path) {
+            errors[err.path[0]] = err.message;
+          }
+        });
+        setFormErrors(errors);
+      }
+      return false;
+    }
+  };
+
+  const validateTransactionForm = (data: TransaktionData) => {
+    try {
+      transactionSchema.parse(data);
+      setTransactionFormErrors({});
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errors: any = {};
+        error.errors.forEach((err) => {
+          if (err.path) {
+            errors[err.path[0]] = err.message;
+          }
+        });
+        setTransactionFormErrors(errors);
+      }
+      return false;
+    }
+  };
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -86,6 +158,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (validateInvestmentForm(formData)) {
     addInvestment(formData);
     setFormData({
       account: "",
@@ -98,7 +171,8 @@ const InvestmentForm = ({ onSubmit }: any) => {
       symbol: "",
     });
     setShowForm(!showForm);
-  };
+  }
+  }
 
   const addTransaction = (transaction: TransaktionData) => {
     transactions.push(transaction);
@@ -107,15 +181,17 @@ const InvestmentForm = ({ onSubmit }: any) => {
 
   const handleTransactionSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if(validateTransactionForm(transactionData)){
     addTransaction(transactionData);
     setTransactionData({
       account: "",
       name: "",
       value: 0,
       type: "Dividend",
+      date: "",
     });
     setShowTransactionForm(!showTransactionForm);
-  };
+  }};
   const [showForm, setShowForm] = useState(false);
   const [showTransactionForm, setShowTransactionForm] = useState(false);
 
@@ -123,8 +199,8 @@ const InvestmentForm = ({ onSubmit }: any) => {
 
   return (
     <>
-        <div className="mx-2">
-      <div className="flex my-2 rounded bg-mm-foreground">
+        <div className="">
+      <div className="flex mx-5 my-2 rounded bg-mm-foreground">
 
         <div>
           <button
@@ -159,6 +235,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 >
                   Konto:
                 </label>
+                {formErrors.account && <div className="text-red-500">{formErrors.account}</div>}
                 <input
                   className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="text"
@@ -174,6 +251,8 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 >
                   Name:
                 </label>
+                {formErrors.name && <div className="text-red-500">{formErrors.name}</div>}
+
                 <input
                   className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="text"
@@ -190,6 +269,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 >
                   Wert:
                 </label>
+                {formErrors.value && <div className="text-red-500">{formErrors.value}</div>}
                 <input
                   className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="number"
@@ -207,6 +287,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 >
                   Anzahl:
                 </label>
+                {formErrors.amount && <div className="text-red-500">bitte gib einen Wert ein</div>}
                 <input
                   className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="number"
@@ -223,6 +304,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 >
                   Einkaufswert:
                 </label>
+                {formErrors.buyIn && <div className="text-red-500">bitte gib einen Einkaufswert ein</div>}
                 <input
                   className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="number"
@@ -240,6 +322,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 >
                   Dividende:
                 </label>
+                {formErrors.dividend && <div className="text-red-500">{formErrors.dividend}</div>}
                 <input
                   className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="number"
@@ -257,6 +340,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 >
                   Typ:
                 </label>
+                {formErrors.type && <div className="text-red-500">{formErrors.type}</div>}
                 <select
                   className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   name="type"
@@ -276,6 +360,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 >
                   Symbol:
                 </label>
+                {formErrors.symbol && <div className="text-red-500">{formErrors.symbol}</div>}
                 <input
                   className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="text"
@@ -309,6 +394,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 >
                   Konto:
                 </label>
+                {transactionFormErrors.account && <div className="text-red-500">{transactionFormErrors.account}</div>}
                 <input
                   className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="text"
@@ -324,6 +410,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 >
                   Name:
                 </label>
+                {transactionFormErrors.name && <div className="text-red-500">{transactionFormErrors.name}</div>}
                 <input
                   className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="text"
@@ -340,6 +427,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 >
                   Wert:
                 </label>
+                {transactionFormErrors.value && <div className="text-red-500">bitte gib einen Wert ein</div>}
                 <input
                   className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   type="number"
@@ -356,6 +444,7 @@ const InvestmentForm = ({ onSubmit }: any) => {
                 >
                   Typ:
                 </label>
+                {transactionFormErrors.type && <div className="text-red-500">{transactionFormErrors.type}</div>}
                 <select
                   className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   name="type"
@@ -365,6 +454,22 @@ const InvestmentForm = ({ onSubmit }: any) => {
                   <option value="Dividend">Dividende</option>
                   <option value="Trade">Trading</option>
                 </select>
+              </div>
+              <div>
+                <label
+                  htmlFor="value"
+                  className="mb-2 block font-bold text-mm-text-dark"
+                >
+                  Datum:
+                </label>
+                {transactionFormErrors.date && <div className="text-red-500">{transactionFormErrors.date}</div>}
+                <input
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                  type="date"
+                  name="date"
+                  value={transactionData.date}
+                  onChange={handleTransactionChange}
+                />
               </div>
               <div className="mt-6 flex justify-center">
                 <button
@@ -387,6 +492,8 @@ const InvestmentForm = ({ onSubmit }: any) => {
           <th className="w-3/9 px-6 py-3 text-left font-bold">Name</th>
           <th className="w-3/9 px-6 py-3 text-left font-bold md:table-cell">Wert</th>
           <th className="w-3/9 px-6 py-3 text-left font-bold">Typ</th>
+          <th className="w-3/9 px-6 py-3 text-left font-bold">Datum</th>
+
         </tr>
       </thead>
       <tbody className="text-sm font-light text-mm-text-white">
@@ -395,12 +502,13 @@ const InvestmentForm = ({ onSubmit }: any) => {
           <tr key={transaction.name} className={index % 2 === 0 ? "bg-mm-background" : "bg-mm-foreground"}>
            <td className="px-6 py-3">{transaction.account}</td>
             <td className="px-6 py-3">{transaction.name}</td>
-            <td className= {`${
+            <td className= {`px-6 py-6 ${
                 transaction.value >= 0 ? "text-teal-500" : "text-red-600"
               }`} >
               {formatNumber(transaction.value)}
             </td>
             <td className="px-6 py-3">{transaction.type}</td>
+            <td className="px-6 py-3">{transaction.date}</td>
           </tr>
         ))}
         {transactions.length === 0 && (

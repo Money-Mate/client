@@ -15,7 +15,7 @@ interface FormErrors {
 
 const bankAccountSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  iban: z.string().optional().refine((val) => !val || isIBAN(val), { message: "not a valid IBAN" }),
+  iban: z.string().optional().refine((val) => !val || isIBAN(val), { message: "bitte gib eine gültigen IBAN ein" }),
   reference: z.enum(["name", "iban"]),
   type: z.enum(["giro", "invest"]),
 });
@@ -80,7 +80,6 @@ function HandleExistingBankAccounts({ account, onClose }: IProps) {
       }
       onClose();
     } catch (error: any) {
-      console.log("error", error);
       console.error("Failed to save account", error);
       if (error instanceof z.ZodError) {
         setErrors(error.flatten().fieldErrors);
