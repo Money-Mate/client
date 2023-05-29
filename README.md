@@ -1,4 +1,4 @@
-Due to Privacy reasons this app is not yet deployed.
+Due to Privacy reasons this app is not deployed.
 
 For a preview see the pdf attached.
 Also, feel free to get in contact if you want to test it.
